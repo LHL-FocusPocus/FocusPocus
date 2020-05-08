@@ -2,10 +2,17 @@
   "name": "Focus Pocus Extension",
   "version": "0.1",
   "description": "Magically changing the page to keep you focused!",
-  "permissions": ["activeTab", "declarativeContent", "storage", "*://*/*"],
+  "permissions": [
+    "activeTab",
+    "declarativeContent",
+    "storage",
+    "*://*/*"
+  ],
   "options_page": "options.html",
   "background": {
-    "scripts": ["background.js"],
+    "scripts": [
+      "background.js"
+    ],
     "persistent": false
   },
   "page_action": {
