@@ -12,8 +12,9 @@ chrome.storage.sync.get("color", function (data) {
 });
 
 changeColor.onclick = function (element) {
-  let color = element.target.value;
+  // Find the active tab
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    // Execute changePictures.js on the active tab
     chrome.tabs.executeScript(tabs[0].id, { file: "changePictures.js" });
   });
 };
