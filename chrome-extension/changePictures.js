@@ -1,16 +1,16 @@
 {
-  const replaceImages = function () {
+  /**
+   * Replaces all images from img tags and "background-image" css attributes
+   * @param {String} newImg An image url to be used as the replacement
+   */
+  const replaceImages = function (
+    newImg = "https://memegen.link/bad/get_back_to_work/lazy_bum.jpg"
+  ) {
     // Replace images specified by img tags
     const imgTagElements = document.querySelectorAll("img");
     for (const imgTagElement of imgTagElements) {
-      imgTagElement.setAttribute(
-        "src",
-        "https://memegen.link/bad/get_back_to_work/lazy_bum.jpg"
-      );
-      imgTagElement.setAttribute(
-        "data-src",
-        "https://memegen.link/bad/get_back_to_work/lazy_bum.jpg"
-      );
+      imgTagElement.setAttribute("src", newImg);
+      imgTagElement.setAttribute("data-src", newImg);
     }
 
     // Replace images specified by background-image css
@@ -19,8 +19,7 @@
       '[style*="background-image"]'
     );
     for (const bgImageElement of backgroundImageElements) {
-      bgImageElement.style.backgroundImage =
-        'url("https://memegen.link/bad/get_back_to_work/lazy_bum.jpg")';
+      bgImageElement.style.backgroundImage = `url("${newImg}")`;
     }
   };
 
