@@ -28,9 +28,9 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  main: {
-    alignItems: 'right'
-  }
+  // main: {
+  //   alignItems: 'right'
+  // }
 }));
 
 const Wrapper = styled(Container)`
