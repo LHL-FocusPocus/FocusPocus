@@ -79,7 +79,7 @@ module.exports = (db) => {
       });
   };
 
-  const addQuota = function (user_id, interval) {
+  const addQuotaForUser = function (user_id, interval) {
     return db
       .query(
         `
@@ -107,6 +107,6 @@ module.exports = (db) => {
     getAllWebsites,
     addWebsite,
     addWebsiteToBlacklist,
-    addQuota,
+    addQuotaForUser,
   };
 };
