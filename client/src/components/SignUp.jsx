@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundColor: "#6C63FF"
   }
 }));
 
@@ -38,7 +39,7 @@ const Wrapper = styled(Container)`
   ${'' /* margin-left: 0; */}
   padding: 2em;
   z-index: 5;
-  background-color: whitesmoke;
+  background-color: white;
 
 `
 
