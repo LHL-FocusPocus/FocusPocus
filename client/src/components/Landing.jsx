@@ -12,13 +12,13 @@ const Container = styled.div`
  !important;
 `
 const InnerContainer = styled.div`
-  background-image: url("/imgs/bg.jpg");
+  background-image: url("/imgs/landing-bg.png");
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: cover;
   display: flex;
   align-items: center;
   height: 100vh;
-  width: 55vw
+  width: 66vw
 `
 
 
