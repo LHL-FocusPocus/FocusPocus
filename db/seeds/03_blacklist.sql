@@ -1,19 +1,19 @@
-INSERT INTO blacklist
-  (user_id, website_hostname)
+INSERT INTO blacklists
+  (user_id, website_id)
 VALUES
-  (1, 'www.reddit.com');
+  (1, 1);
 
-INSERT INTO blacklist
-  (user_id, website_hostname)
+INSERT INTO blacklists
+  (user_id, website_id)
 VALUES
-  (1, 'www.twitter.com');
+  (1, 3);
 
-INSERT INTO blacklist
-  (user_id, website_hostname)
+INSERT INTO blacklists
+  (user_id, website_id)
 VALUES
-  (2, 'www.espn.com');
+  (2, 4);
 
-INSERT INTO blacklist
-  (user_id, website_hostname)
+INSERT INTO blacklists
+  (user_id, website_id)
 VALUES
-  (2, 'www.facebook.com');
+  (2, 2);

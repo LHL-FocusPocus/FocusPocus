@@ -5,10 +5,8 @@ CREATE TABLE browse_times
   id SERIAL PRIMARY KEY,
 
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  website_hostname TEXT REFERENCES websites(hostname) ON DELETE CASCADE,
+  website_hostname VARCHAR(255) REFERENCES websites(hostname) ON DELETE CASCADE,
 
-  datetime_startdate TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-  duration INTEGER NOT NULL DEFAULT 0
+  datetime_startdate TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  duration INTERVAL NOT NULL DEFAULT '1 minute'
 )
-
--- Assuming duration will just be an integer that the extension will write into the db, it will represent number of seconds

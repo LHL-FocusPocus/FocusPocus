@@ -1,8 +1,8 @@
 INSERT INTO quotas
-  (user_id, interval)
+  (user_id, time_allotment)
 VALUES
-  (1, 86400); --86400s in 24hrs
+  (1, '3 hours');
 INSERT INTO quotas
-  (user_id, interval)
+  (user_id, time_allotment)
 VALUES
-  (2, 86400); --86400s in 24hrs
+  (2, '4 hours');
