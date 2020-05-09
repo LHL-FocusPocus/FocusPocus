@@ -35,6 +35,16 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
   changePictures(activeInfo.tabId);
 });
 
-function changePictures(tabId, blackList=["reddit.com"]) {
-  chrome.tabs.executeScript(tabId, { file: "changePictures.js" });
+function changePictures(tabId, blackList = ["reddit.com", "facebook.com"]) {
+  chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+    if (!tabs[0].url) { // Will be null on chrome settings page etc
+      return;
+    }
+    const url = new URL(tabs[0].url);
+    const domain = url.hostname.split("www.").join("");
+
+    if (blackList.includes(domain)) {
+      chrome.tabs.executeScript(tabId, { file: "changePictures.js" });
+    }
+  });
 }
