@@ -1,17 +1,20 @@
 import React from 'react'
 import SignUp from './SignUp'
+import LogoText from "./LogoText"
 import styled from 'styled-components'
 
 
-// const Page = styled.div`
-//   display: flex;
-//   align-items: flex-end;
-// `;
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100vh
+`
 
 export default function Landing() {
   return (
-    <div>
+    <Container>
+      <LogoText />
       <SignUp/>
-    </div>
+    </Container>
   )
 }

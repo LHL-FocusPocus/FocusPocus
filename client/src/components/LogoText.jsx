@@ -3,26 +3,34 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   width: 50%;
-  display: flex-column;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
   ${'' /* padding: 50%; */}
   ${'' /* margin: 25% */}
   ${'' /* text-align: center; */}
-  justify-content: center;
-  align-items: center
+  justify-content: space-around;
+  align-items: center;
+  background-color: pink;
+`
+
+const Text = styled.div`
+  margin: auto;
+  ${'' /* flex: 1; */}
 `
 
 export default function LogoText() {
   return (
     <Container>
-      <div>FocusPocus</div>
+      <h1>FocusPocus</h1>
 
-      <div>Getting you focused through the power of a little magic</div>
+      <Text>Getting you focused through the power of a little magic</Text>
 
-      <div>We all know how easy it is to get distracted.</div>
+      <Text>We all know how easy it is to get distracted.</Text>
 
-      <div>It's time to learn better habits and see how much more productive you can be.</div>
+      <Text>It's time to learn better habits and see how much more productive you can be.</Text>
 
-      <div>With our unique approach, spending too long on time-wasting sites will create some hilarious results...</div>
+      <Text>With our unique approach, spending too long on time-wasting sites will create some hilarious results...</Text>
     </Container>
   )
 }
