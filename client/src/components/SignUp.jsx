@@ -28,17 +28,18 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  // main: {
-  //   alignItems: 'right'
-  // }
+  main: {
+    marginLeft: "3em"
+  }
 }));
 
 const Wrapper = styled(Container)`
   border: 1px solid black;
   border-radius: 5em;
-  margin-top: 3em;
-  margin-bottom: 3em;
-  padding: 2em
+  ${'' /* margin-top: 3em;
+  margin-bottom: 3em; */}
+  margin-left: 0;
+  padding: 2em;
 `
 
 const Img = styled.img`

@@ -3,28 +3,42 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   width: 50%;
-  height: 70vh;
+  height: 50vh;
   display: flex;
   flex-direction: column;
   ${'' /* padding: 50%; */}
   ${'' /* margin: 25% */}
   ${'' /* text-align: center; */}
-  justify-content: space-around;
+  ${'' /* justify-content: space-around; */}
   align-items: center;
-  background-color: pink;
+  margin-left: 8em
 `
 
 const Text = styled.div`
-  margin: auto;
-  ${'' /* flex: 1; */}
+  margin: 1em 0em;
+  text-align: center;
+  font-size: 1.2em
 `
 
+const Logo = styled.span`
+  font-size: 5em;
+`
+
+const Tagline = styled.div`
+  font-size: 1.7em;
+  padding-bottom: 2em;
+  text-align: center
+`
+const Icon = styled.img`
+  height: 5%;
+  vertical-align: center
+`
 export default function LogoText() {
   return (
     <Container>
-      <h1>FocusPocus</h1>
+      <Logo>Focus{/* <Icon src="/imgs/wand.png"/> */}Pocus</Logo>
 
-      <Text>Getting you focused through the power of a little magic</Text>
+      <Tagline>Getting you focused through the power of a little magic.</Tagline>
 
       <Text>We all know how easy it is to get distracted.</Text>
 
