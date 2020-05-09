@@ -1,6 +1,5 @@
 import React from "react";
 import Landing from "./components/Landing";
-import LogoText from "./components/LogoText";
 import styled from "styled-components";
 
 import "./App.css";

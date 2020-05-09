@@ -36,9 +36,6 @@ const useStyles = makeStyles((theme) => ({
 const Wrapper = styled(Container)`
   border: 1px solid black;
   border-radius: 1em;
-  ${"" /* margin-top: 3em;
-  margin-bottom: 3em; */}
-  ${"" /* margin-left: 0; */}
   padding: 2em;
   z-index: 5;
   background-color: white;
