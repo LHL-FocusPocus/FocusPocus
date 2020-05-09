@@ -1,6 +1,7 @@
 import React from "react";
 import Landing from "./components/Landing";
-import styled from "styled-components";
+import { BrowserRouter, Route, Link } from "react-router-dom";
+
 
 import "./App.css";
 
