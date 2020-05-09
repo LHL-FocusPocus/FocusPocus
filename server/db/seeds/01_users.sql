@@ -2,3 +2,8 @@ INSERT INTO users
   (first_name, last_name, email, password)
 VALUES
   ('Aaron', 'Aaronson', 'a@a.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.'); --password is hash of 'password'
+
+INSERT INTO users
+  (first_name, last_name, email, password)
+VALUES
+  ('Test', 'Test', 'a@a.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.'); --password is hash of 'password'
