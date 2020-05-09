@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 module.exports = (db) => {
   const dbHelper = require("../helpers/dbHelper")(db);
   router.post("/login", (req, res) => {
-    console.log(req)
+    console.log(req.body)
     // const { email, password } = req.body.params
 
     // Using bcrypt to verify
