@@ -58,19 +58,19 @@ export default function SignUp() {
     password: "",
   });
 
-
 const handleSubmit = event => {
   event.preventDefault();
+  
   axios
     .post("/api/login", {
       email: fields.email,
       password: fields.password,
     })
     .then(res => {
-      return res
+       console.log("sent")
     })
     .catch(e => {
-      console.log(e);
+      console.log("WTF");
     });
 };
 
