@@ -35,15 +35,18 @@ const useStyles = makeStyles((theme) => ({
 
 const Wrapper = styled(Container)`
   border: 1px solid black;
-  border-radius: 5em;
+  border-radius: 1em;
   ${'' /* margin-top: 3em;
   margin-bottom: 3em; */}
-  margin-left: 0;
+  ${'' /* margin-left: 0; */}
   padding: 2em;
+  z-index: 5;
+  background-color: whitesmoke;
 `
 
 const Img = styled.img`
   width: 100%;
+  transform: translateY(-2em)
 `
 
 export default function SignUp() {
