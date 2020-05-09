@@ -1,17 +1,13 @@
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
+import { Route, Switch } from "react-router-dom";
+import React from "react";
 
-const Routes = [
-  {
-    path: "/",
-    exact: true,
-    component: Login,
-  },
-  {
-    path: "/register",
-    exact: true,
-    component: SignUp,
-  },
-];
-
-export default Routes;
+export default function Routes() {
+  return (
+    <Switch>
+      <Route exact path="/" component={Login} />
+      <Route exact path="/register" component={SignUp} />
+    </Switch>
+  );
+}
