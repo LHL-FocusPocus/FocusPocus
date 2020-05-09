@@ -23,14 +23,18 @@ chrome.runtime.onInstalled.addListener(function () {
   });
 });
 
-// Triggers when page loads in current tabl
+// Triggers when page loads in current tab
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (changeInfo.status === "complete" && tab.active) {
-    chrome.tabs.executeScript(tabId, { file: "changePictures.js" });
+    changePictures(tabId);
   }
 });
 
 // Triggers when user goes to a different tab
 chrome.tabs.onActivated.addListener(function (activeInfo) {
-  chrome.tabs.executeScript(activeInfo.tabId, { file: "changePictures.js" });
+  changePictures(activeInfo.tabId);
 });
+
+function changePictures(tabId, blackList=["reddit.com"]) {
+  chrome.tabs.executeScript(tabId, { file: "changePictures.js" });
+}
