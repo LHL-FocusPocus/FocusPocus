@@ -1,6 +1,7 @@
 import React from "react";
 import Landing from "./components/Landing";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Routes from "./routes"
 
 
 import "./App.css";
