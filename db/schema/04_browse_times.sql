@@ -2,11 +2,11 @@ DROP TABLE IF EXISTS browse_times CASCADE;
 
 CREATE TABLE browse_times
 (
-  id                  SERIAL PRIMARY KEY,
+  id                  SERIAL        PRIMARY KEY,
 
-  user_id             INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  website_hostname    VARCHAR(255) REFERENCES websites(hostname) ON DELETE CASCADE,
+  user_id             INTEGER       REFERENCES users(id) ON DELETE CASCADE,
+  website_id          INTEGER       REFERENCES websites(id) ON DELETE CASCADE,
 
-  datetime_startdate  TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-  duration INTERVAL   NOT NULL DEFAULT '1 minute'
+  datetime_start      TIMESTAMP     WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  duration            INTERVAL      NOT NULL DEFAULT '1 minute'
 )
