@@ -6,7 +6,7 @@ VALUES
 INSERT INTO blacklist
   (user_id, website_hostname)
 VALUES
-  (1, 'www.cnn.com');
+  (1, 'www.twitter.com');
 
 INSERT INTO blacklist
   (user_id, website_hostname)

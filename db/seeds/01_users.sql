@@ -6,4 +6,4 @@ VALUES
 INSERT INTO users
   (first_name, last_name, email, password)
 VALUES
-  ('Test', 'Test', 'a@a.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.'); --password is hash of 'password'
+  ('Test', 'Test', 'test@test.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.'); --password is hash of 'password'
