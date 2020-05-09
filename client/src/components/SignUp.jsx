@@ -74,12 +74,13 @@ export default function SignUp() {
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
-                name="firstName"
+                // name="firstName"
                 variant="outlined"
                 required
                 fullWidth
                 id="firstName"
                 label="First Name"
+                value={fields.firstName}
                 autoFocus
                 onChange={handleFieldChange}
               />
@@ -91,7 +92,8 @@ export default function SignUp() {
                 fullWidth
                 id="lastName"
                 label="Last Name"
-                name="lastName"
+                // name="lastName"
+                value={fields.lastName}
                 autoComplete="lname"
                 onChange={handleFieldChange}
               />
@@ -103,7 +105,8 @@ export default function SignUp() {
                 fullWidth
                 id="email"
                 label="Email Address"
-                name="email"
+                // name="email"
+                value={fields.email}
                 autoComplete="email"
                 onChange={handleFieldChange}
               />
@@ -113,10 +116,11 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
-                name="password"
+                // name="password"
                 label="Password"
                 type="password"
                 id="password"
+                value={fields.password}
                 autoComplete="current-password"
                 onChange={handleFieldChange}
               />

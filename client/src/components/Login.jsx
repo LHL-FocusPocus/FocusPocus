@@ -7,6 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { useFormFields } from "../hooks/useFormFields";
 import styled from "styled-components";
 
 const useStyles = makeStyles((theme) => ({
@@ -49,6 +50,15 @@ const Img = styled.img`
 export default function SignUp() {
   const classes = useStyles();
 
+  const [fields, handleFieldChange] = useFormFields({
+    email: "",
+    password: ""
+  })
+
+  function validateForm() {
+    return fields.email.length > 0 && fields.password.length > 0;
+  }
+
   return (
     <Wrapper className={classes.main} component="main" maxWidth="xs">
       <CssBaseline />
@@ -57,7 +67,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Log In
         </Typography>
-        <form className={classes.form} noValidate>
+        <form onSubmit={(e) => e.preventDefault} className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -65,9 +75,11 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="email"
+                value={fields.email}
                 label="Email Address"
-                name="email"
+                // name="email"
                 autoComplete="email"
+                onChange={handleFieldChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -75,11 +87,13 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
-                name="password"
+                // name="password"
                 label="Password"
+                value={fields.password}
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={handleFieldChange}
               />
             </Grid>
           </Grid>
@@ -89,6 +103,7 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled={!validateForm()}
           >
             Log In
           </Button>
