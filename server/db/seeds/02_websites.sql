@@ -18,3 +18,8 @@ INSERT INTO websites
 VALUES
   ('www.espn.com', 'ESPN', 'Sports');
 
+INSERT INTO websites
+  (hostname, name, category)
+VALUES
+  ('www.cnn.com', 'CNN', 'News');
+
