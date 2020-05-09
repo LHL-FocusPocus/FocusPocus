@@ -3,8 +3,7 @@ import SignUp from "./SignUp";
 import Login from "./Login";
 import LogoText from "./LogoText";
 import styled from "styled-components";
-import { BrowserRouter as Router } from "react-router-dom";
-import Routes from "../routes"
+import { BrowserRouter, Route, Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -25,9 +24,8 @@ export default function Landing() {
       <InnerContainer>
         <LogoText />
       </InnerContainer>
-      <Router>
-        <Routes/>
-      </Router>
+      <Route exact path="/" component={Login} />
+      <Route exact path="/register" component={SignUp} />
     </Container>
   );
 }

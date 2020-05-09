@@ -9,8 +9,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useFormFields } from "../hooks/useFormFields";
 import styled from "styled-components";
+import axios from "axios";
+axios.defaults.baseURL = "http://localhost:9000";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   main: {
     marginLeft: -30,
   },
@@ -47,13 +49,30 @@ const Img = styled.img`
   transform: translateY(-2em);
 `;
 
+
 export default function SignUp() {
   const classes = useStyles();
 
   const [fields, handleFieldChange] = useFormFields({
     email: "",
-    password: ""
-  })
+    password: "",
+  });
+
+
+const handleSubmit = event => {
+  event.preventDefault();
+  axios
+    .post("/api/login", {
+      email: fields.email,
+      password: fields.password,
+    })
+    .then(res => {
+      return res
+    })
+    .catch(e => {
+      console.log(e);
+    });
+};
 
   function validateForm() {
     return fields.email.length > 0 && fields.password.length > 0;
@@ -67,7 +86,11 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Log In
         </Typography>
-        <form onSubmit={(e) => e.preventDefault} className={classes.form} noValidate>
+        <form
+          onSubmit={e => handleSubmit(e)}
+          className={classes.form}
+          noValidate
+        >
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
