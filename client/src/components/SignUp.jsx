@@ -27,9 +27,6 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-  },
-  main: {
-    marginLeft: "3em"
   }
 }));
 
@@ -42,6 +39,7 @@ const Wrapper = styled(Container)`
   padding: 2em;
   z-index: 5;
   background-color: whitesmoke;
+
 `
 
 const Img = styled.img`

@@ -2,16 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  width: 50%;
+  ${'' /* width: 50%; */}
   height: 50vh;
   display: flex;
   flex-direction: column;
   ${'' /* padding: 50%; */}
-  ${'' /* margin: 25% */}
+  ${'' /* margin-left: 25% */}
   ${'' /* text-align: center; */}
   ${'' /* justify-content: space-around; */}
   align-items: center;
-  margin-left: 8em
+  margin: auto;
+  ${'' /* padding-left: 20em */}
 `
 
 const Text = styled.div`

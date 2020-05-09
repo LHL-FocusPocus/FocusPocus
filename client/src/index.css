@@ -5,8 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url("/imgs/wild-sea.png");
-  background-repeat: repeat;
+  background-color: rgba(143, 144, 204, 0.336)
 }
 
 code {
