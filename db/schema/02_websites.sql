@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS websites CASCADE;
+
+CREATE TABLE websites
+(
+  hostname SERIAL PRIMARY KEY,
+
+  name TEXT NOT NULL,
+  category TEXT NOT NULL
+)
