@@ -26,7 +26,7 @@ export default function Landing() {
       </InnerContainer>
       <Router>
         <Switch>
-          <Route exact path="/login" component={Login}/>
+          <Route exact path="/" component={Login}/>
           <Route exact path="/register" component={SignUp}/>
         </Switch>
       </Router>
