@@ -174,7 +174,7 @@ module.exports = (db) => {
       });
   };
 
-  const getTotalTimeByUserID = function (user_id) {
+  const getTotalTimeByUserIDForToday = function (user_id) {
     return db
       .query(
         `
@@ -215,6 +215,6 @@ module.exports = (db) => {
     addWebsite,
     addWebsiteToBlacklist,
     addBrowseTimesToUserID,
-    getTotalTimeByUserID,
+    getTotalTimeByUserIDForToday,
   };
 };
