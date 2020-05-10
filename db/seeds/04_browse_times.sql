@@ -6,6 +6,14 @@ INSERT INTO browse_times
   (user_id, website_id, datetime_start, duration)
 VALUES
   (1, 3, '2020-05-09 15:23:45-04', '10 minutes');
+  INSERT INTO browse_times
+  (user_id, website_id, datetime_start, duration)
+VALUES
+  (1, 3, '2020-05-08 15:23:45-04', '15 minutes');
+  INSERT INTO browse_times
+  (user_id, website_id, datetime_start, duration)
+VALUES
+  (1, 3, '2020-05-10 15:23:45-04', '40 minutes');
 
 INSERT INTO browse_times
   (user_id, website_id, datetime_start, duration)
