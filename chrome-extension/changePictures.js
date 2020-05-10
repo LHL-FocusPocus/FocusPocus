@@ -53,7 +53,7 @@
    * @param {Number} interval Milliseconds between each image getting replaced
    */
   const replaceImages = function (
-    newImg = "https://memegen.link/bad/get_back_to_work/lazy_bum.jpg",
+    newImg = "https://memegen.link/bad/get_back_to_work/you_lazy_bum.jpg",
     interval = 300
   ) {
     // Replace images specified by img tags
@@ -108,5 +108,11 @@
       document.addEventListener("DOMContentLoaded", fn);
     }
   };
-  ready(replaceImages);
+
+  // Wait 3 seconds after page is loaded then start replacing images
+  ready(() => {
+    setTimeout(() => {
+      replaceImages();
+    }, 3000);
+  });
 }
