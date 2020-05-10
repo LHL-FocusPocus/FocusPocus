@@ -174,6 +174,25 @@ module.exports = (db) => {
       });
   };
 
+  const getTotalTimeByUserID = function (user_id) {
+    return db
+      .query(
+        `
+      SELECT SUM(duration)
+      FROM browse_times
+      WHERE user_id = $1
+      AND datetime_start >= CURRENT_DATE
+      AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+      GROUP BY user_id;
+      `,
+        [user_id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      });
+  };
+
   // Basic setup To-Do:
   // Query to set quota - done
   // Query to add website - done
@@ -196,5 +215,6 @@ module.exports = (db) => {
     addWebsite,
     addWebsiteToBlacklist,
     addBrowseTimesToUserID,
+    getTotalTimeByUserID,
   };
 };
