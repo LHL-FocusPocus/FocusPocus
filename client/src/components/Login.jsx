@@ -10,6 +10,7 @@ import Container from "@material-ui/core/Container";
 import { useFormFields } from "../hooks/useFormFields";
 import styled from "styled-components";
 import axios from "axios";
+
 axios.defaults.baseURL = "http://localhost:9000";
 
 const useStyles = makeStyles(theme => ({
@@ -49,7 +50,6 @@ const Img = styled.img`
   transform: translateY(-2em);
 `;
 
-
 export default function SignUp() {
   const classes = useStyles();
 
@@ -58,21 +58,23 @@ export default function SignUp() {
     password: "",
   });
 
-const handleSubmit = event => {
-  event.preventDefault();
-  
-  axios
-    .post("/api/login", {
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    const credentials = {
       email: fields.email,
       password: fields.password,
-    })
-    .then(res => {
-       console.log("sent")
-    })
-    .catch(e => {
-      console.log("WTF");
-    });
-};
+    };
+
+    axios
+      .post("/api/login", credentials)
+      .then(res => {
+        console.log("sent");
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
   function validateForm() {
     return fields.email.length > 0 && fields.password.length > 0;
