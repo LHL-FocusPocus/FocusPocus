@@ -10,6 +10,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import SettingsIcon from '@material-ui/icons/Settings';
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import styled from "styled-components";
 
 const useStyles = makeStyles({
   list: {
@@ -19,6 +22,10 @@ const useStyles = makeStyles({
     width: 'auto',
   },
 });
+
+const Icon = styled.img`
+  width: 100%;
+`
 
 export default function Navbar() {
   const classes = useStyles();
@@ -47,22 +54,19 @@ export default function Navbar() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        <Icon src="/imgs/multitasking.jpg"></Icon>
+      </List>
+      <Divider />
+      <List>
+        {["Options", "Analytics"].map((text, index) => (
           <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemIcon>{index % 2 === 0 ? <SettingsIcon /> : <AssessmentIcon />}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
         ))}
       </List>
       <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
+
     </div>
   );
 
