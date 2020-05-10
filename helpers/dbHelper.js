@@ -26,6 +26,7 @@ module.exports = (db) => {
         `
         INSERT INTO users (first_name, last_name, email, password)
         VALUES ($1, $2, $3, $4)
+        RETURNING *;
         `,
         [first_name, last_name, email, password]
       )
@@ -71,7 +72,8 @@ module.exports = (db) => {
       .query(
         `
         INSERT INTO websites (hostname, name, category)
-        VALUES ($1, $2, $3);
+        VALUES ($1, $2, $3)
+        RETURNING *;
         `,
         [hostname, name, category]
       )
@@ -86,7 +88,8 @@ module.exports = (db) => {
       .query(
         `
         INSERT INTO blacklists (user_id, website_id)
-        VALUES ($1, $2);
+        VALUES ($1, $2)
+        RETURNING *;
         `,
         [user_id, website_id]
       )
@@ -96,19 +99,29 @@ module.exports = (db) => {
       });
   };
 
-  const addQuotaForUser = function (user_id, time_allotment) {
-    return db
-      .query(
-        `
-        INSERT INTO quotas (user_id, time_allotment)
-        VALUES ($1, $2);
-        `,
-        [user_id, time_allotment]
-      )
-      .then((res) => {
-        if (res.rows.length === 0) return null;
-        return res.rows[0];
-      });
+  const addQuotaForUser = function (
+    user_id,
+    time_allotment,
+    date_valid_from,
+    date_valid_until
+  ) {
+    const queryParams = [user_id, time_allotment];
+    const queryString = `INSERT INTO quotas `;
+
+    if (!date_valid_from && !date_valid_until) {
+      queryString += `(user_id, time_allotment) VALUES ($1, $2) RETURNING *;`;
+    } else if (!date_valid_until) {
+      queryString += `(user_id, time_allotment, date_valid_from) VALUES ($1, $2, $3) RETURNING *;`;
+      queryParams.push(date_valid_from);
+    } else {
+      queryString += `(user_id, time_allotment, date_valid_from, date_valid_until) VALUES ($1, $2, $3, $4) RETURNING *;`;
+      queryParams.push(date_valid_from, date_valid_until);
+    }
+
+    return db.query(queryString, queryParams).then((res) => {
+      if (res.rows.length === 0) return null;
+      return res.rows[0];
+    });
   };
 
   const getQuotaWithUserID = function (user_id) {
@@ -150,7 +163,8 @@ module.exports = (db) => {
       .query(
         `
         INSERT INTO browse_times (user_id, website_id, duration)
-        VALUES ($1, $2, $4);
+        VALUES ($1, $2, $4)
+        RETURNING *;
         `,
         [user_id, website_id, duration]
       )
