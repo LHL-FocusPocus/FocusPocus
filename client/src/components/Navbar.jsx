@@ -8,8 +8,6 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import SettingsIcon from '@material-ui/icons/Settings';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import styled from "styled-components";
@@ -27,13 +25,14 @@ const Icon = styled.img`
   width: 100%;
 `
 
+const Greeting = styled.img`
+  text-align: center;
+`
+
 export default function Navbar() {
   const classes = useStyles();
   const [state, setState] = useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
+    FocusPocus: false
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -46,15 +45,18 @@ export default function Navbar() {
 
   const list = (anchor) => (
     <div
-      className={clsx(classes.list, {
-        [classes.fullList]: anchor === 'top' || anchor === 'bottom',
-      })}
+      className={classes.list
+      }
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
         <Icon src="/imgs/multitasking.jpg"></Icon>
+      </List>
+      <List>
+        Hi, Matt. 
+        {/* TODO: Make this dynamic based on user firstName */}
       </List>
       <Divider />
       <List>
@@ -72,14 +74,13 @@ export default function Navbar() {
 
   return (
     <div>
-      {['FocusPocus'].map((anchor) => (
-        <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-          <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
-            {list(anchor)}
+        <React.Fragment>
+          <Button onClick={toggleDrawer("FocusPocus", true)}>FocusPocus</Button>
+          <Drawer anchor={"FocusPocus"} open={state["FocusPocus"]} onClose={toggleDrawer("FocusPocus", false)}>
+            {list("FocusPocus")}
           </Drawer>
         </React.Fragment>
-      ))}
+      
     </div>
   );
 }
