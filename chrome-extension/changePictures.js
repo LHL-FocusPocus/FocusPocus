@@ -1,4 +1,5 @@
 {
+  console.log("executing changePictures");
   /**
    * Gets the element height (from http://youmightnotneedjquery.com/)
    */
@@ -7,14 +8,20 @@
   };
 
   /**
-   * Function used to filter for only images to be changed. Min height is the
-   * only criteria for now.
+   * Function used to filter for only images that need to be changed.
+   * Excludes images that have already been changed, and also small icon images
    * @param {Object} element
+   * @param {String} newImg The url of the replacement image
    * @param {Number} minHeight
-   * @return Returns true if image fits criteria and needs to be changed
+   * @return Returns true if image fits criteria (needs to be changed)
    */
-  const filterElements = function (element, minHeight = 50) {
-    return getHeight(element) > minHeight;
+  const filterElements = function (element, newImg, minHeight = 50) {
+    return (
+      getHeight(element) > minHeight &&
+      ((element.getAttribute("src") && element.getAttribute("src") != newImg) ||
+        (element.style.backgroundImage &&
+          !element.style.backgroundImage.includes(newImg)))
+    );
   };
 
   /**
@@ -48,7 +55,7 @@
     const imgTagElements = Array.from(document.querySelectorAll("img"));
     // Filter out small-sized images
     const filteredImgTagElements = imgTagElements.filter((element) =>
-      filterElements(element)
+      filterElements(element, newImg)
     );
     shuffle(filteredImgTagElements);
 
@@ -72,7 +79,7 @@
 
     // Ignore very small images
     const filteredBgImageElements = bgImageElements.filter((element) =>
-      filterElements(element)
+      filterElements(element, newImg)
     );
     shuffle(filteredBgImageElements);
     let timer2 = 0;
