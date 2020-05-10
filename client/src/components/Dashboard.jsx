@@ -1,25 +1,25 @@
-import React from 'react'
-import Navbar from "./Navbar"
+import React from "react";
+import Navbar from "./Navbar";
 import styled from "styled-components";
-import DailyQuotaUsed from "./DailyQuotaUsed";
-import Box from '@material-ui/core/Box';
-import LineGraph from "./LineGraph";
-
-
-import { flexbox, flex, flexGrow } from '@material-ui/system';
-
+import DailyQuotaUsed from "./Graphs/DailyQuotaUsed";
+import Box from "@material-ui/core/Box";
+import LineGraph from "./Graphs/LineGraph";
+import Graph1 from "./Graphs/Graph1";
+import Graph2 from "./Graphs/Graph2";
+import Graph3 from "./Graphs/Graph3";
 
 const Container = styled(Box)`
-  ${'' /* display: flex; */}
+  ${"" /* display: flex; */}
   flex-flow: row-wrap;
-  ${'' /* padding: 3em; */}
-  padding: 0.5em;
+  ${"" /* padding: 3em; */}
+  padding: 3em;
   border: 3px solid green;
-`
+  height: 85.4vh;
+`;
 
 const Background = styled.div`
   background-image: none;
-`
+`;
 
 export default function Dashboard() {
   return (
@@ -30,5 +30,5 @@ export default function Dashboard() {
         <LineGraph />
       </Container>
     </Background>
-  )
+  );
 }

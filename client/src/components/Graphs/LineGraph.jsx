@@ -9,7 +9,7 @@ const Wrapper = styled(Box)`
 
 export default function LineGraph() {
   return (
-    <Wrapper flexGrow={1}>
+    <Wrapper flexGrow={2}>
       LINEGRAPH
     </Wrapper>
   )
