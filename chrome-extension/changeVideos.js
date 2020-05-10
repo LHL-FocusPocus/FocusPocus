@@ -10,8 +10,14 @@
   const replaceAllVideosOnPage = function (
     newVideo = "https://rickrolled.fr/rickroll.mp4"
   ) {
-    const videoTagElements = document.querySelectorAll("video");
-    for (const videoTagElement of videoTagElements) {
+    const videoTagElements = Array.from(document.querySelectorAll("video"));
+
+    // Exclude already-replaced videos from being altered
+    const filteredVideoTagElements = videoTagElements.filter((element) =>
+      filterElements(element, newVideo)
+    );
+
+    for (const videoTagElement of filteredVideoTagElements) {
       replaceVideoTagSource(videoTagElement, newVideo);
     }
   };

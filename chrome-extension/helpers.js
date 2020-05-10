@@ -27,7 +27,10 @@
    * Gets the element height (from http://youmightnotneedjquery.com/)
    */
   function getHeight(element) {
-    return parseFloat(getComputedStyle(element, null).height.replace("px", ""));
+    const height = parseFloat(
+      getComputedStyle(element, null).height.replace("px", "")
+    );    
+    return height;
   }
 
   /**
