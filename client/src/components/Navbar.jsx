@@ -3,7 +3,8 @@ import React from 'react'
 export default function Navbar() {
   return (
     <div>
-      HI
+      WHERE IS THE TEXT?
     </div>
   )
 }
+ 

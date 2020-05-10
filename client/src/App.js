@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="App">
         <Route exact path={["/", "/register"]} component={Landing} />
-        <Route exact path="dashboard" component={Dashboard} />
+        <Route exact path="/dashboard" component={Dashboard} />
     </div>
   );
 }
