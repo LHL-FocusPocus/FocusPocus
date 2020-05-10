@@ -1,5 +1,18 @@
 {
   /**
+   * Shuffles array
+   * @param {Array} array An array containing the items.
+   */
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  
+  /**
    * Replaces all images from img tags and "background-image" css attributes
    * @param {String} newImg An image url to be used as the replacement
    */
@@ -8,6 +21,7 @@
   ) {
     // Replace images specified by img tags
     const imgTagElements = Array.from(document.querySelectorAll("img"));
+    shuffle(imgTagElements);
     let timer = 0;
     for (const imgTagElement of imgTagElements) {
       setTimeout(() => {
