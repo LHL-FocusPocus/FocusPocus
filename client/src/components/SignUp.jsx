@@ -7,10 +7,11 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { useFormFields } from "../hooks/useFormFields"
+import { useFormFields } from "../hooks/useFormFields";
 import styled from "styled-components";
+import axios from "axios";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   main: {
     marginLeft: -30,
   },
@@ -54,8 +55,29 @@ export default function SignUp() {
     email: "",
     password: "",
     firstName: "",
-    lastName: ""
-  })
+    lastName: "",
+  });
+
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    const credentials = {
+      email: fields.email,
+      password: fields.password,
+      firstName: fields.firstName,
+      lastname: fields.lastName
+    };
+
+    axios
+      .post("/api/register", credentials)
+      .then(() => {
+        console.log("Successful login");
+        // history.push("/register") TODO: how to redirect after successful login?
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  };
 
   function validateForm() {
     return fields.email.length > 0 && fields.password.length > 0;
@@ -69,7 +91,11 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form onSubmit={(e) => e.preventDefault} className={classes.form} noValidate>
+        <form
+          onSubmit={(e) => handleSubmit(e)}
+          className={classes.form}
+          noValidate
+        >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField

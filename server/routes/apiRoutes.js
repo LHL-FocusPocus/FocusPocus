@@ -24,8 +24,8 @@ module.exports = (db) => {
 
   router.post("/register", (req, res) => {
     // checking cookie session for user
-
-    const { first_name, last_name, email, pass /* etc.. */ } = req.body.params;
+    // console.log(req.body)
+    const { firstName, lastName, email, password } = req.body
     //make a query to db to enter in the data to users table
     // dbHelper.addUser
     // if this fails then res.status(403).json to show it failed

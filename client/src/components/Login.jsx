@@ -66,6 +66,8 @@ export default function SignUp(props) {
       password: fields.password,
     };
 
+    // TODO -> create a cookie session
+
     axios
       .post("/api/login", credentials)
       .then(() => {
