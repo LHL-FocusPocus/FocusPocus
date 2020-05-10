@@ -9,6 +9,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AssessmentIcon from "@material-ui/icons/Assessment";
+import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import styled from "styled-components";
 
 const useStyles = makeStyles({
@@ -34,14 +35,14 @@ const Logo = styled.div`
   text-align: center;
   font-size: 2em;
   padding: 0.6em;
-`
+`;
 
 const Message = styled.div`
   text-align: center;
   padding: 1.5em;
   font-size: 0.9em;
   padding-bottom: 4em;
-`
+`;
 
 export default function Navbar() {
   const classes = useStyles();
@@ -67,9 +68,7 @@ export default function Navbar() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <Logo>
-        FocusPocus
-      </Logo>
+      <Logo>FocusPocus</Logo>
       <List>
         <Icon src="/imgs/multitasking.jpg"></Icon>
       </List>
@@ -94,7 +93,12 @@ export default function Navbar() {
       </List>
       <Divider />
       <List>
-        
+        <ListItem button key="logout">
+          <ListItemIcon>
+            <PowerSettingsNewIcon />
+          </ListItemIcon>
+          <ListItemText primary="Log Out" />
+        </ListItem>
       </List>
     </div>
   );
