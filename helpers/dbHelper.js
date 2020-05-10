@@ -36,7 +36,7 @@ module.exports = (db) => {
       });
   };
 
-  const getBlacklistedWithUserID = function (id) {
+  const getBlacklistedSitesWithUserID = function (id) {
     return db
       .query(
         `
@@ -139,16 +139,17 @@ module.exports = (db) => {
       });
   };
 
-  const getBrowseTimesWithUserID = function (user_id) {
+  const getBrowseInfoWithUserID = function (user_id) {
     return db
       .query(
         `
-        SELECT browse_times.id as browse_times_id, user_id, users.first_name as user_first_name,
-        users.last_name as user_last_name, website_id, websites.hostname as hostname, datetime_start, duration
+        SELECT users.first_name as user_first_name,
+        users.last_name as user_last_name, websites.hostname as hostname,
+        datetime_start, duration
         FROM browse_times
         JOIN websites ON websites.id = website_id
         JOIN users ON users.id = user_id
-        WHERE user_id = $1
+        WHERE user_id = 1
         `,
         [user_id]
       )
@@ -174,7 +175,7 @@ module.exports = (db) => {
       });
   };
 
-  const getTotalTimeByUserIDForToday = function (user_id) {
+  const getTotalTimeForTodayByUserID = function (user_id) {
     return db
       .query(
         `
@@ -184,6 +185,26 @@ module.exports = (db) => {
       AND datetime_start >= CURRENT_DATE
       AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
       GROUP BY user_id;
+      `,
+        [user_id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      });
+  };
+
+  const getTotalBlacklistTimeForTodayByUserID = function (user_id) {
+    return db
+      .query(
+        `
+        SELECT SUM(duration)
+        FROM browse_times
+        JOIN blacklists ON browse_times.website_id = blacklists.website_id
+        WHERE browse_times.user_id = $1
+        AND datetime_start >= CURRENT_DATE
+        AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+        GROUP BY browse_times.user_id;
       `,
         [user_id]
       )
@@ -206,15 +227,16 @@ module.exports = (db) => {
 
   return {
     getUserWithEmail,
-    getBlacklistedWithUserID,
+    getBlacklistedSitesWithUserID,
     getAllWebsites,
     getQuotaWithUserID,
-    getBrowseTimesWithUserID,
+    getBrowseInfoWithUserID,
     addUser,
     addQuotaForUser,
     addWebsite,
     addWebsiteToBlacklist,
     addBrowseTimesToUserID,
-    getTotalTimeByUserIDForToday,
+    getTotalTimeForTodayByUserID,
+    getTotalBlacklistTimeForTodayByUserID,
   };
 };
