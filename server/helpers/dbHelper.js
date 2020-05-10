@@ -220,7 +220,7 @@ module.exports = (db) => {
       .query(
         `
         SELECT * FROM quotas
-        WHERE user_id = 1
+        WHERE user_id = $1
         AND CURRENT_DATE >= date_valid_from
         AND CURRENT_DATE < date_valid_until;
     `,
