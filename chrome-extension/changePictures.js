@@ -18,10 +18,19 @@
 
   // Function used to select only images to be changed. Min height is the
   // only criteria for now
-  const filterElements = function (element, minHeight = 100) {
+  const filterElements = function (element, minHeight = 50) {
     return getHeight(element) > minHeight;
   };
 
+  const replaceImgTagSource = function (imgTagElement, newImg) {
+    imgTagElement.setAttribute("src", newImg);
+    imgTagElement.setAttribute("data-src", newImg);
+    imgTagElement.setAttribute("srcset", newImg);
+  };
+
+  const replaceBgImgTagSource = function (bgImageTagElement, newImg) {
+    bgImageTagElement.style.backgroundImage = `url("${newImg}")`;
+  };
   /**
    * Replaces all images from img tags and "background-image" css attributes
    * @param {String} newImg An image url to be used as the replacement
@@ -40,28 +49,26 @@
     let timer = 0;
     for (const imgTagElement of filteredImgTagElements) {
       setTimeout(() => {
-        imgTagElement.setAttribute("src", newImg);
-        imgTagElement.setAttribute("data-src", newImg);
-        imgTagElement.setAttribute("srcset", newImg);
+        replaceImgTagSource(imgTagElement, newImg);
       }, timer);
       timer += interval;
     }
 
     // Replace images specified by background-image css
-    const backgroundImageElements = Array.from(
+    const bgImageElements = Array.from(
       document.querySelectorAll(
         // *= matches all style attribute containing "background-image" in its value
         '[style*="background-image"]'
       )
     );
-    const filteredBackgroundImageElements = backgroundImageElements.filter(
-      (element) => filterElements(element)
+    const filteredBgImageElements = bgImageElements.filter((element) =>
+      filterElements(element)
     );
-    shuffle(filteredBackgroundImageElements);
+    shuffle(filteredBgImageElements);
     let timer2 = 0;
-    for (const bgImageElement of filteredBackgroundImageElements) {
+    for (const bgImageTagElement of filteredBgImageElements) {
       setTimeout(() => {
-        bgImageElement.style.backgroundImage = `url("${newImg}")`;
+        replaceBgImgTagSource(bgImageTagElement, newImg);
       }, timer2);
       timer2 += interval;
     }
