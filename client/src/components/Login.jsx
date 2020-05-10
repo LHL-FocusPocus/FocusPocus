@@ -10,6 +10,8 @@ import Container from "@material-ui/core/Container";
 import { useFormFields } from "../hooks/useFormFields";
 import styled from "styled-components";
 import axios from "axios";
+import { Redirect } from "react-router"
+import { useHistory } from "react-router-dom";
 
 axios.defaults.baseURL = "http://localhost:9000";
 
@@ -50,8 +52,9 @@ const Img = styled.img`
   transform: translateY(-2em);
 `;
 
-export default function SignUp() {
+export default function SignUp(props) {
   const classes = useStyles();
+  // const { history } = props;
 
   const [fields, handleFieldChange] = useFormFields({
     email: "",
@@ -68,12 +71,12 @@ export default function SignUp() {
 
     axios
       .post("/api/login", credentials)
-      .then(res => {
-        console.log("sent");
-        console.log(res)
+      .then(() => {
+        console.log("Successful login")
+        // history.push("/register") TODO: how to redirect after successful login?
       })
       .catch(e => {
-        console.log(e);
+        console.error(e);
       });
   };
 
