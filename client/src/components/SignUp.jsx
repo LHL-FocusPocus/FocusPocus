@@ -65,7 +65,7 @@ export default function SignUp() {
       email: fields.email,
       password: fields.password,
       firstName: fields.firstName,
-      lastname: fields.lastName
+      lastName: fields.lastName
     };
 
     axios

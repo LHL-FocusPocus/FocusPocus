@@ -13,22 +13,32 @@ module.exports = (db) => {
           return res.status(404).send("This email doesn't exist. Please create an account.");
         }
         if (bcrypt.compareSync(password, user.password)) {
-          console.log("u did it");
+          req.session.userId = user.id
           res.status(200)
         } else {
-          return res.status(403).send("Incorrect password.")
+          res.status(403).send("Incorrect password.")
         }
       })
       .catch((e) => res.json(e));
   });
 
   router.post("/register", (req, res) => {
-    // checking cookie session for user
     // console.log(req.body)
     const { firstName, lastName, email, password } = req.body
-    //make a query to db to enter in the data to users table
-    // dbHelper.addUser
-    // if this fails then res.status(403).json to show it failed
+
+    if (!(firstName && lastName && email && password)) {
+      return res.status(400).send("You must fill in all the fields.");
+    }
+    const encryptedPassword = bcrypt.hashSync(password, 12)
+    dbHelper.addUser(firstName, lastName, email, encryptedPassword)
+    .then((user) => {
+      if (!user) {
+        return res.status(400).send("There was an issue registering.")
+      }
+      req.session.userId = user.id
+      console.log(user.id)
+    })
+    .catch(e => console.error(e))
   });
 
   router.post("/add_browse_time", (req, res) => {
