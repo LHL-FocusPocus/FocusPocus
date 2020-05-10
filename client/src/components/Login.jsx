@@ -66,11 +66,10 @@ export default function SignUp(props) {
       password: fields.password,
     };
 
-    // TODO -> create a cookie session
-
     axios
-      .post("/api/login", credentials)
-      .then(() => {
+      .post("/api/user/login", credentials)
+      .then((res) => {
+        console.log(res)
         console.log("Successful login")
         // history.push("/register") TODO: how to redirect after successful login?
       })

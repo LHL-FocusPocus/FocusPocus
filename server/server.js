@@ -44,7 +44,7 @@ const apiRoutes = require("./routes/apiRoutes");
 // Note: Feel free to replace the example routes below with your own
 app.use("/", rootRoutes(db));
 app.use("/api", apiRoutes(db));
-app.use("/api/users", usersRoutes(db));
+app.use("/api/user", usersRoutes(db));
 
 // to do routes:
 // login

@@ -69,7 +69,7 @@ export default function SignUp() {
     };
 
     axios
-      .post("/api/register", credentials)
+      .post("/api/user/register", credentials)
       .then(() => {
         console.log("Successful login");
         // history.push("/register") TODO: how to redirect after successful login?
