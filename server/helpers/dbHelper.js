@@ -202,7 +202,7 @@ module.exports = (db) => {
         SELECT SUM(duration)
         FROM browse_times
         JOIN blacklists ON browse_times.website_id = blacklists.website_id
-        WHERE browse_times.user_id = 1
+        WHERE browse_times.user_id = $1
         AND datetime_start >= CURRENT_DATE
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
         GROUP BY browse_times.user_id;
