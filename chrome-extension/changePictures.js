@@ -52,7 +52,7 @@
    * @param {String} newImg An image url to be used as the replacement
    * @param {Number} interval Milliseconds between each image getting replaced
    */
-  const replaceImages = function (
+  const replaceAllImagesOnPage = function (
     newImg = "https://memegen.link/bad/get_back_to_work/you_lazy_bum.jpg",
     interval = 300
   ) {
@@ -97,11 +97,27 @@
   };
 
   /**
+   * Replaces src and similar attributes in video elements.
+   */
+  const replaceVideoTagSource = function (videoTagElement, newVideo) {
+    videoTagElement.setAttribute("src", newVideo);    
+    videoTagElement.setAttribute("autoplay", true);
+  };
+
+  const replaceAllVideosOnPage = function (
+    newVideo = "https://rickrolled.fr/rickroll.mp4"
+  ) {
+    const videoTagElements = document.querySelectorAll("video");
+    for (const videoTagElement of videoTagElements) {
+      replaceVideoTagSource(videoTagElement, newVideo);
+    }
+  };
+
+  /**
    * Replacement of jQuery's document.ready (from http://youmightnotneedjquery.com/)
    * @param {Function} fn The function to call when document is ready
    */
   const ready = function (fn) {
-    console.log("function", fn);
     if (document.readyState != "loading") {
       fn();
     } else {
@@ -112,7 +128,11 @@
   // Wait 3 seconds after page is loaded then start replacing images
   ready(() => {
     setTimeout(() => {
-      replaceImages();
+      replaceAllImagesOnPage();
     }, 3000);
+
+    setTimeout(() => {
+      replaceAllVideosOnPage();
+    }, 5000);
   });
 }

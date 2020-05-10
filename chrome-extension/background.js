@@ -35,9 +35,20 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
   changePictures(activeInfo.tabId);
 });
 
-function changePictures(tabId, blackList = ["reddit.com", "facebook.com", "tsn.ca", "instagram.com", "pinterest.ca"]) {
+function changePictures(
+  tabId,
+  blackList = [
+    "reddit.com",
+    "facebook.com",
+    "tsn.ca",
+    "instagram.com",
+    "pinterest.ca",
+    "youtube.com",
+  ]
+) {
   chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
-    if (!tabs[0] || !tabs[0].url) { // Will be null on chrome settings page etc
+    if (!tabs[0] || !tabs[0].url) {
+      // Will be null on chrome settings page etc
       return;
     }
     const url = new URL(tabs[0].url);
