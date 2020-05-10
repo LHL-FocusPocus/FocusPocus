@@ -11,13 +11,13 @@
     return array;
   }
 
-  
   /**
    * Replaces all images from img tags and "background-image" css attributes
    * @param {String} newImg An image url to be used as the replacement
    */
   const replaceImages = function (
-    newImg = "https://memegen.link/bad/get_back_to_work/lazy_bum.jpg"
+    newImg = "https://memegen.link/bad/get_back_to_work/lazy_bum.jpg",
+    interval = 200
   ) {
     // Replace images specified by img tags
     const imgTagElements = Array.from(document.querySelectorAll("img"));
@@ -29,7 +29,7 @@
         imgTagElement.setAttribute("src", newImg);
         imgTagElement.setAttribute("data-src", newImg);
       }, timer);
-      timer += 1000;
+      timer += interval;
     }
 
     // Replace images specified by background-image css
@@ -39,8 +39,13 @@
         '[style*="background-image"]'
       )
     );
+    shuffle(backgroundImageElements);
+    let timer2 = 0;
     for (const bgImageElement of backgroundImageElements) {
-      bgImageElement.style.backgroundImage = `url("${newImg}")`;
+      setTimeout(() => {
+        bgImageElement.style.backgroundImage = `url("${newImg}")`;
+      }, timer2);
+      timer2 += interval;
     }
   };
 
@@ -52,5 +57,5 @@
       document.addEventListener("DOMContentLoaded", fn);
     }
   }
-  ready(replaceImages);
+  ready(replaceImages(undefined, 100));
 }
