@@ -1,4 +1,8 @@
 INSERT INTO websites
+  (id, hostname, name, category)
+VALUES
+  (0, 'other','other', 'other');
+INSERT INTO websites
   (hostname, name, category)
 VALUES
   ('reddit.com','Reddit', 'Internet Media');
