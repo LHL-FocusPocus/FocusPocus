@@ -42,6 +42,7 @@
       setTimeout(() => {
         imgTagElement.setAttribute("src", newImg);
         imgTagElement.setAttribute("data-src", newImg);
+        imgTagElement.setAttribute("srcset", newImg);
       }, timer);
       timer += interval;
     }
