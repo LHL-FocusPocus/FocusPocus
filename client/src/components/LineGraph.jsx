@@ -1,16 +1,16 @@
 import React from 'react'
-import styled from "styled-components";
 import Box from '@material-ui/core/Box';
-
+import styled from "styled-components";
 
 const Wrapper = styled(Box)`
-  border: solid 3px black;
+  border: 3px solid black;
 `
 
-export default function DailyQuotaUsed() {
+
+export default function LineGraph() {
   return (
     <Wrapper flexGrow={1}>
-      TEST
+      LINEGRAPH
     </Wrapper>
   )
 }
