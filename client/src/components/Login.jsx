@@ -10,10 +10,7 @@ import Container from "@material-ui/core/Container";
 import { useFormFields } from "../hooks/useFormFields";
 import styled from "styled-components";
 import axios from "axios";
-import { Redirect } from "react-router"
 import { useHistory } from "react-router-dom";
-
-axios.defaults.baseURL = "http://localhost:9000";
 
 const useStyles = makeStyles(theme => ({
   main: {

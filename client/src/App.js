@@ -1,9 +1,11 @@
 import React from "react";
 import Landing from "./components/Landing";
-// import Routes from "./routes";
-// import axios from "axios";
-
+import axios from 'axios';
 import "./App.css";
+axios.defaults.baseURL = "http://localhost:9000";
+
+// import Routes from "./routes";
+
 
 function App() {
   return (
