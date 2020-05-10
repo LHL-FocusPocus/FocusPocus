@@ -70,6 +70,7 @@ export default function SignUp() {
       .post("/api/login", credentials)
       .then(res => {
         console.log("sent");
+        console.log(res)
       })
       .catch(e => {
         console.log(e);

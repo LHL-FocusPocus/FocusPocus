@@ -1,24 +1,27 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
 module.exports = (db) => {
   const dbHelper = require("../helpers/dbHelper")(db);
   router.post("/login", (req, res) => {
-    console.log(req.body)
-
-    // const { email, password } = req.body.params
+    // console.log(req.body)
+    const { email, password } = req.body;
 
     // Using bcrypt to verify
     // Access the db and see if the user/pass exists
     // Return the user if success else return null
     // if successful, return the dashboard on react side
-    // dbHelper
-    //   .getUserWithEmail("a@a.com")
-    //   .then((user) => res.json(user))
-    //   .catch((e) => res.json(e));
+    dbHelper
+      .getUserWithEmail(email)
+      .then((user) => {
+        if (!user) {
+          res.status(404).send("This email doesn't exist.");
+        }
+        console.log(user)
+      })
+      .catch((e) => res.json(e));
 
-    // res.json({ Hello: "World!" });
 
     // Needs to make a query request to view if login/pass exists
   });
