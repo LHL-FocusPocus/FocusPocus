@@ -31,9 +31,9 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 });
 
 // Triggers when user goes to a different tab
-chrome.tabs.onActivated.addListener(function (activeInfo) {
-  changePictures(activeInfo.tabId);
-});
+// chrome.tabs.onActivated.addListener(function (activeInfo) {
+//   changePictures(activeInfo.tabId);
+// });
 
 function changePictures(
   tabId,

@@ -70,7 +70,7 @@
 
   // Wait 3 seconds after page is loaded then start replacing images
   ready(() => {
-    setTimeout(() => {
+    setInterval(() => {
       replaceAllImagesOnPage();
     }, 3000);
   });

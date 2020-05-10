@@ -13,10 +13,9 @@
     const videoTagElements = Array.from(document.querySelectorAll("video"));
 
     // Exclude already-replaced videos from being altered
-    const filteredVideoTagElements = videoTagElements.filter((element) =>
-      filterElements(element, newVideo)
+    const filteredVideoTagElements = videoTagElements.filter(
+      (element) => element.getAttribute("src") != newVideo
     );
-
     for (const videoTagElement of filteredVideoTagElements) {
       replaceVideoTagSource(videoTagElement, newVideo);
     }
@@ -24,7 +23,7 @@
 
   // Wait 5 seconds after page is loaded then start replacing images
   ready(() => {
-    setTimeout(() => {
+    setInterval(() => {
       replaceAllVideosOnPage();
     }, 5000);
   });
