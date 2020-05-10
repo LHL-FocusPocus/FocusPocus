@@ -1,28 +1,5 @@
 {
   console.log("executing changePictures");
-  /**
-   * Gets the element height (from http://youmightnotneedjquery.com/)
-   */
-  const getHeight = function (element) {
-    return parseFloat(getComputedStyle(element, null).height.replace("px", ""));
-  };
-
-  /**
-   * Function used to filter for only images that need to be changed.
-   * Excludes images that have already been changed, and also small icon images
-   * @param {Object} element
-   * @param {String} newImg The url of the replacement image
-   * @param {Number} minHeight
-   * @return Returns true if image fits criteria (needs to be changed)
-   */
-  const filterElements = function (element, newImg, minHeight = 50) {
-    return (
-      getHeight(element) > minHeight &&
-      ((element.getAttribute("src") && element.getAttribute("src") != newImg) ||
-        (element.style.backgroundImage &&
-          !element.style.backgroundImage.includes(newImg)))
-    );
-  };
 
   /**
    * Replaces src and similar attributes in img elements.
