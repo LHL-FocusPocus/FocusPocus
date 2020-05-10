@@ -4,6 +4,7 @@ module.exports = (db) => {
    * @param {String} email The email of the user.
    * @return {Promise<{}>} A promise to get the user object from db.
    */
+
   const getUserWithEmail = function (email) {
     return db
       .query(
@@ -124,7 +125,7 @@ module.exports = (db) => {
     });
   };
 
-  const getQuotaWithUserID = function (user_id) {
+  const getAllQuotasWithUserID = function (user_id) {
     return db
       .query(
         `
@@ -135,7 +136,7 @@ module.exports = (db) => {
       )
       .then((res) => {
         if (res.rows.length === 0) return null;
-        return res.rows[0];
+        return res.rows;
       });
   };
 
@@ -201,7 +202,7 @@ module.exports = (db) => {
         SELECT SUM(duration)
         FROM browse_times
         JOIN blacklists ON browse_times.website_id = blacklists.website_id
-        WHERE browse_times.user_id = $1
+        WHERE browse_times.user_id = 1
         AND datetime_start >= CURRENT_DATE
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
         GROUP BY browse_times.user_id;
@@ -214,22 +215,28 @@ module.exports = (db) => {
       });
   };
 
-  // Basic setup To-Do:
-  // Query to set quota - done
-  // Query to add website - done
-  // Query to add website to blacklist - done
-  // Query to get blacklisted websites for a user - done
-  // Query to get all websites - done
-  // Query to add user - done
-  // Query to get user - done
-  // Query to get user's quota - done
-  // Query to get a users browse times (along with additional info)
+  const getQuotaForTodayWithUserID = function (user_id) {
+    return db
+      .query(
+        `
+        SELECT * FROM quotas
+        WHERE user_id = 1
+        AND CURRENT_DATE >= date_valid_from
+        AND CURRENT_DATE < date_valid_until;
+    `,
+        [user_id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      });
+  };
 
   return {
     getUserWithEmail,
     getBlacklistedSitesWithUserID,
     getAllWebsites,
-    getQuotaWithUserID,
+    getAllQuotasWithUserID,
     getBrowseInfoWithUserID,
     addUser,
     addQuotaForUser,
@@ -238,5 +245,6 @@ module.exports = (db) => {
     addBrowseTimesToUserID,
     getTotalTimeForTodayByUserID,
     getTotalBlacklistTimeForTodayByUserID,
+    getQuotaForTodayWithUserID,
   };
 };
