@@ -44,6 +44,17 @@ const Message = styled.div`
   padding-bottom: 4em;
 `;
 
+// TODO: Push logout button to bottom of drawer -> can't get it to work without forcing it with margin (but irrelevant on full screen mode)
+const Logout = styled(List)`
+  ${'' /* margin-top: auto; */}
+  margin-top: 105%;
+`
+
+const Container = styled.div`
+  display: flex;
+  flex-flow: column nowrap
+`
+
 export default function Navbar() {
   const classes = useStyles();
   const [state, setState] = useState({
@@ -62,7 +73,7 @@ export default function Navbar() {
   };
 
   const list = anchor => (
-    <div
+    <Container
       className={classes.list}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
@@ -92,15 +103,15 @@ export default function Navbar() {
         ))}
       </List>
       <Divider />
-      <List>
-        <ListItem button key="logout">
+      <Logout>
+        <ListItem button id="logout">
           <ListItemIcon>
             <PowerSettingsNewIcon />
           </ListItemIcon>
           <ListItemText primary="Log Out" />
         </ListItem>
-      </List>
-    </div>
+      </Logout>
+    </Container>
   );
 
   return (
