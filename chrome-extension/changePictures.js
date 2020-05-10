@@ -1,6 +1,6 @@
 {
   /**
-   * Shuffles array
+   * Shuffles the provided array.
    * @param {Array} array An array containing the items.
    */
   const shuffle = function (array) {
@@ -11,29 +11,46 @@
     return array;
   };
 
-  // Gets the element height (from http://youmightnotneedjquery.com/)
+  /**
+   * Gets the element height (from http://youmightnotneedjquery.com/)
+   */
   const getHeight = function (element) {
     return parseFloat(getComputedStyle(element, null).height.replace("px", ""));
   };
 
-  // Function used to select only images to be changed. Min height is the
-  // only criteria for now
+  /**
+   * Function used to filter for only images to be changed. Min height is the
+   * only criteria for now.
+   * @param {Object} element
+   * @param {Number} minHeight
+   * @return Returns true if image fits criteria and needs to be changed
+   */
   const filterElements = function (element, minHeight = 50) {
     return getHeight(element) > minHeight;
   };
 
+  /**
+   * Replaces src and similar attributes in img elements.
+   */
   const replaceImgTagSource = function (imgTagElement, newImg) {
     imgTagElement.setAttribute("src", newImg);
     imgTagElement.setAttribute("data-src", newImg);
     imgTagElement.setAttribute("srcset", newImg);
   };
 
+  /**
+   * Replaces url of each background-image css attribute in elements that have
+   * the background-image attribute.
+   */
   const replaceBgImgTagSource = function (bgImageTagElement, newImg) {
     bgImageTagElement.style.backgroundImage = `url("${newImg}")`;
   };
+
   /**
    * Replaces all images from img tags and "background-image" css attributes
+   * on the current page in a set interval.
    * @param {String} newImg An image url to be used as the replacement
+   * @param {Number} interval Milliseconds between each image getting replaced
    */
   const replaceImages = function (
     newImg = "https://memegen.link/bad/get_back_to_work/lazy_bum.jpg",
@@ -46,6 +63,8 @@
       filterElements(element)
     );
     shuffle(filteredImgTagElements);
+
+    // Replace them in a set time interval
     let timer = 0;
     for (const imgTagElement of filteredImgTagElements) {
       setTimeout(() => {
@@ -57,10 +76,13 @@
     // Replace images specified by background-image css
     const bgImageElements = Array.from(
       document.querySelectorAll(
-        // *= matches all style attribute containing "background-image" in its value
+        // *= matches all style attributes containing "background-image"
+        // in its value
         '[style*="background-image"]'
       )
     );
+
+    // Ignore very small images
     const filteredBgImageElements = bgImageElements.filter((element) =>
       filterElements(element)
     );
@@ -74,7 +96,10 @@
     }
   };
 
-  // Replacement of jQuery's document.ready
+  /**
+   * Replacement of jQuery's document.ready (from http://youmightnotneedjquery.com/)
+   * @param {Function} fn The function to call when document is ready
+   */
   const ready = function (fn) {
     console.log("function", fn);
     if (document.readyState != "loading") {
