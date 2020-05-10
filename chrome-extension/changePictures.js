@@ -1,17 +1,5 @@
 {
   /**
-   * Shuffles the provided array.
-   * @param {Array} array An array containing the items.
-   */
-  const shuffle = function (array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  };
-
-  /**
    * Gets the element height (from http://youmightnotneedjquery.com/)
    */
   const getHeight = function (element) {
@@ -96,43 +84,10 @@
     }
   };
 
-  /**
-   * Replaces src and similar attributes in video elements.
-   */
-  const replaceVideoTagSource = function (videoTagElement, newVideo) {
-    videoTagElement.setAttribute("src", newVideo);    
-    videoTagElement.setAttribute("autoplay", true);
-  };
-
-  const replaceAllVideosOnPage = function (
-    newVideo = "https://rickrolled.fr/rickroll.mp4"
-  ) {
-    const videoTagElements = document.querySelectorAll("video");
-    for (const videoTagElement of videoTagElements) {
-      replaceVideoTagSource(videoTagElement, newVideo);
-    }
-  };
-
-  /**
-   * Replacement of jQuery's document.ready (from http://youmightnotneedjquery.com/)
-   * @param {Function} fn The function to call when document is ready
-   */
-  const ready = function (fn) {
-    if (document.readyState != "loading") {
-      fn();
-    } else {
-      document.addEventListener("DOMContentLoaded", fn);
-    }
-  };
-
   // Wait 3 seconds after page is loaded then start replacing images
   ready(() => {
     setTimeout(() => {
       replaceAllImagesOnPage();
     }, 3000);
-
-    setTimeout(() => {
-      replaceAllVideosOnPage();
-    }, 5000);
   });
 }

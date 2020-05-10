@@ -55,7 +55,9 @@ function changePictures(
     const domain = url.hostname.split("www.").join("");
 
     if (blackList.includes(domain)) {
+      chrome.tabs.executeScript(tabId, { file: "helpers.js" });
       chrome.tabs.executeScript(tabId, { file: "changePictures.js" });
+      chrome.tabs.executeScript(tabId, { file: "changeVideos.js" });
     }
   });
 }
