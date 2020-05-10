@@ -3,7 +3,7 @@ import SignUp from "./SignUp";
 import Login from "./Login";
 import LogoText from "./LogoText";
 import styled from "styled-components";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
