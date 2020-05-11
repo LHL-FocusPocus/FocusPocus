@@ -8,6 +8,25 @@ import Graph1 from "./Graphs/Graph1";
 import Graph2 from "./Graphs/Graph2";
 import Graph3 from "./Graphs/Graph3";
 
+import * as am4core from "@amcharts/amcharts4/core";
+import * as am4charts from "@amcharts/amcharts4/charts";
+import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import * as am4editor from '@amcharts/editor4';
+
+// const launcher = new am4editor.EditorLauncher();
+
+// launcher.addEventListener('save', this.renderChart);
+// launcher.addEventListener('close', () => {
+//     if (launcher) {
+//          launcher.close();
+//     }
+// });
+
+// launcher.launch();
+
+
+am4core.useTheme(am4themes_animated);
+
 const Container = styled(Box)`
   ${"" /* display: flex; */}
   ${'' /* flex-flow: row-wrap; */}
