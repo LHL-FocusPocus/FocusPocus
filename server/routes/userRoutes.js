@@ -46,7 +46,7 @@ module.exports = (db) => {
         if (!user) {
           return res.status(400).send("There was an issue registering.");
         }
-        // console.log("success")
+        console.log("successful registration");
         req.session.userId = user.id;
       })
       .catch((e) => console.error(e));
