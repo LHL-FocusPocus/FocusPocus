@@ -1,5 +1,6 @@
 {
-  console.log("executing changePictures");
+  let newImgGlobal =
+    "https://memegen.link/bad/get_back_to_work/you_lazy_bum.jpg";
 
   /**
    * Replaces src and similar attributes in img elements.
@@ -25,7 +26,7 @@
    * @param {Number} interval Milliseconds between each image getting replaced
    */
   const replaceAllImagesOnPage = function (
-    newImg = "https://memegen.link/bad/get_back_to_work/you_lazy_bum.jpg",
+    newImg = newImgGlobal,
     interval = 300
   ) {
     // Replace images specified by img tags

@@ -1,4 +1,5 @@
 {
+  let newVideoGlobal = "https://rickrolled.fr/rickroll.mp4";
   /**
    * Replaces src and similar attributes in video elements.
    */
@@ -7,9 +8,7 @@
     videoTagElement.setAttribute("autoplay", true);
   };
 
-  const replaceAllVideosOnPage = function (
-    newVideo = "https://rickrolled.fr/rickroll.mp4"
-  ) {
+  const replaceAllVideosOnPage = function (newVideo = newVideoGlobal) {
     const videoTagElements = Array.from(document.querySelectorAll("video"));
 
     // Exclude already-replaced videos from being altered
