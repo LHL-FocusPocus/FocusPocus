@@ -9,7 +9,7 @@ const Wrapper = styled(Box)`
   items-align: center;
   justify-content: center;
 
-  @media (max-width: 1500px) {
+  @media (max-width: 1300px) {
     order: 2;
     flex: 1 49%;
   }
