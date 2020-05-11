@@ -103,14 +103,15 @@ module.exports = (db) => {
   });
 
   router.get("/data", (req, res) => {
-    if (!req.session.userId) {
-      res.json({ Null: "Sign In" });
+    const userId = req.session.userId;
+    if (!userId) {
+      res.status(404).send("A user must be signed in!");
     } else {
       let data = {};
       // Getting users id & name
-      dbHelpergit
+      dbHelper
         // user email is hardcoded right now, this will need to be userEmail instead.
-        .getUserWithID(req.session.userId)
+        .getUserWithID(userId)
         .then((user) => {
           // res.json(user);
           data["first_name"] = user.first_name;
@@ -120,7 +121,7 @@ module.exports = (db) => {
         })
         // Getting users quotas for the day
         .then(() => {
-          return dbHelper.getQuotaForTodayWithUserID(req.session.userId);
+          return dbHelper.getQuotaForTodayWithUserID(userId);
         })
         .then((quota) => {
           data["time_allotment"] = quota.time_allotment;
@@ -130,7 +131,7 @@ module.exports = (db) => {
         })
         // Getting blacklisted sites for user
         .then(() => {
-          return dbHelper.getBlacklistedSitesWithUserID(req.session.userId);
+          return dbHelper.getBlacklistedSitesWithUserID(userId);
         })
         .then((blacklists) => {
           data["blacklisted_sites"] = blacklists;
@@ -138,7 +139,7 @@ module.exports = (db) => {
         })
         // Getting total browse history recorded for user
         .then(() => {
-          return dbHelper.getBrowseInfoWithUserID(req.session.userId);
+          return dbHelper.getBrowseInfoWithUserID(userId);
         })
         .then((browse_history) => {
           data["browse_history"] = browse_history;
@@ -146,7 +147,7 @@ module.exports = (db) => {
         })
         // Getting total time spent today browsing for user
         .then(() => {
-          return dbHelper.getTotalTimeForTodayByUserID(req.session.userId);
+          return dbHelper.getTotalTimeForTodayByUserID(userId);
         })
         .then((total_time) => {
           data["total_browse_time_today"] = total_time;
