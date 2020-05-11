@@ -21,6 +21,22 @@ module.exports = (db) => {
       });
   };
 
+  const getUserWithID = function (id) {
+    return db
+      .query(
+        `
+        SELECT * FROM users
+        WHERE id = $1
+        LIMIT 1;
+        `,
+        [id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      });
+  };
+
   const addUser = function (first_name, last_name, email, password) {
     return db
       .query(
@@ -248,6 +264,7 @@ module.exports = (db) => {
 
   return {
     getUserWithEmail,
+    getUserWithID,
     getBlacklistedSitesWithUserID,
     getAllWebsites,
     getAllQuotasWithUserID,
