@@ -72,8 +72,20 @@
 
   // Wait 3 seconds after page is loaded then start replacing images
   ready(() => {
-    setInterval(() => {
+    setTimeout(() => {
       replaceAllImagesOnPage();
+
+      // Set up listener for DOM changes
+      const targetNode = document.querySelector("body");
+      const observerOptions = {
+        childList: true,
+        subtree: true,
+      };
+
+      const observer = new MutationObserver(() => {
+        replaceAllImagesOnPage();
+      });
+      observer.observe(targetNode, observerOptions);
     }, 3000);
   });
 }
