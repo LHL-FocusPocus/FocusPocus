@@ -28,7 +28,7 @@
   const replaceAllImagesOnPage = function (
     newImg = newImgGlobal,
     interval = 300
-  ) {
+  ) {    
     // Replace images specified by img tags
     const imgTagElements = Array.from(document.querySelectorAll("img"));
     // Filter out small-sized images and already processed images
@@ -81,10 +81,13 @@
         childList: true,
         subtree: true,
       };
-
-      const observer = new MutationObserver(() => {
-        replaceAllImagesOnPage();
-      });
+      const observer = new MutationObserver(
+      // Debounce replacement script so it runs maximum of once every 0.5 s
+        debounce(() => {
+          replaceAllImagesOnPage();
+        }, 500)
+        // replaceAllImagesOnPage();
+      );
       observer.observe(targetNode, observerOptions);
     }, 3000);
   });

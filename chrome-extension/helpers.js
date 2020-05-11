@@ -60,4 +60,15 @@
       element.setAttribute("focuspocused", true);
     }
   }
+
+  /**
+   * Modifies the cb function so it is called max of once every [delay] ms
+   */
+  function debounce(cb, delay) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => cb(...args), delay);
+    };
+  }
 }
