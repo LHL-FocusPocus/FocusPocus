@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const Wrapper = styled(Box)`
   ${'' /* border: 3px solid black; */}
-  flex: 1 39vw;
+  flex: 1 40vw;
   display: flex;
   items-align: center;
   justify-content: center;
