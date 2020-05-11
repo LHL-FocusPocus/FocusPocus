@@ -108,7 +108,7 @@ module.exports = (db) => {
     } else {
       let data = {};
       // Getting users id & name
-      dbHelper
+      dbHelpergit
         // user email is hardcoded right now, this will need to be userEmail instead.
         .getUserWithID(req.session.userId)
         .then((user) => {
