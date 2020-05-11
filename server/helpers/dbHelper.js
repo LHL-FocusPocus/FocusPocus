@@ -59,8 +59,7 @@ module.exports = (db) => {
       .query(
         `
         SELECT * FROM websites;
-        `,
-        [id]
+        `
       )
       .then((res) => {
         if (res.rows.length === 0) return null;
@@ -232,6 +231,21 @@ module.exports = (db) => {
       });
   };
 
+  const getWebsiteIDByHostname = function (hostname) {
+    return db
+      .query(
+        `
+        SELECT id FROM websites
+        WHERE hostname = $1;
+        `,
+        [hostname]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      });
+  };
+
   return {
     getUserWithEmail,
     getBlacklistedSitesWithUserID,
@@ -246,5 +260,6 @@ module.exports = (db) => {
     getTotalTimeForTodayByUserID,
     getTotalBlacklistTimeForTodayByUserID,
     getQuotaForTodayWithUserID,
+    getWebsiteIDByHostname,
   };
 };
