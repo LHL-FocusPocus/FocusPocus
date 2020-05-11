@@ -103,15 +103,14 @@ module.exports = (db) => {
   });
 
   router.get("/data", (req, res) => {
-    // let userEmail;
+    console.log(req.session.userId);
     let data = {};
     // Getting users id & name
     dbHelper
       // user email is hardcoded right now, this will need to be userEmail instead.
-      .getUserWithEmail("a@a.com")
+      .getUserWithID(req.session.userId)
       .then((user) => {
         // res.json(user);
-        data["user_id"] = user.id;
         data["first_name"] = user.first_name;
         data["last_name"] = user.last_name;
         console.log(data);
@@ -119,7 +118,7 @@ module.exports = (db) => {
       })
       // Getting users quotas for the day
       .then(() => {
-        return dbHelper.getQuotaForTodayWithUserID(data.user_id);
+        return dbHelper.getQuotaForTodayWithUserID(req.session.userId);
       })
       .then((quota) => {
         data["time_allotment"] = quota.time_allotment;
@@ -129,7 +128,7 @@ module.exports = (db) => {
       })
       // Getting blacklisted sites for user
       .then(() => {
-        return dbHelper.getBlacklistedSitesWithUserID(data.user_id);
+        return dbHelper.getBlacklistedSitesWithUserID(req.session.userId);
       })
       .then((blacklists) => {
         data["blacklisted_sites"] = blacklists;
@@ -137,7 +136,7 @@ module.exports = (db) => {
       })
       // Getting total browse history recorded for user
       .then(() => {
-        return dbHelper.getBrowseInfoWithUserID(data.user_id);
+        return dbHelper.getBrowseInfoWithUserID(req.session.userId);
       })
       .then((browse_history) => {
         data["browse_history"] = browse_history;
@@ -145,7 +144,7 @@ module.exports = (db) => {
       })
       // Getting total time spent today browsing for user
       .then(() => {
-        return dbHelper.getTotalTimeForTodayByUserID(data.user_id);
+        return dbHelper.getTotalTimeForTodayByUserID(req.session.userId);
       })
       .then((total_time) => {
         data["total_browse_time_today"] = total_time;
@@ -153,7 +152,9 @@ module.exports = (db) => {
       })
       // Getting time spent today browsing blacklisted sites for user
       .then(() => {
-        return dbHelper.getTotalBlacklistTimeForTodayByUserID(data.user_id);
+        return dbHelper.getTotalBlacklistTimeForTodayByUserID(
+          req.session.userId
+        );
       })
       .then((bad_time) => {
         data["blacklisted_browse_time_today"] = bad_time;
