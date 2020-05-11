@@ -47,12 +47,14 @@ app.use(express.static("public"));
 const rootRoutes = require("./routes/rootRoutes");
 const userRoutes = require("./routes/userRoutes");
 const apiRoutes = require("./routes/apiRoutes");
+const dataRoutes = require("./routes/dataRoutes");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/", rootRoutes(db));
 app.use("/api", apiRoutes(db));
 app.use("/api/user", userRoutes(db));
+app.use("/api/data", dataRoutes(db));
 
 // to do routes:
 // login
