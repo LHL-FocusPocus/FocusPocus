@@ -6,7 +6,6 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 const Wrapper = styled(Box)`
-  ${"" /* border: 3px solid black; */}
   flex: 1 40vw;
   display: flex;
   items-align: center;
@@ -27,7 +26,6 @@ const Chart = styled.div`
 export default function LineGraph() {
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
-    // Themes end
 
     // Create chart instance
     var chart = am4core.create("line_chart", am4charts.XYChart);
@@ -43,7 +41,8 @@ export default function LineGraph() {
     // Add data
     // Data must in array with date&value keys
     // day 1 = arr[0], day 2 = arr[1], etc
-    // Need data for the last 30 days
+    // Need data for the last 30 days from today (including today)
+    // Time should be in MINUTES (since they're daily values - hours makes less sense)
     chart.data = [
       {
         date: "2020-04-26",
@@ -123,7 +122,7 @@ export default function LineGraph() {
 
     // Create series
     var series = chart.series.push(new am4charts.LineSeries());
-    series.tooltipText = "{date}\n[bold font-size: 17px]value: {valueY}[/]";
+    series.tooltipText = "[bold font-size: 17px]Minutes Spent: {valueY}[/]";
     series.dataFields.valueY = "time";
     series.dataFields.dateX = "date";
     series.strokeDasharray = 3;
