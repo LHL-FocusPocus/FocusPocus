@@ -22,12 +22,12 @@ const useStyles = makeStyles({
 });
 
 const Icon = styled.img`
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  ${'' /* height: 200px;
   object-fit: cover;
   padding: 0em 3.38em;
   margin-top: 1em;
-  border-radius: 100%;
+  border-radius: 100%; */}
 `;
 
 const Greeting = styled.div`
