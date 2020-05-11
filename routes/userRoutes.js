@@ -48,6 +48,7 @@ module.exports = (db) => {
         }
         console.log("successful registration");
         req.session.userId = user.id;
+        res.status(200).send("User created!");
       })
       .catch((e) => console.error(e));
   });
