@@ -66,6 +66,7 @@ module.exports = (db) => {
     let data = {};
     // Getting users id & name
     dbHelper
+      // user email is hardcoded right now, this will need to be userEmail instead.
       .getUserWithEmail("a@a.com")
       .then((user) => {
         // res.json(user);
@@ -124,9 +125,9 @@ module.exports = (db) => {
   });
 
   // Just a test route to test db queries and response
-  router.get("/test", (req, res) => {
-    dbHelper.getQuotaForTodayWithUserID("1").then((quota) => res.json(quota));
-  });
+  // router.get("/test", (req, res) => {
+  //   dbHelper.getQuotaForTodayWithUserID("1").then((quota) => res.json(quota));
+  // });
 
   return router;
 };
