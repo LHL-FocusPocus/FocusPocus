@@ -41,100 +41,74 @@ export default function LineGraph() {
     chart.scrollbarX = new am4core.Scrollbar();
 
     // Add data
+    // Data must in array with date&value keys
+    // day 1 = arr[0], day 2 = arr[1], etc
+    // Need data for the last 30 days
     chart.data = [
       {
-        date: "2012-01-01",
-        value: 8,
+        date: "2020-04-26",
+        time: 8,
       },
       {
-        date: "2012-01-02",
-        value: 10,
+        date: "2020-04-27",
+        time: 10,
       },
       {
-        date: "2012-01-03",
-        value: 12,
+        date: "2020-04-28",
+        time: 12,
       },
       {
-        date: "2012-01-04",
-        value: 14,
+        date: "2020-04-29",
+        time: 14,
       },
       {
-        date: "2012-01-05",
-        value: 11,
+        date: "2020-04-30",
+        time: 11,
       },
       {
-        date: "2012-01-06",
-        value: 6,
+        date: "2020-05-01",
+        time: 6,
       },
       {
-        date: "2012-01-07",
-        value: 7,
+        date: "2020-05-02",
+        time: 7,
       },
       {
-        date: "2012-01-08",
-        value: 9,
+        date: "2020-05-03",
+        time: 9,
       },
       {
-        date: "2012-01-09",
-        value: 13,
+        date: "2020-05-04",
+        time: 13,
       },
       {
-        date: "2012-01-10",
-        value: 15,
+        date: "2020-05-05",
+        time: 15,
       },
       {
-        date: "2012-01-11",
-        value: 19,
+        date: "2020-05-06",
+        time: 19,
       },
       {
-        date: "2012-01-12",
-        value: 21,
+        date: "2020-05-07",
+        time: 21,
       },
       {
-        date: "2012-01-13",
-        value: 22,
+        date: "2020-05-08",
+        time: 22,
       },
       {
-        date: "2012-01-14",
-        value: 20,
+        date: "2020-05-09",
+        time: 20,
       },
       {
-        date: "2012-01-15",
-        value: 18,
+        date: "2020-05-10",
+        time: 18,
       },
       {
-        date: "2012-01-16",
-        value: 14,
-      },
-      {
-        date: "2012-01-17",
-        value: 16,
-        opacity: 0,
-      },
-      {
-        date: "2012-01-18",
-        value: 18,
-      },
-      {
-        date: "2012-01-19",
-        value: 17,
-      },
-      {
-        date: "2012-01-20",
-        value: 15,
-      },
-      {
-        date: "2012-01-21",
-        value: 12,
-      },
-      {
-        date: "2012-01-22",
-        value: 10,
-      },
-      {
-        date: "2012-01-23",
-        value: 8,
-      },
+        date: "2020-05-11",
+        time: 14,
+      }
     ];
 
     // Create axes
@@ -150,7 +124,7 @@ export default function LineGraph() {
     // Create series
     var series = chart.series.push(new am4charts.LineSeries());
     series.tooltipText = "{date}\n[bold font-size: 17px]value: {valueY}[/]";
-    series.dataFields.valueY = "value";
+    series.dataFields.valueY = "time";
     series.dataFields.dateX = "date";
     series.strokeDasharray = 3;
     series.strokeWidth = 2;
@@ -167,40 +141,12 @@ export default function LineGraph() {
     var hoverState = bullet.states.create("hover");
     hoverState.properties.scale = 1.7;
 
-    function createTrendLine(data) {
-      var trend = chart.series.push(new am4charts.LineSeries());
-      trend.dataFields.valueY = "value";
-      trend.dataFields.dateX = "date";
-      trend.strokeWidth = 2;
-      trend.stroke = trend.fill = am4core.color("#c00");
-      trend.data = data;
-
-      var bullet = trend.bullets.push(new am4charts.CircleBullet());
-      bullet.tooltipText = "{date}\n[bold font-size: 17px]value: {valueY}[/]";
-      bullet.strokeWidth = 2;
-      bullet.stroke = am4core.color("#fff");
-      bullet.circle.fill = trend.stroke;
-
-      var hoverState = bullet.states.create("hover");
-      hoverState.properties.scale = 1.7;
-
-      return trend;
-    }
-
-    createTrendLine([
-      { date: "2012-01-02", value: 10 },
-      { date: "2012-01-11", value: 19 },
-    ]);
-
-    var lastTrend = createTrendLine([
-      { date: "2012-01-17", value: 16 },
-      { date: "2012-01-22", value: 10 },
-    ]);
-
     // Initial zoom once chart is ready
-    lastTrend.events.once("datavalidated", function () {
-      series.xAxis.zoomToDates(new Date(2012, 0, 2), new Date(2012, 0, 13));
+    chart.events.once("datavalidated", function () {
+      const today = new Date()
+      series.xAxis.zoomToDates(today.setDate(today.getDate() - 7), new Date());
     });
+
   }, []);
 
   return (
