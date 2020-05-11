@@ -14,7 +14,7 @@ import styled from "styled-components";
 
 const useStyles = makeStyles({
   list: {
-    width: 250,
+    width: 310,
   },
   fullList: {
     width: "auto",
@@ -22,7 +22,12 @@ const useStyles = makeStyles({
 });
 
 const Icon = styled.img`
-  width: 100%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  padding: 0em 3.38em;
+  margin-top: 1em;
+  border-radius: 100%;
 `;
 
 const Greeting = styled.div`
@@ -52,7 +57,9 @@ const Logout = styled(List)`
 
 const Container = styled.div`
   display: flex;
-  flex-flow: column nowrap
+  flex-flow: column nowrap;
+  background-color: rgba(72, 80, 87, 0.294);
+  height: 100%;
 `
 
 export default function Navbar() {
