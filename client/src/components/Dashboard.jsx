@@ -4,7 +4,7 @@ import styled from "styled-components";
 import DailyQuotaUsed from "./Graphs/DailyQuotaUsed";
 import Box from "@material-ui/core/Box";
 import LineGraph from "./Graphs/LineGraph";
-import Graph1 from "./Graphs/Graph1";
+import Donut from "./Graphs/Donut";
 import Graph2 from "./Graphs/Graph2";
 import Graph3 from "./Graphs/Graph3";
 
@@ -32,7 +32,7 @@ const Container = styled(Box)`
   ${'' /* flex-flow: row-wrap; */}
   ${"" /* padding: 3em; */}
   padding: 3em;
-  border: 3px solid green;
+  ${'' /* border: 3px solid green; */}
   height: 85.4vh;
 `;
 
@@ -47,7 +47,7 @@ export default function Dashboard() {
       <Container bgcolor="background.paper" flexWrap="wrap" display="flex">
         <DailyQuotaUsed />
         <LineGraph />
-        <Graph1 />
+        <Donut />
         <Graph2 />
         <Graph3 />
       </Container>

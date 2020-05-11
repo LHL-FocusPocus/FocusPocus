@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 
 
 const Wrapper = styled(Box)`
-  border: solid 3px black;
+  ${'' /* border: solid 3px black; */}
   flex: 1 33%;
   display: flex;
   items-align: center;

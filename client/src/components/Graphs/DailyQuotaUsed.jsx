@@ -6,7 +6,7 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 const Wrapper = styled(Box)`
-  border: solid 3px black;
+  ${'' /* border: solid 3px black; */}
   flex: 1 25%;
   display: flex;
   items-align: center;
