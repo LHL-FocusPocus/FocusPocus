@@ -16,6 +16,7 @@
     const filteredVideoTagElements = videoTagElements.filter(
       (element) => element.getAttribute("src") != newVideo
     );
+    tagElementsForReplacement(filteredVideoTagElements);
     for (const videoTagElement of filteredVideoTagElements) {
       replaceVideoTagSource(videoTagElement, newVideo);
     }

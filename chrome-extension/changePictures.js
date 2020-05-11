@@ -30,10 +30,11 @@
   ) {
     // Replace images specified by img tags
     const imgTagElements = Array.from(document.querySelectorAll("img"));
-    // Filter out small-sized images
+    // Filter out small-sized images and already processed images
     const filteredImgTagElements = imgTagElements.filter((element) =>
       filterElements(element, newImg)
     );
+    tagElementsForReplacement(filteredImgTagElements);
     shuffle(filteredImgTagElements);
 
     // Replace them in a set time interval

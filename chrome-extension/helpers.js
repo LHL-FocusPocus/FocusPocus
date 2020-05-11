@@ -29,7 +29,7 @@
   function getHeight(element) {
     const height = parseFloat(
       getComputedStyle(element, null).height.replace("px", "")
-    );    
+    );
     return height;
   }
 
@@ -43,10 +43,21 @@
    */
   function filterElements(element, newUrl, minHeight = 50) {
     return (
+      !element.getAttribute("focuspocused") &&
       getHeight(element) > minHeight &&
       ((element.getAttribute("src") && element.getAttribute("src") != newUrl) ||
         (element.style.backgroundImage &&
           !element.style.backgroundImage.includes(newUrl)))
     );
+  }
+
+  /**
+   * Tags a list of elements to let script know that they have already been
+   * processed for replacement
+   */
+  function tagElementsForReplacement(elements) {
+    for (element of elements) {
+      element.setAttribute("focuspocused", true);
+    }
   }
 }
