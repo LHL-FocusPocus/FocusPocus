@@ -29,7 +29,7 @@ export default function DailyQuotaUsed() {
     am4core.useTheme(am4themes_animated);
 
     var chart = am4core.create("dailyQuota", am4charts.GaugeChart);
-    chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
+    chart.hiddenState.properties.opacity = 0;
 
     chart.innerRadius = -25;
 

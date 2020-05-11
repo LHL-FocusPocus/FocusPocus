@@ -11,7 +11,6 @@ import Graph3 from "./Graphs/Graph3";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import * as am4editor from '@amcharts/editor4';
 
 // const launcher = new am4editor.EditorLauncher();
 
