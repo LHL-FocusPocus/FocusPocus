@@ -65,18 +65,34 @@ export default function DailyQuotaUsed() {
 
     var hand = chart.hands.push(new am4charts.ClockHand());
 
-    chart.data = [
-      {
-        name: "B",
-        value: 100,
-        disabled: true,
-      },
-      {
-        name: "A",
-        value: 100,
-      },
-    ];
+    // Percentage of quota used, eg. 1 hour / 2 hours = 50%
+    const wholeData = {
+      quotaToday: 50,
+      // user: { firstName, lastName },
+      
+    }
+
+    // Replace with real data
+    hand.showValue(wholeData.quotaToday);
+
   }, []);
+
+  // donut graph - todays browsing - how much time spent in differet
+  // total time spent browsing all sites
+  // each slice is one site
+
+  // radial -> hits per blocked site
+
+  // line -> 7 days, total time spent browsing bad sites
+  // go through values, see what highest is -> make that max in y axis
+
+
+  // dbHelper.getUserWithID(userId),
+  // dbHelper.getQuotaForTodayWithUserID(userId),
+  // dbHelper.getBlacklistedSitesWithUserID(userId),
+  // dbHelper.getBrowseInfoWithUserID(userId),
+  // dbHelper.getTotalTimeForTodayByUserID(userId),
+  // dbHelper.getTotalBlacklistTimeForTodayByUserID(userId),
 
 
   return (
