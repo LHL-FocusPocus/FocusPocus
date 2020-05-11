@@ -67,7 +67,7 @@ export default function SignUp(props) {
     };
 
     axios
-      .post("/api/user/login", credentials)
+      .post("/api/user/login", credentials, {withCredentials: true})
       .then((res) => {
         console.log(res)
         console.log("Successful login")

@@ -1,15 +1,16 @@
 import React from "react";
 import Landing from "./components/Landing";
-import axios from 'axios';
+import axios from "axios";
 import "./App.css";
 axios.defaults.baseURL = "http://localhost:9000";
+axios.defaults.withCredentials = true;
 
 // import Routes from "./routes";
 
 function App() {
   return (
     <div className="App">
-      <Landing  />
+      <Landing />
     </div>
   );
 }
