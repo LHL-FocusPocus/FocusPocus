@@ -39,7 +39,7 @@ export default function LogoText() {
     <Container>
       <Logo>Focus{/* <Icon src="/imgs/wand.png"/> */}Pocus</Logo>
 
-      <Tagline>Getting you focused through the power of a little magic.</Tagline>
+      <Tagline>Getting you focused with a little magic.</Tagline>
 
       <Text>We all know how easy it is to get distracted.</Text>
 
