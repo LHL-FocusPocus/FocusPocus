@@ -103,67 +103,70 @@ module.exports = (db) => {
   });
 
   router.get("/data", (req, res) => {
-    console.log(req.session.userId);
-    let data = {};
-    // Getting users id & name
-    dbHelper
-      // user email is hardcoded right now, this will need to be userEmail instead.
-      .getUserWithID(req.session.userId)
-      .then((user) => {
-        // res.json(user);
-        data["first_name"] = user.first_name;
-        data["last_name"] = user.last_name;
-        console.log(data);
-        return data;
-      })
-      // Getting users quotas for the day
-      .then(() => {
-        return dbHelper.getQuotaForTodayWithUserID(req.session.userId);
-      })
-      .then((quota) => {
-        data["time_allotment"] = quota.time_allotment;
-        data["date_quota_valid_from"] = quota.date_valid_from;
-        data["date_quota_valid_until"] = quota.date_valid_until;
-        return data;
-      })
-      // Getting blacklisted sites for user
-      .then(() => {
-        return dbHelper.getBlacklistedSitesWithUserID(req.session.userId);
-      })
-      .then((blacklists) => {
-        data["blacklisted_sites"] = blacklists;
-        return data;
-      })
-      // Getting total browse history recorded for user
-      .then(() => {
-        return dbHelper.getBrowseInfoWithUserID(req.session.userId);
-      })
-      .then((browse_history) => {
-        data["browse_history"] = browse_history;
-        return data;
-      })
-      // Getting total time spent today browsing for user
-      .then(() => {
-        return dbHelper.getTotalTimeForTodayByUserID(req.session.userId);
-      })
-      .then((total_time) => {
-        data["total_browse_time_today"] = total_time;
-        return data;
-      })
-      // Getting time spent today browsing blacklisted sites for user
-      .then(() => {
-        return dbHelper.getTotalBlacklistTimeForTodayByUserID(
-          req.session.userId
-        );
-      })
-      .then((bad_time) => {
-        data["blacklisted_browse_time_today"] = bad_time;
-        return data;
-      })
-      .then((data) => {
-        res.send(data);
-      })
-      .catch((err) => res.json(err));
+    if (!req.session.userId) {
+      res.json({ Null: "Sign In" });
+    } else {
+      let data = {};
+      // Getting users id & name
+      dbHelper
+        // user email is hardcoded right now, this will need to be userEmail instead.
+        .getUserWithID(req.session.userId)
+        .then((user) => {
+          // res.json(user);
+          data["first_name"] = user.first_name;
+          data["last_name"] = user.last_name;
+          console.log(data);
+          return data;
+        })
+        // Getting users quotas for the day
+        .then(() => {
+          return dbHelper.getQuotaForTodayWithUserID(req.session.userId);
+        })
+        .then((quota) => {
+          data["time_allotment"] = quota.time_allotment;
+          data["date_quota_valid_from"] = quota.date_valid_from;
+          data["date_quota_valid_until"] = quota.date_valid_until;
+          return data;
+        })
+        // Getting blacklisted sites for user
+        .then(() => {
+          return dbHelper.getBlacklistedSitesWithUserID(req.session.userId);
+        })
+        .then((blacklists) => {
+          data["blacklisted_sites"] = blacklists;
+          return data;
+        })
+        // Getting total browse history recorded for user
+        .then(() => {
+          return dbHelper.getBrowseInfoWithUserID(req.session.userId);
+        })
+        .then((browse_history) => {
+          data["browse_history"] = browse_history;
+          return data;
+        })
+        // Getting total time spent today browsing for user
+        .then(() => {
+          return dbHelper.getTotalTimeForTodayByUserID(req.session.userId);
+        })
+        .then((total_time) => {
+          data["total_browse_time_today"] = total_time;
+          return data;
+        })
+        // Getting time spent today browsing blacklisted sites for user
+        .then(() => {
+          return dbHelper.getTotalBlacklistTimeForTodayByUserID(
+            req.session.userId
+          );
+        })
+        .then((bad_time) => {
+          data["blacklisted_browse_time_today"] = bad_time;
+          return data;
+        })
+        .then((data) => {
+          res.send(data);
+        })
+        .catch((err) => res.json(err));
+    }
   });
 
   // Just a test route to test db queries and response
