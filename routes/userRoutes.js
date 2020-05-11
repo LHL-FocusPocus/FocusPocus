@@ -20,9 +20,7 @@ module.exports = (db) => {
       .getUserWithEmail(email)
       .then((user) => {
         if (!user) {
-          return res
-            .status(401)
-            .send("Login failed!");
+          return res.status(401).send("Login failed!");
         }
         if (bcrypt.compareSync(password, user.password)) {
           req.session.userId = user.id;
