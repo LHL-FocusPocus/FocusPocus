@@ -10,6 +10,7 @@ import Container from "@material-ui/core/Container";
 import { useFormFields } from "../hooks/useFormFields";
 import styled from "styled-components";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -48,14 +49,13 @@ const Img = styled.img`
   transform: translateY(-2em);
 `;
 
-export default function SignUp() {
+export default function SignUp(props) {
   const classes = useStyles();
+  // const { history } = props;
 
   const [fields, handleFieldChange] = useFormFields({
     email: "",
     password: "",
-    firstName: "",
-    lastName: "",
   });
 
   const handleSubmit = event => {
@@ -64,13 +64,12 @@ export default function SignUp() {
     const credentials = {
       email: fields.email,
       password: fields.password,
-      firstName: fields.firstName,
-      lastName: fields.lastName
     };
 
     axios
-      .post("/api/user/register", credentials)
-      .then(() => {
+      .post("/api/user/login", credentials, { withCredentials: true })
+      .then(res => {
+        console.log(res);
         console.log("Successful login");
         // history.push("/register") TODO: how to redirect after successful login?
       })
@@ -89,50 +88,23 @@ export default function SignUp() {
       <div className={classes.paper}>
         <Img src="/imgs/landing.png" alt="landing image"></Img>
         <Typography component="h1" variant="h5">
-          Sign up
+          Log In
         </Typography>
         <form
-          onSubmit={(e) => handleSubmit(e)}
+          onSubmit={e => handleSubmit(e)}
           className={classes.form}
           noValidate
         >
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                // name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                value={fields.firstName}
-                autoFocus
-                onChange={handleFieldChange}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                // name="lastName"
-                value={fields.lastName}
-                autoComplete="lname"
-                onChange={handleFieldChange}
-              />
-            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
                 fullWidth
                 id="email"
+                value={fields.email}
                 label="Email Address"
                 // name="email"
-                value={fields.email}
                 autoComplete="email"
                 onChange={handleFieldChange}
               />
@@ -144,9 +116,9 @@ export default function SignUp() {
                 fullWidth
                 // name="password"
                 label="Password"
+                value={fields.password}
                 type="password"
                 id="password"
-                value={fields.password}
                 autoComplete="current-password"
                 onChange={handleFieldChange}
               />
@@ -160,12 +132,12 @@ export default function SignUp() {
             className={classes.submit}
             disabled={!validateForm()}
           >
-            Sign Up
+            Log In
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/" variant="body2">
-                Already have an account? Sign in
+              <Link href="/register" variant="body2">
+                Don't have an account? Sign up
               </Link>
             </Grid>
           </Grid>
