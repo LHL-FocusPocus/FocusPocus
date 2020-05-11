@@ -100,7 +100,6 @@ export default function DailyQuotaUsed() {
   return (
     <Wrapper>
       <Chart id="dailyQuota">
-        Daily Quota
       </Chart>
     </Wrapper>
   );

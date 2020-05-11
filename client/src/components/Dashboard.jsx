@@ -5,26 +5,8 @@ import DailyQuotaUsed from "./Graphs/DailyQuotaUsed";
 import Box from "@material-ui/core/Box";
 import LineGraph from "./Graphs/LineGraph";
 import Donut from "./Graphs/Donut";
-import Graph2 from "./Graphs/Graph2";
+import Radial from "./Graphs/Radial";
 import Graph3 from "./Graphs/Graph3";
-
-import * as am4core from "@amcharts/amcharts4/core";
-import * as am4charts from "@amcharts/amcharts4/charts";
-import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-
-// const launcher = new am4editor.EditorLauncher();
-
-// launcher.addEventListener('save', this.renderChart);
-// launcher.addEventListener('close', () => {
-//     if (launcher) {
-//          launcher.close();
-//     }
-// });
-
-// launcher.launch();
-
-
-am4core.useTheme(am4themes_animated);
 
 const Container = styled(Box)`
   ${"" /* display: flex; */}
@@ -47,7 +29,7 @@ export default function Dashboard() {
         <DailyQuotaUsed />
         <LineGraph />
         <Donut />
-        <Graph2 />
+        <Radial />
         <Graph3 />
       </Container>
     </Background>

@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from "styled-components";
 import Box from '@material-ui/core/Box';
+import * as am4core from "@amcharts/amcharts4/core";
+import * as am4charts from "@amcharts/amcharts4/charts";
+import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 
 const Wrapper = styled(Box)`

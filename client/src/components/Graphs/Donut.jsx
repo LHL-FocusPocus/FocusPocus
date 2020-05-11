@@ -35,15 +35,15 @@ export default function Donut() {
 
     chart.data = [
       {
-        website: "www.reddit.com",
+        website: "Reddit",
         time: 50,
       },
       {
-        website: "www.facebook.com",
+        website: "Facebook",
         time: 30,
       },
       {
-        website: "www.twitter.com",
+        website: "Twitter",
         time: 20,
       },
       {
