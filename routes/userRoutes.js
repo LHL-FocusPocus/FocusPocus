@@ -12,21 +12,23 @@ const bcrypt = require("bcrypt");
 module.exports = (db) => {
   const dbHelper = require("../helpers/dbHelper")(db);
   router.post("/login", (req, res) => {
+    if (req.session.userId) {
+      console.log("Your user id is:", req.session.userId);
+    }
     const { email, password } = req.body;
     dbHelper
       .getUserWithEmail(email)
       .then((user) => {
         if (!user) {
-          return res.status(404).send("This email doesn't exist. Please create an account.");
+          return res
+            .status(401)
+            .send("Login failed!");
         }
         if (bcrypt.compareSync(password, user.password)) {
-          req.session.userId = user.id
-          console.log('success')
-          return res.session.userId
-
-          res.status(200)
+          req.session.userId = user.id;
+          res.status(200).send("Authenticated!");
         } else {
-          res.status(403).send("Incorrect password.")
+          res.status(401).send("Login failed!");
         }
       })
       .catch((e) => res.json(e));
@@ -34,21 +36,22 @@ module.exports = (db) => {
 
   router.post("/register", (req, res) => {
     // console.log(req.body)
-    const { firstName, lastName, email, password } = req.body
+    const { firstName, lastName, email, password } = req.body;
 
     if (!(firstName && lastName && email && password)) {
       return res.status(400).send("You must fill in all the fields.");
     }
-    const encryptedPassword = bcrypt.hashSync(password, 12)
-    dbHelper.addUser(firstName, lastName, email, encryptedPassword)
-    .then((user) => {
-      if (!user) {
-        return res.status(400).send("There was an issue registering.")
-      }
-      // console.log("success")
-      req.session.userId = user.id
-    })
-    .catch(e => console.error(e))
+    const encryptedPassword = bcrypt.hashSync(password, 12);
+    dbHelper
+      .addUser(firstName, lastName, email, encryptedPassword)
+      .then((user) => {
+        if (!user) {
+          return res.status(400).send("There was an issue registering.");
+        }
+        // console.log("success")
+        req.session.userId = user.id;
+      })
+      .catch((e) => console.error(e));
   });
 
   router.get("/", (req, res) => {
