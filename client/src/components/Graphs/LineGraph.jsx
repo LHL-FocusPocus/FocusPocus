@@ -4,13 +4,25 @@ import styled from "styled-components";
 
 const Wrapper = styled(Box)`
   border: 3px solid black;
+  flex: 1 39vw;
+  display: flex;
+  items-align: center;
+  justify-content: center;
+
+  @media (max-width: 1500px) {
+    flex: 1 100%;
+    order: 5;
+  }
 `
 
+const Chart = styled.div`
+  align-self: center;
+`
 
 export default function LineGraph() {
   return (
-    <Wrapper flexGrow={2}>
-      LINEGRAPH
+    <Wrapper>
+      <Chart>Line Graph</Chart>
     </Wrapper>
   )
 }

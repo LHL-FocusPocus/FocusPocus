@@ -10,7 +10,7 @@ import Graph3 from "./Graphs/Graph3";
 
 const Container = styled(Box)`
   ${"" /* display: flex; */}
-  flex-flow: row-wrap;
+  ${'' /* flex-flow: row-wrap; */}
   ${"" /* padding: 3em; */}
   padding: 3em;
   border: 3px solid green;
@@ -25,9 +25,12 @@ export default function Dashboard() {
   return (
     <Background>
       <Navbar />
-      <Container flexWrap="wrap" display="flex">
+      <Container bgcolor="background.paper" flexWrap="wrap" display="flex">
         <DailyQuotaUsed />
         <LineGraph />
+        <Graph1 />
+        <Graph2 />
+        <Graph3 />
       </Container>
     </Background>
   );
