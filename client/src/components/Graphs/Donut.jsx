@@ -7,7 +7,7 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 const Wrapper = styled(Box)`
   ${'' /* border: solid 3px black; */}
-  flex: 1 33%;
+  flex: 1 50%;
   display: flex;
   items-align: center;
   justify-content: center;
@@ -62,7 +62,7 @@ export default function Donut() {
 
   return (
     <Wrapper>
-      <Chart id="donutChart" style={{width: "100%", height: "90%"}}></Chart>
+      <Chart id="donutChart" style={{width: "100%", height: "300px"}}></Chart>
     </Wrapper>
   );
 }

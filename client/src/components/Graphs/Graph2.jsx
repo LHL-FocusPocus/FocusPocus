@@ -4,14 +4,14 @@ import Box from '@material-ui/core/Box';
 
 const Wrapper = styled(Box)`
   ${'' /* border: solid 3px black; */}
-  flex: 1 33%; 
+  flex: 1 50%; 
   display: flex;
   items-align: center;
   justify-content: center;
 
   @media (max-width: 1300px) {
     order: 2;
-    flex: 1 49%;
+    flex: 1 100%;
   }
 `
 

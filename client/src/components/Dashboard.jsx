@@ -33,7 +33,7 @@ const Container = styled(Box)`
   ${"" /* padding: 3em; */}
   padding: 3em;
   ${'' /* border: 3px solid green; */}
-  height: 85.4vh;
+  height: 100vh;
 `;
 
 const Background = styled.div`
