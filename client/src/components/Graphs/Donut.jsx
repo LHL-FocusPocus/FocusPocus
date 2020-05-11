@@ -11,6 +11,7 @@ const Wrapper = styled(Box)`
   display: flex;
   items-align: center;
   justify-content: center;
+  ${'' /* padding: 3em; */}
 
   @media (max-width: 1300px) {
     flex: 1 40%;
@@ -20,6 +21,8 @@ const Wrapper = styled(Box)`
 
 const Chart = styled.div`
   align-self: center;
+  width: 100%;
+  height: 110%;
 `;
 
 export default function Donut() {
@@ -50,6 +53,7 @@ export default function Donut() {
 
     chart.innerRadius = am4core.percent(40);
     chart.depth = 120;
+    // chart.scale = 0.9;
 
     var series = chart.series.push(new am4charts.PieSeries3D());
     series.dataFields.value = "time";
@@ -62,7 +66,7 @@ export default function Donut() {
 
   return (
     <Wrapper>
-      <Chart id="donutChart" style={{width: "100%", height: "300px"}}></Chart>
+      <Chart id="donutChart"></Chart>
     </Wrapper>
   );
 }

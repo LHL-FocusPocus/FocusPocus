@@ -20,13 +20,15 @@ const Wrapper = styled(Box)`
 
 const Chart = styled.div`
   align-self: center;
+  width: 80%;
+  height: 80%;
 `;
 
 export default function DailyQuotaUsed() {
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
 
-    var chart = am4core.create("chartdiv", am4charts.GaugeChart);
+    var chart = am4core.create("dailyQuota", am4charts.GaugeChart);
     chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
 
     chart.innerRadius = -25;
@@ -97,8 +99,7 @@ export default function DailyQuotaUsed() {
 
   return (
     <Wrapper>
-      {/* TODO: move style to styled component */}
-      <Chart id="chartdiv" style={{ width: "80%", height: "80%" }}>
+      <Chart id="dailyQuota">
         Daily Quota
       </Chart>
     </Wrapper>
