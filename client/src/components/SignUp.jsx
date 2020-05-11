@@ -48,8 +48,9 @@ const Img = styled.img`
   transform: translateY(-2em);
 `;
 
-export default function SignUp() {
+export default function SignUp(props) {
   const classes = useStyles();
+  const { history } = props;
 
   const [fields, handleFieldChange] = useFormFields({
     email: "",
@@ -70,9 +71,10 @@ export default function SignUp() {
 
     axios
       .post("/api/user/register", credentials)
-      .then(() => {
+      .then((res) => {
+        console.log(res)
         console.log("Successful login");
-        // history.push("/register") TODO: how to redirect after successful login?
+        history.push("/dashboard")
       })
       .catch(e => {
         console.error(e);

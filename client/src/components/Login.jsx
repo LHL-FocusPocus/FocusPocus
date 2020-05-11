@@ -10,7 +10,6 @@ import Container from "@material-ui/core/Container";
 import { useFormFields } from "../hooks/useFormFields";
 import styled from "styled-components";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -49,9 +48,9 @@ const Img = styled.img`
   transform: translateY(-2em);
 `;
 
-export default function SignUp(props) {
+export default function Login(props) {
   const classes = useStyles();
-  // const { history } = props;
+  const { history } = props;
 
   const [fields, handleFieldChange] = useFormFields({
     email: "",
@@ -71,7 +70,7 @@ export default function SignUp(props) {
       .then(res => {
         console.log(res);
         console.log("Successful login");
-        // history.push("/register") TODO: how to redirect after successful login?
+        history.push("/dashboard");
       })
       .catch(e => {
         console.error(e);
