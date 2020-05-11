@@ -67,10 +67,10 @@ export default function SignUp(props) {
     };
 
     axios
-      .post("/api/user/login", credentials, {withCredentials: true})
-      .then((res) => {
-        console.log(res)
-        console.log("Successful login")
+      .post("/api/user/login", credentials, { withCredentials: true })
+      .then(res => {
+        console.log(res);
+        console.log("Successful login");
         // history.push("/register") TODO: how to redirect after successful login?
       })
       .catch(e => {
