@@ -30,7 +30,7 @@ export default function Donut() {
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
 
-    var chart = am4core.create("donutChart", am4charts.PieChart3D);
+    const chart = am4core.create("donutChart", am4charts.PieChart3D);
     chart.hiddenState.properties.opacity = 0;
 
     chart.data = [
@@ -57,7 +57,7 @@ export default function Donut() {
     // chart.scale = 0.75;
     // chart.resize = 50
 
-    var series = chart.series.push(new am4charts.PieSeries3D());
+    const series = chart.series.push(new am4charts.PieSeries3D());
     series.dataFields.value = "time";
     series.dataFields.depthValue = "time";
     series.dataFields.category = "website";

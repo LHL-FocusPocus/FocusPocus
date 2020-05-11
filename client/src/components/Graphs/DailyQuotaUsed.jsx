@@ -28,12 +28,12 @@ export default function DailyQuotaUsed() {
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
 
-    var chart = am4core.create("dailyQuota", am4charts.GaugeChart);
+    const chart = am4core.create("dailyQuota", am4charts.GaugeChart);
     chart.hiddenState.properties.opacity = 0;
 
     chart.innerRadius = -25;
 
-    var axis = chart.xAxes.push(new am4charts.ValueAxis());
+    const axis = chart.xAxes.push(new am4charts.ValueAxis());
     axis.min = 0;
     axis.max = 100;
     axis.strictMinMax = true;
@@ -42,30 +42,30 @@ export default function DailyQuotaUsed() {
     );
     axis.renderer.grid.template.strokeOpacity = 0.3;
 
-    var colorSet = new am4core.ColorSet();
+    const colorSet = new am4core.ColorSet();
 
-    var range0 = axis.axisRanges.create();
+    const range0 = axis.axisRanges.create();
     range0.value = 0;
     range0.endValue = 60;
     range0.axisFill.fillOpacity = 1;
     range0.axisFill.fill = colorSet.getIndex(0);
     range0.axisFill.zIndex = -1;
 
-    var range1 = axis.axisRanges.create();
+    const range1 = axis.axisRanges.create();
     range1.value = 60;
     range1.endValue = 80;
     range1.axisFill.fillOpacity = 1;
     range1.axisFill.fill = colorSet.getIndex(12);
     range1.axisFill.zIndex = -1;
 
-    var range2 = axis.axisRanges.create();
+    const range2 = axis.axisRanges.create();
     range2.value = 80;
     range2.endValue = 100;
     range2.axisFill.fillOpacity = 1;
     range2.axisFill.fill = colorSet.getIndex(8);
     range2.axisFill.zIndex = -1;
 
-    var hand = chart.hands.push(new am4charts.ClockHand());
+    const hand = chart.hands.push(new am4charts.ClockHand());
 
     // Percentage of quota used, eg. 1 hour / 2 hours = 50%
     const wholeData = {

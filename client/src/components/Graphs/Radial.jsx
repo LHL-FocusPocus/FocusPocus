@@ -30,63 +30,63 @@ export default function Radial() {
     am4core.useTheme(am4themes_material);
     am4core.useTheme(am4themes_animated);
 
-    var chart = am4core.create("radial-chart", am4charts.RadarChart);
+    const chart = am4core.create("radial-chart", am4charts.RadarChart);
 
     // Just the blacklisted sites
     // Preferably how many times you went to the site
     // Over a week period makes more sense (not much data over a day period)
     chart.data = [
       {
-        country: "Reddit",
+        website: "Reddit",
         visits: 15,
       },
       {
-        country: "Facebook",
+        website: "Facebook",
         visits: 12,
       },
       {
-        country: "Twitter",
+        website: "Twitter",
         visits: 2,
       },
       {
-        country: "ESPN",
+        website: "ESPN",
         visits: 7,
       },
       {
-        country: "CNN",
+        website: "CNN",
         visits: 9,
       },
       {
-        country: "Tumblr",
+        website: "Tumblr",
         visits: 1,
       },
       {
-        country: "Instagram",
+        website: "Instagram",
         visits: 4,
       },
     ];
 
-    chart.innerRadius = am4core.percent(40);
+    chart.innerRadius = am4core.percent(30);
 
-    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    const categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.renderer.grid.template.location = 0;
-    categoryAxis.dataFields.category = "country";
+    categoryAxis.dataFields.category = "website";
     categoryAxis.renderer.minGridDistance = 60;
     categoryAxis.renderer.inversed = true;
     categoryAxis.renderer.labels.template.location = 0.5;
     categoryAxis.renderer.grid.template.strokeOpacity = 0.08;
 
-    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.min = 0;
     valueAxis.extraMax = 0.1;
     valueAxis.renderer.grid.template.strokeOpacity = 0.08;
 
     chart.seriesContainer.zIndex = -10;
 
-    var series = chart.series.push(new am4charts.RadarColumnSeries());
-    series.dataFields.categoryX = "country";
+    const series = chart.series.push(new am4charts.RadarColumnSeries());
+    series.dataFields.categoryX = "website";
     series.dataFields.valueY = "visits";
-    series.tooltipText = "{valueY.value}";
+    series.tooltipText = "Hits: {valueY.value}";
     series.columns.template.strokeOpacity = 0;
     series.columns.template.radarColumn.cornerRadius = 5;
     series.columns.template.radarColumn.innerCornerRadius = 0;

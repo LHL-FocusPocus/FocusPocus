@@ -28,7 +28,7 @@ export default function LineGraph() {
     am4core.useTheme(am4themes_animated);
 
     // Create chart instance
-    var chart = am4core.create("line_chart", am4charts.XYChart);
+    const chart = am4core.create("line_chart", am4charts.XYChart);
 
     // Enable chart cursor
     chart.cursor = new am4charts.XYCursor();
@@ -111,17 +111,17 @@ export default function LineGraph() {
     ];
 
     // Create axes
-    var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+    const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.grid.template.location = 0.5;
     dateAxis.dateFormatter.inputDateFormat = "yyyy-MM-dd";
     dateAxis.renderer.minGridDistance = 40;
     dateAxis.tooltipDateFormat = "MMM dd, yyyy";
     dateAxis.dateFormats.setKey("day", "dd");
 
-    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
     // Create series
-    var series = chart.series.push(new am4charts.LineSeries());
+    const series = chart.series.push(new am4charts.LineSeries());
     series.tooltipText = "[bold font-size: 17px]Minutes Spent: {valueY}[/]";
     series.dataFields.valueY = "time";
     series.dataFields.dateX = "date";
@@ -130,14 +130,14 @@ export default function LineGraph() {
     series.strokeOpacity = 0.3;
     series.strokeDasharray = "3,3";
 
-    var bullet = series.bullets.push(new am4charts.CircleBullet());
+    const bullet = series.bullets.push(new am4charts.CircleBullet());
     bullet.strokeWidth = 2;
     bullet.stroke = am4core.color("#fff");
     bullet.setStateOnChildren = true;
     bullet.propertyFields.fillOpacity = "opacity";
     bullet.propertyFields.strokeOpacity = "opacity";
 
-    var hoverState = bullet.states.create("hover");
+    const hoverState = bullet.states.create("hover");
     hoverState.properties.scale = 1.7;
 
     // Initial zoom once chart is ready
