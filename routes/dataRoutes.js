@@ -28,18 +28,18 @@ module.exports = (db) => {
       dbHelper.getMonthBlacklistBrowsingInfoForChart(userId),
       dbHelper.getTimeForLeaderboardWeek(),
       dbHelper.getTimeForShameboardWeek(),
-      dbHelper.getHitsForBlacklistedSiteForToday(userId)
+      dbHelper.getHitsForBlacklistedSiteForPastWeek(userId),
     ]).then((all) => {
       // all is now an array of data that each promise returns
       userData["user"] = all[0];
       userData["quota_today"] = {
-        "allotment": all[1].time_allotment,
-        "used": all[5].sum,
-        "all_browse_time": all[4].sum
-      }
+        allotment: all[1].time_allotment,
+        used: all[5].sum,
+        all_browse_time: all[4].sum,
+      };
       // Currently all[2] is not used -> might be useful later
       // console.log(all[2])
-      userData["radialGraph"] = all[9]
+      userData["radialGraph"] = all[9];
       userData["donutGraph"] = createDonutData(all[3]);
       userData["lineGraph"] = createChartData(all[6]);
       userData["leaderboard"] = createBoardData(all[7]);
