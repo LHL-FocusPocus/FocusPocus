@@ -74,21 +74,7 @@
   ready(() => {
     setTimeout(() => {
       replaceAllImagesOnPage();
-
-      // Set up listener for DOM changes
-      const targetNode = document.querySelector("body");
-      const observerOptions = {
-        childList: true,
-        subtree: true,
-      };
-      const observer = new MutationObserver(
-      // Debounce replacement script so it runs maximum of once every 0.5 s
-        debounce(() => {
-          replaceAllImagesOnPage();
-        }, 500)
-        // replaceAllImagesOnPage();
-      );
-      observer.observe(targetNode, observerOptions);
+      onNewElementLoaded("body", replaceAllImagesOnPage);
     }, 3000);
   });
 }

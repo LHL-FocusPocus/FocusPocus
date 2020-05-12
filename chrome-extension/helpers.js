@@ -71,4 +71,25 @@
       timer = setTimeout(() => cb(...args), delay);
     };
   }
+
+  /**
+   * Set up listener for DOM change event when new elements are added, such
+   * as on sites with infinite scrolling.
+   * @param {String} element The parent element to listen for changes
+   * @param {Function} cb The callback function
+   */
+  function onNewElementLoaded(element, cb) {
+    const targetNode = document.querySelector(element);
+    const observerOptions = {
+      childList: true,
+      subtree: true,
+    };
+    const observer = new MutationObserver(
+      // Debounce cb so it runs maximum of once every 0.5 s
+      debounce(() => {
+        cb();
+      }, 500)
+    );
+    observer.observe(targetNode, observerOptions);
+  }
 }
