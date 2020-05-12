@@ -119,21 +119,36 @@
    * as on sites with infinite scrolling.
    * @param {String} element The parent element to listen for changes
    * @param {Function} cb The callback function
+   * @param {Number} minInterval Time in ms to use for throttling
    */
-  function onNewElementLoaded(element, cb) {
+  function onNewElementLoaded(
+    element,
+    cb,
+    minInterval = 1000,
+    useDebounce = false
+  ) {
     const targetNode = document.querySelector(element);
     const observerOptions = {
       childList: true,
       attributes: true,
       subtree: true,
     };
-    const observer = new MutationObserver(
-      // Throttle cb so it runs maximum of once every second instead of on
-      // every element added, which could be dozens of times per second
-      throttle(() => {
-        cb();
-      }, 1000)
-    );
+    let observer;
+    if (useDebounce) {
+      observer = new MutationObserver(
+        debounce(() => {
+          cb();
+        }, minInterval)
+      );
+    } else {
+      observer = new MutationObserver(
+        // Throttle cb so it runs maximum of once every second instead of on
+        // every element added, which could be dozens of times per second
+        throttle(() => {
+          cb();
+        }, minInterval)
+      );
+    }
     observer.observe(targetNode, observerOptions);
   }
 }

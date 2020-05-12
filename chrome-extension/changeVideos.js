@@ -27,7 +27,7 @@
       // Set up listener for DOM changes (infinite scroll websites)
       onNewElementLoaded("body", () => {
         replaceAllVideosOnPage();
-      });
+      }, 5000, true);
     }, 5000);
   });
 }
