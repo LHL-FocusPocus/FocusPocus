@@ -73,10 +73,6 @@ const createBoardData = function (data) {
 };
 
 const toMinutes = ({ hours, minutes, seconds }) => {
-  // console.log("hours", hours)
-  // console.log('minutes', minutes)
-  // console.log('seconds', seconds)
-
   let total = 0;
   if (hours) {
     total += hours * 60;
@@ -87,7 +83,6 @@ const toMinutes = ({ hours, minutes, seconds }) => {
   if (seconds) {
     total += seconds / 60;
   }
-  // console.log('total', total)
   return total;
 };
 
