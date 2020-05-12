@@ -314,8 +314,8 @@ module.exports = (db) => {
         WHERE datetime_start >= CURRENT_DATE - INTERVAL '7 days'
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
         GROUP BY name
-        ORDER BY time
-        ASC LIMIT 10;
+        ORDER BY time DESC
+        LIMIT 6;
         `
       )
       .then((res) => {
@@ -336,7 +336,7 @@ module.exports = (db) => {
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
         GROUP BY name
         ORDER BY time
-        DESC LIMIT 10;
+        ASC LIMIT 6;
         `
       )
       .then((res) => {

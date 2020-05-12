@@ -72,26 +72,8 @@ const createBoardData = function (data) {
   return boardArr;
 };
 
-const toMinutes = ({ hours, minutes, seconds }) => {
-  let total = 0;
-  if (hours) {
-    total += hours * 60;
-  }
-  if (minutes) {
-    total += minutes;
-  }
-  if (seconds) {
-    total += seconds / 60;
-  }
-  return total;
-};
-
 module.exports = {
   createDonutData,
   createChartData,
   createBoardData,
-  toMinutes,
 };
-
-// Can create one function for createChart/donut/board data, and pass in the wanted keys (eg. "name" , "date", "website")
-// Added a toMinutes function for just the day data
