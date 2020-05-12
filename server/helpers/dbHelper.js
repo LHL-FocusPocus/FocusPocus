@@ -18,7 +18,8 @@ module.exports = (db) => {
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows[0];
-      });
+      })
+      .catch((err) => err);
   };
 
   const getUserWithID = function (id) {
@@ -34,7 +35,8 @@ module.exports = (db) => {
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows[0];
-      });
+      })
+      .catch((err) => err);
   };
 
   const addUser = function (first_name, last_name, email, password) {
@@ -50,7 +52,8 @@ module.exports = (db) => {
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows[0];
-      });
+      })
+      .catch((err) => err);
   };
 
   const getBlacklistedSitesWithUserID = function (id) {
@@ -67,7 +70,8 @@ module.exports = (db) => {
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows;
-      });
+      })
+      .catch((err) => err);
   };
 
   const getAllWebsites = function () {
@@ -80,7 +84,8 @@ module.exports = (db) => {
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows;
-      });
+      })
+      .catch((err) => err);
   };
 
   const addWebsite = function (hostname, name, category) {
@@ -96,7 +101,8 @@ module.exports = (db) => {
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows[0];
-      });
+      })
+      .catch((err) => err);
   };
 
   const addWebsiteToBlacklist = function (user_id, website_id) {
@@ -112,7 +118,8 @@ module.exports = (db) => {
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows[0];
-      });
+      })
+      .catch((err) => err);
   };
 
   const addQuotaForUser = function (
@@ -134,10 +141,13 @@ module.exports = (db) => {
       queryParams.push(date_valid_from, date_valid_until);
     }
 
-    return db.query(queryString, queryParams).then((res) => {
-      if (res.rows.length === 0) return null;
-      return res.rows[0];
-    });
+    return db
+      .query(queryString, queryParams)
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      })
+      .catch((err) => err);
   };
 
   const getAllQuotasWithUserID = function (user_id) {
@@ -152,7 +162,8 @@ module.exports = (db) => {
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows;
-      });
+      })
+      .catch((err) => err);
   };
 
   const getBrowseInfoWithUserID = function (user_id) {
@@ -172,7 +183,8 @@ module.exports = (db) => {
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows;
-      });
+      })
+      .catch((err) => err);
   };
 
   const addBrowseTimesToUserID = function (user_id, website_id, duration) {
@@ -188,7 +200,8 @@ module.exports = (db) => {
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows[0];
-      });
+      })
+      .catch((err) => err);
   };
 
   const getTotalTimeForTodayByUserID = function (user_id) {
@@ -207,7 +220,8 @@ module.exports = (db) => {
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows[0];
-      });
+      })
+      .catch((err) => err);
   };
 
   const getTotalBlacklistTimeForTodayByUserID = function (user_id) {
@@ -227,7 +241,8 @@ module.exports = (db) => {
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows[0];
-      });
+      })
+      .catch((err) => err);
   };
 
   const getQuotaForTodayWithUserID = function (user_id) {
@@ -244,7 +259,8 @@ module.exports = (db) => {
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows[0];
-      });
+      })
+      .catch((err) => err);
   };
 
   const getWebsiteIDByHostname = function (hostname) {
@@ -259,7 +275,8 @@ module.exports = (db) => {
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows[0];
-      });
+      })
+      .catch((err) => err);
   };
 
   const getBrowseInfoTodayForDashboard = function (user_id) {
@@ -280,7 +297,8 @@ module.exports = (db) => {
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows;
-      });
+      })
+      .catch((err) => err);
   };
 
   const getMonthBlacklistBrowsingInfoForChart = function (user_id) {
@@ -300,7 +318,8 @@ module.exports = (db) => {
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows;
-      });
+      })
+      .catch((err) => err);
   };
 
   const getTimeForLeaderboardWeek = function () {
@@ -321,7 +340,8 @@ module.exports = (db) => {
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows;
-      });
+      })
+      .catch((err) => err);
   };
 
   const getTimeForShameboardWeek = function () {
@@ -342,7 +362,8 @@ module.exports = (db) => {
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows;
-      });
+      })
+      .catch((err) => err);
   };
 
   const getHitsForBlacklistedSiteForPastWeek = (user_id) => {
@@ -362,7 +383,8 @@ module.exports = (db) => {
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows;
-      });
+      })
+      .catch((err) => err);
   };
 
   return {
