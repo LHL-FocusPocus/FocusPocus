@@ -34,15 +34,18 @@ setInterval(() => {
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (changeInfo.status === "complete" && tab.active) {
     console.log("timer was at", timerInSeconds);
+    console.log("tab id was", tabId);
     timerInSeconds = 0;
     changePictures(tabId);
   }
 });
 
 // Triggers when user goes to a different tab
-// chrome.tabs.onActivated.addListener(function (activeInfo) {
-//   changePictures(activeInfo.tabId);
-// });
+chrome.tabs.onActivated.addListener(function (activeInfo) {
+  console.log("timer was at", timerInSeconds);
+  console.log("tab id was", activeInfo.tabId);
+  timerInSeconds = 0;  
+});
 
 /**
  * Checks if current tab's url is on the blacklist then injects content
