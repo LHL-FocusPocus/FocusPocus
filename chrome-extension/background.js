@@ -33,19 +33,37 @@ setInterval(() => {
 // Triggers when page loads in current tab
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (changeInfo.status === "complete" && tab.active) {
-    console.log("timer was at", timerInSeconds);
-    console.log("tab id was", tabId);
-    timerInSeconds = 0;
+    handleTimerWithTabId(tabId);
     changePictures(tabId);
   }
 });
 
 // Triggers when user goes to a different tab
 chrome.tabs.onActivated.addListener(function (activeInfo) {
-  console.log("timer was at", timerInSeconds);
-  console.log("tab id was", activeInfo.tabId);
-  timerInSeconds = 0;  
+  handleTimerWithTabId(activeInfo.tabId);
 });
+
+function handleTimerWithTabId(tabId) {
+  chrome.tabs.get(tabId, (tab) => {
+    console.log("timer was at", timerInSeconds);
+    console.log("tab id was", tabId);
+    console.log("domain was", tab.url);
+    timerInSeconds = 0;
+  });
+}
+
+function getDomainFromCurrentTab() {
+  let domain;
+  chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+    // Will be null on chrome settings page etc
+    if (!tabs[0] || !tabs[0].url) {
+      domain = "other";
+    }
+    const url = new URL(tabs[0].url);
+    domain = url.hostname.split("www.").join("");
+  });
+  return domain;
+}
 
 /**
  * Checks if current tab's url is on the blacklist then injects content
