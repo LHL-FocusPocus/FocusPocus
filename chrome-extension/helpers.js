@@ -122,16 +122,10 @@
    * @param {Number} minInterval Time in ms to use for throttling/debounce
    * @param {Boolean} useDebounce Set to true to guarantee min delay delay
    */
-  function addListeners(
-    element,
-    cb,
-    minInterval = 1000,
-    useDebounce = false
-  ) {
+  function addListeners(element, cb, minInterval = 1000, useDebounce = false) {
     const targetNode = document.querySelector(element);
     const observerOptions = {
-      childList: true,
-      attributes: true,
+      childList: true,      
       subtree: true,
     };
     let observer;
@@ -153,10 +147,11 @@
     observer.observe(targetNode, observerOptions);
 
     // Add click listener to solve instagram like-button bug
-    targetNode.addEventListener("click", () => {
+    targetNode.addEventListener(
+      "click",
       debounce(() => {
         cb();
-      }, minInterval);
-    });
+      }, minInterval)
+    );
   }
 }
