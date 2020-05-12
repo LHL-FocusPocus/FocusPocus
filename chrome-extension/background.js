@@ -33,21 +33,26 @@ setInterval(() => {
 // Triggers when page loads in current tab
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (changeInfo.status === "complete" && tab.active) {
-    handleTimerWithTabId(tabId);
+    handleBrowsing(tabId);
     changePictures(tabId);
   }
 });
 
 // Triggers when user goes to a different tab
 chrome.tabs.onActivated.addListener(function (activeInfo) {
-  handleTimerWithTabId(activeInfo.tabId);
+  handleBrowsing(activeInfo.tabId);
 });
 
-function handleTimerWithTabId(tabId) {
+/**
+ * Function that is to be called when user navigates to a new site. Resets
+ * the timer and gets the url.
+ * @param {Number} tabId
+ */
+function handleBrowsing(tabId) {
   chrome.tabs.get(tabId, (tab) => {
     console.log("timer was at", timerInSeconds);
-    console.log("tab id was", tabId);
-    console.log("domain was", tab.url);
+    console.log("tab is now", tabId);
+    console.log("domain is now", tab.url);
     timerInSeconds = 0;
   });
 }
