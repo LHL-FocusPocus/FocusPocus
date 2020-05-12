@@ -61,9 +61,30 @@ function handleBrowsing(tabId) {
     timerInSeconds = 0;
 
     // TODO: make POST request
+    testGetRequest();
   });
 }
 
+function testGetRequest() {
+  const request = new XMLHttpRequest();
+  request.open("GET", "http://localhost:9000", true);
+
+  request.onload = function () {
+    if (this.status >= 200 && this.status < 400) {
+      // Success!
+      const data = JSON.parse(this.response);
+      console.log(data);
+    } else {
+      // We reached our target server, but it returned an error
+    }
+  };
+
+  request.onerror = function () {
+    // There was a connection error of some sort
+  };
+
+  request.send();
+}
 function getDomainFromUrl(url) {
   const urlObj = new URL(url);
   const domain = urlObj.hostname.split("www.").join("");
