@@ -53,18 +53,18 @@ module.exports = (db) => {
       .catch((e) => console.error(e));
   });
 
-  router.get("/", (req, res) => {
-    // check users cookies to get users(id)
-    // return null if the cookie is not found
-    // need to use dbHelper.getUserWithID(id)
-    // Example of using dbHelper for db queries
-    dbHelper
-      .getUserWithEmail("a@a.com")
-      // .then (another query to get blacklisted websites)
-      // .then (another query to get time_alottment) ... etc
-      .then((user) => res.json(user))
-      .catch((e) => res.json(e));
-  });
+  // router.get("/", (req, res) => {
+  //   // check users cookies to get users(id)
+  //   // return null if the cookie is not found
+  //   // need to use dbHelper.getUserWithID(id)
+  //   // Example of using dbHelper for db queries
+  //   dbHelper
+  //     .getUserWithEmail("a@a.com")
+  //     // .then (another query to get blacklisted websites)
+  //     // .then (another query to get time_alottment) ... etc
+  //     .then((user) => res.json(user))
+  //     .catch((e) => res.json(e));
+  // });
 
   router.post("/add_browse_time", (req, res) => {
     // checking cookie session for user, get user_id
@@ -84,22 +84,26 @@ module.exports = (db) => {
   });
 
   router.get("/blacklists", (req, res) => {
-    // const { userID } = req.body.params;
+    const userId = req.session.userId;
+    if (!userId) {
+      return res.status(403).send("A user must be signed in!");
+    }
     dbHelper
-      // .getBlacklistedSitesWithUserID(userID)
-      .getBlacklistedSitesWithUserID("1")
+      .getBlacklistedSitesWithUserID(userId)
       .then((blacklists) => res.json(blacklists))
       .catch((err) => res.json(err));
   });
 
   router.post("/blacklists", (req, res) => {
-    // const { userID, host_name } = req.body.params;
-    let siteID;
+    const userId = req.session.userId;
+    if (!userId) {
+      return res.status(403).send("A user must be signed in!");
+    }
+    const { host_name } = req.body.params;
     dbHelper
-      // .getWebsiteIDByHostname(host_name)
-      .getWebsiteIDByHostname("reddit.com")
-      .then((site) => (siteID = site.id))
-      .then(dbHelper.addWebsiteToBlacklist(user_id, siteID))
+      .getWebsiteIDByHostname(host_name)
+      // .getWebsiteIDByHostname("reddit.com")
+      .then((site) => dbHelper.addWebsiteToBlacklist(userId, site.id))
       .catch((err) => res.json(err));
   });
 
