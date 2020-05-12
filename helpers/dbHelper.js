@@ -180,7 +180,7 @@ module.exports = (db) => {
       .query(
         `
         INSERT INTO browse_times (user_id, website_id, duration)
-        VALUES ($1, $2, $4)
+        VALUES ($1, $2, $3)
         RETURNING *;
         `,
         [user_id, website_id, duration]
