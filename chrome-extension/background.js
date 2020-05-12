@@ -30,6 +30,8 @@ setInterval(() => {
   console.log(timerInSeconds);
 }, 1000);
 
+let lastDomain;
+
 // Triggers when page loads in current tab
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (changeInfo.status === "complete" && tab.active) {
@@ -50,9 +52,11 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
  */
 function handleBrowsing(tabId) {
   chrome.tabs.get(tabId, (tab) => {
+    console.log("domain was at", lastDomain);
     console.log("timer was at", timerInSeconds);
     console.log("tab is now", tabId);
     console.log("domain is now", tab.url);
+    lastDomain = tab.url;
     timerInSeconds = 0;
   });
 }
