@@ -14,6 +14,8 @@ axios.defaults.withCredentials = true;
 // import Routes from "./routes";
 
 function App() {
+  useApplicationData();
+  // console.log(data)
   return (
     <div className="App">
         <Route exact path={["/", "/register"]} component={Landing} />

@@ -163,7 +163,7 @@ export default function Leaderboard() {
           const hs = bullet.states.getKey("hover");
           hs.properties.dx = -dataItem.column.pixelWidth;
           bullet.isHover = true;
-          // previousBullet = bullet;
+          previousBullet = bullet;
         }
       }
     });
