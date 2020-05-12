@@ -345,27 +345,25 @@ module.exports = (db) => {
       });
   };
 
-  const getHitsForBlacklistedSiteForToday = () => {
-    return db.query(
-      `
+  const getHitsForBlacklistedSiteForToday = (user_id) => {
+    return db
+      .query(
+        `
       SELECT websites.name AS name, COUNT(*) AS hits
       FROM websites JOIN blacklists ON websites.id = website_id 
       JOIN browse_times ON browse_times.website_id = websites.id
-      WHERE blacklists.user_id = 1
+      WHERE blacklists.user_id = $1
       AND datetime_start >= CURRENT_DATE
       AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
-      GROUP BY name
-      `
-    );
+      GROUP BY name;
+      `,
+        [user_id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows;
+      });
   };
-
-  // SELECT SUM(duration)
-  // FROM browse_times
-  // JOIN blacklists ON browse_times.website_id = blacklists.website_id
-  // WHERE blacklists.user_id = $1
-  // AND datetime_start >= CURRENT_DATE
-  // AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
-  // GROUP BY browse_times.user_id;
 
   return {
     getUserWithEmail,
