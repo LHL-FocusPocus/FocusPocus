@@ -7,6 +7,7 @@ import LineGraph from "./Graphs/LineGraph";
 import Donut from "./Graphs/Donut";
 import Radial from "./Graphs/Radial";
 import Leaderboard from "./Graphs/Leaderboard";
+import Shameboard from "./Graphs/Shameboard"
 
 const Container = styled(Box)`
   ${"" /* display: flex; */}
@@ -26,6 +27,7 @@ export default function Dashboard() {
         <Donut />
         <Radial />
         <Leaderboard />
+        <Shameboard />
       </Container>
     </div>
   );

@@ -13,7 +13,7 @@ const Wrapper = styled(Box)`
   justify-content: center;
 
   @media (max-width: 1300px) {
-    order: 3;
+    order: 6;
     flex: 1 49%;
   }
 `;
@@ -25,17 +25,12 @@ const Chart = styled.div`
   margin: 2em 0em;
 `;
 
-export default function Leaderboard() {
+export default function Shameboard() {
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
-    // Themes end
 
-    /**
-     * Chart design taken from Samsung health app
-     */
-
-    let chart = am4core.create("leaderboard", am4charts.XYChart);
-    chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+    let chart = am4core.create("shameboard", am4charts.XYChart);
+    chart.hiddenState.properties.opacity = 0;
 
     chart.paddingRight = 40;
     chart.scale = 0.8
@@ -78,34 +73,18 @@ export default function Leaderboard() {
     categoryAxis.dataFields.category = "name";
     categoryAxis.renderer.grid.template.strokeOpacity = 0;
     categoryAxis.renderer.minGridDistance = 10;
-    categoryAxis.renderer.labels.template.dx = 40;
-    categoryAxis.renderer.minWidth = 0;
+    categoryAxis.renderer.labels.template.dx = -40;
+    categoryAxis.renderer.minWidth = 120;
     categoryAxis.renderer.tooltip.dx = -40;
-    categoryAxis.renderer.opposite = true;
-    categoryAxis.renderer.inversed = true;
-
-    // categoryAxis.renderer.inverse = true;
-
-
 
     let valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
     valueAxis.renderer.inside = true;
     valueAxis.renderer.labels.template.fillOpacity = 0.3;
     valueAxis.renderer.grid.template.strokeOpacity = 0;
-    valueAxis.renderer.minGridDistance = 200;
-
-    // valueAxis.renderer.minWidth = 0;
-
-
+    valueAxis.min = 0;
     valueAxis.cursorTooltipEnabled = false;
     valueAxis.renderer.baseGrid.strokeOpacity = 0;
-    valueAxis.renderer.labels.template.dy = -20;
-    valueAxis.renderer.labels.template.dx = -100;
-    valueAxis.renderer.inversed = true;
-    valueAxis.renderer.opposite = true;
-
-
-
+    valueAxis.renderer.labels.template.dy = 20;
 
     let series = chart.series.push(new am4charts.ColumnSeries());
     series.dataFields.valueX = "steps";
@@ -126,7 +105,7 @@ export default function Leaderboard() {
       property: "fill",
       dataField: "valueX",
       min: am4core.color("#e5dc36"),
-      max: am4core.color("#5faa46"),
+      max: am4core.color("red"),
     });
     series.mainContainer.mask = undefined;
 
@@ -139,7 +118,7 @@ export default function Leaderboard() {
     let bullet = columnTemplate.createChild(am4charts.CircleBullet);
     bullet.circle.radius = 30;
     bullet.valign = "middle";
-    bullet.align = "right";
+    bullet.align = "left";
     bullet.isMeasured = true;
     bullet.interactionsEnabled = false;
     bullet.horizontalCenter = "right";
@@ -188,7 +167,7 @@ export default function Leaderboard() {
 
   return (
     <Wrapper>
-      <Chart id="leaderboard"></Chart>
+      <Chart id="shameboard"></Chart>
     </Wrapper>
   );
 }
