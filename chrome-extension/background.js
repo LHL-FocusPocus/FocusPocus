@@ -46,31 +46,27 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
 });
 
 /**
- * Function that is to be called when user navigates to a new site. Resets
- * the timer and gets the url.
+ * Function that is to be called when user clicks a new tab or visits a new
+ * page in the current tab. Gets the url and current timer to make POST
+ * request to add browsing time to db. Resets the timer.
  * @param {Number} tabId
  */
 function handleBrowsing(tabId) {
   chrome.tabs.get(tabId, (tab) => {
-    console.log("domain was at", lastDomain);
-    console.log("timer was at", timerInSeconds);
-    console.log("tab is now", tabId);
-    console.log("domain is now", tab.url);
-    lastDomain = tab.url;
+    // tab.url will be undefined on chrome settings page etc.
+    const currentDomain = tab.url ? getDomainFromUrl(tab.url) : undefined;
+    console.log(`domain was at ${lastDomain} for ${timerInSeconds} seconds`);
+    console.log("domain is now", currentDomain);
+    lastDomain = currentDomain;
     timerInSeconds = 0;
+
+    // TODO: make POST request
   });
 }
 
-function getDomainFromCurrentTab() {
-  let domain;
-  chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
-    // Will be null on chrome settings page etc
-    if (!tabs[0] || !tabs[0].url) {
-      domain = "other";
-    }
-    const url = new URL(tabs[0].url);
-    domain = url.hostname.split("www.").join("");
-  });
+function getDomainFromUrl(url) {
+  const urlObj = new URL(url);
+  const domain = urlObj.hostname.split("www.").join("");
   return domain;
 }
 
