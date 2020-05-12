@@ -46,8 +46,7 @@
     const elementsToBeReplaced = elements.filter((element) =>
       shouldBeReplaced(element, newUrl)
     );
-    // Not currently used because some sites re-replaces src with original
-    // tagElementsForReplacement(elementsToBeReplaced);
+    tagElementsForReplacement(elementsToBeReplaced);
     shuffle(elementsToBeReplaced);
 
     // Replace elements in a set time interval
@@ -69,6 +68,7 @@
    */
   function shouldBeReplaced(element, newUrl, minHeight = 50) {
     return (
+      !element.getAttribute("focuspocused") &&
       getHeight(element) > minHeight &&
       ((element.getAttribute("src") && element.getAttribute("src") != newUrl) ||
         (element.style.backgroundImage &&
@@ -119,7 +119,8 @@
    * as on sites with infinite scrolling.
    * @param {String} element The parent element to listen for changes
    * @param {Function} cb The callback function
-   * @param {Number} minInterval Time in ms to use for throttling
+   * @param {Number} minInterval Time in ms to use for throttling/debounce
+   * @param {Boolean} useDebounce Set to true to guarantee min delay delay
    */
   function onNewElementLoaded(
     element,
@@ -150,5 +151,12 @@
       );
     }
     observer.observe(targetNode, observerOptions);
+
+    // Add click listener to solve instagram like-button bug
+    targetNode.addEventListener("click", () => {
+      setTimeout(() => {
+        cb();
+      }, minInterval);
+    });
   }
 }

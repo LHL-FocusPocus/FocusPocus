@@ -9,6 +9,7 @@
     imgTagElement.setAttribute("src", newImg);
     imgTagElement.setAttribute("data-src", newImg);
     imgTagElement.setAttribute("srcset", newImg);
+    imgTagElement.removeAttribute("focuspocused");
   };
 
   /**
@@ -28,6 +29,7 @@
     newImg = newImgGlobal,
     interval = 300
   ) {
+    console.log("called");
     // Replace images specified by img tags
     replaceElementsOnPage("img", newImg, replaceImgTagSrc, interval);
 
