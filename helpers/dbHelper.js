@@ -344,6 +344,27 @@ module.exports = (db) => {
         return res.rows;
       });
   };
+
+  const getHitsForBlacklistedSiteForPastWeek = (user_id) => {
+    return db
+      .query(
+        `
+      SELECT websites.name AS name, COUNT(browse_times.website_id)::integer AS hits
+      FROM websites JOIN blacklists ON websites.id = website_id
+      JOIN browse_times ON browse_times.website_id = websites.id
+      WHERE blacklists.user_id = $1
+      AND datetime_start >= CURRENT_DATE - INTERVAL '7 days'
+      AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+      GROUP BY name;
+      `,
+        [user_id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows;
+      });
+  };
+
   return {
     getUserWithEmail,
     getUserWithID,
@@ -364,5 +385,6 @@ module.exports = (db) => {
     getMonthBlacklistBrowsingInfoForChart,
     getTimeForLeaderboardWeek,
     getTimeForShameboardWeek,
+    getHitsForBlacklistedSiteForPastWeek,
   };
 };

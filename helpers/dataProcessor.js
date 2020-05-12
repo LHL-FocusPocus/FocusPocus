@@ -72,4 +72,8 @@ const createBoardData = function (data) {
   return boardArr;
 };
 
-module.exports = { createDonutData, createChartData, createBoardData };
+module.exports = {
+  createDonutData,
+  createChartData,
+  createBoardData,
+};
