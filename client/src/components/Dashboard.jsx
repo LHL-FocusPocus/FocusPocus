@@ -24,24 +24,19 @@ export default function Dashboard({dashboard}) {
   // console.log(typeof props.dashboard)
   // console.log('props.dashboard', props.dashboard)
   // console.log('donutGraph', dashboard)
+  // console.log('userData.leaderboard', userData.leaderboard)
+  const { donutGraph, lineGraph, radialGraph, leaderboard, shameboard, user, quota_today } = dashboard;
 
-  // useEffect(() => {
-  //   axios.get("/api/data/dashboard")
-  //     .then(userData => {
-  //       console.log(userData)
-  //     })
-  //     .catch(e => console.error(e));
-  // }, []);
   return (
     <div>
-      <Navbar />
+      <Navbar user={user} />
       <Container bgcolor="background.paper" flexWrap="wrap" display="flex">
-        <DailyQuotaUsed />
-        <LineGraph />
-        <Donut />
-        <Radial />
-        <Leaderboard />
-        <Shameboard />
+        <DailyQuotaUsed quota={quota_today}/>
+        <LineGraph lineData={lineGraph} />
+        <Donut donutData={donutGraph}/>
+        <Radial radialData={radialGraph} />
+        <Leaderboard leaderboard={leaderboard}/>
+        <Shameboard shameboard={shameboard} />
       </Container>
     </div>
   );

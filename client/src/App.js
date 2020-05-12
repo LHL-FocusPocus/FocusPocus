@@ -18,7 +18,7 @@ function App() {
   return (
     <div className="App">
         <Route exact path={["/", "/register"]} component={Landing} />
-        <Route exact path="/dashboard" render={() => <Dashboard dashboard={state.dashboard} />} />
+        <Route exact path="/dashboard" render={() => <Dashboard dashboard={state} />} />
     </div>
   );
 }
