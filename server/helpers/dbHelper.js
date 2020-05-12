@@ -21,6 +21,22 @@ module.exports = (db) => {
       });
   };
 
+  const getUserWithID = function (id) {
+    return db
+      .query(
+        `
+        SELECT * FROM users
+        WHERE id = $1
+        LIMIT 1;
+        `,
+        [id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      });
+  };
+
   const addUser = function (first_name, last_name, email, password) {
     return db
       .query(
@@ -59,8 +75,7 @@ module.exports = (db) => {
       .query(
         `
         SELECT * FROM websites;
-        `,
-        [id]
+        `
       )
       .then((res) => {
         if (res.rows.length === 0) return null;
@@ -150,7 +165,7 @@ module.exports = (db) => {
         FROM browse_times
         JOIN websites ON websites.id = website_id
         JOIN users ON users.id = user_id
-        WHERE user_id = $1
+        WHERE user_id = $1;
         `,
         [user_id]
       )
@@ -202,7 +217,7 @@ module.exports = (db) => {
         SELECT SUM(duration)
         FROM browse_times
         JOIN blacklists ON browse_times.website_id = blacklists.website_id
-        WHERE browse_times.user_id = $1
+        WHERE blacklists.user_id = $1
         AND datetime_start >= CURRENT_DATE
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
         GROUP BY browse_times.user_id;
@@ -232,8 +247,127 @@ module.exports = (db) => {
       });
   };
 
+  const getWebsiteIDByHostname = function (hostname) {
+    return db
+      .query(
+        `
+        SELECT id FROM websites
+        WHERE hostname = $1;
+        `,
+        [hostname]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      });
+  };
+
+  const getBrowseInfoTodayForDashboard = function (user_id) {
+    return db
+      .query(
+        `
+        SELECT name as website,
+        SUM(duration) as time
+        FROM browse_times
+        JOIN websites ON websites.id = website_id
+        JOIN users ON users.id = user_id
+        WHERE user_id = $1
+        AND datetime_start >= CURRENT_DATE AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+        GROUP BY name;
+        `,
+        [user_id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows;
+      });
+  };
+
+  const getMonthBlacklistBrowsingInfoForChart = function (user_id) {
+    return db
+      .query(
+        `
+        SELECT datetime_start::DATE as date, SUM(duration) as time
+        FROM browse_times
+        JOIN blacklists ON browse_times.website_id = blacklists.website_id
+        WHERE blacklists.user_id = $1
+        AND datetime_start >= CURRENT_DATE - INTERVAL '30 days'
+        AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+        GROUP BY date;
+        `,
+        [user_id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows;
+      });
+  };
+
+  const getTimeForLeaderboardWeek = function () {
+    return db
+      .query(
+        `
+        SELECT first_name as name, SUM(duration) as time
+        FROM browse_times
+        JOIN users on browse_times.user_id = users.id
+        JOIN blacklists ON users.id = blacklists.user_id
+        WHERE datetime_start >= CURRENT_DATE - INTERVAL '7 days'
+        AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+        GROUP BY name
+        ORDER BY time
+        ASC LIMIT 6;
+        `
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows;
+      });
+  };
+
+  const getTimeForShameboardWeek = function () {
+    return db
+      .query(
+        `
+        SELECT first_name as name, SUM(duration) as time
+        FROM browse_times
+        JOIN users on browse_times.user_id = users.id
+        JOIN blacklists ON users.id = blacklists.user_id
+        WHERE datetime_start >= CURRENT_DATE - INTERVAL '7 days'
+        AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+        GROUP BY name
+        ORDER BY time
+        DESC LIMIT 6;
+        `
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows;
+      });
+  };
+
+  const getHitsForBlacklistedSiteForPastWeek = (user_id) => {
+    return db
+      .query(
+        `
+      SELECT websites.name AS name, COUNT(browse_times.website_id)::integer AS hits
+      FROM websites JOIN blacklists ON websites.id = website_id
+      JOIN browse_times ON browse_times.website_id = websites.id
+      WHERE blacklists.user_id = $1
+      AND datetime_start >= CURRENT_DATE - INTERVAL '7 days'
+      AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+      GROUP BY name;
+      `,
+        [user_id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows;
+      });
+  };
+
   return {
     getUserWithEmail,
+    getUserWithID,
     getBlacklistedSitesWithUserID,
     getAllWebsites,
     getAllQuotasWithUserID,
@@ -246,5 +380,11 @@ module.exports = (db) => {
     getTotalTimeForTodayByUserID,
     getTotalBlacklistTimeForTodayByUserID,
     getQuotaForTodayWithUserID,
+    getWebsiteIDByHostname,
+    getBrowseInfoTodayForDashboard,
+    getMonthBlacklistBrowsingInfoForChart,
+    getTimeForLeaderboardWeek,
+    getTimeForShameboardWeek,
+    getHitsForBlacklistedSiteForPastWeek,
   };
 };
