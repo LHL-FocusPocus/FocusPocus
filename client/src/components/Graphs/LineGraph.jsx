@@ -23,7 +23,8 @@ const Chart = styled.div`
   height: 100%;
 `;
 
-export default function LineGraph() {
+export default function LineGraph({ lineData }) {
+  console.log('lineData', lineData)
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
 
@@ -43,72 +44,7 @@ export default function LineGraph() {
     // day 1 = arr[0], day 2 = arr[1], etc
     // Need data for the last 30 days from today (including today)
     // Time should be in MINUTES (since they're daily values - hours makes less sense)
-    chart.data = [
-      {
-        date: "2020-04-26",
-        time: 8,
-      },
-      {
-        date: "2020-04-27",
-        time: 10,
-      },
-      {
-        date: "2020-04-28",
-        time: 12,
-      },
-      {
-        date: "2020-04-29",
-        time: 14,
-      },
-      {
-        date: "2020-04-30",
-        time: 11,
-      },
-      {
-        date: "2020-05-01",
-        time: 6,
-      },
-      {
-        date: "2020-05-02",
-        time: 7,
-      },
-      {
-        date: "2020-05-03",
-        time: 9,
-      },
-      {
-        date: "2020-05-04",
-        time: 13,
-      },
-      {
-        date: "2020-05-05",
-        time: 15,
-      },
-      {
-        date: "2020-05-06",
-        time: 19,
-      },
-      {
-        date: "2020-05-07",
-        time: 21,
-      },
-      {
-        date: "2020-05-08",
-        time: 22,
-      },
-      {
-        date: "2020-05-09",
-        time: 20,
-      },
-      {
-        date: "2020-05-10",
-        time: 18,
-      },
-      {
-        date: "2020-05-11",
-        time: 14,
-      }
-    ];
+    chart.data = lineData;
 
     // Create axes
     const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
@@ -142,11 +78,10 @@ export default function LineGraph() {
 
     // Initial zoom once chart is ready
     chart.events.once("datavalidated", function () {
-      const today = new Date()
+      const today = new Date();
       series.xAxis.zoomToDates(today.setDate(today.getDate() - 7), new Date());
     });
-
-  }, []);
+  }, lineData);
 
   return (
     <Wrapper>

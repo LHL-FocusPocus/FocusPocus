@@ -12,7 +12,6 @@ export default function useApplicationData() {
       .get("/api/data/dashboard")
       .then(userData => {
         const dashboard = userData.data;
-        // console.log('dashboard', dashboard)
         dispatch({
           type: SET_DASHBOARD_DATA,
           payload: dashboard,
