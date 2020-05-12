@@ -68,16 +68,20 @@ module.exports = (db) => {
 
   router.post("/add_browse_time", (req, res) => {
     // checking cookie session for user, get user_id
+    const userId = req.session.userId;
+    if (!userId) {
+      return res.status(403).send("A user must be signed in!");
+    }
 
     // extension will send browse time data here
     // host_name, datetime_start, duration
     const { host_name, duration } = req.body.params;
     // using host_name, insert website_id, datetime_start, duration, etc into the db.
-    let siteID;
     dbHelper
       .getWebsiteIDByHostname(host_name)
-      .then((site) => (siteID = site.id))
-      .then(dbHelper.addBrowseTimesToUserID(user_id, siteID, duration))
+      .then((site) => {
+        dbHelper.addBrowseTimesToUserID(user_id, site.id, duration);
+      })
       .catch((err) => res.json(err));
 
     // dbHelper.addBrowseTimesToUserID(user_id, website_id, duration)
