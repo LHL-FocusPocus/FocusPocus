@@ -44,9 +44,10 @@
 
     // Filter out small-sized elements and already processed elements
     const elementsToBeReplaced = elements.filter((element) =>
-      shouldBeReplaced(element)
+      shouldBeReplaced(element, newUrl)
     );
-    tagElementsForReplacement(elementsToBeReplaced);
+    // Not currently used because some sites re-replaces src with original
+    // tagElementsForReplacement(elementsToBeReplaced);
     shuffle(elementsToBeReplaced);
 
     // Replace elements in a set time interval
@@ -66,9 +67,12 @@
    * @param {Number} minHeight
    * @return Returns true if image fits criteria (needs to be changed)
    */
-  function shouldBeReplaced(element, minHeight = 50) {
+  function shouldBeReplaced(element, newUrl, minHeight = 50) {
     return (
-      !element.getAttribute("focuspocused") && getHeight(element) > minHeight
+      getHeight(element) > minHeight &&
+      ((element.getAttribute("src") && element.getAttribute("src") != newUrl) ||
+        (element.style.backgroundImage &&
+          !element.style.backgroundImage.includes(newUrl)))
     );
   }
 
@@ -120,6 +124,7 @@
     const targetNode = document.querySelector(element);
     const observerOptions = {
       childList: true,
+      attributes: true,
       subtree: true,
     };
     const observer = new MutationObserver(
