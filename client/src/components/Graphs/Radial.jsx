@@ -35,6 +35,66 @@ export default function Radial() {
     // Just the blacklisted sites
     // Preferably how many times you went to the site
     // Over a week period makes more sense (not much data over a day period)
+
+    const userData = {
+      quota: 50,
+      donut: [
+        {
+          website: "Reddit",
+          time: 50,
+        },
+        {
+          website: "Facebook",
+          time: 30,
+        },
+      ],
+      leaderboard: [
+        {
+          name: "Monica",
+          browsingTime: 3,
+          href:
+            "https://www.amcharts.com/wp-content/uploads/2019/04/monica.jpg",
+        },
+        {
+          name: "Joey",
+          browsingTime: 10,
+          href: "https://www.amcharts.com/wp-content/uploads/2019/04/joey.jpg",
+        },
+      ],
+      shameboard: [
+        {
+          name: "Monica",
+          steps: 140,
+          href:
+            "https://www.amcharts.com/wp-content/uploads/2019/04/monica.jpg",
+        },
+        {
+          name: "Joey",
+          steps: 200,
+          href: "https://www.amcharts.com/wp-content/uploads/2019/04/joey.jpg",
+        },
+      ],
+      lineGraph: [
+        {
+          date: "2020-04-26",
+          time: 8,
+        },
+        {
+          date: "2020-04-27",
+          time: 10,
+        },
+      ],
+      radial: [
+        {
+          website: "Reddit",
+          visits: 15,
+        },
+        {
+          website: "Facebook",
+          visits: 12,
+        },
+      ],
+    };
     chart.data = [
       {
         website: "Reddit",

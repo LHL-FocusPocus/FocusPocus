@@ -88,15 +88,6 @@ export default function DailyQuotaUsed() {
   // line -> 7 days, total time spent browsing bad sites
   // go through values, see what highest is -> make that max in y axis
 
-
-  // dbHelper.getUserWithID(userId),
-  // dbHelper.getQuotaForTodayWithUserID(userId),
-  // dbHelper.getBlacklistedSitesWithUserID(userId),
-  // dbHelper.getBrowseInfoWithUserID(userId),
-  // dbHelper.getTotalTimeForTodayByUserID(userId),
-  // dbHelper.getTotalBlacklistTimeForTodayByUserID(userId),
-
-
   return (
     <Wrapper>
       <Chart id="dailyQuota">

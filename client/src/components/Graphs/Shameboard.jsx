@@ -29,7 +29,7 @@ export default function Shameboard() {
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
 
-    let chart = am4core.create("shameboard", am4charts.XYChart);
+    const chart = am4core.create("shameboard", am4charts.XYChart);
     chart.hiddenState.properties.opacity = 0;
 
     chart.paddingRight = 40;
@@ -38,38 +38,38 @@ export default function Shameboard() {
     chart.data = [
       {
         name: "Monica",
-        steps: 45688,
+        steps: 140,
         href: "https://www.amcharts.com/wp-content/uploads/2019/04/monica.jpg",
       },
       {
         name: "Joey",
-        steps: 35781,
+        steps: 200,
         href: "https://www.amcharts.com/wp-content/uploads/2019/04/joey.jpg",
       },
       {
         name: "Ross",
-        steps: 25464,
+        steps: 160,
         href: "https://www.amcharts.com/wp-content/uploads/2019/04/ross.jpg",
       },
       {
         name: "Phoebe",
-        steps: 18788,
+        steps: 110,
         href: "https://www.amcharts.com/wp-content/uploads/2019/04/phoebe.jpg",
       },
       {
         name: "Rachel",
-        steps: 15465,
+        steps: 300,
         href: "https://www.amcharts.com/wp-content/uploads/2019/04/rachel.jpg",
       },
       {
         name: "Chandler",
-        steps: 11561,
+        steps: 225,
         href:
           "https://www.amcharts.com/wp-content/uploads/2019/04/chandler.jpg",
       },
     ];
 
-    let categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+    const categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "name";
     categoryAxis.renderer.grid.template.strokeOpacity = 0;
     categoryAxis.renderer.minGridDistance = 10;
@@ -77,7 +77,7 @@ export default function Shameboard() {
     categoryAxis.renderer.minWidth = 120;
     categoryAxis.renderer.tooltip.dx = -40;
 
-    let valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+    const valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
     valueAxis.renderer.inside = true;
     valueAxis.renderer.labels.template.fillOpacity = 0.3;
     valueAxis.renderer.grid.template.strokeOpacity = 0;
@@ -86,7 +86,7 @@ export default function Shameboard() {
     valueAxis.renderer.baseGrid.strokeOpacity = 0;
     valueAxis.renderer.labels.template.dy = 20;
 
-    let series = chart.series.push(new am4charts.ColumnSeries());
+    const series = chart.series.push(new am4charts.ColumnSeries());
     series.dataFields.valueX = "steps";
     series.dataFields.categoryY = "name";
     series.tooltipText = "{valueX.value}";
@@ -94,7 +94,7 @@ export default function Shameboard() {
     series.tooltip.dy = -30;
     series.columnsContainer.zIndex = 100;
 
-    let columnTemplate = series.columns.template;
+    const columnTemplate = series.columns.template;
     columnTemplate.height = am4core.percent(50);
     columnTemplate.maxHeight = 50;
     columnTemplate.column.cornerRadius(60, 10, 60, 10);
@@ -109,13 +109,13 @@ export default function Shameboard() {
     });
     series.mainContainer.mask = undefined;
 
-    let cursor = new am4charts.XYCursor();
+    const cursor = new am4charts.XYCursor();
     chart.cursor = cursor;
     cursor.lineX.disabled = true;
     cursor.lineY.disabled = true;
     cursor.behavior = "none";
 
-    let bullet = columnTemplate.createChild(am4charts.CircleBullet);
+    const bullet = columnTemplate.createChild(am4charts.CircleBullet);
     bullet.circle.radius = 30;
     bullet.valign = "middle";
     bullet.align = "left";
@@ -124,14 +124,14 @@ export default function Shameboard() {
     bullet.horizontalCenter = "right";
     bullet.interactionsEnabled = false;
 
-    let hoverState = bullet.states.create("hover");
-    let outlineCircle = bullet.createChild(am4core.Circle);
+    const hoverState = bullet.states.create("hover");
+    const outlineCircle = bullet.createChild(am4core.Circle);
     outlineCircle.adapter.add("radius", function (radius, target) {
-      let circleBullet = target.parent;
+      const circleBullet = target.parent;
       return circleBullet.circle.pixelRadius + 10;
     });
 
-    let image = bullet.createChild(am4core.Image);
+    const image = bullet.createChild(am4core.Image);
     image.width = 60;
     image.height = 60;
     image.horizontalCenter = "middle";
@@ -139,23 +139,23 @@ export default function Shameboard() {
     image.propertyFields.href = "href";
 
     image.adapter.add("mask", function (mask, target) {
-      let circleBullet = target.parent;
+      const circleBullet = target.parent;
       return circleBullet.circle;
     });
 
-    let previousBullet;
+    const previousBullet;
     chart.cursor.events.on("cursorpositionchanged", function (event) {
-      let dataItem = series.tooltipDataItem;
+      const dataItem = series.tooltipDataItem;
 
       if (dataItem.column) {
-        let bullet = dataItem.column.children.getIndex(1);
+        const bullet = dataItem.column.children.getIndex(1);
 
         if (previousBullet && previousBullet != bullet) {
           previousBullet.isHover = false;
         }
 
         if (previousBullet != bullet) {
-          let hs = bullet.states.getKey("hover");
+          const hs = bullet.states.getKey("hover");
           hs.properties.dx = dataItem.column.pixelWidth;
           bullet.isHover = true;
 
