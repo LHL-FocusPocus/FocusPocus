@@ -62,6 +62,7 @@ function handleBrowsing(tabId) {
 
     // TODO: make POST request
     testGetRequest();
+    testPostRequest();
   });
 }
 
@@ -84,6 +85,16 @@ function testGetRequest() {
   };
 
   request.send();
+}
+
+function testPostRequest() {
+  const request = new XMLHttpRequest();
+  request.open("POST", "http://localhost:9000/api/user/login", true);
+  request.setRequestHeader(
+    "Content-Type",
+    "application/json"
+  );
+  request.send(JSON.stringify({ email: "a@a.com", password: "password" }));
 }
 function getDomainFromUrl(url) {
   const urlObj = new URL(url);
