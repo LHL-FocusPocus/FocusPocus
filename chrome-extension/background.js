@@ -99,6 +99,19 @@ function postBrowseTime(hostName, durationInSeconds) {
   request.send(JSON.stringify({ hostName, durationInSeconds }));
 }
 
+/**
+ * Logs into the server
+ */
+function login() {
+  const request = new XMLHttpRequest();
+  request.open("POST", "http://localhost:9000/api/user/login", true);
+  request.setRequestHeader(
+    "Content-Type",
+    "application/json"
+  );
+  request.send(JSON.stringify({ email: "a@a.com", password: "password" }));
+}
+
 function getDomainFromUrl(url) {
   const urlObj = new URL(url);
   const domain = urlObj.hostname.split("www.").join("");
