@@ -4,7 +4,7 @@ import LogoText from "./components/LogoText";
 import styled from "styled-components";
 import Dashboard from "./components/Dashboard";
 import { Route, Link } from "react-router-dom";
-import useApplicationData from "hooks/useApplicationData";
+import useApplicationData from "./hooks/useApplicationData";
 
 import axios from "axios";
 import "./App.css";

@@ -28,14 +28,9 @@ const Chart = styled.div`
 export default function Leaderboard() {
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
-    // Themes end
-
-    /**
-     * Chart design taken from Samsung health app
-     */
 
     const chart = am4core.create("leaderboard", am4charts.XYChart);
-    chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+    chart.hiddenState.properties.opacity = 0;
 
     chart.paddingRight = 40;
     chart.scale = 0.8
@@ -179,7 +174,7 @@ export default function Leaderboard() {
 
         if (previousBullet != bullet) {
           const hs = bullet.states.getKey("hover");
-          hs.properties.dx = dataItem.column.pixelWidth;
+          hs.properties.dx = -(dataItem.column.pixelWidth);
           bullet.isHover = true;
 
           previousBullet = bullet;
