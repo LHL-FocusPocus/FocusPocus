@@ -166,7 +166,7 @@ export default function Leaderboard() {
       return circleBullet.circle;
     });
 
-    const previousBullet;
+    let previousBullet;
     chart.cursor.events.on("cursorpositionchanged", function (event) {
       const dataItem = series.tooltipDataItem;
 

@@ -105,7 +105,7 @@ export default function LineGraph() {
         time: 18,
       },
       {
-        date: "2020-04-27T04:00:00.000Z",
+        date: "2020-05-11",
         time: 14,
       }
     ];
