@@ -33,23 +33,48 @@
     return height;
   }
 
+  function replaceElementsOnPage(
+    elementTag,
+    newUrl,
+    replacementFn,
+    interval = 0
+  ) {
+    // Replace images specified by tag
+    const elements = Array.from(document.querySelectorAll(elementTag));
+
+    // Filter out small-sized elements and already processed elements
+    const elementsToBeReplaced = elements.filter((element) =>
+      shouldBeReplaced(element)
+    );
+    tagElementsForReplacement(elementsToBeReplaced);
+    shuffle(elementsToBeReplaced);
+
+    // Replace elements in a set time interval
+    let timer = 0;
+    for (const element of elementsToBeReplaced) {
+      setTimeout(() => {
+        replacementFn(element, newUrl);
+      }, timer);
+      timer += interval;
+    }
+  }
+
   /**
    * Function used to filter for only images/videos that need to be replaced.
    * Excludes elements already replaced, and also small icon-sized images.
-   * @param {Object} element   
+   * @param {Object} element
    * @param {Number} minHeight
    * @return Returns true if image fits criteria (needs to be changed)
    */
   function shouldBeReplaced(element, minHeight = 50) {
     return (
-      !element.getAttribute("focuspocused") &&
-      getHeight(element) > minHeight
+      !element.getAttribute("focuspocused") && getHeight(element) > minHeight
     );
   }
 
   /**
-   * Tags a list of elements to let script know that they have already been
-   * queued for replacement.
+   * Adds the "focuspocused" attribute to a list of elements to let script
+   * know that they have already been queued for replacement.
    */
   function tagElementsForReplacement(elements) {
     for (element of elements) {
@@ -58,13 +83,30 @@
   }
 
   /**
-   * Modifies the cb function so it is called max of once every [delay] ms.
+   * Modifies the cb function so it only gets called if it doesn't get called
+   * in [delay] ms. Replaced with throttle as it makes more sense.
    */
   function debounce(cb, delay) {
     let timer;
     return (...args) => {
       clearTimeout(timer);
       timer = setTimeout(() => cb(...args), delay);
+    };
+  }
+
+  /**
+   * Modifies the cb function so it is called max of once every [limit] ms.
+   * @param {Function} cb The callback
+   * @param {Number} limit The limit in milliseconds
+   */
+  function throttle(cb, limit) {
+    let isInThrottle;
+    return (...args) => {
+      if (!isInThrottle) {
+        cb(...args);
+        isInThrottle = true;
+        setTimeout(() => (isInThrottle = false), limit);
+      }
     };
   }
 
@@ -81,10 +123,11 @@
       subtree: true,
     };
     const observer = new MutationObserver(
-      // Debounce cb so it runs maximum of once every 0.5 s
-      debounce(() => {
+      // Throttle cb so it runs maximum of once every second instead of on
+      // every element added, which could be dozens of times per second
+      throttle(() => {
         cb();
-      }, 500)
+      }, 1000)
     );
     observer.observe(targetNode, observerOptions);
   }
