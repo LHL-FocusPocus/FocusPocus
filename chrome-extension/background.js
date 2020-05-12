@@ -23,9 +23,18 @@ chrome.runtime.onInstalled.addListener(function () {
   });
 });
 
+let timerInSeconds = 0;
+
+setInterval(() => {
+  timerInSeconds++;
+  console.log(timerInSeconds);
+}, 1000);
+
 // Triggers when page loads in current tab
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (changeInfo.status === "complete" && tab.active) {
+    console.log("timer was at", timerInSeconds);
+    timerInSeconds = 0;
     changePictures(tabId);
   }
 });
