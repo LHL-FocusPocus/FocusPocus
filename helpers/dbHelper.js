@@ -165,7 +165,7 @@ module.exports = (db) => {
         FROM browse_times
         JOIN websites ON websites.id = website_id
         JOIN users ON users.id = user_id
-        WHERE user_id = $1
+        WHERE user_id = $1;
         `,
         [user_id]
       )
@@ -262,6 +262,26 @@ module.exports = (db) => {
       });
   };
 
+  const getBrowseInfoTodayForDashboard = function (user_id) {
+    return db
+      .query(
+        `
+        SELECT name as website,
+        duration as time
+        FROM browse_times
+        JOIN websites ON websites.id = website_id
+        JOIN users ON users.id = user_id
+        WHERE user_id = $1
+        AND datetime_start >= CURRENT_DATE AND datetime_start < CURRENT_DATE + INTERVAL '1 day';
+        `,
+        [user_id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows;
+      });
+  };
+
   return {
     getUserWithEmail,
     getUserWithID,
@@ -278,5 +298,6 @@ module.exports = (db) => {
     getTotalBlacklistTimeForTodayByUserID,
     getQuotaForTodayWithUserID,
     getWebsiteIDByHostname,
+    getBrowseInfoTodayForDashboard,
   };
 };

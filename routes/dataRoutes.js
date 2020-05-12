@@ -3,7 +3,7 @@ const router = express.Router();
 
 module.exports = (db) => {
   const dbHelper = require("../helpers/dbHelper")(db);
-  const { createDonutData } = require("../helpers/dataReducer");
+  const { createDonutData } = require("../helpers/dataProcessor");
 
   // Return data needed to render dashboard, access at /data/dashboard
   router.get("/dashboard", (req, res) => {
@@ -18,15 +18,16 @@ module.exports = (db) => {
       dbHelper.getUserWithID(userId),
       dbHelper.getQuotaForTodayWithUserID(userId),
       dbHelper.getBlacklistedSitesWithUserID(userId),
-      dbHelper.getBrowseInfoWithUserID(userId),
+      dbHelper.getBrowseInfoTodayForDashboard(userId),
       dbHelper.getTotalTimeForTodayByUserID(userId),
       dbHelper.getTotalBlacklistTimeForTodayByUserID(userId),
     ]).then((all) => {
       // all is now an array of data that each promise returns
       userData["user"] = all[0];
-      userData["quotatoday"] = all[1].time_allotment;
-      userData["blacklist"] = all[2];
-      //userData["donut_data"] = createDonutData(all[3]);
+      userData["quota_today"] = all[1].time_allotment;
+      userData["blacklisted"] = all[2];
+      userData["donut_data"] = createDonutData(all[3]);
+      // userData["donut_data"] = all[3];
       userData["total_browse_time_today"] = all[4];
       userData["blacklisted_browse_time_today"] = all[5];
       return res.status(200).json(userData);

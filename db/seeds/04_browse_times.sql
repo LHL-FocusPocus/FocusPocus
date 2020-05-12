@@ -23,6 +23,36 @@ VALUES
 INSERT INTO browse_times
   (user_id, website_id, datetime_start, duration)
 VALUES
+  (1, 1, '2020-05-11 01:23:45-04', '200 minutes');
+INSERT INTO browse_times
+  (user_id, website_id, datetime_start, duration)
+VALUES
+  (1, 2, '2020-05-11 01:23:45-04', '100 minutes');
+  INSERT INTO browse_times
+  (user_id, website_id, datetime_start, duration)
+VALUES
+  (1, 3, '2020-05-11 01:23:45-04', '43 minutes');
+  INSERT INTO browse_times
+  (user_id, website_id, datetime_start, duration)
+VALUES
+  (1, 2, '2020-05-11 01:23:45-04', '29 minutes');
+
+INSERT INTO browse_times
+  (user_id, website_id, datetime_start, duration)
+VALUES
+  (1, 3, '2020-05-12 15:23:45-04', '13 minutes');
+  INSERT INTO browse_times
+  (user_id, website_id, datetime_start, duration)
+VALUES
+  (1, 3, '2020-05-13 15:23:45-04', '15 minutes');
+  INSERT INTO browse_times
+  (user_id, website_id, datetime_start, duration)
+VALUES
+  (1, 3, '2020-05-14 15:23:45-04', '40 minutes');
+
+INSERT INTO browse_times
+  (user_id, website_id, datetime_start, duration)
+VALUES
   (2, 4, '2020-05-09 14:23:45-04', '10 minutes');
 INSERT INTO browse_times
   (user_id, website_id, datetime_start, duration)
