@@ -107,7 +107,9 @@
     let isInThrottle;
     return (...args) => {
       if (!isInThrottle) {
-        cb(...args);
+        setTimeout(() => {
+          cb(...args);
+        }, limit);
         isInThrottle = true;
         setTimeout(() => (isInThrottle = false), limit);
       }
@@ -122,10 +124,10 @@
    * @param {Number} minInterval Time in ms to use for throttling/debounce
    * @param {Boolean} useDebounce Set to true to guarantee min delay delay
    */
-  function addListeners(element, cb, minInterval = 1000, useDebounce = false) {
+  function addListeners(element, cb, minInterval = 2000, useDebounce = false) {
     const targetNode = document.querySelector(element);
     const observerOptions = {
-      childList: true,      
+      childList: true,
       subtree: true,
     };
     let observer;
