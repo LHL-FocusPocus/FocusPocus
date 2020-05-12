@@ -1,35 +1,57 @@
 {
-  /**
-   * Replaces all images from img tags and "background-image" css attributes
-   * @param {String} newImg An image url to be used as the replacement
-   */
-  const replaceImages = function (
-    newImg = "https://memegen.link/bad/get_back_to_work/lazy_bum.jpg"
-  ) {
-    // Replace images specified by img tags
-    const imgTagElements = document.querySelectorAll("img");
-    for (const imgTagElement of imgTagElements) {
-      imgTagElement.setAttribute("src", newImg);
-      imgTagElement.setAttribute("data-src", newImg);
-    }
+  let newImgGlobal =
+    "https://memegen.link/bad/get_back_to_work/you_lazy_bum.jpg";
 
-    // Replace images specified by background-image css
-    const backgroundImageElements = document.querySelectorAll(
-      // *= matches all style attribute containing "background-image" in its value
-      '[style*="background-image"]'
-    );
-    for (const bgImageElement of backgroundImageElements) {
-      bgImageElement.style.backgroundImage = `url("${newImg}")`;
-    }
+  /**
+   * Replaces src and similar attributes in img elements.
+   */
+  const replaceImgTagSrc = function (imgTagElement, newImg) {
+    imgTagElement.setAttribute("src", newImg);
+    imgTagElement.setAttribute("data-src", newImg);
+    imgTagElement.setAttribute("srcset", newImg);
+    imgTagElement.removeAttribute("focuspocused");
   };
 
-  // Replacement of jQuery's document.ready
-  function ready(fn) {
-    if (document.readyState != "loading") {
-      fn();
-    } else {
-      document.addEventListener("DOMContentLoaded", fn);
-    }
-  }
-  ready(replaceImages);
+  /**
+   * Replaces url of each background-image style attribute
+   */
+  const replaceBgImgStyleUrl = function (bgImageTagElement, newImg) {
+    bgImageTagElement.style.backgroundImage = `url("${newImg}")`;
+    bgImageTagElement.removeAttribute("focuspocused");
+  };
+
+  /**
+   * Replaces all images from img tags and "background-image" style attribute
+   * on the current page in a set interval.
+   * @param {String} newImg An image url to be used as the replacement
+   * @param {Number} interval Milliseconds between each image getting replaced
+   */
+  const replaceAllImagesOnPage = function (
+    newImg = newImgGlobal,
+    interval = 300
+  ) {    
+    // Replace images specified by img tags
+    replaceElementsOnPage("img", newImg, replaceImgTagSrc, interval);
+
+    // Replace images specified by background-image css
+    replaceElementsOnPage(
+      '[style*="background-image"]',
+      newImg,
+      replaceBgImgStyleUrl,
+      interval
+    );
+  };
+
+  // Wait 3 seconds after page is loaded then start replacing images
+  ready(() => {
+    setTimeout(() => {
+      replaceAllImagesOnPage();
+
+      // Set up listener for DOM changes (infinite scroll websites) and clicks
+      // (instagram like button)
+      addListeners("body", () => {
+        replaceAllImagesOnPage();
+      });
+    }, 3000);
+  });
 }
