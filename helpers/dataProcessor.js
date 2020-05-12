@@ -1,75 +1,52 @@
 const createDonutData = function (data) {
-  const donutArr = [];
+  const dataArr = [];
+
   data.map((obj) => {
-    const donutObj = {};
-    donutObj["website"] = obj.website;
-    let minutes = 0;
-    if (obj.time.days) {
-      minutes += obj.time.days * 1440;
-    }
-    if (obj.time.hours) {
-      minutes += obj.time.hours * 60;
-    }
-    if (obj.time.minutes) {
-      minutes += obj.time.minutes;
-    }
-    if (obj.time.seconds) {
-      minutes += obj.time.seconds / 60;
-    }
-    donutObj["time"] = minutes;
-    donutArr.push(donutObj);
+    const dataObj = {};
+    dataObj["website"] = obj.website;
+    processTime(obj, dataObj, dataArr);
   });
-  return donutArr;
+  return dataArr;
 };
 
 const createChartData = function (data) {
-  const chartArr = [];
+  const dataArr = [];
 
   data.map((obj) => {
-    const chartObj = {};
-    chartObj["date"] = obj.date;
-    let minutes = 0;
-    if (obj.time.days) {
-      minutes += obj.time.days * 1440;
-    }
-    if (obj.time.hours) {
-      minutes += obj.time.hours * 60;
-    }
-    if (obj.time.minutes) {
-      minutes += obj.time.minutes;
-    }
-    if (obj.time.seconds) {
-      minutes += obj.time.seconds / 60;
-    }
-    chartObj["time"] = minutes;
-    chartArr.push(chartObj);
+    const dataObj = {};
+    dataObj["date"] = obj.date;
+    processTime(obj, dataObj, dataArr);
   });
-  return chartArr;
+  return dataArr;
 };
 
 const createBoardData = function (data) {
-  const boardArr = [];
+  const dataArr = [];
 
   data.map((obj) => {
-    const boardObj = {};
-    boardObj["name"] = obj.name;
-    let minutes = 0;
-    if (obj.time.days) {
-      minutes += obj.time.days * 1440;
-    }
-    if (obj.time.hours) {
-      minutes += obj.time.hours * 60;
-    }
-    if (obj.time.minutes) {
-      minutes += obj.time.minutes;
-    }
-    if (obj.time.seconds) {
-      minutes += obj.time.seconds / 60;
-    }
-    boardObj["time"] = minutes;
-    boardArr.push(boardObj);
+    const dataObj = {};
+    dataObj["name"] = obj.name;
+    processTime(obj, dataObj, dataArr);
   });
-  return boardArr;
+  return dataArr;
+};
+
+const processTime = function (obj, dataObj, dataArr) {
+  let minutes = 0;
+  if (obj.time.days) {
+    minutes += obj.time.days * 1440;
+  }
+  if (obj.time.hours) {
+    minutes += obj.time.hours * 60;
+  }
+  if (obj.time.minutes) {
+    minutes += obj.time.minutes;
+  }
+  if (obj.time.seconds) {
+    minutes += obj.time.seconds / 60;
+  }
+  dataObj["time"] = minutes;
+  dataArr.push(dataObj);
 };
 
 module.exports = {
