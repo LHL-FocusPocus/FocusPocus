@@ -33,7 +33,7 @@ export default function Leaderboard() {
     chart.hiddenState.properties.opacity = 0;
 
     chart.paddingRight = 40;
-    chart.scale = 0.8
+    chart.scale = 0.8;
 
     chart.data = [
       {
@@ -79,30 +79,17 @@ export default function Leaderboard() {
     categoryAxis.renderer.opposite = true;
     categoryAxis.renderer.inversed = true;
 
-    // categoryAxis.renderer.inverse = true;
-
-
-
     const valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
     valueAxis.renderer.inside = true;
     valueAxis.renderer.labels.template.fillOpacity = 0.3;
     valueAxis.renderer.grid.template.strokeOpacity = 0;
-    // valueAxis.renderer.minGridDistance = 100;
-
-    // valueAxis.renderer.minWidth = 200
     valueAxis.min = 0;
-    
-
-
     valueAxis.cursorTooltipEnabled = false;
     valueAxis.renderer.baseGrid.strokeOpacity = 0;
-    valueAxis.renderer.labels.template.dy = -20;    valueAxis.renderer.inversed = true;
+    valueAxis.renderer.labels.template.dy = -20;
+    valueAxis.renderer.inversed = true;
     valueAxis.renderer.opposite = true;
     valueAxis.renderer.labels.template.dx = 0;
-
-
-
-
 
     const series = chart.series.push(new am4charts.ColumnSeries());
     series.dataFields.valueX = "browsingTime";
@@ -174,10 +161,9 @@ export default function Leaderboard() {
 
         if (previousBullet != bullet) {
           const hs = bullet.states.getKey("hover");
-          hs.properties.dx = -(dataItem.column.pixelWidth);
+          hs.properties.dx = -dataItem.column.pixelWidth;
           bullet.isHover = true;
-
-          previousBullet = bullet;
+          // previousBullet = bullet;
         }
       }
     });
