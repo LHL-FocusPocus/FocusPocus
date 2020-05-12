@@ -19,9 +19,14 @@
   const replaceAllVideosOnPage = function (
     newVideo = newVideoGlobal,
     interval = 0 // Immediately replace videos for now
-  ) {
-    console.log("video");
+  ) {    
     replaceElementsOnPage("video", newVideo, replaceVideoTagSrc, interval);
+    replaceElementsOnPage(
+      "iframe.media-element",
+      newVideo,
+      replaceVideoTagSrc,
+      interval
+    );
   };
 
   // Wait 5 seconds after page is loaded then start replacing videos

@@ -154,7 +154,7 @@
 
     // Add click listener to solve instagram like-button bug
     targetNode.addEventListener("click", () => {
-      setTimeout(() => {
+      debounce(() => {
         cb();
       }, minInterval);
     });
