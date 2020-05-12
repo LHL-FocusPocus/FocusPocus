@@ -32,14 +32,13 @@ module.exports = (db) => {
     ]).then((all) => {
       // all is now an array of data that each promise returns
       userData["user"] = all[0];
-      userData["quota_today"] =
-        toMinutes(all[5].sum) / toMinutes(all[1].time_allotment);
-      console.log("allotment", toMinutes(all[1].time_allotment));
-      console.log("used allotment", toMinutes(all[5].sum));
+      userData["quota_today"] = {
+        "allotment": all[1].time_allotment,
+        "used": all[5].sum
+      }
+      userData["all_browse_time_today"] = all[4].sum;
       userData["blacklisted"] = all[2];
       userData["donutGraph"] = createDonutData(all[3]);
-      userData["total_browse_time_today"] = all[4];
-      userData["blacklisted_browse_time_today"] = all[5];
       userData["lineGraph"] = createChartData(all[6]);
       userData["leaderboard"] = createBoardData(all[7]);
       userData["shameboard"] = createBoardData(all[8]);
