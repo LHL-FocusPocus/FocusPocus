@@ -92,17 +92,19 @@ export default function Leaderboard() {
     valueAxis.renderer.inside = true;
     valueAxis.renderer.labels.template.fillOpacity = 0.3;
     valueAxis.renderer.grid.template.strokeOpacity = 0;
-    valueAxis.renderer.minGridDistance = 200;
+    // valueAxis.renderer.minGridDistance = 100;
 
-    // valueAxis.renderer.minWidth = 0;
+    // valueAxis.renderer.minWidth = 200
+    valueAxis.min = 0;
+    
 
 
     valueAxis.cursorTooltipEnabled = false;
     valueAxis.renderer.baseGrid.strokeOpacity = 0;
-    valueAxis.renderer.labels.template.dy = -20;
-    valueAxis.renderer.labels.template.dx = -100;
-    valueAxis.renderer.inversed = true;
+    valueAxis.renderer.labels.template.dy = -20;    valueAxis.renderer.inversed = true;
     valueAxis.renderer.opposite = true;
+    valueAxis.renderer.labels.template.dx = 0;
+
 
 
 
