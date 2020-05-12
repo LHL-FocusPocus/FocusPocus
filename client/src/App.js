@@ -15,11 +15,10 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const { state } = useApplicationData();
-  console.log(state)
   return (
     <div className="App">
         <Route exact path={["/", "/register"]} component={Landing} />
-        <Route exact path="/dashboard" render={() => <Dashboard userData={state} />} />
+        <Route exact path="/dashboard" render={() => <Dashboard dashboard={state.dashboard} />} />
     </div>
   );
 }
