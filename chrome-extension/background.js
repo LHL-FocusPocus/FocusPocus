@@ -56,13 +56,11 @@ function handleBrowsing(tabId) {
     // tab.url will be undefined on chrome settings page etc.
     const currentDomain = tab.url ? getDomainFromUrl(tab.url) : undefined;
     console.log(`domain was at ${lastDomain} for ${timerInSeconds} seconds`);
+    postBrowseTime(lastDomain, timerInSeconds);
     console.log("domain is now", currentDomain);
     lastDomain = currentDomain;
     timerInSeconds = 0;
-
-    // TODO: make POST request
     testGetRequest();
-    testPostRequest();
   });
 }
 
@@ -87,15 +85,20 @@ function testGetRequest() {
   request.send();
 }
 
-function testPostRequest() {
+/**
+ * Sends post request to server to add the browse session to browse_times table
+ */
+function postBrowseTime(hostName, durationInSeconds) {
   const request = new XMLHttpRequest();
-  request.open("POST", "http://localhost:9000/api/user/login", true);
-  request.setRequestHeader(
-    "Content-Type",
-    "application/json"
+  request.open(
+    "POST",
+    "http://localhost:9000/api/extension/add_browse_time",
+    true
   );
-  request.send(JSON.stringify({ email: "a@a.com", password: "password" }));
+  request.setRequestHeader("Content-Type", "application/json");
+  request.send(JSON.stringify({ hostName, durationInSeconds }));
 }
+
 function getDomainFromUrl(url) {
   const urlObj = new URL(url);
   const domain = urlObj.hostname.split("www.").join("");
