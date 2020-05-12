@@ -3,22 +3,6 @@ INSERT INTO browse_times
 VALUES
   (1, 0, '2020-05-09 01:23:45-04', '45 minutes');
 
-INSERT INTO browse_times
-  (user_id, website_id, datetime_start, duration)
-VALUES
-  (1, 1, '2020-05-09 01:23:45-04', '29 minutes');
-INSERT INTO browse_times
-  (user_id, website_id, datetime_start, duration)
-VALUES
-  (1, 3, '2020-05-09 15:23:45-04', '13 minutes');
-  INSERT INTO browse_times
-  (user_id, website_id, datetime_start, duration)
-VALUES
-  (1, 3, '2020-05-08 15:23:45-04', '15 minutes');
-  INSERT INTO browse_times
-  (user_id, website_id, datetime_start, duration)
-VALUES
-  (1, 3, '2020-05-10 15:23:45-04', '40 minutes');
 
 INSERT INTO browse_times
   (user_id, website_id, datetime_start, duration)
@@ -67,6 +51,32 @@ VALUES
 VALUES
   (2, 0, '2020-05-09 01:23:45-04', '150 minutes');
 
+-- Adding browse time for Today where user_id = 1:
+
+INSERT INTO browse_times
+  (user_id, website_id, datetime_start, duration)
+VALUES
+  (1, 1, '2020-05-12 01:23:45-04', '29 minutes');
+INSERT INTO browse_times
+  (user_id, website_id, datetime_start, duration)
+VALUES
+  (1, 3, '2020-05-12 15:23:45-04', '13 minutes');
+  INSERT INTO browse_times
+  (user_id, website_id, datetime_start, duration)
+VALUES
+  (1, 3, '2020-05-12 15:23:45-04', '15 minutes');
+  INSERT INTO browse_times
+  (user_id, website_id, datetime_start, duration)
+VALUES
+  (1, 0, '2020-05-12 15:23:45-04', '40 minutes');
+    INSERT INTO browse_times
+  (user_id, website_id, datetime_start, duration)
+VALUES
+  (1, 2, '2020-05-12 15:23:45-04', '40 minutes');
+    INSERT INTO browse_times
+  (user_id, website_id, datetime_start, duration)
+VALUES
+  (1, 4, '2020-05-12 15:23:45-04', '40 minutes');
 
 -- Adding blacklisted Browse Time for the past month where user_id = 1:
 INSERT INTO browse_times
