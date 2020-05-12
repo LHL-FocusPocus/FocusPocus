@@ -16,8 +16,8 @@
     const videoTagElements = Array.from(document.querySelectorAll("video"));
 
     // Exclude already-replaced videos from being altered
-    const filteredVideoTagElements = videoTagElements.filter(
-      (element) => element.getAttribute("src") != newVideo
+    const filteredVideoTagElements = videoTagElements.filter((element) =>
+      shouldBeReplaced(element)
     );
     tagElementsForReplacement(filteredVideoTagElements);
     for (const videoTagElement of filteredVideoTagElements) {

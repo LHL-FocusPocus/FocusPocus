@@ -34,26 +34,22 @@
   }
 
   /**
-   * Function used to filter for only images/videos that need to be changed.
-   * Excludes images that have already been changed, and also small icon images
-   * @param {Object} element
-   * @param {String} newUrl The url of the replacement image or video
+   * Function used to filter for only images/videos that need to be replaced.
+   * Excludes elements already replaced, and also small icon-sized images.
+   * @param {Object} element   
    * @param {Number} minHeight
    * @return Returns true if image fits criteria (needs to be changed)
    */
-  function filterElements(element, newUrl, minHeight = 50) {
+  function shouldBeReplaced(element, minHeight = 50) {
     return (
       !element.getAttribute("focuspocused") &&
-      getHeight(element) > minHeight &&
-      ((element.getAttribute("src") && element.getAttribute("src") != newUrl) ||
-        (element.style.backgroundImage &&
-          !element.style.backgroundImage.includes(newUrl)))
+      getHeight(element) > minHeight
     );
   }
 
   /**
    * Tags a list of elements to let script know that they have already been
-   * processed for replacement
+   * queued for replacement.
    */
   function tagElementsForReplacement(elements) {
     for (element of elements) {

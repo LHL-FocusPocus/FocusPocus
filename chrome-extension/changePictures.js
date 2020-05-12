@@ -34,7 +34,7 @@
 
     // Filter out small-sized images and already processed images
     const filteredImgTagElements = imgTagElements.filter((element) =>
-      filterElements(element, newImg)
+      shouldBeReplaced(element)
     );
     tagElementsForReplacement(filteredImgTagElements);
     shuffle(filteredImgTagElements);
@@ -59,7 +59,7 @@
 
     // Ignore very small images
     const filteredBgImageElements = bgImageElements.filter((element) =>
-      filterElements(element, newImg)
+      shouldBeReplaced(element)
     );
     shuffle(filteredBgImageElements);
     let timer2 = 0;
