@@ -1,7 +1,7 @@
 INSERT INTO websites
   (id, hostname, name, category)
 VALUES
-  (0, 'other','other', 'other');
+  (0, 'other', 'Other', 'other');
 INSERT INTO websites
   (hostname, name, category)
 VALUES
