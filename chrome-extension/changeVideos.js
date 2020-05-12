@@ -8,8 +8,11 @@
     videoTagElement.setAttribute("autoplay", true);
   };
 
+  /**
+   * Replaces all videos from video tags and on the current page.
+   * @param {String} newVideo An image url to be used as the replacement
+   */
   const replaceAllVideosOnPage = function (newVideo = newVideoGlobal) {
-    console.log("called");
     const videoTagElements = Array.from(document.querySelectorAll("video"));
 
     // Exclude already-replaced videos from being altered

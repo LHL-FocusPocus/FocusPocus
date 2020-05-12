@@ -35,6 +35,12 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 //   changePictures(activeInfo.tabId);
 // });
 
+/**
+ * Checks if current tab's url is on the blacklist then injects content
+ * replacement scripts.
+ * @param {Number} tabId - The id of the current tab
+ * @param {[String]} blackList - A list of blacklisted website domains
+ */
 function changePictures(
   tabId,
   blackList = [
@@ -47,8 +53,8 @@ function changePictures(
   ]
 ) {
   chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+    // Will be null on chrome settings page etc
     if (!tabs[0] || !tabs[0].url) {
-      // Will be null on chrome settings page etc
       return;
     }
     const url = new URL(tabs[0].url);
@@ -56,6 +62,8 @@ function changePictures(
 
     if (blackList.includes(domain)) {
       chrome.tabs.executeScript(tabId, { file: "helpers.js" });
+
+      // These can be run conditionally depending on user options
       chrome.tabs.executeScript(tabId, { file: "changePictures.js" });
       chrome.tabs.executeScript(tabId, { file: "changeVideos.js" });
     }

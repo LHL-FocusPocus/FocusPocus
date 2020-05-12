@@ -28,9 +28,10 @@
   const replaceAllImagesOnPage = function (
     newImg = newImgGlobal,
     interval = 300
-  ) {    
+  ) {
     // Replace images specified by img tags
     const imgTagElements = Array.from(document.querySelectorAll("img"));
+
     // Filter out small-sized images and already processed images
     const filteredImgTagElements = imgTagElements.filter((element) =>
       filterElements(element, newImg)
@@ -74,6 +75,8 @@
   ready(() => {
     setTimeout(() => {
       replaceAllImagesOnPage();
+
+      // Set up listener for DOM changes (infinite scroll websites)
       onNewElementLoaded("body", replaceAllImagesOnPage);
     }, 3000);
   });

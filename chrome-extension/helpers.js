@@ -1,6 +1,6 @@
 {
   /**
-   * Replacement of jQuery's document.ready (from http://youmightnotneedjquery.com/)
+   * Replacement of jQuery's document.ready (from youmightnotneedjquery.com).
    * @param {Function} fn The function to call when document is ready
    */
   function ready(fn) {
@@ -13,7 +13,7 @@
 
   /**
    * Shuffles the provided array.
-   * @param {Array} array An array containing the items.
+   * @param {Array} array An array containing the items
    */
   function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -24,7 +24,7 @@
   }
 
   /**
-   * Gets the element height (from http://youmightnotneedjquery.com/)
+   * Gets the element height (from http://youmightnotneedjquery.com/).
    */
   function getHeight(element) {
     const height = parseFloat(
@@ -62,7 +62,7 @@
   }
 
   /**
-   * Modifies the cb function so it is called max of once every [delay] ms
+   * Modifies the cb function so it is called max of once every [delay] ms.
    */
   function debounce(cb, delay) {
     let timer;
