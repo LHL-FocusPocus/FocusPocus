@@ -4,6 +4,7 @@ import Login from "./Login";
 import LogoText from "./LogoText";
 import styled from "styled-components";
 import { Route, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -18,14 +19,16 @@ const InnerContainer = styled.div`
   width: 66vw;
 `;
 
-export default function Landing() {
+export default function Landing(props) {
+  const history = useHistory();
+
   return (
     <Container>
       <InnerContainer>
         <LogoText />
       </InnerContainer>
-      <Route exact path="/" component={Login} />
-      <Route exact path="/register" component={SignUp} />
+      <Route exact path="/" render={() => <Login history={history} />} />
+      <Route exact path="/register" render={() => <SignUp history={history} />} />
     </Container>
   );
 }
