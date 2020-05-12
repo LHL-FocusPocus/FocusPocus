@@ -267,12 +267,13 @@ module.exports = (db) => {
       .query(
         `
         SELECT name as website,
-        duration as time
+        SUM(duration) as time
         FROM browse_times
         JOIN websites ON websites.id = website_id
         JOIN users ON users.id = user_id
         WHERE user_id = $1
-        AND datetime_start >= CURRENT_DATE AND datetime_start < CURRENT_DATE + INTERVAL '1 day';
+        AND datetime_start >= CURRENT_DATE AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+        GROUP BY name;
         `,
         [user_id]
       )
