@@ -344,6 +344,29 @@ module.exports = (db) => {
         return res.rows;
       });
   };
+
+  const getHitsForBlacklistedSiteForToday = () => {
+    return db.query(
+      `
+      SELECT websites.name AS name, COUNT(*) AS hits
+      FROM websites JOIN blacklists ON websites.id = website_id 
+      JOIN browse_times ON browse_times.website_id = websites.id
+      WHERE blacklists.user_id = 1
+      AND datetime_start >= CURRENT_DATE
+      AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+      GROUP BY name
+      `
+    );
+  };
+
+  // SELECT SUM(duration)
+  // FROM browse_times
+  // JOIN blacklists ON browse_times.website_id = blacklists.website_id
+  // WHERE blacklists.user_id = $1
+  // AND datetime_start >= CURRENT_DATE
+  // AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+  // GROUP BY browse_times.user_id;
+
   return {
     getUserWithEmail,
     getUserWithID,
@@ -364,5 +387,6 @@ module.exports = (db) => {
     getMonthBlacklistBrowsingInfoForChart,
     getTimeForLeaderboardWeek,
     getTimeForShameboardWeek,
+    getHitsForBlacklistedSiteForToday,
   };
 };
