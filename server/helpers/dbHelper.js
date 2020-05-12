@@ -283,6 +283,26 @@ module.exports = (db) => {
       });
   };
 
+  const getMonthBlacklistBrowsingInfoForChart = function (user_id) {
+    return db
+      .query(
+        `
+        SELECT datetime_start::DATE as date, SUM(duration) as time
+        FROM browse_times
+        JOIN blacklists ON browse_times.website_id = blacklists.website_id
+        WHERE browse_times.user_id = $1
+        AND datetime_start >= CURRENT_DATE - INTERVAL '30 days'
+        AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+        GROUP BY date;
+        `,
+        [user_id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows;
+      });
+  };
+
   return {
     getUserWithEmail,
     getUserWithID,
@@ -300,5 +320,6 @@ module.exports = (db) => {
     getQuotaForTodayWithUserID,
     getWebsiteIDByHostname,
     getBrowseInfoTodayForDashboard,
+    getMonthBlacklistBrowsingInfoForChart,
   };
 };
