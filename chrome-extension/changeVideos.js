@@ -1,11 +1,14 @@
 {
   let newVideoGlobal = "https://rickrolled.fr/rickroll.mp4";
+  let newImgGlobal =
+    "https://memegen.link/bad/get_back_to_work/you_lazy_bum.jpg";
   /**
    * Replaces src and similar attributes in video elements.
    */
   const replaceVideoTagSrc = function (videoTagElement, newVideo) {
     videoTagElement.setAttribute("src", newVideo);
     videoTagElement.setAttribute("autoplay", true);
+    videoTagElement.setAttribute("poster", newImgGlobal);
     videoTagElement.removeAttribute("focuspocused");
   };
 
@@ -17,6 +20,7 @@
     newVideo = newVideoGlobal,
     interval = 0 // Immediately replace videos for now
   ) {
+    console.log("video");
     replaceElementsOnPage("video", newVideo, replaceVideoTagSrc, interval);
   };
 
@@ -32,7 +36,7 @@
           replaceAllVideosOnPage();
         },
         5000,
-        true
+        false
       );
     }, 5000);
   });

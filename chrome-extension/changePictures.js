@@ -29,8 +29,7 @@
   const replaceAllImagesOnPage = function (
     newImg = newImgGlobal,
     interval = 300
-  ) {
-    console.log("called");
+  ) {    
     // Replace images specified by img tags
     replaceElementsOnPage("img", newImg, replaceImgTagSrc, interval);
 
