@@ -27,11 +27,6 @@ const createChartData = function (data) {
 
   data.map((obj) => {
     const chartObj = {};
-    // let date = "";
-    // date += obj.date;
-    // console.log(obj.date.getYear(), obj.date.getMonth(), obj.date.getDate());
-    // console.log(obj.date.toString());
-    // console.log(obj.date);
     chartObj["date"] = obj.date;
     let minutes = 0;
     if (obj.time.days) {
@@ -52,4 +47,29 @@ const createChartData = function (data) {
   return chartArr;
 };
 
-module.exports = { createDonutData, createChartData };
+const createBoardData = function (data) {
+  const boardArr = [];
+
+  data.map((obj) => {
+    const boardObj = {};
+    boardObj["name"] = obj.name;
+    let minutes = 0;
+    if (obj.time.days) {
+      minutes += obj.time.days * 1440;
+    }
+    if (obj.time.hours) {
+      minutes += obj.time.hours * 60;
+    }
+    if (obj.time.minutes) {
+      minutes += obj.time.minutes;
+    }
+    if (obj.time.seconds) {
+      minutes += obj.time.seconds / 60;
+    }
+    boardObj["time"] = minutes;
+    boardArr.push(boardObj);
+  });
+  return boardArr;
+};
+
+module.exports = { createDonutData, createChartData, createBoardData };

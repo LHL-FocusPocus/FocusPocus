@@ -303,26 +303,47 @@ module.exports = (db) => {
       });
   };
 
-  // const getMonthBlacklistBrowsingInfoForChart = function (user_id) {
-  //   return db
-  //     .query(
-  //       `
-  //       SELECT datetime_start::DATE as date, SUM(duration) as time
-  //       FROM browse_times
-  //       JOIN blacklists ON browse_times.website_id = blacklists.website_id
-  //       WHERE browse_times.user_id = $1
-  //       AND datetime_start >= CURRENT_DATE - INTERVAL '7 days'
-  //       AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
-  //       GROUP BY date;
-  //       `,
-  //       [user_id]
-  //     )
-  //     .then((res) => {
-  //       if (res.rows.length === 0) return null;
-  //       return res.rows;
-  //     });
-  // };
+  const getTimeForLeaderboardWeek = function () {
+    return db
+      .query(
+        `
+        SELECT first_name as name, SUM(duration) as time
+        FROM browse_times
+        JOIN users on browse_times.user_id = users.id
+        JOIN blacklists ON users.id = blacklists.user_id
+        WHERE datetime_start >= CURRENT_DATE - INTERVAL '7 days'
+        AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+        GROUP BY name
+        ORDER BY time
+        ASC LIMIT 10;
+        `
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows;
+      });
+  };
 
+  const getTimeForShameboardWeek = function () {
+    return db
+      .query(
+        `
+        SELECT first_name as name, SUM(duration) as time
+        FROM browse_times
+        JOIN users on browse_times.user_id = users.id
+        JOIN blacklists ON users.id = blacklists.user_id
+        WHERE datetime_start >= CURRENT_DATE - INTERVAL '7 days'
+        AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+        GROUP BY name
+        ORDER BY time
+        DESC LIMIT 10;
+        `
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows;
+      });
+  };
   return {
     getUserWithEmail,
     getUserWithID,
@@ -341,5 +362,7 @@ module.exports = (db) => {
     getWebsiteIDByHostname,
     getBrowseInfoTodayForDashboard,
     getMonthBlacklistBrowsingInfoForChart,
+    getTimeForLeaderboardWeek,
+    getTimeForShameboardWeek,
   };
 };
