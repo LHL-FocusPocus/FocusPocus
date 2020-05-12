@@ -116,13 +116,13 @@
 
   /**
    * Set up listener for DOM change event when new elements are added, such
-   * as on sites with infinite scrolling.
+   * as on sites with infinite scrolling. Also listens for clicks.
    * @param {String} element The parent element to listen for changes
    * @param {Function} cb The callback function
    * @param {Number} minInterval Time in ms to use for throttling/debounce
    * @param {Boolean} useDebounce Set to true to guarantee min delay delay
    */
-  function onNewElementLoaded(
+  function addListeners(
     element,
     cb,
     minInterval = 1000,

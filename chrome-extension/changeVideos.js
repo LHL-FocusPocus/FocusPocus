@@ -6,6 +6,7 @@
   const replaceVideoTagSrc = function (videoTagElement, newVideo) {
     videoTagElement.setAttribute("src", newVideo);
     videoTagElement.setAttribute("autoplay", true);
+    videoTagElement.removeAttribute("focuspocused");
   };
 
   /**
@@ -25,9 +26,14 @@
       replaceAllVideosOnPage();
 
       // Set up listener for DOM changes (infinite scroll websites)
-      onNewElementLoaded("body", () => {
-        replaceAllVideosOnPage();
-      }, 5000, true);
+      addListeners(
+        "body",
+        () => {
+          replaceAllVideosOnPage();
+        },
+        5000,
+        true
+      );
     }, 5000);
   });
 }

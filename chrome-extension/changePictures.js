@@ -17,6 +17,7 @@
    */
   const replaceBgImgStyleUrl = function (bgImageTagElement, newImg) {
     bgImageTagElement.style.backgroundImage = `url("${newImg}")`;
+    bgImageTagElement.removeAttribute("focuspocused");
   };
 
   /**
@@ -47,8 +48,9 @@
     setTimeout(() => {
       replaceAllImagesOnPage();
 
-      // Set up listener for DOM changes (infinite scroll websites)
-      onNewElementLoaded("body", () => {
+      // Set up listener for DOM changes (infinite scroll websites) and clicks
+      // (instagram like button)
+      addListeners("body", () => {
         replaceAllImagesOnPage();
       });
     }, 3000);
