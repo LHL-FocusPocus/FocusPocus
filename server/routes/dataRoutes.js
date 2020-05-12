@@ -3,11 +3,7 @@ const router = express.Router();
 
 module.exports = (db) => {
   const dbHelper = require("../helpers/dbHelper")(db);
-  const {
-    createDonutData,
-    createChartData,
-    createBoardData,
-  } = require("../helpers/dataProcessor");
+  const { compileData } = require("../helpers/dataProcessor");
 
   // Return data needed to render dashboard, access at /data/dashboard
   router.get("/dashboard", (req, res) => {
@@ -40,10 +36,10 @@ module.exports = (db) => {
       // Currently all[2] is not used -> might be useful later
       // console.log(all[2])
       userData["radialGraph"] = all[9];
-      userData["donutGraph"] = createDonutData(all[3]);
-      userData["lineGraph"] = createChartData(all[6]);
-      userData["leaderboard"] = createBoardData(all[7]);
-      userData["shameboard"] = createBoardData(all[8]);
+      userData["donutGraph"] = compileData(all[3], "website");
+      userData["lineGraph"] = compileData(all[6], "date");
+      userData["leaderboard"] = compileData(all[7], "name");
+      userData["shameboard"] = compileData(all[8], "name");
 
       return res.status(200).json(userData);
     });
