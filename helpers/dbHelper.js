@@ -314,7 +314,7 @@ module.exports = (db) => {
         WHERE datetime_start >= CURRENT_DATE - INTERVAL '7 days'
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
         GROUP BY name
-        ORDER BY time DESC
+        ORDER BY time ASC
         LIMIT 6;
         `
       )
@@ -349,12 +349,12 @@ module.exports = (db) => {
     return db
       .query(
         `
-      SELECT websites.name AS name, COUNT(*) AS hits
+      SELECT websites.name AS name, COUNT(browse_times.website_id)::integer AS hits
       FROM websites JOIN blacklists ON websites.id = website_id 
       JOIN browse_times ON browse_times.website_id = websites.id
       WHERE blacklists.user_id = $1
       AND datetime_start >= CURRENT_DATE
-      AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+      AND datetime_start < CURRENT_DATE + INTERVAL '7 day'
       GROUP BY name;
       `,
         [user_id]
