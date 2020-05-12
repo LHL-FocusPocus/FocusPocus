@@ -7,7 +7,6 @@ module.exports = (db) => {
     createDonutData,
     createChartData,
     createBoardData,
-    toMinutes,
   } = require("../helpers/dataProcessor");
 
   // Return data needed to render dashboard, access at /data/dashboard
@@ -37,7 +36,8 @@ module.exports = (db) => {
         "used": all[5].sum
       }
       userData["all_browse_time_today"] = all[4].sum;
-      userData["blacklisted"] = all[2];
+      userData["radialGraph"]
+      // userData["blacklisted"] = all[2];
       userData["donutGraph"] = createDonutData(all[3]);
       userData["lineGraph"] = createChartData(all[6]);
       userData["leaderboard"] = createBoardData(all[7]);
