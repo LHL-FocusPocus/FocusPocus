@@ -11,7 +11,7 @@ import Container from "@material-ui/core/Container";
 import { useFormFields } from "../hooks/useFormFields";
 import styled from "styled-components";
 import axios from "axios";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -74,6 +74,10 @@ export default function Login(props) {
       .then((res) => {
         setErrorMsg("");
         setLoading(false);
+        return axios.get("/api/data/dashboard");
+      })
+      .then((res) => {
+        props.setUserData(res.data);
       })
       .catch((e) => {
         if (e.response) {
@@ -140,7 +144,9 @@ export default function Login(props) {
           >
             Log In
           </Button>
-          {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+          {loading && (
+            <CircularProgress size={24} className={classes.buttonProgress} />
+          )}
           <Grid container justify="flex-end">
             <Grid item>
               <p className={classes.error}>{errorMsg}</p>
