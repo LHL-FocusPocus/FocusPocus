@@ -12,6 +12,8 @@ import Avatar from "@material-ui/core/Avatar";
 import styled from "styled-components";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+
 
 // STRETCH: make cards draggable/droppable to delete?
 
@@ -43,7 +45,10 @@ const Background = styled(CardActionArea)`
 `;
 
 const Delete = styled(IconButton)`
-  margin-left: 85%;
+  ${"" /* margin-left: 85%; */}
+  ${'' /* z-index: 5 */}
+  margin-top: 27%;
+  margin-right: 20%
 `;
 
 export default function BlacklistedCards({ hostname, name }) {
@@ -59,6 +64,11 @@ export default function BlacklistedCards({ hostname, name }) {
           }
           titleTypographyProps={{ variant: "h5" }}
           title={`${name}`}
+          action={
+            <Delete aria-label="settings">
+              <DeleteIcon />
+            </Delete>
+          }
         />
         {/* <Logo image={`//logo.clearbit.com/${hostname}`} title={`${name}`} />
         <Website>
@@ -67,13 +77,14 @@ export default function BlacklistedCards({ hostname, name }) {
           </Typography>
         </Website> */}
       </Background>
-      <CardActions>
-        {/* <Delete size="small" color="primary"> */}
-        <Delete>
-          <DeleteIcon/>
-        </Delete>
-        {/* </Delete> */}
-      </CardActions>
     </Container>
   );
 }
+
+// /*       <CardActions>
+//         {/* <Delete size="small" color="primary"> */}
+//         <Delete>
+//           <DeleteIcon />
+//         </Delete>
+//         {/* </Delete> */}
+//       </CardActions> */
