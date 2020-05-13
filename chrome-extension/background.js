@@ -60,7 +60,7 @@ function handleBrowsing(tabId) {
     console.log("domain is now", currentDomain);
     lastDomain = currentDomain;
     timerInSeconds = 0;
-    testGetRequest();
+    //login(); // uncomment if you want to login
   });
 }
 
@@ -77,11 +77,9 @@ function testGetRequest() {
       // We reached our target server, but it returned an error
     }
   };
-
   request.onerror = function () {
     // There was a connection error of some sort
   };
-
   request.send();
 }
 
@@ -95,6 +93,15 @@ function postBrowseTime(hostName, durationInSeconds) {
     "http://localhost:9000/api/extension/add_browse_time",
     true
   );
+  request.onload = function () {
+    const data = JSON.parse(this.response);
+    
+    if (this.status >= 200 && this.status < 400) {
+      console.log(data);
+    } else {
+      console.log(data);
+    }
+  };
   request.setRequestHeader("Content-Type", "application/json");
   request.send(JSON.stringify({ hostName, durationInSeconds }));
 }
@@ -105,10 +112,7 @@ function postBrowseTime(hostName, durationInSeconds) {
 function login() {
   const request = new XMLHttpRequest();
   request.open("POST", "http://localhost:9000/api/user/login", true);
-  request.setRequestHeader(
-    "Content-Type",
-    "application/json"
-  );
+  request.setRequestHeader("Content-Type", "application/json");
   request.send(JSON.stringify({ email: "a@a.com", password: "password" }));
 }
 
