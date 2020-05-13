@@ -12,8 +12,6 @@ import Avatar from "@material-ui/core/Avatar";
 import styled from "styled-components";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-
 
 // STRETCH: make cards draggable/droppable to delete?
 
@@ -28,27 +26,13 @@ const Container = styled(Card)`
   text-align: center;
 `;
 
-// const Website = styled(CardHeader)`
-//   ${"" /* padding-bottom: 10%; */}
-//   ${"" /* transform: translateY(-100%) */}
-//   ${
-//     "" /* width: 20%;
-//   text-align: center;
-//   margin-left: 40%;
-//   padding-bottom: 50%; */
-//   }
-//   font-size: 2em;
-// `;
-
 const Background = styled(CardActionArea)`
   background-color: rgba(71, 65, 87, 0.055);
 `;
 
 const Delete = styled(IconButton)`
-  ${"" /* margin-left: 85%; */}
-  ${'' /* z-index: 5 */}
   margin-top: 27%;
-  margin-right: 20%
+  margin-right: 20%;
 `;
 
 export default function BlacklistedCards({ hostname, name }) {
@@ -80,11 +64,3 @@ export default function BlacklistedCards({ hostname, name }) {
     </Container>
   );
 }
-
-// /*       <CardActions>
-//         {/* <Delete size="small" color="primary"> */}
-//         <Delete>
-//           <DeleteIcon />
-//         </Delete>
-//         {/* </Delete> */}
-//       </CardActions> */
