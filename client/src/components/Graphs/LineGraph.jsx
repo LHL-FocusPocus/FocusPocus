@@ -20,7 +20,7 @@ const Wrapper = styled(Box)`
 const Chart = styled.div`
   align-self: center;
   width: 100%;
-  height: 100%;
+  height: 400px;
 `;
 
 export default function LineGraph({ lineData }) {

@@ -8,10 +8,12 @@ import am4themes_material from "@amcharts/amcharts4/themes/material";
 
 const Wrapper = styled(Box)`
   ${"" /* border: solid 3px black; */}
-  flex: 1 50%;
+  flex: 1 49%;
   display: flex;
   items-align: center;
+  height: 400px;
   justify-content: center;
+  
 
   @media (max-width: 1300px) {
     order: 2;

@@ -11,11 +11,8 @@ import Shameboard from "./Graphs/Shameboard";
 import loading from "../helpers/loading";
 
 const Container = styled(Box)`
-  ${"" /* display: flex; */}
-  ${"" /* flex-flow: row-wrap; */}
-  ${"" /* padding: 3em; */}
   padding: 3em;
-  height: 100vh;
+  height: 100%;
 `;
 
 // const DashboardContainer = loading(Container);

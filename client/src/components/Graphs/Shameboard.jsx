@@ -11,6 +11,8 @@ const Wrapper = styled(Box)`
   display: flex;
   items-align: center;
   justify-content: center;
+  height: 400px;
+
 
   @media (max-width: 1300px) {
     order: 6;
@@ -23,6 +25,8 @@ const Chart = styled.div`
   width: 100%;
   height: 100%;
   margin: 2em 0em;
+  ${'' /* margin-left: 400px; */}
+  ${'' /* transform: translateX(2000px) */}
 `;
 
 export default function Shameboard({shameboard}) {

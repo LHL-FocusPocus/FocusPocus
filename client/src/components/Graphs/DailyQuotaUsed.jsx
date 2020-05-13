@@ -12,6 +12,7 @@ const Wrapper = styled(Box)`
   display: flex;
   items-align: center;
   justify-content: center;
+  height: 400px;
 
   @media (max-width: 1300px) {
     flex: 1 100%;
