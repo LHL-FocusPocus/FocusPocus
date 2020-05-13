@@ -137,7 +137,7 @@ export default function Leaderboard({ leaderboard }) {
         }
       }
     });
-  }, []);
+  }, [leaderboard]);
 
   return (
       <Chart id="leaderboard"></Chart>

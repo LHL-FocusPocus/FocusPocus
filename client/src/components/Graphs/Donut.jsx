@@ -49,7 +49,7 @@ export default function Donut({ donutData }) {
     series.dataFields.category = "website";
     series.slices.template.cornerRadius = 5;
     series.colors.step = 3;
-  }, []);
+  }, [donutData]);
 
   return (
     <Wrapper>

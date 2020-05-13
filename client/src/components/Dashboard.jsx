@@ -34,7 +34,7 @@ const Wrapper = styled(Box)`
 
 // const DashboardContainer = loading(Container);
 
-export default function Dashboard({ dashboard, loading }) {
+export default function Dashboard({ dashboardData, loading }) {
   const {
     donutGraph,
     lineGraph,
@@ -43,7 +43,7 @@ export default function Dashboard({ dashboard, loading }) {
     shameboard,
     user,
     quota_today,
-  } = dashboard;
+  } = dashboardData;
 
   return (
     <div>
@@ -65,7 +65,7 @@ export default function Dashboard({ dashboard, loading }) {
         {donutGraph && <Donut donutData={donutGraph} />}
         {radialGraph && <Radial radialData={radialGraph} />}
 
-        {!dashboard.quota_today && (
+        {!quota_today && (
           <h1>loading... (will be replaced by spinner)</h1>
         )}
       </Container>

@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="App">
         <Route exact path={["/", "/register"]} component={Landing} />
-        <Route exact path="/dashboard" render={() => <Dashboard dashboard={state} />} />
+        <Route exact path="/dashboard" render={() => <Dashboard dashboardData={state} />} />
     </div>
   );
 }

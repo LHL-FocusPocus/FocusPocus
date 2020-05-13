@@ -15,10 +15,10 @@ export default function useApplicationData() {
     axios
       .get("/api/data/dashboard")
       .then(userData => {
-        const dashboard = userData.data;
+        const dashboardData = userData.data;
         dispatch({
           type: SET_DASHBOARD_DATA,
-          payload: dashboard,
+          payload: dashboardData,
         });
       })
       // This is not really doing what I intended...

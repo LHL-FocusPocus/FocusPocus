@@ -135,7 +135,7 @@ export default function Shameboard({shameboard}) {
         }
       }
     });
-  }, []);
+  }, [shameboard]);
 
   return (
       <Chart id="shameboard"></Chart>

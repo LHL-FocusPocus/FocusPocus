@@ -27,22 +27,13 @@ export default function LineGraph({ lineData }) {
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
 
-    // Create chart instance
     const chart = am4core.create("line_chart", am4charts.XYChart);
 
-    // Enable chart cursor
     chart.cursor = new am4charts.XYCursor();
     chart.cursor.lineX.disabled = true;
     chart.cursor.lineY.disabled = true;
 
-    // Enable scrollbar
     chart.scrollbarX = new am4core.Scrollbar();
-
-    // Add data
-    // Data must in array with date&value keys
-    // day 1 = arr[0], day 2 = arr[1], etc
-    // Need data for the last 30 days from today (including today)
-    // Time should be in MINUTES (since they're daily values - hours makes less sense)
     chart.data = lineData;
 
     // Create axes
@@ -55,7 +46,6 @@ export default function LineGraph({ lineData }) {
 
     const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
-    // Create series
     const series = chart.series.push(new am4charts.LineSeries());
     series.tooltipText = "[bold font-size: 17px]Minutes Spent: {valueY}[/]";
     series.dataFields.valueY = "time";
