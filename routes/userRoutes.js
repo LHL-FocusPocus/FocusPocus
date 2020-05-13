@@ -106,15 +106,47 @@ module.exports = (db) => {
     const { host_name } = req.body.params;
     dbHelper
       .getWebsiteIDByHostname(host_name)
-      // .getWebsiteIDByHostname("reddit.com")
-      .then((site) => dbHelper.addWebsiteToBlacklist(userId, site.id))
+      .then((siteID) => {
+        if (!siteID) {
+          // Removes '.com' from end of hostname for DB.
+          const name = host_name.split(".")[0];
+          const category = null;
+          return dbHelper.addWebsite(host_name, name, category);
+        }
+      })
+      .then((siteID) => {
+        // console.log("=====> Adding site to blacklist");
+        // console.log(siteID);
+        dbHelper.addWebsiteToBlacklist(userId, siteID.id);
+      })
       .catch((err) => res.json(err));
   });
 
   // Just a test route to test db queries and response
-  // router.get("/test", (req, res) => {
-  //   dbHelper.getQuotaForTodayWithUserID("1").then((quota) => res.json(quota));
-  // });
+  router.get("/test", (req, res) => {
+    // const { host_name } = req.body.params;
+    const host_name = "espn.com";
+    const userId = 1;
+    dbHelper
+      .getWebsiteIDByHostname(host_name)
+      .then((siteID) => {
+        if (!siteID) {
+          // console.log("=====> Website does not exist yet in our DB");
+          // Removes '.com' from end of hostname for DB.
+          const remSuffix = host_name.split(".")[0];
+          // Capitalizes first letter of hostname
+          const name = remSuffix.charAt(0).toUpperCase() + remSuffix.slice(1);
+          const category = null;
+          return dbHelper.addWebsite(host_name, name, category);
+        }
+      })
+      .then((siteInfo) => {
+        // console.log("=====> Adding site to blacklist");
+        // console.log(siteID);
+        dbHelper.addWebsiteToBlacklist(userId, siteInfo.id);
+      })
+      .catch((err) => res.json(err));
+  });
 
   return router;
 };
