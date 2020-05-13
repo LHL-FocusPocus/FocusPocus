@@ -3,27 +3,51 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 import Login from "./components/Login";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { makeStyles } from "@material-ui/core/styles";
 
 axios.defaults.baseURL = "http://localhost:9000";
 axios.defaults.withCredentials = true;
 
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+  },
+}));
+
 function App() {
-  const [data, setData] = useState({ state: "loading" });
+  const classes = useStyles();
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     axios
-      .get("/")
+      .get("/api/data/dashboard")
       .then((res) => {
-        setData(res.data);
+        setUserData(res.data);
+        setLoading(false);
       })
       .catch((err) => {
-        setData(err);
+        setUserData(null);
+        setLoading(false);
       });
   }, []);
 
   return (
-    <div>
-      <Login />
-      <p>{JSON.stringify(data)}</p>
+    <div className="App">
+      {!loading && userData && <p>{JSON.stringify(userData)}</p>}
+      {!loading && !userData && (
+        <Login
+          setUserData={setUserData}
+          loading={loading}
+          setLoading={setLoading}
+        />
+      )}
+      <Backdrop className={classes.backdrop} open={loading}>
+        <h1>Loading </h1> &nbsp;&nbsp;
+        <CircularProgress color="inherit" size={30} />
+      </Backdrop>
     </div>
   );
 }
