@@ -1,7 +1,7 @@
 INSERT INTO websites
   (id, hostname, name, category)
 VALUES
-  (0, 'other', 'Other', 'other');
+  (0, 'other', 'Non-Blocked Sites', 'other');
 INSERT INTO websites
   (hostname, name, category)
 VALUES
