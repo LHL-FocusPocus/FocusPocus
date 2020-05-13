@@ -23,7 +23,8 @@ const Wrapper = styled(Box)`
   justify-content: center;
   ${"" /* padding: 3em; */}
   height: 400px;
-  transform: translateX(30px)
+  transform: translateX(30px);
+  padding-top: 3%;
 
   ${'' /* @media (max-width: 1300px) {
     flex: 1 100;

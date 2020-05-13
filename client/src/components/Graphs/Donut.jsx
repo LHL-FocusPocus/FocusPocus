@@ -23,8 +23,10 @@ const Wrapper = styled(Box)`
 const Chart = styled.div`
   align-self: center;
   width: 100%;
-  height: 145%;
+  height: 100%;
   transform: translateY(60px);
+  padding-bottom: 18%;
+
 `;
 
 export default function Donut({ donutData }) {
@@ -37,8 +39,8 @@ export default function Donut({ donutData }) {
     chart.data = donutData;
 
     chart.innerRadius = am4core.percent(40);
-    chart.depth = 120;
-    chart.scale = 0.7;
+    chart.depth = 40;
+    chart.scale = 1;
     // chart.resize = 50
 
     const series = chart.series.push(new am4charts.PieSeries3D());

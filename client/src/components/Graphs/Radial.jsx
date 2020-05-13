@@ -25,6 +25,12 @@ const Chart = styled.div`
   align-self: center;
   height: 100%;
   width: 100%;
+  padding-right: 13%;
+  padding-bottom: 8%;
+
+  @media (max-width: 1300px) {
+    padding-right: 0;
+  }
 `;
 
 export default function Radial({radialData}) {
