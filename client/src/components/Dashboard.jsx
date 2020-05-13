@@ -20,8 +20,7 @@ const Container = styled(Box)`
 
 const DashboardContainer = loading(Container);
 
-export default function Dashboard({ dashboard, loading}) {
-
+export default function Dashboard({ dashboard, loading }) {
   const {
     donutGraph,
     lineGraph,
@@ -41,34 +40,6 @@ export default function Dashboard({ dashboard, loading}) {
         flexWrap="wrap"
         display="flex"
       >
-        <DailyQuotaUsed quota={quota_today} />
-        <LineGraph lineData={lineGraph} />
-        <Donut donutData={donutGraph} />
-        <Radial radialData={radialGraph} />
-        <Leaderboard leaderboard={leaderboard} />
-        <Shameboard shameboard={shameboard} />
-      </DashboardContainer>
-    </div>
-  );
-}
-
-/*         {quota_today && <DailyQuotaUsed quota={quota_today} />}
-        {lineGraph && <LineGraph lineData={lineGraph} />}
-        {donutGraph && <Donut donutData={donutGraph} />}
-        {radialGraph && <Radial radialData={radialGraph} />}
-        {leaderboard && <Leaderboard leaderboard={leaderboard} />}
-        {shameboard && <Shameboard shameboard={shameboard} />}
-
-        {!dashboard.quota_today && <h1>loading</h1>} */
-
-/*     <div>
-      <Navbar user={user} />
-      <DashboardContainer
-        isLoading={loading}
-        bgcolor="background.paper"
-        flexWrap="wrap"
-        display="flex"
-      >
         {quota_today && <DailyQuotaUsed quota={quota_today} />}
         {lineGraph && <LineGraph lineData={lineGraph} />}
         {donutGraph && <Donut donutData={donutGraph} />}
@@ -80,4 +51,6 @@ export default function Dashboard({ dashboard, loading}) {
           <h1>loading... (will be replaced by spinner)</h1>
         )}
       </DashboardContainer>
-    </div> */
+    </div>
+  );
+}

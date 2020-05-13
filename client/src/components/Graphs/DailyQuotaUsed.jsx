@@ -78,9 +78,10 @@ export default function DailyQuotaUsed({ quota }) {
     // };
 
     /* toMinutes(quota.allotment) / toMinutes(quota.used) */
+    const percentageQuotaUsed = toMinutes(quota.allotment) / toMinutes(quota.used)
 
     // Replace with real data
-    hand.showValue();
+    hand.showValue(percentageQuotaUsed);
   }, [quota]);
 
   /* {allotment: {…}, used: {…}, all_browse_time: {…}}
