@@ -57,7 +57,6 @@ export default function Dashboard({ dashboardData, loading }) {
         {quota_today && <DailyQuotaUsed quota={quota_today} />}
         {lineGraph && <LineGraph lineData={lineGraph} />}
         <Wrapper>
-          {" "}
           {leaderboard && <Leaderboard leaderboard={leaderboard} />}
           {shameboard && <Shameboard shameboard={shameboard} />}
         </Wrapper>
