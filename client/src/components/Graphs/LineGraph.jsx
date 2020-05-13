@@ -81,7 +81,7 @@ export default function LineGraph({ lineData }) {
       const today = new Date();
       series.xAxis.zoomToDates(today.setDate(today.getDate() - 7), new Date());
     });
-  }, lineData);
+  }, [lineData]);
 
   return (
     <Wrapper>

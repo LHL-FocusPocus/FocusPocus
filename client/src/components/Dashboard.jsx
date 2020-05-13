@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Navbar from "./Navbar";
 import styled from "styled-components";
 import DailyQuotaUsed from "./Graphs/DailyQuotaUsed";
@@ -8,7 +8,7 @@ import Donut from "./Graphs/Donut";
 import Radial from "./Graphs/Radial";
 import Leaderboard from "./Graphs/Leaderboard";
 import Shameboard from "./Graphs/Shameboard";
-import axios from "axios";
+import loading from "../helpers/loading";
 
 const Container = styled(Box)`
   ${"" /* display: flex; */}
@@ -18,26 +18,66 @@ const Container = styled(Box)`
   height: 100vh;
 `;
 
-export default function Dashboard({dashboard}) {
-  // console.log("props", dashboard);
-  // const { donutGraph, lineGraph, radialGraph, leaderboard, shameboard, user, quota_today } = dashboard;
-  // console.log(typeof props.dashboard)
-  // console.log('props.dashboard', props.dashboard)
-  // console.log('donutGraph', dashboard)
-  // console.log('userData.leaderboard', userData.leaderboard)
-  const { donutGraph, lineGraph, radialGraph, leaderboard, shameboard, user, quota_today } = dashboard;
+const DashboardContainer = loading(Container);
+
+export default function Dashboard({ dashboard, loading}) {
+
+  const {
+    donutGraph,
+    lineGraph,
+    radialGraph,
+    leaderboard,
+    shameboard,
+    user,
+    quota_today,
+  } = dashboard;
 
   return (
     <div>
       <Navbar user={user} />
-      <Container bgcolor="background.paper" flexWrap="wrap" display="flex">
-        <DailyQuotaUsed quota={quota_today}/>
+      <DashboardContainer
+        isLoading={loading}
+        bgcolor="background.paper"
+        flexWrap="wrap"
+        display="flex"
+      >
+        <DailyQuotaUsed quota={quota_today} />
         <LineGraph lineData={lineGraph} />
-        <Donut donutData={donutGraph}/>
+        <Donut donutData={donutGraph} />
         <Radial radialData={radialGraph} />
-        <Leaderboard leaderboard={leaderboard}/>
+        <Leaderboard leaderboard={leaderboard} />
         <Shameboard shameboard={shameboard} />
-      </Container>
+      </DashboardContainer>
     </div>
   );
 }
+
+/*         {quota_today && <DailyQuotaUsed quota={quota_today} />}
+        {lineGraph && <LineGraph lineData={lineGraph} />}
+        {donutGraph && <Donut donutData={donutGraph} />}
+        {radialGraph && <Radial radialData={radialGraph} />}
+        {leaderboard && <Leaderboard leaderboard={leaderboard} />}
+        {shameboard && <Shameboard shameboard={shameboard} />}
+
+        {!dashboard.quota_today && <h1>loading</h1>} */
+
+/*     <div>
+      <Navbar user={user} />
+      <DashboardContainer
+        isLoading={loading}
+        bgcolor="background.paper"
+        flexWrap="wrap"
+        display="flex"
+      >
+        {quota_today && <DailyQuotaUsed quota={quota_today} />}
+        {lineGraph && <LineGraph lineData={lineGraph} />}
+        {donutGraph && <Donut donutData={donutGraph} />}
+        {radialGraph && <Radial radialData={radialGraph} />}
+        {leaderboard && <Leaderboard leaderboard={leaderboard} />}
+        {shameboard && <Shameboard shameboard={shameboard} />}
+
+        {!dashboard.quota_today && (
+          <h1>loading... (will be replaced by spinner)</h1>
+        )}
+      </DashboardContainer>
+    </div> */

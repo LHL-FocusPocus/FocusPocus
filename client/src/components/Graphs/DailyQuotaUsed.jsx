@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import Box from "@material-ui/core/Box";
+import toMinutes from "../../helpers/toMinutes"
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 const Wrapper = styled(Box)`
-  ${'' /* border: solid 3px black; */}
+  ${"" /* border: solid 3px black; */}
   flex: 1 25%;
   display: flex;
   items-align: center;
@@ -24,8 +25,11 @@ const Chart = styled.div`
   height: 80%;
 `;
 
-export default function DailyQuotaUsed() {
+export default function DailyQuotaUsed({ quota }) {
   useEffect(() => {
+    // console.log('quota', quota.used)
+    // const blacklistedTime = toMinutes(quota.used);
+    // console.log('blacklistedTime', blacklistedTime)
     am4core.useTheme(am4themes_animated);
 
     const chart = am4core.create("dailyQuota", am4charts.GaugeChart);
@@ -68,16 +72,22 @@ export default function DailyQuotaUsed() {
     const hand = chart.hands.push(new am4charts.ClockHand());
 
     // Percentage of quota used, eg. 1 hour / 2 hours = 50%
-    const wholeData = {
-      quotaToday: 50,
-      // user: { firstName, lastName },
-      
-    }
+    // const wholeData = {
+    //   quotaToday: 50,
+    //   // user: { firstName, lastName },
+    // };
+
+    /* toMinutes(quota.allotment) / toMinutes(quota.used) */
 
     // Replace with real data
-    hand.showValue(wholeData.quotaToday);
+    hand.showValue();
+  }, [quota]);
 
-  }, []);
+  /* {allotment: {…}, used: {…}, all_browse_time: {…}}
+all_browse_time: {hours: 3, minutes: 10}
+allotment: {hours: 3}
+used: {hours: 1, minutes: 10}
+__proto__: Object */
 
   // donut graph - todays browsing - how much time spent in differet
   // total time spent browsing all sites
@@ -90,8 +100,7 @@ export default function DailyQuotaUsed() {
 
   return (
     <Wrapper>
-      <Chart id="dailyQuota">
-      </Chart>
+      <Chart id="dailyQuota"></Chart>
     </Wrapper>
   );
 }
