@@ -92,7 +92,7 @@ export default function Leaderboard({ leaderboard }) {
     const bullet = columnTemplate.createChild(am4charts.CircleBullet);
     bullet.circle.radius = 30;
     bullet.valign = "middle";
-    bullet.align = "right";
+    bullet.align = "left";
     bullet.isMeasured = true;
     bullet.interactionsEnabled = false;
     bullet.horizontalCenter = "right";
@@ -130,7 +130,7 @@ export default function Leaderboard({ leaderboard }) {
 
         if (previousBullet != bullet) {
           const hs = bullet.states.getKey("hover");
-          hs.properties.dx = -dataItem.column.pixelWidth;
+          hs.properties.dx = dataItem.column.pixelWidth;
           bullet.isHover = true;
           previousBullet = bullet;
         }

@@ -25,7 +25,7 @@ const Chart = styled.div`
   margin: 2em 0em;
 `;
 
-export default function Shameboard() {
+export default function Shameboard({shameboard}) {
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
 
@@ -35,39 +35,7 @@ export default function Shameboard() {
     chart.paddingRight = 40;
     chart.scale = 0.8
 
-    chart.data = [
-      {
-        name: "Monica",
-        steps: 140,
-        href: "https://www.amcharts.com/wp-content/uploads/2019/04/monica.jpg",
-      },
-      {
-        name: "Joey",
-        steps: 200,
-        href: "https://www.amcharts.com/wp-content/uploads/2019/04/joey.jpg",
-      },
-      {
-        name: "Ross",
-        steps: 160,
-        href: "https://www.amcharts.com/wp-content/uploads/2019/04/ross.jpg",
-      },
-      {
-        name: "Phoebe",
-        steps: 110,
-        href: "https://www.amcharts.com/wp-content/uploads/2019/04/phoebe.jpg",
-      },
-      {
-        name: "Rachel",
-        steps: 300,
-        href: "https://www.amcharts.com/wp-content/uploads/2019/04/rachel.jpg",
-      },
-      {
-        name: "Chandler",
-        steps: 225,
-        href:
-          "https://www.amcharts.com/wp-content/uploads/2019/04/chandler.jpg",
-      },
-    ];
+    chart.data = shameboard;
 
     const categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "name";
@@ -87,7 +55,7 @@ export default function Shameboard() {
     valueAxis.renderer.labels.template.dy = 20;
 
     const series = chart.series.push(new am4charts.ColumnSeries());
-    series.dataFields.valueX = "steps";
+    series.dataFields.valueX = "time";
     series.dataFields.categoryY = "name";
     series.tooltipText = "{valueX.value}";
     series.tooltip.pointerOrientation = "vertical";
@@ -118,7 +86,7 @@ export default function Shameboard() {
     const bullet = columnTemplate.createChild(am4charts.CircleBullet);
     bullet.circle.radius = 30;
     bullet.valign = "middle";
-    bullet.align = "left";
+    bullet.align = "right";
     bullet.isMeasured = true;
     bullet.interactionsEnabled = false;
     bullet.horizontalCenter = "right";
@@ -156,7 +124,7 @@ export default function Shameboard() {
 
         if (previousBullet != bullet) {
           const hs = bullet.states.getKey("hover");
-          hs.properties.dx = dataItem.column.pixelWidth;
+          hs.properties.dx = -dataItem.column.pixelWidth;
           bullet.isHover = true;
 
           previousBullet = bullet;
