@@ -26,8 +26,7 @@ chrome.runtime.onInstalled.addListener(function () {
 let timerInSeconds = 0;
 
 setInterval(() => {
-  timerInSeconds++;
-  console.log(timerInSeconds);
+  timerInSeconds++;  
 }, 1000);
 
 let lastDomain;
@@ -55,9 +54,8 @@ function handleBrowsing(tabId) {
   chrome.tabs.get(tabId, (tab) => {
     // tab.url will be undefined on chrome settings page etc.
     const currentDomain = tab.url ? getDomainFromUrl(tab.url) : undefined;
-    console.log(`domain was at ${lastDomain} for ${timerInSeconds} seconds`);
-    postBrowseTime(lastDomain, timerInSeconds);
-    console.log("domain is now", currentDomain);
+    // console.log(`domain was at ${lastDomain} for ${timerInSeconds} seconds`);
+    postBrowseTime(lastDomain, timerInSeconds);    
     lastDomain = currentDomain;
     timerInSeconds = 0;
     //login(); // uncomment if you want to login
