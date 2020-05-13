@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import BlacklistedCards from "./BlacklistedCards";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
@@ -12,12 +12,15 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import AddIcon from "@material-ui/icons/Add";
+import Collapse from "@material-ui/core/Collapse";
+import clsx from "clsx";
+
 import {
   Input,
   InputLabel,
   FormHelperText,
   InputAdornment,
-  Fab
+  Fab,
 } from "@material-ui/core";
 import LanguageIcon from "@material-ui/icons/Language";
 
@@ -27,19 +30,13 @@ import IconButton from "@material-ui/core/IconButton";
 import FormControl from "@material-ui/core/FormControl";
 
 const Container = styled(Box)`
-  height: 100%;
+  min-height: 86vh;
   padding: 0 40%;
 `;
 
 const AddNew = styled(Card)`
   max-width: 345;
   text-align: center;
-`;
-
-const Logo = styled(Avatar)`
-  height: 60px;
-  width: 60px;
-  ${"" /* margin: 5% 5%; */}
 `;
 
 const Background = styled(CardActionArea)`
@@ -55,8 +52,26 @@ const Form = styled(FormControl)`
   width: 100%;
 `;
 
+const useStyles = makeStyles(theme => ({
+  expand: {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    // transform: "rotate(180deg)",
+  },
+}));
+
 export default function Blacklisted({ blacklist }) {
-  console.log("blacklist", blacklist);
+  const classes = useStyles();
+  const [expanded, setExpanded] = useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
 
   const blacklistList = blacklist.map(website => {
     return (
@@ -74,30 +89,35 @@ export default function Blacklisted({ blacklist }) {
           <CardHeader
             titleTypographyProps={{ variant: "h5" }}
             title="Add Site"
+            className={clsx(classes.expand, {
+              [classes.expandOpen]: expanded,
+            })}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
           />
         </Background>
-        <CardContent>
-          <Form>
-            <InputLabel htmlFor="my-input" />
-            <Input
-              id="my-input"
-              aria-describedby="my-helper-text"
-              startAdornment={
-                <InputAdornment position="start">
-                  <LanguageIcon />
-                </InputAdornment>
-              }
-            />
-            {/* <FormHelperText id="my-helper-text">
-              Website Address
-            </FormHelperText> */}
-            <Add aria-label="settings">
-              <Fab size="small" color="primary" aria-label="add">
-                <AddIcon />
-              </Fab>
-            </Add>
-          </Form>
-        </CardContent>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            <Form>
+              <InputLabel htmlFor="my-input" />
+              <Input
+                id="my-input"
+                aria-describedby="my-helper-text"
+                startAdornment={
+                  <InputAdornment position="start">
+                    <LanguageIcon />
+                  </InputAdornment>
+                }
+              />
+              <Add aria-label="settings">
+                <Fab size="small" color="primary" aria-label="add">
+                  <AddIcon />
+                </Fab>
+              </Add>
+            </Form>
+          </CardContent>
+        </Collapse>
       </AddNew>
       {blacklistList}
     </Container>
