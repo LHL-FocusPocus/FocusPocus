@@ -40,6 +40,7 @@ module.exports = (db) => {
       userData["lineGraph"] = compileData(all[6], "date");
       userData["leaderboard"] = compileData(all[7], "name");
       userData["shameboard"] = compileData(all[8], "name");
+      // console.log(userData)
 
       return res.status(200).json(userData);
     });

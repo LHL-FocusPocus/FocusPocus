@@ -3,6 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
+
+import { Route, Link } from "react-router-dom";
+
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -11,6 +14,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import styled from "styled-components";
+import Routes from "../routes";
 
 const useStyles = makeStyles({
   list: {
@@ -23,7 +27,7 @@ const useStyles = makeStyles({
 
 const Icon = styled.img`
   width: 100%;
-  ${'' /* height: 200px;
+  ${"" /* height: 200px;
   object-fit: cover;
   padding: 0em 3.38em;
   margin-top: 1em;
@@ -51,16 +55,16 @@ const Message = styled.div`
 
 // TODO: Push logout button to bottom of drawer -> can't get it to work without forcing it with margin (but irrelevant on full screen mode)
 const Logout = styled(List)`
-  ${'' /* margin-top: auto; */}
+  ${"" /* margin-top: auto; */}
   margin-top: 105%;
-`
+`;
 
 const Container = styled.div`
   display: flex;
   flex-flow: column nowrap;
   background-color: rgba(72, 80, 87, 0.294);
   height: 100%;
-`
+`;
 
 export default function Navbar() {
   const classes = useStyles();
@@ -100,10 +104,16 @@ export default function Navbar() {
       </Message>
       <Divider />
       <List>
-        {["Options", "Analytics"].map((text, index) => (
-          <ListItem button key={text}>
+        {/* <Routes /> */}
+        {["Dashboard", "Options"].map((text, index) => (
+          <ListItem
+            button
+            key={text}
+            component={Link}
+            to={`/${text.toLowerCase()}`}
+          >
             <ListItemIcon>
-              {index % 2 === 0 ? <SettingsIcon /> : <AssessmentIcon />}
+              {index % 2 !== 0 ? <SettingsIcon /> : <AssessmentIcon />}
             </ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
@@ -123,7 +133,7 @@ export default function Navbar() {
 
   return (
     <div>
-      <React.Fragment>
+      <>
         <Button onClick={toggleDrawer("FocusPocus", true)}>FocusPocus</Button>
         <Drawer
           open={state["FocusPocus"]}
@@ -131,7 +141,7 @@ export default function Navbar() {
         >
           {list("FocusPocus")}
         </Drawer>
-      </React.Fragment>
+      </>
     </div>
   );
 }
