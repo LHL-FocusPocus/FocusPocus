@@ -129,8 +129,8 @@ module.exports = (db) => {
     const userId = 1;
     dbHelper
       .getWebsiteIDByHostname(host_name)
-      .then((siteID) => {
-        if (!siteID) {
+      .then((site) => {
+        if (!site) {
           // console.log("=====> Website does not exist yet in our DB");
           // Removes '.com' from end of hostname for DB.
           const remSuffix = host_name.split(".")[0];
@@ -139,11 +139,13 @@ module.exports = (db) => {
           const category = null;
           return dbHelper.addWebsite(host_name, name, category);
         }
+        dbHelper.addWebsiteToBlacklist(userId, site.id);
+        console.log("=====> Adding site to blacklist");
       })
-      .then((siteInfo) => {
-        // console.log("=====> Adding site to blacklist");
+      .then((siteInfoFromReturnedQuery) => {
+        console.log("=====> Adding site to blacklist");
         // console.log(siteID);
-        dbHelper.addWebsiteToBlacklist(userId, siteInfo.id);
+        dbHelper.addWebsiteToBlacklist(userId, siteInfoFromReturnedQuery.id);
       })
       .catch((err) => res.json(err));
   });
