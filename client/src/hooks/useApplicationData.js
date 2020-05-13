@@ -22,8 +22,9 @@ export default function useApplicationData() {
         });
       })
       // This is not really doing what I intended...
-      .then(() => setLoading(false))
+      .then(() => console.log('state', state))
       .catch(e => console.error(e));
+
   }, []);
 
   return { state, loading, setLoading };

@@ -24,6 +24,7 @@ const Chart = styled.div`
   width: 100%;
   height: 100%;
   margin: 2em 0em;
+  padding-left: 3%;
 `;
 
 export default function Leaderboard({ leaderboard }) {
