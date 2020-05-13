@@ -6,12 +6,12 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 const Wrapper = styled(Box)`
-  ${'' /* border: solid 3px black; */}
+  ${"" /* border: solid 3px black; */}
   flex: 1 50%;
   display: flex;
   items-align: center;
   justify-content: center;
-  ${'' /* padding: 3em; */}
+  ${"" /* padding: 3em; */}
 
   @media (max-width: 1300px) {
     flex: 1 40%;
@@ -23,38 +23,21 @@ const Chart = styled.div`
   align-self: center;
   width: 100%;
   height: 145%;
-  transform: translateY(60px)
+  transform: translateY(60px);
 `;
 
-export default function Donut() {
+export default function Donut({ donutData }) {
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
 
     const chart = am4core.create("donutChart", am4charts.PieChart3D);
     chart.hiddenState.properties.opacity = 0;
 
-    chart.data = [
-      {
-        website: "Reddit",
-        time: 50,
-      },
-      {
-        website: "Facebook",
-        time: 30,
-      },
-      {
-        website: "Twitter",
-        time: 20,
-      },
-      {
-        website: "Whitelisted Sites",
-        time: 100,
-      }
-    ];
+    chart.data = donutData;
 
     chart.innerRadius = am4core.percent(40);
     chart.depth = 120;
-    chart.scale = 0.70;
+    chart.scale = 0.7;
     // chart.resize = 50
 
     const series = chart.series.push(new am4charts.PieSeries3D());
@@ -63,7 +46,6 @@ export default function Donut() {
     series.dataFields.category = "website";
     series.slices.template.cornerRadius = 5;
     series.colors.step = 3;
-
   }, []);
 
   return (

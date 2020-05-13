@@ -24,7 +24,6 @@ const Chart = styled.div`
 `;
 
 export default function LineGraph({ lineData }) {
-  console.log('lineData', lineData)
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
 

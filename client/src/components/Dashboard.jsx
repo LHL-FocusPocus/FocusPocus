@@ -18,7 +18,7 @@ const Container = styled(Box)`
   height: 100vh;
 `;
 
-const DashboardContainer = loading(Container);
+// const DashboardContainer = loading(Container);
 
 export default function Dashboard({ dashboard, loading }) {
   const {
@@ -34,8 +34,8 @@ export default function Dashboard({ dashboard, loading }) {
   return (
     <div>
       <Navbar user={user} />
-      <DashboardContainer
-        isLoading={loading}
+      <Container
+        // isLoading={loading}
         bgcolor="background.paper"
         flexWrap="wrap"
         display="flex"
@@ -50,7 +50,7 @@ export default function Dashboard({ dashboard, loading }) {
         {!dashboard.quota_today && (
           <h1>loading... (will be replaced by spinner)</h1>
         )}
-      </DashboardContainer>
+      </Container>
     </div>
   );
 }
