@@ -35,7 +35,7 @@ export default function useApplicationData() {
         blacklist: blacklist.data
       })
     })
-  }, [state.blacklist])
+  }, state.blacklist)
 
   return { state, loading, setLoading };
 }

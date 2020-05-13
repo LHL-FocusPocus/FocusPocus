@@ -24,7 +24,7 @@ function App() {
         path="/dashboard"
         render={() => <Dashboard dashboardData={state} />}
       />
-      <Route exact path="/options" render={() => <Options users={state.users} />} />
+      <Route exact path="/options" render={() => <Options users={state.users} blacklist={state.blacklist} />} />
     </div>
   );
 }
