@@ -23,17 +23,102 @@ chrome.runtime.onInstalled.addListener(function () {
   });
 });
 
+let timerInSeconds = 0;
+
+setInterval(() => {
+  timerInSeconds++;  
+}, 1000);
+
+let lastDomain;
+
 // Triggers when page loads in current tab
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (changeInfo.status === "complete" && tab.active) {
+    handleBrowsing(tabId);
     changePictures(tabId);
   }
 });
 
 // Triggers when user goes to a different tab
-// chrome.tabs.onActivated.addListener(function (activeInfo) {
-//   changePictures(activeInfo.tabId);
-// });
+chrome.tabs.onActivated.addListener(function (activeInfo) {
+  handleBrowsing(activeInfo.tabId);
+});
+
+/**
+ * Function that is to be called when user clicks a new tab or visits a new
+ * page in the current tab. Gets the url and current timer to make POST
+ * request to add browsing time to db. Resets the timer.
+ * @param {Number} tabId
+ */
+function handleBrowsing(tabId) {
+  chrome.tabs.get(tabId, (tab) => {
+    // tab.url will be undefined on chrome settings page etc.
+    const currentDomain = tab.url ? getDomainFromUrl(tab.url) : undefined;
+    // console.log(`domain was at ${lastDomain} for ${timerInSeconds} seconds`);
+    postBrowseTime(lastDomain, timerInSeconds);    
+    lastDomain = currentDomain;
+    timerInSeconds = 0;
+    //login(); // uncomment if you want to login
+  });
+}
+
+function testGetRequest() {
+  const request = new XMLHttpRequest();
+  request.open("GET", "http://localhost:9000", true);
+
+  request.onload = function () {
+    if (this.status >= 200 && this.status < 400) {
+      // Success!
+      const data = JSON.parse(this.response);
+      console.log(data);
+    } else {
+      // We reached our target server, but it returned an error
+    }
+  };
+  request.onerror = function () {
+    // There was a connection error of some sort
+  };
+  request.send();
+}
+
+/**
+ * Sends post request to server to add the browse session to browse_times table
+ */
+function postBrowseTime(hostName, durationInSeconds) {
+  const request = new XMLHttpRequest();
+  request.open(
+    "POST",
+    "http://localhost:9000/api/extension/add_browse_time",
+    true
+  );
+  request.onload = function () {
+    const data = JSON.parse(this.response);
+    
+    if (this.status >= 200 && this.status < 400) {
+      console.log(data);
+    } else {
+      console.log(data);
+    }
+  };
+  request.setRequestHeader("Content-Type", "application/json");
+  request.send(JSON.stringify({ hostName, durationInSeconds }));
+}
+
+/**
+ * Logs into the server
+ */
+function login() {
+  const request = new XMLHttpRequest();
+  request.open("POST", "http://localhost:9000/api/user/login", true);
+  request.setRequestHeader("Content-Type", "application/json");
+  request.send(JSON.stringify({ email: "a@a.com", password: "password" }));
+}
+
+function getDomainFromUrl(url) {
+  const urlObj = new URL(url);
+  const domain = urlObj.hostname.split("www.").join("");
+  return domain;
+}
 
 /**
  * Checks if current tab's url is on the blacklist then injects content

@@ -48,6 +48,7 @@ const rootRoutes = require("./routes/rootRoutes");
 const userRoutes = require("./routes/userRoutes");
 const apiRoutes = require("./routes/apiRoutes");
 const dataRoutes = require("./routes/dataRoutes");
+const extensionRoutes = require("./routes/extensionRoutes");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -55,6 +56,7 @@ app.use("/", rootRoutes(db));
 app.use("/api", apiRoutes(db));
 app.use("/api/user", userRoutes(db));
 app.use("/api/data", dataRoutes(db));
+app.use("/api/extension", extensionRoutes(db));
 
 // to do routes:
 // login
