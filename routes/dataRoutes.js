@@ -33,8 +33,7 @@ module.exports = (db) => {
         used: all[5].sum,
         all_browse_time: all[4].sum,
       };
-      // Currently all[2] is not used -> might be useful later
-      // console.log(all[2])
+      userData["blacklisted"] = all[2];
       userData["radialGraph"] = all[9];
       userData["donutGraph"] = compileData(all[3], "website");
       userData["lineGraph"] = compileData(all[6], "date");
