@@ -4,6 +4,6 @@ CREATE TABLE blacklists
 (
   id          SERIAL  PRIMARY KEY,
 
-  user_id     INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  website_id  INTEGER REFERENCES websites(id) ON DELETE CASCADE
+  user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  website_id  INTEGER NOT NULL REFERENCES websites(id) ON DELETE CASCADE
 )
