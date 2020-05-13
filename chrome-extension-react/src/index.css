@@ -12,9 +12,13 @@ code {
     monospace;
 }
 
-html,
 body {
-  width: 500px;
-  height: 500px;
+  min-height: 500px;
+  min-width: 500px;
   background-color: #d9d9ed;
+}
+
+body,
+#root {
+  text-align: center;
 }
