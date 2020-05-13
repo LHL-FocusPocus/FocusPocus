@@ -39,10 +39,10 @@ export default function Dashboard({ dashboard, loading }) {
       >
         {quota_today && <DailyQuotaUsed quota={quota_today} />}
         {lineGraph && <LineGraph lineData={lineGraph} />}
-        {donutGraph && <Donut donutData={donutGraph} />}
-        {radialGraph && <Radial radialData={radialGraph} />}
         {leaderboard && <Leaderboard leaderboard={leaderboard} />}
         {shameboard && <Shameboard shameboard={shameboard} />}
+        {donutGraph && <Donut donutData={donutGraph} />}
+        {radialGraph && <Radial radialData={radialGraph} />}
 
         {!dashboard.quota_today && (
           <h1>loading... (will be replaced by spinner)</h1>
