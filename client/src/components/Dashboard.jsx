@@ -15,6 +15,22 @@ const Container = styled(Box)`
   height: 100%;
 `;
 
+const Wrapper = styled(Box)`
+  ${"" /* border: solid 3px black; */}
+  flex: 1 100%;
+  display: flex;
+  items-align: center;
+  justify-content: center;
+  ${"" /* padding: 3em; */}
+  height: 400px;
+  transform: translateX(30px)
+
+  ${'' /* @media (max-width: 1300px) {
+    flex: 1 100;
+    ${"" /* order: -1 */}
+  } */}
+`;
+
 // const DashboardContainer = loading(Container);
 
 export default function Dashboard({ dashboard, loading }) {
@@ -39,8 +55,12 @@ export default function Dashboard({ dashboard, loading }) {
       >
         {quota_today && <DailyQuotaUsed quota={quota_today} />}
         {lineGraph && <LineGraph lineData={lineGraph} />}
-        {leaderboard && <Leaderboard leaderboard={leaderboard} />}
-        {shameboard && <Shameboard shameboard={shameboard} />}
+        <Wrapper>
+          {" "}
+          {leaderboard && <Leaderboard leaderboard={leaderboard} />}
+          {shameboard && <Shameboard shameboard={shameboard} />}
+        </Wrapper>
+
         {donutGraph && <Donut donutData={donutGraph} />}
         {radialGraph && <Radial radialData={radialGraph} />}
 

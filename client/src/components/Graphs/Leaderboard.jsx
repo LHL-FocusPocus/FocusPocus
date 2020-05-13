@@ -140,8 +140,6 @@ export default function Leaderboard({ leaderboard }) {
   }, []);
 
   return (
-    <Wrapper>
       <Chart id="leaderboard"></Chart>
-    </Wrapper>
   );
 }

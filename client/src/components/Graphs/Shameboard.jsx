@@ -138,8 +138,6 @@ export default function Shameboard({shameboard}) {
   }, []);
 
   return (
-    <Wrapper>
       <Chart id="shameboard"></Chart>
-    </Wrapper>
   );
 }
