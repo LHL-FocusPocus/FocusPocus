@@ -20,9 +20,7 @@ export default function Blacklisted({ blacklist }) {
       />
     );
   });
-  return <Container>
-    {blacklistList}
-  </Container>;
+  return <Container>{blacklistList}</Container>;
 }
 
 /* blacklists_id: 1
