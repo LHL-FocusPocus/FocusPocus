@@ -27,7 +27,6 @@ const Chart = styled.div`
 
 export default function Radial({radialData}) {
   useEffect(() => {
-    console.log('radialData', radialData)
     am4core.useTheme(am4themes_material);
     am4core.useTheme(am4themes_animated);
 

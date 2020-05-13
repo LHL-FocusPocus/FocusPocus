@@ -25,8 +25,9 @@ const Chart = styled.div`
   margin: 2em 0em;
 `;
 
-export default function Leaderboard() {
+export default function Leaderboard({ leaderboard }) {
   useEffect(() => {
+    console.log('leaderboard', leaderboard)
     am4core.useTheme(am4themes_animated);
 
     const chart = am4core.create("leaderboard", am4charts.XYChart);
@@ -35,39 +36,7 @@ export default function Leaderboard() {
     chart.paddingRight = 40;
     chart.scale = 0.8;
 
-    chart.data = [
-      {
-        name: "Monica",
-        browsingTime: 3,
-        href: "https://www.amcharts.com/wp-content/uploads/2019/04/monica.jpg",
-      },
-      {
-        name: "Joey",
-        browsingTime: 10,
-        href: "https://www.amcharts.com/wp-content/uploads/2019/04/joey.jpg",
-      },
-      {
-        name: "Ross",
-        browsingTime: 20,
-        href: "https://www.amcharts.com/wp-content/uploads/2019/04/ross.jpg",
-      },
-      {
-        name: "Phoebe",
-        browsingTime: 40,
-        href: "https://www.amcharts.com/wp-content/uploads/2019/04/phoebe.jpg",
-      },
-      {
-        name: "Rachel",
-        browsingTime: 25,
-        href: "https://www.amcharts.com/wp-content/uploads/2019/04/rachel.jpg",
-      },
-      {
-        name: "Chandler",
-        browsingTime: 50,
-        href:
-          "https://www.amcharts.com/wp-content/uploads/2019/04/chandler.jpg",
-      },
-    ];
+    chart.data = leaderboard.reverse();
 
     const categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "name";
@@ -92,7 +61,7 @@ export default function Leaderboard() {
     valueAxis.renderer.labels.template.dx = 0;
 
     const series = chart.series.push(new am4charts.ColumnSeries());
-    series.dataFields.valueX = "browsingTime";
+    series.dataFields.valueX = "time";
     series.dataFields.categoryY = "name";
     series.tooltipText = "{valueX.value}";
     series.tooltip.pointerOrientation = "vertical";
