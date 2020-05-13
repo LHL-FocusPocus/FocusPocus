@@ -21,6 +21,7 @@ export default function useApplicationData() {
           payload: dashboard,
         });
       })
+      // This is not really doing what I intended...
       .then(() => setLoading(false))
       .catch(e => console.error(e));
   }, []);

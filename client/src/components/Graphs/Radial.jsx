@@ -25,112 +25,21 @@ const Chart = styled.div`
   width: 100%;
 `;
 
-export default function Radial() {
+export default function Radial({radialData}) {
   useEffect(() => {
+    console.log('radialData', radialData)
     am4core.useTheme(am4themes_material);
     am4core.useTheme(am4themes_animated);
 
     const chart = am4core.create("radial-chart", am4charts.RadarChart);
 
-    // Just the blacklisted sites
-    // Preferably how many times you went to the site
-    // Over a week period makes more sense (not much data over a day period)
-
-    const userData = {
-      quota: 50,
-      donut: [
-        {
-          website: "Reddit",
-          time: 50,
-        },
-        {
-          website: "Facebook",
-          time: 30,
-        },
-      ],
-      leaderboard: [
-        {
-          name: "Monica",
-          browsingTime: 3,
-          href:
-            "https://www.amcharts.com/wp-content/uploads/2019/04/monica.jpg",
-        },
-        {
-          name: "Joey",
-          browsingTime: 10,
-          href: "https://www.amcharts.com/wp-content/uploads/2019/04/joey.jpg",
-        },
-      ],
-      shameboard: [
-        {
-          name: "Monica",
-          steps: 140,
-          href:
-            "https://www.amcharts.com/wp-content/uploads/2019/04/monica.jpg",
-        },
-        {
-          name: "Joey",
-          steps: 200,
-          href: "https://www.amcharts.com/wp-content/uploads/2019/04/joey.jpg",
-        },
-      ],
-      lineGraph: [
-        {
-          date: "2020-04-26",
-          time: 8,
-        },
-        {
-          date: "2020-04-27",
-          time: 10,
-        },
-      ],
-      radial: [
-        {
-          website: "Reddit",
-          visits: 15,
-        },
-        {
-          website: "Facebook",
-          visits: 12,
-        },
-      ],
-    };
-    chart.data = [
-      {
-        website: "Reddit",
-        visits: 15,
-      },
-      {
-        website: "Facebook",
-        visits: 12,
-      },
-      {
-        website: "Twitter",
-        visits: 2,
-      },
-      {
-        website: "ESPN",
-        visits: 7,
-      },
-      {
-        website: "CNN",
-        visits: 9,
-      },
-      {
-        website: "Tumblr",
-        visits: 1,
-      },
-      {
-        website: "Instagram",
-        visits: 4,
-      },
-    ];
+    chart.data = radialData;
 
     chart.innerRadius = am4core.percent(30);
 
     const categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.renderer.grid.template.location = 0;
-    categoryAxis.dataFields.category = "website";
+    categoryAxis.dataFields.category = "name";
     categoryAxis.renderer.minGridDistance = 60;
     categoryAxis.renderer.inversed = true;
     categoryAxis.renderer.labels.template.location = 0.5;
@@ -144,9 +53,9 @@ export default function Radial() {
     chart.seriesContainer.zIndex = -10;
 
     const series = chart.series.push(new am4charts.RadarColumnSeries());
-    series.dataFields.categoryX = "website";
-    series.dataFields.valueY = "visits";
-    series.tooltipText = "Hits: {valueY.value}";
+    series.dataFields.categoryX = "name";
+    series.dataFields.valueY = "hits";
+    series.tooltipText = "Visits: {valueY.value}";
     series.columns.template.strokeOpacity = 0;
     series.columns.template.radarColumn.cornerRadius = 5;
     series.columns.template.radarColumn.innerCornerRadius = 0;
@@ -164,7 +73,7 @@ export default function Radial() {
     chart.cursor.behavior = "none";
     chart.cursor.lineX.disabled = true;
     chart.cursor.lineY.disabled = true;
-  }, []);
+  }, [radialData]);
 
   return (
     <Wrapper>
