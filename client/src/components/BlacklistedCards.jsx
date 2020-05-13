@@ -10,7 +10,8 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import styled from "styled-components";
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from "@material-ui/icons/Delete";
+import IconButton from "@material-ui/core/IconButton";
 
 // STRETCH: make cards draggable/droppable to delete?
 
@@ -25,31 +26,31 @@ const Container = styled(Card)`
   text-align: center;
 `;
 
-const Website = styled(CardHeader)`
-  ${"" /* padding-bottom: 10%; */}
-  ${"" /* transform: translateY(-100%) */}
-  ${
-    "" /* width: 20%;
-  text-align: center;
-  margin-left: 40%;
-  padding-bottom: 50%; */
-  }
-  font-size: 2em;
-`;
+// const Website = styled(CardHeader)`
+//   ${"" /* padding-bottom: 10%; */}
+//   ${"" /* transform: translateY(-100%) */}
+//   ${
+//     "" /* width: 20%;
+//   text-align: center;
+//   margin-left: 40%;
+//   padding-bottom: 50%; */
+//   }
+//   font-size: 2em;
+// `;
 
 const Background = styled(CardActionArea)`
   background-color: rgba(71, 65, 87, 0.055);
 `;
 
-const Delete = styled(Button)`
-  padding-left: 80%;
+const Delete = styled(IconButton)`
+  margin-left: 85%;
 `;
 
 export default function BlacklistedCards({ hostname, name }) {
   return (
     <Container>
       <Background>
-        <Website
+        <CardHeader
           avatar={
             <Logo
               aria-label="website"
@@ -67,9 +68,11 @@ export default function BlacklistedCards({ hostname, name }) {
         </Website> */}
       </Background>
       <CardActions>
-        <Delete size="small" color="primary">
-          Delete
+        {/* <Delete size="small" color="primary"> */}
+        <Delete>
+          <DeleteIcon/>
         </Delete>
+        {/* </Delete> */}
       </CardActions>
     </Container>
   );
