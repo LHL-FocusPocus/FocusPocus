@@ -110,9 +110,7 @@ module.exports = (db) => {
       .query(
         `
         INSERT INTO blacklists (user_id, website_id)
-        SELECT $1, $2
-        WHERE NOT EXISTS (SELECT * FROM blacklists
-                          WHERE user_id = $1 AND website_id = $2)
+        VALUES ($1, $2)
         RETURNING *;
 
         `,
