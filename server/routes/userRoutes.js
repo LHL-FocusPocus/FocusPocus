@@ -90,19 +90,17 @@ module.exports = (db) => {
   // When a user wants to add a site to their blacklist
   router.post("/blacklists/add", (req, res) => {
     const userId = req.session.userId;
+
     if (!userId) {
       return res.status(403).send("A user must be signed in!");
     }
+
     const { host_name } = req.body;
-    // console.log('host_name', host_name)
     const URL = remPrefix(host_name);
 
-    // console.log('URL', URL)
-    // console.log('host_name', host_name)
     dbHelper
       .getWebsiteIDByHostname(URL)
       .then((site) => {
-        console.log("site", site);
         if (!site) {
           const name = extractNameFromURL(URL);
           const category = null;
@@ -119,20 +117,28 @@ module.exports = (db) => {
               );
             })
             .then((website) => {
+              // if (website.enabled) {
+              //   res.status(400);
+              // } else {
+              //   res.status(201).json(website);
+              // }
               res.status(201).json(website);
+
             })
             .catch((err) => res.status(500).json(err));
         } else {
           dbHelper
             .enableBlacklistedSite(site.id, userId)
             .then((blacklistedSite) => {
+              // if (blacklistedSite.enabled) return res.status(400);
+
               return dbHelper.getBlacklistedSiteByWebsiteId(
                 blacklistedSite.website_id,
                 userId
               );
             })
             .then((website) => {
-              res.status(201).json(website);
+                res.status(201).json(website);
             })
             .catch((err) => res.status(500).json(err));
         }

@@ -99,7 +99,7 @@ export default function Blacklisted({
       return (
         <BlacklistedCards
           deleteSite={disableBlacklistedSite}
-          key={website.blacklists_id}
+          key={website.id}
           hostname={website.hostname}
           name={website.name}
           id={website.website_id}
