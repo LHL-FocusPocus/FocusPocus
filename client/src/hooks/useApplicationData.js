@@ -8,7 +8,7 @@ import reducer, {
 
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
-    blacklist: [],
+    blacklisted: [],
   });
 
   // const [loading, setLoading] = useState(false)
@@ -32,7 +32,7 @@ export default function useApplicationData() {
     axios.get("/api/user/blacklists").then(blacklist => {
       dispatch({
         type: SET_BLACKLIST_DATA,
-        blacklist: blacklist.data,
+        blacklisted: blacklist.data,
       });
     });
   }, []);
@@ -47,7 +47,6 @@ export default function useApplicationData() {
       dispatch({
         type: CHANGE_BLACKLIST,
         id: res.data.id,
-        enabled: false,
       });
     });
   };

@@ -33,7 +33,7 @@ function App() {
           <Options
             disableBlacklistedSite={disableBlacklistedSite}
             users={state.users}
-            blacklist={state.blacklist}
+            blacklisted={state.blacklisted}
           />
         )}
       />

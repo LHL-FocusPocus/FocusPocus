@@ -12,7 +12,7 @@ export default function reducer(state, action) {
     case SET_BLACKLIST_DATA:
       return {
         ...state,
-        blacklist: action.blacklist,
+        blacklisted: action.blacklisted,
       };
     case CHANGE_BLACKLIST:
       // console.log("state", state);
@@ -26,21 +26,23 @@ export default function reducer(state, action) {
         state.blacklist.find(site => site.blacklists_id === id)
       );
 
-      const clonedState = JSON.parse(JSON.stringify(state.blacklist))
-      console.log('clonedState', clonedState)
+      const clonedBlacklist = [...state.blacklist]
 
-      const newState = clonedState.splice(siteIndex, 1);
-      console.log('STATE', state.blacklist)
-      console.log('newState', newState)
+      clonedBlacklist.splice(siteIndex, 1);
+
       
       // console.log("siteIndex", siteIndex);
       // const siteIndex = blacklist.indexOf(blacklist["blacklist_id"] === action.id)
       // console.log('siteIndex', siteIndex)
-      const newBlacklist = {
-        ...state.blacklist[siteIndex],
-      };
+      // const newBlacklist = {
+      //   ...state.blacklist[siteIndex],
+      // };
+      console.log('state', state)
 
-      return 
+      // return {
+      //   ...state,
+
+      // }
 
       // console.log('newBlacklist', newBlacklist)
   }

@@ -68,7 +68,7 @@ const useStyles = makeStyles(theme => ({
 // TODO: FIX BUG
 // If no blocked sites exist, it crashes
 
-export default function Blacklisted({ blacklist, disableBlacklistedSite }) {
+export default function Blacklisted({ blacklisted, disableBlacklistedSite }) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -76,7 +76,7 @@ export default function Blacklisted({ blacklist, disableBlacklistedSite }) {
     setExpanded(!expanded);
   };
 
-  const blacklistList = blacklist.map(website => {
+  const blacklistList = blacklisted.map(website => {
     return (
       <BlacklistedCards
         deleteSite={disableBlacklistedSite}
