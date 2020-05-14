@@ -1,3 +1,4 @@
+// Helper function to manage obj:keys data and change all time to minutes
 const compileData = function (data, key) {
   const dataArr = [];
   data.map((obj) => {
@@ -26,4 +27,12 @@ const processTimeToMins = function (obj, dataObj, dataArr) {
   dataArr.push(dataObj);
 };
 
-module.exports = { compileData };
+// Helper function to remove 'www.' and '.com' from URLs to determine URL's name
+const extractNameFromURL = function (url) {
+  const remPrefix = url.split("www.").join("");
+  const remSuffix = remPrefix.split(".")[0];
+  const name = remSuffix.charAt(0).toUpperCase() + remSuffix.slice(1);
+  return name;
+};
+
+module.exports = { compileData, extractNameFromURL };
