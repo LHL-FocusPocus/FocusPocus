@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function useFormFields(initialState) {
+export default function useFormFields(initialState) {
   const [fields, setFields] = useState(initialState);
 
   return [

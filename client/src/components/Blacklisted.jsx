@@ -14,6 +14,8 @@ import Avatar from "@material-ui/core/Avatar";
 import AddIcon from "@material-ui/icons/Add";
 import Collapse from "@material-ui/core/Collapse";
 import clsx from "clsx";
+import useFormFields from "../hooks/useFormFields";
+import axios from "axios";
 
 import {
   Input,
@@ -23,7 +25,6 @@ import {
   Fab,
 } from "@material-ui/core";
 import LanguageIcon from "@material-ui/icons/Language";
-
 import styled from "styled-components";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
@@ -73,6 +74,30 @@ export default function Blacklisted({ blacklisted, disableBlacklistedSite }) {
     setExpanded(!expanded);
   };
 
+  const [fields, handleFieldChange] = useFormFields({
+    website: "",
+  });
+
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    const credentials = {
+      email: fields.email,
+      password: fields.password,
+    };
+
+    axios
+      .post("/api/blacklists/add/:id", credentials)
+      .then(res => {
+        console.log(res);
+        console.log("Successful login");
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  };
+
+  // Prevents app from crashing when user has no blacklisted sites
   let blacklistList;
   if (blacklisted) {
     blacklistList = blacklisted.map(website => {
@@ -129,11 +154,3 @@ export default function Blacklisted({ blacklisted, disableBlacklistedSite }) {
     </Container>
   );
 }
-
-/* blacklists_id: 1
-category: "Internet Media"
-hostname: "reddit.com"
-name: "Reddit"
-user_id: 1
-website_id: 1
- */
