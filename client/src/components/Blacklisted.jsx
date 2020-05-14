@@ -65,9 +65,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// TODO: FIX BUG
-// If no blocked sites exist, it crashes
-
 export default function Blacklisted({ blacklisted, disableBlacklistedSite }) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
@@ -76,17 +73,21 @@ export default function Blacklisted({ blacklisted, disableBlacklistedSite }) {
     setExpanded(!expanded);
   };
 
-  const blacklistList = blacklisted.map(website => {
-    return (
-      <BlacklistedCards
-        deleteSite={disableBlacklistedSite}
-        key={website.blacklists_id}
-        hostname={website.hostname}
-        name={website.name}
-        id={website.website_id}
-      />
-    );
-  });
+  let blacklistList;
+  if (blacklisted) {
+    blacklistList = blacklisted.map(website => {
+      return (
+        <BlacklistedCards
+          deleteSite={disableBlacklistedSite}
+          key={website.blacklists_id}
+          hostname={website.hostname}
+          name={website.name}
+          id={website.website_id}
+        />
+      );
+    });
+  }
+
   return (
     <Container>
       <AddNew>
