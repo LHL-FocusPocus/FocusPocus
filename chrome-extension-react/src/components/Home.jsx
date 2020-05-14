@@ -18,13 +18,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
+    marginTop: 10,
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -35,6 +31,18 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     marginBottom: 20,
+  },
+  buttonProgress: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    marginTop: -10,
+    marginLeft: -12,
+  },
+  buttonGroup: {
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
   },
 }));
 
@@ -93,12 +101,27 @@ export default function Home(props) {
   const isDomainBlocked = () => {
     return blacklistDomains.includes(currentDomain);
   };
-  
+
+  const addToBlacklist = () => {
+    setLoading(true);
+    return axios
+      .post("/api/user/blacklists", { host_name: currentDomain })
+      .then((res) => {
+        props.getUserData();
+        setErrorMsg("");
+        setLoading(false);
+      })
+      .catch((err) => {
+        setErrorMsg("Something went wrong!");
+        setLoading(false);
+      });
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    setLoading(true);
-    // POST request
-    setLoading(false);
+    if (currentDomain) {
+      addToBlacklist();
+    }
   };
 
   const {
@@ -137,30 +160,32 @@ export default function Home(props) {
             xx minutes
           </Typography>
           {`Blacklisted domains: ${blacklistDomains.length}`}
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            disabled={loading || isDomainBlocked()}
-          >
-            {isDomainBlocked()
-              ? "Already Blacklisted"
-              : "Add Domain to Blacklist"}
-          </Button>
-          {loading && (
-            <CircularProgress size={24} className={classes.buttonProgress} />
-          )}
+          <Grid className={classes.buttonGroup}>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              disabled={loading || isDomainBlocked()}
+            >
+              {isDomainBlocked()
+                ? "Already Blacklisted"
+                : "Add Domain to Blacklist"}
+            </Button>
+            {loading && (
+              <CircularProgress size={24} className={classes.buttonProgress} />
+            )}
+          </Grid>
           <Grid container justify="center">
             <Grid item>
-              <p className={classes.error}>{errorMsg}</p>
+              <p className={classes.error}>{errorMsg || "hi"}</p>
             </Grid>
           </Grid>
           <Grid container justify="center">
             <Grid item>
-              <Link href="/register" variant="body2">
-                Link to something
+              <Link href="http://localhost:3000" variant="body2">
+                Visit your FocusPocus dashboard!
               </Link>
             </Grid>
           </Grid>
