@@ -112,7 +112,8 @@ module.exports = (db) => {
   });
 
   router.delete("/blacklists/delete/:id", (req, res) => {
-
+    
+    // dbHelper.deleteWebsiteFromBlacklist
   })
 
   // Just a test route to test db queries and response

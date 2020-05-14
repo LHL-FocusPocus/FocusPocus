@@ -123,10 +123,18 @@ module.exports = (db) => {
   };
 
   const deleteWebsiteFromBlacklist = (website_id, user_id) => {
-    return db.query(`
+    return db
+      .query(
+        `
       DELETE FROM blacklists WHERE website_id = $1 AND user_id = $2;
-    `, [website_id, user_id])
-  }
+    `,
+        [website_id, user_id]
+      )
+      .then((res) => {
+        return res.rows[0];
+      })
+      .catch((err) => console.error(err));
+  };
 
   const addQuotaForUser = function (
     user_id,
@@ -404,6 +412,7 @@ module.exports = (db) => {
     addQuotaForUser,
     addWebsite,
     addWebsiteToBlacklist,
+    deleteWebsiteFromBlacklist,
     addBrowseTimesToUserID,
     getTotalTimeForTodayByUserID,
     getTotalBlacklistTimeForTodayByUserID,
