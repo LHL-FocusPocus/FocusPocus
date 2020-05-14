@@ -35,10 +35,10 @@ const Delete = styled(IconButton)`
   margin-right: 20%;
 `;
 
-export default function BlacklistedCards({ hostname, name }) {
+export default function BlacklistedCards({ hostname, name, deleteSite }) {
   return (
     <Container>
-      <Background>
+      {/* <Background> */}
         <CardHeader
           avatar={
             <Logo
@@ -49,18 +49,19 @@ export default function BlacklistedCards({ hostname, name }) {
           titleTypographyProps={{ variant: "h5" }}
           title={`${name}`}
           action={
-            <Delete aria-label="settings">
+            <Delete onSubmit={deleteSite} aria-label="settings">
               <DeleteIcon />
             </Delete>
           }
         />
+        
         {/* <Logo image={`//logo.clearbit.com/${hostname}`} title={`${name}`} />
         <Website>
           <Typography gutterBottom variant="h5" component="h2">
             {name}
           </Typography>
         </Website> */}
-      </Background>
+      {/* </Background> */}
     </Container>
   );
 }

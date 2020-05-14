@@ -76,6 +76,7 @@ export default function Blacklisted({ blacklist, deleteBlacklistedSite }) {
   const blacklistList = blacklist.map(website => {
     return (
       <BlacklistedCards
+        deleteSite={deleteBlacklistedSite}
         key={website.blacklists_id}
         hostname={website.hostname}
         name={website.name}

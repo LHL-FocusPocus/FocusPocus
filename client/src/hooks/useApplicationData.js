@@ -11,10 +11,10 @@ export default function useApplicationData() {
     blacklist: [],
   });
 
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     axios
       .get("/api/data/dashboard")
       .then(userData => {
@@ -39,12 +39,13 @@ export default function useApplicationData() {
 
   const deleteBlacklistedSite = id => {
     return Promise.resolve(axios.delete(`/api/user/blacklists/delete/${id}`, id))
-    .then(() => {
-      dispatch({
-        type: CHANGE_BLACKLIST,
-        id,
-      })
+    .then((res) => {
+      console.log('CLIENT', res)
+      // dispatch({
+      //   type: CHANGE_BLACKLIST,
+      //   id,
+      // })
     })
   };
-  return { state, loading, setLoading, deleteBlacklistedSite };
+  return { state, deleteBlacklistedSite };
 }
