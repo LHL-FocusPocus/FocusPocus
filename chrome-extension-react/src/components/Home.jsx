@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
@@ -9,10 +9,11 @@ import Container from "@material-ui/core/Container";
 import styled from "styled-components";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { getCurrentTab } from "../helpers/chromeHelpers";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: 20,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -32,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
   error: {
     color: "red",
   },
+  title: {
+    marginBottom: 20,
+  },
 }));
 
 const Wrapper = styled(Container)`
@@ -50,6 +54,24 @@ export default function Home(props) {
 
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [domain, setDomain] = useState("");
+
+  const getDomain = () => {
+    getCurrentTab((tab) => {
+      try {
+        const url = new URL(tab.url);
+        const domain = url.hostname.split("www.").join("");
+        setDomain(domain);
+      } catch (error) {
+        setDomain("Unknown");
+      }
+    });
+  };
+
+  useEffect(() => {
+    getDomain();
+  }, []);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     setLoading(true);
@@ -66,13 +88,17 @@ export default function Home(props) {
   return (
     <Wrapper className={classes.main} component="main" maxWidth="xs">
       <div className={classes.paper}>
+        <Typography variant="h5" className={classes.title}>
+          FocusPocus Tracker
+        </Typography>
         Today's Quota Usage
-        <Typography component="h1" variant="h5">
+        <Typography component="h2" variant="h6">
           {used_minutes} minutes
         </Typography>
         of
-        <Typography component="h1" variant="h5">
+        <Typography component="h2" variant="h6">
           {quota_allotment_hours} hours
+          <hr />
         </Typography>
         <form
           onSubmit={(e) => handleSubmit(e)}
@@ -80,11 +106,11 @@ export default function Home(props) {
           noValidate
         >
           Currently Browsing
-          <Typography component="h1" variant="h5">
-            reddit.com
+          <Typography component="h2" variant="h6">
+            {domain}
           </Typography>
           for
-          <Typography component="h1" variant="h5">
+          <Typography component="h2" variant="h6">
             18 minutes
           </Typography>
           <Button
@@ -95,7 +121,7 @@ export default function Home(props) {
             className={classes.submit}
             disabled={loading}
           >
-            Add to Blacklist
+            Add Domain to Blacklist
           </Button>
           {loading && (
             <CircularProgress size={24} className={classes.buttonProgress} />
