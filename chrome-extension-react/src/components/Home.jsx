@@ -1,14 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { useFormFields } from "../hooks/useFormFields";
 import styled from "styled-components";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -59,13 +56,23 @@ export default function Home(props) {
     // POST request
     setLoading(false);
   };
+  const {
+    quota_today: {
+      allotment: { hours: quota_allotment_hours },
+      used: { minutes: used_minutes },
+    },
+  } = props.userData;
 
   return (
     <Wrapper className={classes.main} component="main" maxWidth="xs">
       <div className={classes.paper}>
-        Today's Quota
+        Today's Quota Usage
         <Typography component="h1" variant="h5">
-          10 minutes / 2 hours
+          {used_minutes} minutes
+        </Typography>
+        of
+        <Typography component="h1" variant="h5">
+          {quota_allotment_hours} hours
         </Typography>
         <form
           onSubmit={(e) => handleSubmit(e)}
