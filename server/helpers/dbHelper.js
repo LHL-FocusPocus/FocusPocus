@@ -122,15 +122,15 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const disableWebsiteInBlacklist = (website_id) => {
+  const disableWebsiteInBlacklist = (websiteId, userId) => {
     return db
       .query(
         `
-        UPDATE blacklists SET enabled NOT enabled
-        WHERE (website_id = $1 AND enabled = TRUE)
+        UPDATE blacklists SET enabled = NOT enabled
+        WHERE (website_id = $1 AND user_id = $2 AND enabled = TRUE)
         RETURNING *;
     `,
-        [website_id]
+        [websiteId, userId]
       )
       .then((res) => {
         return res.rows[0];

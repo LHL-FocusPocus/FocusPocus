@@ -118,7 +118,7 @@ module.exports = (db) => {
       return res.status(403).send("Please sign in first.");
     }
     // console.log("req", req.params.id);
-    dbHelper.deleteWebsiteFromBlacklist(id).then((res) => {
+    dbHelper.disableWebsiteInBlacklist(id, userId).then((res) => {
       console.log('res', res)
       // res.status(200).send;
     })
