@@ -24,7 +24,17 @@ function App() {
         path="/dashboard"
         render={() => <Dashboard dashboardData={state} />}
       />
-      <Route exact path="/options" render={() => <Options disableBlacklistedSite={disableBlacklistedSite} users={state.users} blacklist={state.blacklist} />} />
+      <Route
+        exact
+        path="/options"
+        render={() => (
+          <Options
+            disableBlacklistedSite={disableBlacklistedSite}
+            users={state.users}
+            blacklist={state.blacklist}
+          />
+        )}
+      />
     </div>
   );
 }
