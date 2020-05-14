@@ -117,19 +117,15 @@ module.exports = (db) => {
     if (!userId) {
       return res.status(403).send("Please sign in first.");
     }
-    // console.log("req", req.params.id);
-    dbHelper.disableWebsiteInBlacklist(id, userId).then((res) => {
-      console.log('res', res)
-      // res.status(200).send;
-    })
-    .catch(err => console.error(err))
+    dbHelper
+      .disableWebsiteInBlacklist(id, userId)
+      .then((resp) => {
+        // console.log('resp', resp.id)
+        res.json(resp);
+      })
+      .catch((err) => console.error(err));
   });
-
-  // Just a test route to test db queries and response
-  // router.get("/test", (req, res) => {
-  //   dbHelper.getQuotaForTodayWithUserID("1").then((quota) => res.json(quota));
-  // });
-
+  
   return router;
 };
 
