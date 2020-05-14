@@ -8,7 +8,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
-const { extractNameFromURL } = require("../helpers/dataProcessor");
+const { extractNameFromURL, remPrefix } = require("../helpers/dataProcessor");
 
 module.exports = (db) => {
   const dbHelper = require("../helpers/dbHelper")(db);
@@ -121,19 +121,17 @@ module.exports = (db) => {
   //   // Just a test route to test db queries and response
   router.get("/test", (req, res) => {
     // const { host_name } = req.body.params;
-    const host_name = "google.com";
+    const host_name = "www.yahdadshda.com";
+    const URL = remPrefix(host_name);
     const userId = 1;
     dbHelper
-      .getWebsiteIDByHostname(host_name)
+      .getWebsiteIDByHostname(URL)
       .then((site) => {
         if (!site) {
           console.log("=====> Website does not exist yet DB, adding to db");
-          // Removes '.com' from end of hostname for DB.
-          const remSuffix = host_name.split(".")[0];
-          // Capitalizes first letter of hostname
-          const name = remSuffix.charAt(0).toUpperCase() + remSuffix.slice(1);
+          const name = extractNameFromURL(URL);
           const category = null;
-          dbHelper.addWebsite(host_name, name, category).then((site) => {
+          dbHelper.addWebsite(URL, name, category).then((site) => {
             console.log("=====> Adding a new site to blacklist");
             console.log(site);
             return dbHelper.addWebsiteToBlacklist(userId, site.id);
@@ -144,7 +142,7 @@ module.exports = (db) => {
           return dbHelper.addWebsiteToBlacklist(userId, site.id);
         }
       })
-      .then(() => res.send(`${host_name} added to blacklist`))
+      .then(() => res.send(`${URL} added to blacklist`))
       .catch((err) => res.status(400).json(err));
   });
 
