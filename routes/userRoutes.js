@@ -98,17 +98,48 @@ module.exports = (db) => {
       .catch((err) => res.json(err));
   });
 
-  router.post("/blacklists", (req, res) => {
+  // router.post("/blacklists", (req, res) => {
+  //   const userId = req.session.userId;
+  //   if (!userId) {
+  //     return res.status(403).send("A user must be signed in!");
+  //   }
+  //   const { host_name } = req.body.params;
+  //   dbHelper
+  //     .getWebsiteIDByHostname(host_name)
+  //     // .getWebsiteIDByHostname("reddit.com")
+  //     .then((site) => dbHelper.addWebsiteToBlacklist(userId, site.id))
+  //     .catch((err) => res.json(err));
+  // });
+
+  router.post("/blacklists/add", (req, res) => {
     const userId = req.session.userId;
     if (!userId) {
       return res.status(403).send("A user must be signed in!");
     }
     const { host_name } = req.body.params;
+    const URL = remPrefix(host_name);
     dbHelper
-      .getWebsiteIDByHostname(host_name)
-      // .getWebsiteIDByHostname("reddit.com")
-      .then((site) => dbHelper.addWebsiteToBlacklist(userId, site.id))
-      .catch((err) => res.json(err));
+      .getWebsiteIDByHostname(URL)
+      .then((site) => {
+        if (!site) {
+          const name = extractNameFromURL(URL);
+          const category = null;
+          // Creating the website in the database before it can be added to their blacklist
+          dbHelper
+            .addWebsite(URL, name, category)
+            .then((site) => {
+              return dbHelper.addWebsiteToBlacklist(userId, site.id);
+            })
+            .then((blacklist) => res.status(201).json(blacklist))
+            .catch((err) => res.status(500).json(err));
+        } else {
+          dbHelper
+            .addWebsiteToBlacklist(userId, site.id)
+            .then((blacklist) => res.status(201).json(blacklist))
+            .catch((err) => res.status(500).json(err));
+        }
+      })
+      .catch((err) => res.status(400).json(err));
   });
 
   router.put("/blacklists/disable/:id", (req, res) => {
@@ -120,14 +151,10 @@ module.exports = (db) => {
     dbHelper
       .disableWebsiteInBlacklist(id, userId)
       .then((resp) => {
-        // console.log('resp', resp.id)
-        res.json(resp);
+        res.status(200).json(resp);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => res.status(400).json(err));
   });
-  
+
   return router;
 };
-
-// when returning user, also get all data related to the user.. blacklisted websites, time_allotment, etc...
-//
