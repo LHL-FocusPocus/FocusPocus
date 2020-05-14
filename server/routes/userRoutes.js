@@ -111,6 +111,10 @@ module.exports = (db) => {
       .catch((err) => res.json(err));
   });
 
+  router.delete("/blacklists/delete/:id", (req, res) => {
+
+  })
+
   // Just a test route to test db queries and response
   // router.get("/test", (req, res) => {
   //   dbHelper.getQuotaForTodayWithUserID("1").then((quota) => res.json(quota));
