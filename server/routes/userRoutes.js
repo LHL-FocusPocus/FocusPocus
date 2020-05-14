@@ -8,6 +8,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const { extractNameFromURL } = require("../helpers/dataProcessor");
 
 module.exports = (db) => {
   const dbHelper = require("../helpers/dbHelper")(db);
@@ -95,10 +96,7 @@ module.exports = (db) => {
       .getWebsiteIDByHostname(host_name)
       .then((site) => {
         if (!site) {
-          // Removes '.com' from end of hostname for DB.
-          const remSuffix = host_name.split(".")[0];
-          // Capitalizes first letter of hostname
-          const name = remSuffix.charAt(0).toUpperCase() + remSuffix.slice(1);
+          const name = extractNameFromURL(host_name);
           const category = null;
           // Creating the website in the database before it can be added to their blacklist
           dbHelper
@@ -135,9 +133,7 @@ module.exports = (db) => {
           // Capitalizes first letter of hostname
           const name = remSuffix.charAt(0).toUpperCase() + remSuffix.slice(1);
           const category = null;
-          dbHelper
-          .addWebsite(host_name, name, category)
-          .then((site) => {
+          dbHelper.addWebsite(host_name, name, category).then((site) => {
             console.log("=====> Adding a new site to blacklist");
             console.log(site);
             return dbHelper.addWebsiteToBlacklist(userId, site.id);
