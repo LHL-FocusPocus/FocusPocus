@@ -23,7 +23,7 @@ export default function reducer(state, action) {
       if (action.hostname) {
         const { hostname, name, category } = action;
         const newBlacklistedSite = { id, hostname, name, category };
-        clonedBlacklist.push(newBlacklistedSite);
+        clonedBlacklist.unshift(newBlacklistedSite);
       } else {
         // Find index where the blacklisted site lives
         const siteIndex = state.blacklisted.indexOf(

@@ -98,6 +98,7 @@ module.exports = (db) => {
     const { host_name } = req.body;
     const URL = remPrefix(host_name);
 
+    let website;
     dbHelper
       .getWebsiteIDByHostname(URL)
       .then((site) => {
@@ -117,31 +118,29 @@ module.exports = (db) => {
               );
             })
             .then((website) => {
-              if (website.enabled) {
-                res.status(400);
-              } else {
-                res.status(201).json(website);
-              }
               res.status(201).json(website);
-
             })
             .catch((err) => res.status(500).json(err));
         } else {
-          console.log('site', site)
           dbHelper
-            .enableBlacklistedSite(site.id, userId)
-            .then((blacklistedSite) => {
-              // if (blacklistedSite.enabled) return res.status(400);
-
-              return dbHelper.getBlacklistedSiteByWebsiteId(
-                blacklistedSite.website_id,
+            .getBlacklistedSiteByWebsiteId(site.id, userId)
+            .then((websiteScoped) => {
+              website = websiteScoped;
+              return dbHelper.enableBlacklistedSite(
+                websiteScoped.website_id,
                 userId
               );
             })
-            .then((website) => {
-                res.status(201).json(website);
+            .then(() => {
+              res.status(201).json(website);
             })
             .catch((err) => res.status(500).json(err));
+
+          // .then(() => {
+          //   console.log('website', website)
+          //   res.status(201).json(website);
+          // })
+          // .catch((err) => res.status(500).json(err));
         }
       })
       .catch((err) => res.status(400).json(err));
