@@ -13,7 +13,6 @@ const Wrapper = styled(Box)`
   justify-content: center;
   height: 400px;
 
-
   @media (max-width: 1300px) {
     order: 6;
     flex: 1 49%;
@@ -25,11 +24,11 @@ const Chart = styled.div`
   width: 100%;
   height: 100%;
   margin: 2em 0em;
-  ${'' /* margin-left: 400px; */}
-  ${'' /* transform: translateX(2000px) */}
+  ${"" /* margin-left: 400px; */}
+  ${"" /* transform: translateX(2000px) */}
 `;
 
-export default function Shameboard({shameboard}) {
+export default function Shameboard({ shameboard }) {
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
 
@@ -37,7 +36,7 @@ export default function Shameboard({shameboard}) {
     chart.hiddenState.properties.opacity = 0;
 
     chart.paddingRight = 40;
-    chart.scale = 0.8
+    chart.scale = 0.8;
 
     chart.data = shameboard;
 
@@ -137,7 +136,5 @@ export default function Shameboard({shameboard}) {
     });
   }, [shameboard]);
 
-  return (
-      <Chart id="shameboard"></Chart>
-  );
+  return <Chart id="shameboard"></Chart>;
 }

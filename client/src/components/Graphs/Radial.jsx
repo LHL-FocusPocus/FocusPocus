@@ -13,7 +13,6 @@ const Wrapper = styled(Box)`
   items-align: center;
   height: 400px;
   justify-content: center;
-  
 
   @media (max-width: 1300px) {
     order: 2;
@@ -33,7 +32,7 @@ const Chart = styled.div`
   }
 `;
 
-export default function Radial({radialData}) {
+export default function Radial({ radialData }) {
   useEffect(() => {
     am4core.useTheme(am4themes_material);
     am4core.useTheme(am4themes_animated);

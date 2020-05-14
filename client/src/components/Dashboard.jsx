@@ -26,7 +26,7 @@ const Wrapper = styled(Box)`
   transform: translateX(30px);
   padding-top: 3%;
 
-  ${'' /* @media (max-width: 1300px) {
+  ${"" /* @media (max-width: 1300px) {
     flex: 1 100;
     ${"" /* order: -1 */}
   } */}
@@ -64,9 +64,7 @@ export default function Dashboard({ dashboardData, loading }) {
         {donutGraph && <Donut donutData={donutGraph} />}
         {radialGraph && <Radial radialData={radialGraph} />}
 
-        {!quota_today && (
-          <h1>loading... (will be replaced by spinner)</h1>
-        )}
+        {!quota_today && <h1>loading... (will be replaced by spinner)</h1>}
       </Container>
     </div>
   );

@@ -3,7 +3,7 @@ import axios from "axios";
 import reducer, {
   SET_DASHBOARD_DATA,
   SET_BLACKLIST_DATA,
-  CHANGE_BLACKLIST
+  CHANGE_BLACKLIST,
 } from "../reducers/application";
 
 export default function useApplicationData() {
@@ -38,14 +38,15 @@ export default function useApplicationData() {
   }, state.blacklist);
 
   const disableBlacklistedSite = id => {
-    return Promise.resolve(axios.put(`/api/user/blacklists/disable/${id}`, id))
-    .then((res) => {
-      console.log('CLIENT', res)
+    return Promise.resolve(
+      axios.put(`/api/user/blacklists/disable/${id}`, id)
+    ).then(res => {
+      console.log("CLIENT", res);
       // dispatch({
       //   type: CHANGE_BLACKLIST,
       //   id,
       // })
-    })
+    });
   };
   return { state, disableBlacklistedSite };
 }

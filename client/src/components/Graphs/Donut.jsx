@@ -26,7 +26,6 @@ const Chart = styled.div`
   height: 100%;
   transform: translateY(60px);
   padding-bottom: 18%;
-
 `;
 
 export default function Donut({ donutData }) {

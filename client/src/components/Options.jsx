@@ -14,7 +14,10 @@ export default function Options({ user, blacklist, disableBlacklistedSite }) {
     <div>
       <Navbar user={user} />
       <Container bgcolor="background.paper">
-        <Blacklisted disableBlacklistedSite={disableBlacklistedSite}blacklist={blacklist} />
+        <Blacklisted
+          disableBlacklistedSite={disableBlacklistedSite}
+          blacklist={blacklist}
+        />
       </Container>
     </div>
   );

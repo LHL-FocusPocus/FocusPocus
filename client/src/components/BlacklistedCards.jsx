@@ -40,23 +40,20 @@ export default function BlacklistedCards({ hostname, name, deleteSite, id }) {
   return (
     <Container>
       {/* <Background> */}
-        <CardHeader
-          avatar={
-            <Logo
-              aria-label="website"
-              src={`//logo.clearbit.com/${hostname}`}
-            />
-          }
-          titleTypographyProps={{ variant: "h5" }}
-          title={`${name}`}
-          action={
-            <Delete onClick={() => deleteSite(id)} aria-label="settings">
-              <DeleteIcon />
-            </Delete>
-          }
-        />
-        
-        {/* <Logo image={`//logo.clearbit.com/${hostname}`} title={`${name}`} />
+      <CardHeader
+        avatar={
+          <Logo aria-label="website" src={`//logo.clearbit.com/${hostname}`} />
+        }
+        titleTypographyProps={{ variant: "h5" }}
+        title={`${name}`}
+        action={
+          <Delete onClick={() => deleteSite(id)} aria-label="settings">
+            <DeleteIcon />
+          </Delete>
+        }
+      />
+
+      {/* <Logo image={`//logo.clearbit.com/${hostname}`} title={`${name}`} />
         <Website>
           <Typography gutterBottom variant="h5" component="h2">
             {name}

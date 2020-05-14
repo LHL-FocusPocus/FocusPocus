@@ -28,7 +28,11 @@ export default function Landing(props) {
         <LogoText />
       </InnerContainer>
       <Route exact path="/" render={() => <Login history={history} />} />
-      <Route exact path="/register" render={() => <SignUp history={history} />} />
+      <Route
+        exact
+        path="/register"
+        render={() => <SignUp history={history} />}
+      />
     </Container>
   );
 }
