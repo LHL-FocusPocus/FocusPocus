@@ -122,13 +122,13 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const deleteWebsiteFromBlacklist = (website_id, user_id) => {
+  const deleteWebsiteFromBlacklist = (website_id) => {
     return db
       .query(
         `
-      DELETE FROM blacklists WHERE website_id = $1 AND user_id = $2;
+      DELETE FROM blacklists WHERE website_id = $1;
     `,
-        [website_id, user_id]
+        [website_id]
       )
       .then((res) => {
         return res.rows[0];
