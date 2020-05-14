@@ -42,10 +42,12 @@ export default function useApplicationData() {
       axios.put(`/api/user/blacklists/disable/${id}`, id)
     ).then(res => {
       console.log("CLIENT", res);
-      // dispatch({
-      //   type: CHANGE_BLACKLIST,
-      //   id,
-      // })
+      console.log("state", state);
+      dispatch({
+        type: CHANGE_BLACKLIST,
+        id,
+        enabled: false,
+      });
     });
   };
   return { state, disableBlacklistedSite };

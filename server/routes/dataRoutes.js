@@ -28,9 +28,6 @@ module.exports = (db) => {
     ]).then((all) => {
       // all is now an array of data that each promise returns
       userData["user"] = all[0];
-
-      console.log('all[5].sum', all[5].sum)
-      console.log('all[4].sum', all[4].sum)
       userData["quota_today"] = {
         allotment: all[1].time_allotment,
         used: all[5].sum,
@@ -42,7 +39,6 @@ module.exports = (db) => {
       userData["lineGraph"] = compileData(all[6], "date");
       userData["leaderboard"] = compileData(all[7], "name");
       userData["shameboard"] = compileData(all[8], "name");
-      // console.log(userData)
 
       return res.status(200).json(userData);
     })
