@@ -17,6 +17,7 @@ import clsx from "clsx";
 import useFormFields from "../hooks/useFormFields";
 import axios from "axios";
 import FormControl from "@material-ui/core/FormControl";
+import { addBlacklistedSite }
 
 import {
   Input,
@@ -67,7 +68,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Blacklisted({ blacklisted, disableBlacklistedSite }) {
+export default function Blacklisted({ blacklisted, disableBlacklistedSite, addBlacklistedSite }) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -83,17 +84,9 @@ export default function Blacklisted({ blacklisted, disableBlacklistedSite }) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log("fields.host_name", fields.host_name);
+    // console.log("fields.host_name", fields.host_name);
 
-    // axios
-    //   .post("/api/blacklists/add/:host_name", fields.host_name)
-    //   .then(res => {
-    //     console.log(res);
-    //     console.log("Successful login");
-    //   })
-    //   .catch(e => {
-    //     console.error(e);
-    //   });
+   addBlacklistedSite(fields.host_name)
   };
 
   // Prevents app from crashing when user has no blacklisted sites

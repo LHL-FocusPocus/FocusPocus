@@ -18,7 +18,7 @@ export default function useApplicationData() {
     axios
       .get("/api/data/dashboard")
       .then(userData => {
-        console.log('GETTING CALLED')
+        console.log("GETTING CALLED");
         const dashboardData = userData.data;
         dispatch({
           type: SET_DASHBOARD_DATA,
@@ -50,5 +50,17 @@ export default function useApplicationData() {
       });
     });
   };
-  return { state, disableBlacklistedSite };
+
+  const addBlacklistedSite = host => {
+    axios
+      .post("/api/blacklists/add", host)
+      .then(res => {
+        console.log("CLIENT", res);
+        // dispatch({
+        //   type: CHANGE_BLACKLIST,
+        // })
+      })
+      .catch(e => console.error(e));
+  };
+  return { state, disableBlacklistedSite, addBlacklistedSite };
 }

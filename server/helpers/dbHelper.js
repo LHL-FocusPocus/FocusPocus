@@ -109,11 +109,11 @@ module.exports = (db) => {
     return db
       .query(
         `
-        INSERT INTO blacklists (user_id, website_id, enabled)
-        VALUES ($1, $2, $3)
+        INSERT INTO blacklists (user_id, website_id)
+        VALUES ($1, $2)
         RETURNING *;
         `,
-        [user_id, website_id, true]
+        [user_id, website_id]
       )
       .then((res) => {
         if (res.rows.length === 0) return null;

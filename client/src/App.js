@@ -15,9 +15,12 @@ axios.defaults.withCredentials = true;
 // import Routes from "./routes";
 
 function App() {
-  const { state, disableBlacklistedSite } = useApplicationData();
+  const {
+    state,
+    disableBlacklistedSite,
+    addBlacklistedSite,
+  } = useApplicationData();
 
-  console.log('state', state)
   return (
     <div className="App">
       <Route exact path={["/", "/register"]} component={Landing} />
@@ -31,6 +34,7 @@ function App() {
         path="/options"
         render={() => (
           <Options
+            addBlacklistedSite={addBlacklistedSite}
             disableBlacklistedSite={disableBlacklistedSite}
             users={state.users}
             blacklisted={state.blacklisted}
