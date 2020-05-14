@@ -54,7 +54,7 @@ export default function Home(props) {
 
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-  const [domain, setDomain] = useState("");
+  const [currentDomain, setCurrentDomain] = useState("");
   const [blacklistDomains, setBlacklistDomains] = useState([]);
 
   const getDomain = () => {
@@ -62,9 +62,9 @@ export default function Home(props) {
       try {
         const url = new URL(tab.url);
         const domain = url.hostname.split("www.").join("");
-        setDomain(domain);
+        setCurrentDomain(domain);
       } catch (error) {
-        setDomain("Unknown");
+        setCurrentDomain("");
       }
     });
   };
@@ -90,12 +90,17 @@ export default function Home(props) {
     getBlacklist();
   }, []);
 
+  const isDomainBlocked = () => {
+    return blacklistDomains.includes(currentDomain);
+  };
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     setLoading(true);
     // POST request
     setLoading(false);
   };
+
   const {
     quota_today: {
       allotment: { hours: quota_allotment_hours },
@@ -125,7 +130,7 @@ export default function Home(props) {
         >
           Currently Browsing
           <Typography component="h2" variant="h6">
-            {domain}
+            {currentDomain}
           </Typography>
           for
           <Typography component="h2" variant="h6">
@@ -138,9 +143,9 @@ export default function Home(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            disabled={loading || blacklistDomains.includes(domain)}
+            disabled={loading || isDomainBlocked()}
           >
-            {blacklistDomains.includes(domain)
+            {isDomainBlocked()
               ? "Already Blacklisted"
               : "Add Domain to Blacklist"}
           </Button>
