@@ -28,6 +28,7 @@ const Chart = styled.div`
 
 export default function DailyQuotaUsed({ quota }) {
   useEffect(() => {
+    console.log('quota', quota)
     am4core.useTheme(am4themes_animated);
 
     const chart = am4core.create("dailyQuota", am4charts.GaugeChart);

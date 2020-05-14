@@ -112,9 +112,18 @@ module.exports = (db) => {
   });
 
   router.delete("/blacklists/delete/:id", (req, res) => {
-    console.log('req', req)
-    // dbHelper.deleteWebsiteFromBlacklist
-  })
+    const { userId } = req.session;
+    const { id } = req.params;
+    if (!userId) {
+      return res.status(403).send("Please sign in first.");
+    }
+    // console.log("req", req.params.id);
+    dbHelper.deleteWebsiteFromBlacklist(id).then((res) => {
+      console.log('res', res)
+      // res.status(200).send;
+    })
+    .catch(err => console.error(err))
+  });
 
   // Just a test route to test db queries and response
   // router.get("/test", (req, res) => {
