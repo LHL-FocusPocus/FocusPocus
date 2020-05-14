@@ -64,7 +64,7 @@ module.exports = (db) => {
 
   //   // extension will send browse time data here
   //   // host_name, datetime_start, duration
-  //   const { host_name, duration } = req.body.params;
+  //   const { host_name, duration } = req.body;
   //   const URL = remPrefix(host_name);
   //   // using host_name, insert website_id, datetime_start, duration, etc into the db.
   //   dbHelper
@@ -93,7 +93,7 @@ module.exports = (db) => {
     if (!userId) {
       return res.status(403).send("A user must be signed in!");
     }
-    const { host_name } = req.body.params;
+    const { host_name } = req.body;
     const URL = remPrefix(host_name);
     dbHelper
       .getWebsiteIDByHostname(URL)
@@ -123,9 +123,9 @@ module.exports = (db) => {
 
   //   // Just a test route to test db queries and response
   router.get("/test", (req, res) => {
-    // const { host_name } = req.body.params;
+    // const { host_name } = req.body;
 
-    const host_name = "www.yahdadshda.com";
+    const host_name = "www.google.com";
     const URL = remPrefix(host_name);
     const userId = 1;
     dbHelper
