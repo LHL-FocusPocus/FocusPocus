@@ -74,10 +74,7 @@ export default function Login(props) {
       .then((res) => {
         setErrorMsg("");
         setLoading(false);
-        return axios.get("/api/data/dashboard");
-      })
-      .then((res) => {
-        props.setUserData(res.data);
+        return props.getUserData();
       })
       .catch((e) => {
         if (e.response) {

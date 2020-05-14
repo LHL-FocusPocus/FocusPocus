@@ -21,8 +21,10 @@ function App() {
   const classes = useStyles();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    axios
+
+  const getUserData = () => {
+    setLoading(true);
+    return axios
       .get("/api/data/dashboard")
       .then((res) => {
         setUserData(res.data);
@@ -32,17 +34,17 @@ function App() {
         setUserData(null);
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    getUserData();
   }, []);
 
   return (
     <div className="App">
       {!loading && userData && <p>{JSON.stringify(userData)}</p>}
       {!loading && !userData && (
-        <Login
-          setUserData={setUserData}
-          loading={loading}
-          setLoading={setLoading}
-        />
+        <Login getUserData={getUserData} />
       )}
       <Backdrop className={classes.backdrop} open={loading}>
         <h1>Loading </h1> &nbsp;&nbsp;
