@@ -12,6 +12,7 @@ const { extractNameFromURL, remPrefix } = require("../helpers/dataProcessor");
 
 module.exports = (db) => {
   const dbHelper = require("../helpers/dbHelper")(db);
+
   router.post("/login", (req, res) => {
     if (req.session.userId) {
       console.log("Your user id is:", req.session.userId);
@@ -31,6 +32,18 @@ module.exports = (db) => {
         }
       })
       .catch((e) => res.json(e));
+  });
+
+  router.post("/logout", (req, res) => {
+    const userId = req.session.userId;
+    if (userId) {
+      req.session = null;
+      return res.status(401).send("Logout Successful");
+    } else {
+      return res
+        .status(409)
+        .send("Cannot logout a user that is not signed in.");
+    }
   });
 
   router.post("/register", (req, res) => {
@@ -53,27 +66,6 @@ module.exports = (db) => {
       })
       .catch((e) => console.error(e));
   });
-
-  // This can be removed, it is now in extensionRoutes.js file
-  // router.post("/add_browse_time", (req, res) => {
-  //   // checking cookie session for user, get user_id
-  //   const userId = req.session.userId;
-  //   if (!userId) {
-  //     return res.status(403).send("A user must be signed in!");
-  //   }
-
-  //   // extension will send browse time data here
-  //   // host_name, datetime_start, duration
-  //   const { host_name, duration } = req.body;
-  //   const URL = remPrefix(host_name);
-  //   // using host_name, insert website_id, datetime_start, duration, etc into the db.
-  //   dbHelper
-  //     .getWebsiteIDByHostname(URL)
-  //     .then((site) => {
-  //       dbHelper.addBrowseTimesToUserID(user_id, site.id, duration);
-  //     })
-  //     .catch((err) => res.status(400).json(err));
-  // });
 
   // Retrieving a user's blacklisted sites
   router.get("/blacklists", (req, res) => {
