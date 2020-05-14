@@ -54,24 +54,26 @@ module.exports = (db) => {
       .catch((e) => console.error(e));
   });
 
-  router.post("/add_browse_time", (req, res) => {
-    // checking cookie session for user, get user_id
-    const userId = req.session.userId;
-    if (!userId) {
-      return res.status(403).send("A user must be signed in!");
-    }
+  // This can be removed, it is now in extensionRoutes.js file
+  // router.post("/add_browse_time", (req, res) => {
+  //   // checking cookie session for user, get user_id
+  //   const userId = req.session.userId;
+  //   if (!userId) {
+  //     return res.status(403).send("A user must be signed in!");
+  //   }
 
-    // extension will send browse time data here
-    // host_name, datetime_start, duration
-    const { host_name, duration } = req.body.params;
-    // using host_name, insert website_id, datetime_start, duration, etc into the db.
-    dbHelper
-      .getWebsiteIDByHostname(host_name)
-      .then((site) => {
-        dbHelper.addBrowseTimesToUserID(user_id, site.id, duration);
-      })
-      .catch((err) => res.status(400).json(err));
-  });
+  //   // extension will send browse time data here
+  //   // host_name, datetime_start, duration
+  //   const { host_name, duration } = req.body.params;
+  //   const URL = remPrefix(host_name);
+  //   // using host_name, insert website_id, datetime_start, duration, etc into the db.
+  //   dbHelper
+  //     .getWebsiteIDByHostname(URL)
+  //     .then((site) => {
+  //       dbHelper.addBrowseTimesToUserID(user_id, site.id, duration);
+  //     })
+  //     .catch((err) => res.status(400).json(err));
+  // });
 
   // Retrieving a user's blacklisted sites
   router.get("/blacklists", (req, res) => {
@@ -92,15 +94,16 @@ module.exports = (db) => {
       return res.status(403).send("A user must be signed in!");
     }
     const { host_name } = req.body.params;
+    const URL = remPrefix(host_name);
     dbHelper
-      .getWebsiteIDByHostname(host_name)
+      .getWebsiteIDByHostname(URL)
       .then((site) => {
         if (!site) {
-          const name = extractNameFromURL(host_name);
+          const name = extractNameFromURL(URL);
           const category = null;
           // Creating the website in the database before it can be added to their blacklist
           dbHelper
-            .addWebsite(host_name, name, category)
+            .addWebsite(URL, name, category)
             .then((site) => {
               return dbHelper.addWebsiteToBlacklist(userId, site.id);
             })
@@ -121,6 +124,7 @@ module.exports = (db) => {
   //   // Just a test route to test db queries and response
   router.get("/test", (req, res) => {
     // const { host_name } = req.body.params;
+
     const host_name = "www.yahdadshda.com";
     const URL = remPrefix(host_name);
     const userId = 1;
