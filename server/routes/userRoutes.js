@@ -118,13 +118,13 @@ module.exports = (db) => {
           dbHelper
             .enableBlacklistedSite(site.id, userId)
             .then((blacklisted) => {
-              return dbHelper.getBlacklistedSiteByWebsiteId(blacklisted.website_id, userId)
-              // console.log('blacklist', blacklist)
-              // res.status(201).json(blacklist);
-              // return dbHelper.
+              return dbHelper.getBlacklistedSiteByWebsiteId(
+                blacklisted.website_id,
+                userId
+              );
             })
-            .then(website => {
-              console.log('website', website)
+            .then((website) => {
+              res.status(201).json(website);
             })
             .catch((err) => res.status(500).json(err));
         }

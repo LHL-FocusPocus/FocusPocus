@@ -19,8 +19,11 @@ export default function reducer(state, action) {
 
       const clonedBlacklist = [...state.blacklisted];
 
-      if (action.enabled) {
-        console.log('clonedBlacklist', clonedBlacklist)
+      // If hostname is truthy, then the blacklisted site is being added instead of deleted
+      if (action.hostname) {
+        const { hostname, name, category } = action;
+        const newBlacklistedSite = { id, hostname, name, category };
+        clonedBlacklist.push(newBlacklistedSite);
       } else {
         // Find index where the blacklisted site lives
         const siteIndex = state.blacklisted.indexOf(
@@ -28,7 +31,6 @@ export default function reducer(state, action) {
         );
 
         clonedBlacklist.splice(siteIndex, 1);
-
       }
       return {
         ...state,
