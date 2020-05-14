@@ -63,7 +63,7 @@ module.exports = (db) => {
         SELECT blacklists.id as blacklists_id, user_id, website_id, hostname, name, category
         FROM blacklists
         JOIN websites ON website_id = websites.id
-        WHERE user_id = $1;
+        WHERE user_id = $1 AND enabled = TRUE;
         `,
         [id]
       )
@@ -248,7 +248,7 @@ module.exports = (db) => {
         FROM browse_times
         JOIN blacklists ON browse_times.website_id = blacklists.website_id
         WHERE blacklists.user_id = $1
-        AND datetime_start >= CURRENT_DATE
+        AND enabled = TRUE AND datetime_start >= CURRENT_DATE
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
         GROUP BY browse_times.user_id;
       `,
