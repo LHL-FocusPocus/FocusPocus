@@ -53,19 +53,6 @@ module.exports = (db) => {
       .catch((e) => console.error(e));
   });
 
-  // router.get("/", (req, res) => {
-  //   // check users cookies to get users(id)
-  //   // return null if the cookie is not found
-  //   // need to use dbHelper.getUserWithID(id)
-  //   // Example of using dbHelper for db queries
-  //   dbHelper
-  //     .getUserWithEmail("a@a.com")
-  //     // .then (another query to get blacklisted websites)
-  //     // .then (another query to get time_alottment) ... etc
-  //     .then((user) => res.json(user))
-  //     .catch((e) => res.json(e));
-  // });
-
   router.post("/add_browse_time", (req, res) => {
     // checking cookie session for user, get user_id
     const userId = req.session.userId;
@@ -83,10 +70,9 @@ module.exports = (db) => {
         dbHelper.addBrowseTimesToUserID(user_id, site.id, duration);
       })
       .catch((err) => res.json(err));
-
-    // dbHelper.addBrowseTimesToUserID(user_id, website_id, duration)
   });
 
+  // Retrieving a user's blacklisted sites
   router.get("/blacklists", (req, res) => {
     const userId = req.session.userId;
     if (!userId) {
@@ -98,6 +84,7 @@ module.exports = (db) => {
       .catch((err) => res.json(err));
   });
 
+  //When a user wants to add to their blacklist
   router.post("/blacklists", (req, res) => {
     const userId = req.session.userId;
     if (!userId) {
@@ -106,47 +93,52 @@ module.exports = (db) => {
     const { host_name } = req.body.params;
     dbHelper
       .getWebsiteIDByHostname(host_name)
-      .then((siteID) => {
-        if (!siteID) {
-          // Removes '.com' from end of hostname for DB.
-          const name = host_name.split(".")[0];
-          const category = null;
-          return dbHelper.addWebsite(host_name, name, category);
-        }
-      })
-      .then((siteID) => {
-        // console.log("=====> Adding site to blacklist");
-        // console.log(siteID);
-        dbHelper.addWebsiteToBlacklist(userId, siteID.id);
-      })
-      .catch((err) => res.json(err));
-  });
-
-  // Just a test route to test db queries and response
-  router.get("/test", (req, res) => {
-    // const { host_name } = req.body.params;
-    const host_name = "espn.com";
-    const userId = 1;
-    dbHelper
-      .getWebsiteIDByHostname(host_name)
       .then((site) => {
         if (!site) {
-          // console.log("=====> Website does not exist yet in our DB");
           // Removes '.com' from end of hostname for DB.
           const remSuffix = host_name.split(".")[0];
           // Capitalizes first letter of hostname
           const name = remSuffix.charAt(0).toUpperCase() + remSuffix.slice(1);
           const category = null;
-          return dbHelper.addWebsite(host_name, name, category);
+          dbHelper
+          .addWebsite(host_name, name, category)
+          .then((site) => {
+            dbHelper.addWebsiteToBlacklist(userId, site.id);
+          });
         }
         dbHelper.addWebsiteToBlacklist(userId, site.id);
-        console.log("=====> Adding site to blacklist");
       })
-      .then((siteInfoFromReturnedQuery) => {
-        console.log("=====> Adding site to blacklist");
-        // console.log(siteID);
-        dbHelper.addWebsiteToBlacklist(userId, siteInfoFromReturnedQuery.id);
+      .catch((err) => res.json(err));
+  });
+
+  // Need to make a route to remove from user's blacklist
+
+  //   // Just a test route to test db queries and response
+  router.get("/test", (req, res) => {
+    // const { host_name } = req.body.params;
+    const host_name = "google.com";
+    const userId = 1;
+    dbHelper
+      .getWebsiteIDByHostname(host_name)
+      .then((site) => {
+        if (!site) {
+          console.log("=====> Website does not exist yet DB, adding to db");
+          // Removes '.com' from end of hostname for DB.
+          const remSuffix = host_name.split(".")[0];
+          // Capitalizes first letter of hostname
+          const name = remSuffix.charAt(0).toUpperCase() + remSuffix.slice(1);
+          const category = null;
+          dbHelper.addWebsite(host_name, name, category).then((site) => {
+            console.log("=====> Adding a new site to blacklist");
+            console.log(site);
+            dbHelper.addWebsiteToBlacklist(userId, site.id);
+          });
+        }
+        console.log("=====> Website exists in database");
+        dbHelper.addWebsiteToBlacklist(userId, site.id);
+        console.log("=====> Adding an old site to this user's blacklist");
       })
+      .then(() => res.send(`${host_name} added to blacklist`))
       .catch((err) => res.json(err));
   });
 
@@ -154,4 +146,3 @@ module.exports = (db) => {
 };
 
 // when returning user, also get all data related to the user.. blacklisted websites, time_allotment, etc...
-//
