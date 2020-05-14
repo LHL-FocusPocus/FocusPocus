@@ -122,11 +122,13 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const deleteWebsiteFromBlacklist = (website_id) => {
+  const disableWebsiteInBlacklist = (website_id) => {
     return db
       .query(
         `
-      DELETE FROM blacklists WHERE website_id = $1;
+        UPDATE blacklists SET enabled NOT enabled
+        WHERE (website_id = $1 AND enabled = TRUE)
+        RETURNING *;
     `,
         [website_id]
       )
@@ -412,7 +414,7 @@ module.exports = (db) => {
     addQuotaForUser,
     addWebsite,
     addWebsiteToBlacklist,
-    deleteWebsiteFromBlacklist,
+    disableWebsiteInBlacklist,
     addBrowseTimesToUserID,
     getTotalTimeForTodayByUserID,
     getTotalBlacklistTimeForTodayByUserID,
