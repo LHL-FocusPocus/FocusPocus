@@ -24,7 +24,7 @@ export default function useApplicationData() {
           payload: dashboardData,
         });
       })
-      .then(() => console.log("state", state))
+      // .then(() => console.log("state", state))
       .catch(e => console.error(e));
   }, []);
 
@@ -35,17 +35,18 @@ export default function useApplicationData() {
         blacklist: blacklist.data,
       });
     });
-  }, state.blacklist);
+  }, []);
 
   const disableBlacklistedSite = id => {
     return Promise.resolve(
       axios.put(`/api/user/blacklists/disable/${id}`, id)
     ).then(res => {
-      console.log("CLIENT", res);
-      console.log("state", state);
+      // console.log("CLIENT", res);
+      // console.log("state", state);
+      console.log('res', res)
       dispatch({
         type: CHANGE_BLACKLIST,
-        id,
+        id: res.data.id,
         enabled: false,
       });
     });

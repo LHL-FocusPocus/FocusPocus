@@ -16,6 +16,8 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const { state, disableBlacklistedSite } = useApplicationData();
+
+  console.log('state', state)
   return (
     <div className="App">
       <Route exact path={["/", "/register"]} component={Landing} />
