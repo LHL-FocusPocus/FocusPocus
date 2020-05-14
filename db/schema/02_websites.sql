@@ -6,5 +6,5 @@ CREATE TABLE websites
   hostname  VARCHAR(255)  UNIQUE NOT NULL,
 
   name      VARCHAR(255)  NOT NULL,
-  category  VARCHAR(255)  NOT NULL
+  category  VARCHAR(255)
 )
