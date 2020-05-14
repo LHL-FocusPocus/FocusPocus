@@ -102,13 +102,12 @@ module.exports = (db) => {
           const category = null;
           // Creating the website in the database before it can be added to their blacklist
           dbHelper
-          .addWebsite(host_name, name, category)
-          .then((site) => {
-            dbHelper
-              .addWebsiteToBlacklist(userId, site.id)
-              .then((blacklist) => res.status(201).json(blacklist))
-              .catch((err) => res.status(500).json(err));
-          });
+            .addWebsite(host_name, name, category)
+            .then((site) => {
+              return dbHelper.addWebsiteToBlacklist(userId, site.id);
+            })
+            .then((blacklist) => res.status(201).json(blacklist))
+            .catch((err) => res.status(500).json(err));
         } else {
           dbHelper
             .addWebsiteToBlacklist(userId, site.id)
