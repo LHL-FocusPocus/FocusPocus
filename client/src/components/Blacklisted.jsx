@@ -16,6 +16,7 @@ import Collapse from "@material-ui/core/Collapse";
 import clsx from "clsx";
 import useFormFields from "../hooks/useFormFields";
 import axios from "axios";
+import FormControl from "@material-ui/core/FormControl";
 
 import {
   Input,
@@ -23,12 +24,12 @@ import {
   FormHelperText,
   InputAdornment,
   Fab,
+  TextField,
 } from "@material-ui/core";
 import LanguageIcon from "@material-ui/icons/Language";
 import styled from "styled-components";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
-import FormControl from "@material-ui/core/FormControl";
 
 const Container = styled(Box)`
   min-height: 86vh;
@@ -45,12 +46,12 @@ const Background = styled(CardActionArea)`
 `;
 
 const Add = styled(Fab)`
-  width: 12%;
   margin: 5% 44%;
 `;
 
-const Form = styled(FormControl)`
+const Form = styled.form`
   width: 100%;
+  padding: 0;
 `;
 
 const useStyles = makeStyles(theme => ({
@@ -78,24 +79,21 @@ export default function Blacklisted({ blacklisted, disableBlacklistedSite }) {
     host_name: "",
   });
 
-  console.log('fields.host_name', fields.host_name)
+  // console.log("fields.host_name", fields.host_name);
 
   const handleSubmit = event => {
     event.preventDefault();
+    console.log("fields.host_name", fields.host_name);
 
-    // const credentials = {
-    //   website: fields.website;
-    // };
-
-    axios
-      .post("/api/blacklists/add/:host_name", fields.host_name)
-      .then(res => {
-        console.log(res);
-        console.log("Successful login");
-      })
-      .catch(e => {
-        console.error(e);
-      });
+    // axios
+    //   .post("/api/blacklists/add/:host_name", fields.host_name)
+    //   .then(res => {
+    //     console.log(res);
+    //     console.log("Successful login");
+    //   })
+    //   .catch(e => {
+    //     console.error(e);
+    //   });
   };
 
   // Prevents app from crashing when user has no blacklisted sites
@@ -131,25 +129,39 @@ export default function Blacklisted({ blacklisted, disableBlacklistedSite }) {
         </Background>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Form>
-              <InputLabel htmlFor="my-input" />
-              <Input
-                id="host_name"
-                label="Website"
-                value={fields.host_name}
-                type="url"
-                onChange={handleFieldChange}
-                aria-describedby="my-helper-text"
-                startAdornment={
-                  <InputAdornment position="start">
-                    <LanguageIcon />
-                  </InputAdornment>
-                }
-              />
-                <Add size="small" color="primary" aria-label="add">
+            <FormControl>
+              <Form onSubmit={e => handleSubmit(e)}>
+                <InputLabel htmlFor="New Website" />
+                <Input
+                  required
+                  id="host_name"
+                  value={fields.host_name}
+                  // type="url"
+                  onChange={handleFieldChange}
+                  // aria-describedby="my-helper-text"
+                  // InputProps={{
+                  //   startAdornment: (
+                  //     <InputAdornment position="start">
+                  //       <LanguageIcon />
+                  //     </InputAdornment>
+                  //   ),
+                  // }}
+                  startAdornment={
+                    <InputAdornment position="start">
+                      <LanguageIcon />
+                    </InputAdornment>
+                  }
+                />
+                <Add
+                  type="submit"
+                  size="small"
+                  color="primary"
+                  aria-label="add"
+                >
                   <AddIcon />
                 </Add>
-            </Form>
+              </Form>
+            </FormControl>
           </CardContent>
         </Collapse>
       </AddNew>
