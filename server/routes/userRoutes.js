@@ -94,30 +94,35 @@ module.exports = (db) => {
       return res.status(403).send("A user must be signed in!");
     }
     const { host_name } = req.body;
-    console.log('host_name', host_name)
-    // const URL = remPrefix(host_name);
-    // dbHelper
-    //   .getWebsiteIDByHostname(URL)
-    //   .then((site) => {
-    //     if (!site) {
-    //       const name = extractNameFromURL(URL);
-    //       const category = null;
-    //       // Creating the website in the database before it can be added to their blacklist
-    //       dbHelper
-    //         .addWebsite(URL, name, category)
-    //         .then((site) => {
-    //           return dbHelper.addWebsiteToBlacklist(userId, site.id);
-    //         })
-    //         .then((blacklist) => res.status(201).json(blacklist))
-    //         .catch((err) => res.status(500).json(err));
-    //     } else {
-    //       dbHelper
-    //         .addWebsiteToBlacklist(userId, site.id)
-    //         .then((blacklist) => res.status(201).json(blacklist))
-    //         .catch((err) => res.status(500).json(err));
-    //     }
-    //   })
-    //   .catch((err) => res.status(400).json(err));
+    // console.log('host_name', host_name)
+    const URL = remPrefix(host_name);
+
+
+    // console.log('URL', URL)
+    // console.log('host_name', host_name)
+    dbHelper
+      .getWebsiteIDByHostname(URL)
+      .then((site) => {
+        console.log("site", site);
+        if (!site) {
+          const name = extractNameFromURL(URL);
+          const category = null;
+          // Creating the website in the database before it can be added to their blacklist
+          dbHelper
+            .addWebsite(URL, name, category)
+            .then((site) => {
+              return dbHelper.addWebsiteToBlacklist(userId, site.id);
+            })
+            .then((blacklistedSite) => res.status(201).json(blacklistedSite))
+            .catch((err) => res.status(500).json(err));
+        } else {
+          dbHelper
+            .addWebsiteToBlacklist(userId, site.id)
+            .then((blacklist) => res.status(201).json(blacklist))
+            .catch((err) => res.status(500).json(err));
+        }
+      })
+      .catch((err) => res.status(400).json(err));
   });
 
   router.put("/blacklists/disable/:id", (req, res) => {

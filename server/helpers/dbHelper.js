@@ -404,6 +404,21 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
+  const enableBlacklistedSite = (website_id, user_id) => {
+    return db
+      .query(
+        `
+      UPDATE blacklists SET enabled = TRUE WHERE website_id = $1 AND user_id = $2;
+    `,
+        [website_id, user_id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      })
+      .catch((err) => console.error(err));
+  };
+
   return {
     getUserWithEmail,
     getUserWithID,
@@ -426,5 +441,6 @@ module.exports = (db) => {
     getTimeForLeaderboardWeek,
     getTimeForShameboardWeek,
     getHitsForBlacklistedSiteForPastWeek,
+    enableBlacklistedSite,
   };
 };
