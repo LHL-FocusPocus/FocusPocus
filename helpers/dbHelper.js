@@ -309,7 +309,7 @@ module.exports = (db) => {
         SELECT datetime_start::DATE as date, SUM(duration) as time
         FROM browse_times
         JOIN blacklists ON browse_times.website_id = blacklists.website_id
-        WHERE blacklists.user_id = $1
+        WHERE blacklists.user_id = $1 AND browse_times.user_id = $1
         AND datetime_start >= CURRENT_DATE - INTERVAL '30 days'
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
         GROUP BY date;
