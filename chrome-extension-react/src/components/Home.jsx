@@ -179,13 +179,13 @@ export default function Home(props) {
           </Grid>
           <Grid container justify="center">
             <Grid item>
-              <p className={classes.error}>{errorMsg || "hi"}</p>
+              <p className={classes.error}>{errorMsg}</p>
             </Grid>
           </Grid>
           <Grid container justify="center">
             <Grid item>
-              <Link href="http://localhost:3000" variant="body2">
-                Visit your FocusPocus dashboard!
+              <Link href="http://localhost:3000" variant="body2" target="_blank">
+                For more stats, visit your dashboard!
               </Link>
             </Grid>
           </Grid>
