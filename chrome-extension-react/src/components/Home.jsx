@@ -106,7 +106,6 @@ export default function Home(props) {
   return (
     <Wrapper className={classes.main} component="main" maxWidth="xs">
       <div className={classes.paper}>
-        {`Blacklisted domains: ${blacklistDomains.length}`}
         <Typography variant="h5" className={classes.title}>
           FocusPocus Tracker
         </Typography>
@@ -130,17 +129,20 @@ export default function Home(props) {
           </Typography>
           for
           <Typography component="h2" variant="h6">
-            18 minutes
+            xx minutes
           </Typography>
+          {`Blacklisted domains: ${blacklistDomains.length}`}
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            disabled={loading}
+            disabled={loading || blacklistDomains.includes(domain)}
           >
-            Add Domain to Blacklist
+            {blacklistDomains.includes(domain)
+              ? "Already Blacklisted"
+              : "Add Domain to Blacklist"}
           </Button>
           {loading && (
             <CircularProgress size={24} className={classes.buttonProgress} />
