@@ -3,7 +3,7 @@ import axios from "axios";
 import reducer, {
   SET_DASHBOARD_DATA,
   SET_BLACKLIST_DATA,
-  CHANGE_BLACKLIST // should this start with SET?
+  CHANGE_BLACKLIST
 } from "../reducers/application";
 
 export default function useApplicationData() {
@@ -41,7 +41,8 @@ export default function useApplicationData() {
     return Promise.resolve(axios.delete(`/api/user/blacklists/delete/${id}`, id))
     .then(() => {
       dispatch({
-        type: SET
+        type: CHANGE_BLACKLIST,
+        id,
       })
     })
   };

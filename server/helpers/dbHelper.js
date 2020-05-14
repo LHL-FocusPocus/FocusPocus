@@ -122,6 +122,12 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
+  const deleteWebsiteFromBlacklist = (website_id, user_id) => {
+    return db.query(`
+      DELETE FROM blacklists WHERE website_id = $1 AND user_id = $2;
+    `, [website_id, user_id])
+  }
+
   const addQuotaForUser = function (
     user_id,
     time_allotment,
