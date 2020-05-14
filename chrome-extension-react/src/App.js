@@ -2,10 +2,13 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
-import Login from "./components/Login";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
+
+import Login from "./components/Login";
+import Home from "./components/Home";
+
 
 axios.defaults.baseURL = "http://localhost:9000";
 axios.defaults.withCredentials = true;
@@ -42,7 +45,7 @@ function App() {
 
   return (
     <div className="App">
-      {!loading && userData && <p>{JSON.stringify(userData)}</p>}
+      {!loading && userData && <Home/>}
       {!loading && !userData && (
         <Login getUserData={getUserData} />
       )}

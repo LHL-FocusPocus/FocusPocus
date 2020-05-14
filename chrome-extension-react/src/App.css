@@ -1,7 +1,11 @@
 .App {
+  display: flex;
+  align-items: center;
   text-align: center;
-  max-width: 400px;
+  width: 400px;
+  height: 500px;
   margin: auto;
+  padding: 2em;
 }
 
 .App-logo {
