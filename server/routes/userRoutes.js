@@ -97,7 +97,6 @@ module.exports = (db) => {
     // console.log('host_name', host_name)
     const URL = remPrefix(host_name);
 
-
     // console.log('URL', URL)
     // console.log('host_name', host_name)
     dbHelper
@@ -116,9 +115,13 @@ module.exports = (db) => {
             .then((blacklistedSite) => res.status(201).json(blacklistedSite))
             .catch((err) => res.status(500).json(err));
         } else {
+          // console.log('site.id', site.id)
           dbHelper
-            .addWebsiteToBlacklist(userId, site.id)
-            .then((blacklist) => res.status(201).json(blacklist))
+            .enableBlacklistedSite(site.id, userId)
+            .then((blacklist) => {
+              console.log("blacklist", blacklist);
+              // res.status(201).json(blacklist);
+            })
             .catch((err) => res.status(500).json(err));
         }
       })

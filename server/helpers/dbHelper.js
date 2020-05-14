@@ -408,7 +408,8 @@ module.exports = (db) => {
     return db
       .query(
         `
-      UPDATE blacklists SET enabled = TRUE WHERE website_id = $1 AND user_id = $2;
+      UPDATE blacklists SET enabled = TRUE WHERE website_id = $1 AND user_id = $2
+      RETURNING *;
     `,
         [website_id, user_id]
       )
