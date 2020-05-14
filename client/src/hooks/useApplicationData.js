@@ -55,11 +55,11 @@ export default function useApplicationData() {
       .then(res => {
         const { id, user_id, website_id, enabled } = res.data;
         console.log("CLIENT", res.data);
-        dispatch({
-          type: CHANGE_BLACKLIST,
-          id,
-          enabled
-        });
+        // dispatch({
+        //   type: CHANGE_BLACKLIST,
+        //   id,
+        //   enabled,
+        // });
       })
       .catch(e => console.error(e));
   };

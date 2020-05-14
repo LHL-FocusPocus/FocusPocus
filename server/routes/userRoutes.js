@@ -117,10 +117,14 @@ module.exports = (db) => {
         } else {
           dbHelper
             .enableBlacklistedSite(site.id, userId)
-            .then((blacklist) => {
-              console.log('blacklist', blacklist)
+            .then((blacklisted) => {
+              return dbHelper.getBlacklistedSiteByWebsiteId(blacklisted.website_id, userId)
+              // console.log('blacklist', blacklist)
               // res.status(201).json(blacklist);
               // return dbHelper.
+            })
+            .then(website => {
+              console.log('website', website)
             })
             .catch((err) => res.status(500).json(err));
         }

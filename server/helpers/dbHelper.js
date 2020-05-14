@@ -420,13 +420,13 @@ module.exports = (db) => {
       .catch((err) => console.error(err));
   };
 
-  const getBlacklistedSiteByWebsiteId = (website_id) => {
+  const getBlacklistedSiteByWebsiteId = (website_id, user_id) => {
     return db
       .query(
         `
-      SELECT * FROM websites WHERE id = 1;
+      SELECT * FROM websites JOIN blacklists ON websites.id = website_id WHERE websites.id = $1 AND user_id = $2;
     `,
-        [website_id]
+        [website_id, user_id]
       )
       .then((res) => {
         if (res.rows.length === 0) return null;
