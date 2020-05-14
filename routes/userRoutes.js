@@ -112,7 +112,7 @@ module.exports = (db) => {
   });
 
   router.delete("/blacklists/delete/:id", (req, res) => {
-    
+    console.log('req', req)
     // dbHelper.deleteWebsiteFromBlacklist
   })
 
