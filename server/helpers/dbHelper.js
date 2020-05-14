@@ -420,6 +420,12 @@ module.exports = (db) => {
       .catch((err) => console.error(err));
   };
 
+  const getBlacklistedSiteByWebsiteId = (website_id) => {
+    return db.query(`
+      
+    `);
+  };
+
   return {
     getUserWithEmail,
     getUserWithID,
@@ -443,5 +449,6 @@ module.exports = (db) => {
     getTimeForShameboardWeek,
     getHitsForBlacklistedSiteForPastWeek,
     enableBlacklistedSite,
+    getBlacklistedSiteByWebsiteId,
   };
 };

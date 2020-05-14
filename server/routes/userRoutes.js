@@ -115,12 +115,12 @@ module.exports = (db) => {
             .then((blacklistedSite) => res.status(201).json(blacklistedSite))
             .catch((err) => res.status(500).json(err));
         } else {
-          // console.log('site.id', site.id)
           dbHelper
             .enableBlacklistedSite(site.id, userId)
             .then((blacklist) => {
-              console.log("blacklist", blacklist);
+              console.log('blacklist', blacklist)
               // res.status(201).json(blacklist);
+              // return dbHelper.
             })
             .catch((err) => res.status(500).json(err));
         }

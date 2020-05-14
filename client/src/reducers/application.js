@@ -16,16 +16,20 @@ export default function reducer(state, action) {
       };
     case CHANGE_BLACKLIST:
       const { id } = action;
-      
-      // Find index where the blacklisted site lives
-      const siteIndex = state.blacklisted.indexOf(
-        state.blacklisted.find(site => site.blacklists_id === id)
-      );
 
       const clonedBlacklist = [...state.blacklisted];
 
-      clonedBlacklist.splice(siteIndex, 1);
+      if (action.enabled) {
+        console.log('clonedBlacklist', clonedBlacklist)
+      } else {
+        // Find index where the blacklisted site lives
+        const siteIndex = state.blacklisted.indexOf(
+          state.blacklisted.find(site => site.blacklists_id === id)
+        );
 
+        clonedBlacklist.splice(siteIndex, 1);
+
+      }
       return {
         ...state,
         blacklisted: clonedBlacklist,
