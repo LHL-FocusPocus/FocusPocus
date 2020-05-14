@@ -112,14 +112,22 @@ module.exports = (db) => {
             .then((site) => {
               return dbHelper.addWebsiteToBlacklist(userId, site.id);
             })
-            .then((blacklistedSite) => res.status(201).json(blacklistedSite))
+            .then((blacklistedSite) => {
+              return dbHelper.getBlacklistedSiteByWebsiteId(
+                blacklistedSite.website_id,
+                userId
+              );
+            })
+            .then((website) => {
+              res.status(201).json(website);
+            })
             .catch((err) => res.status(500).json(err));
         } else {
           dbHelper
             .enableBlacklistedSite(site.id, userId)
-            .then((blacklisted) => {
+            .then((blacklistedSite) => {
               return dbHelper.getBlacklistedSiteByWebsiteId(
-                blacklisted.website_id,
+                blacklistedSite.website_id,
                 userId
               );
             })
