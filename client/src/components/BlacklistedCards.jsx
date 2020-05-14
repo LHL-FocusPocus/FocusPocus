@@ -35,7 +35,8 @@ const Delete = styled(IconButton)`
   margin-right: 20%;
 `;
 
-export default function BlacklistedCards({ hostname, name, deleteSite }) {
+export default function BlacklistedCards({ hostname, name, deleteSite, id }) {
+  // console.log('id', id)
   return (
     <Container>
       {/* <Background> */}
@@ -49,7 +50,7 @@ export default function BlacklistedCards({ hostname, name, deleteSite }) {
           titleTypographyProps={{ variant: "h5" }}
           title={`${name}`}
           action={
-            <Delete onSubmit={deleteSite} aria-label="settings">
+            <Delete onClick={() => deleteSite(id)} aria-label="settings">
               <DeleteIcon />
             </Delete>
           }

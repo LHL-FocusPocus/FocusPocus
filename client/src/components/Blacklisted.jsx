@@ -80,6 +80,7 @@ export default function Blacklisted({ blacklist, deleteBlacklistedSite }) {
         key={website.blacklists_id}
         hostname={website.hostname}
         name={website.name}
+        id={website.website_id}
       />
     );
   });
