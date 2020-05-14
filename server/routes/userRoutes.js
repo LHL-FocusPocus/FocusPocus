@@ -69,7 +69,7 @@ module.exports = (db) => {
       .then((site) => {
         dbHelper.addBrowseTimesToUserID(user_id, site.id, duration);
       })
-      .catch((err) => res.json(err));
+      .catch((err) => res.status(400).json(err));
   });
 
   // Retrieving a user's blacklisted sites
@@ -81,7 +81,7 @@ module.exports = (db) => {
     dbHelper
       .getBlacklistedSitesWithUserID(userId)
       .then((blacklists) => res.json(blacklists))
-      .catch((err) => res.json(err));
+      .catch((err) => res.status(400).json(err));
   });
 
   //When a user wants to add to their blacklist
@@ -100,15 +100,15 @@ module.exports = (db) => {
           // Capitalizes first letter of hostname
           const name = remSuffix.charAt(0).toUpperCase() + remSuffix.slice(1);
           const category = null;
-          dbHelper
-          .addWebsite(host_name, name, category)
-          .then((site) => {
+          // Creating the website in the database before it can be added to their blacklist
+          dbHelper.addWebsite(host_name, name, category).then((site) => {
             dbHelper.addWebsiteToBlacklist(userId, site.id);
           });
+        } else {
+          dbHelper.addWebsiteToBlacklist(userId, site.id);
         }
-        dbHelper.addWebsiteToBlacklist(userId, site.id);
       })
-      .catch((err) => res.json(err));
+      .catch((err) => res.status(400).json(err));
   });
 
   // Need to make a route to remove from user's blacklist
@@ -133,13 +133,14 @@ module.exports = (db) => {
             console.log(site);
             dbHelper.addWebsiteToBlacklist(userId, site.id);
           });
+        } else {
+          console.log("=====> Website exists in database");
+          console.log("=====> Adding an old site to this user's blacklist");
+          return dbHelper.addWebsiteToBlacklist(userId, site.id);
         }
-        console.log("=====> Website exists in database");
-        dbHelper.addWebsiteToBlacklist(userId, site.id);
-        console.log("=====> Adding an old site to this user's blacklist");
       })
       .then(() => res.send(`${host_name} added to blacklist`))
-      .catch((err) => res.json(err));
+      .catch((err) => res.status(400).json(err));
   });
 
   return router;
