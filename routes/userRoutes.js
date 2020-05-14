@@ -84,7 +84,7 @@ module.exports = (db) => {
       .catch((err) => res.status(400).json(err));
   });
 
-  //When a user wants to add to their blacklist
+  // When a user wants to add a site to their blacklist
   router.post("/blacklists", (req, res) => {
     const userId = req.session.userId;
     if (!userId) {
@@ -101,11 +101,19 @@ module.exports = (db) => {
           const name = remSuffix.charAt(0).toUpperCase() + remSuffix.slice(1);
           const category = null;
           // Creating the website in the database before it can be added to their blacklist
-          dbHelper.addWebsite(host_name, name, category).then((site) => {
-            dbHelper.addWebsiteToBlacklist(userId, site.id);
+          dbHelper
+          .addWebsite(host_name, name, category)
+          .then((site) => {
+            dbHelper
+              .addWebsiteToBlacklist(userId, site.id)
+              .then((blacklist) => res.status(201).json(blacklist))
+              .catch((err) => res.status(500).json(err));
           });
         } else {
-          dbHelper.addWebsiteToBlacklist(userId, site.id);
+          dbHelper
+            .addWebsiteToBlacklist(userId, site.id)
+            .then((blacklist) => res.status(201).json(blacklist))
+            .catch((err) => res.status(500).json(err));
         }
       })
       .catch((err) => res.status(400).json(err));
@@ -145,5 +153,3 @@ module.exports = (db) => {
 
   return router;
 };
-
-// when returning user, also get all data related to the user.. blacklisted websites, time_allotment, etc...
