@@ -34,10 +34,22 @@ const useStyles = makeStyles((theme) => ({
   error: {
     color: "red",
   },
+  buttonProgress: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    marginTop: -10,
+    marginLeft: -12,
+  },
+  buttonGroup: {
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+  },
 }));
 
 const Wrapper = styled(Container)`
-  margin: auto;  
+  margin: auto;
   z-index: 5;
   width: 350px;
   padding: 3em;
@@ -129,19 +141,21 @@ export default function Login(props) {
               />
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            disabled={!validateForm() || loading}
-          >
-            Log In
-          </Button>
-          {loading && (
-            <CircularProgress size={24} className={classes.buttonProgress} />
-          )}
+          <Grid className={classes.buttonGroup}>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              disabled={!validateForm() || loading}
+            >
+              Log In
+            </Button>
+            {loading && (
+              <CircularProgress size={24} className={classes.buttonProgress} />
+            )}
+          </Grid>
           <Grid container justify="center">
             <Grid item>
               <p className={classes.error}>{errorMsg}</p>
