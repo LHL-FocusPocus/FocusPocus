@@ -111,7 +111,7 @@ module.exports = (db) => {
       .catch((err) => res.json(err));
   });
 
-  router.delete("/blacklists/delete/:id", (req, res) => {
+  router.put("/blacklists/disable/:id", (req, res) => {
     const { userId } = req.session;
     const { id } = req.params;
     if (!userId) {
