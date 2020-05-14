@@ -17,7 +17,6 @@ import clsx from "clsx";
 import useFormFields from "../hooks/useFormFields";
 import axios from "axios";
 import FormControl from "@material-ui/core/FormControl";
-import { addBlacklistedSite }
 
 import {
   Input,
@@ -68,7 +67,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Blacklisted({ blacklisted, disableBlacklistedSite, addBlacklistedSite }) {
+export default function Blacklisted({
+  blacklisted,
+  disableBlacklistedSite,
+  addBlacklistedSite,
+}) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -86,7 +89,7 @@ export default function Blacklisted({ blacklisted, disableBlacklistedSite, addBl
     event.preventDefault();
     // console.log("fields.host_name", fields.host_name);
 
-   addBlacklistedSite(fields.host_name)
+    addBlacklistedSite(fields.host_name);
   };
 
   // Prevents app from crashing when user has no blacklisted sites

@@ -39,9 +39,7 @@ export default function useApplicationData() {
   }, []);
 
   const disableBlacklistedSite = id => {
-    return Promise.resolve(
-      axios.put(`/api/user/blacklists/disable/${id}`, id)
-    ).then(res => {
+    axios.put(`/api/user/blacklists/disable/${id}`, id).then(res => {
       // console.log("CLIENT", res);
       // console.log("state", state);
       dispatch({
@@ -53,7 +51,7 @@ export default function useApplicationData() {
 
   const addBlacklistedSite = host => {
     axios
-      .post("/api/blacklists/add", host)
+      .post("/api/user/blacklists/add", { host })
       .then(res => {
         console.log("CLIENT", res);
         // dispatch({
