@@ -129,21 +129,20 @@ module.exports = (db) => {
           dbHelper
             .getBlacklistedSiteByWebsiteId(site.id, userId)
             .then((websiteScoped) => {
-              console.log("websiteScoped", websiteScoped);
+              // console.log("websiteScoped", websiteScoped);
               if (websiteScoped.enabled) {
                 return res.status(400).send;
               } else {
                 website = websiteScoped;
-                res.status(201).json(website);
                 return dbHelper.enableBlacklistedSite(
                   websiteScoped.website_id,
                   userId
-                );
+                ).then((data) => {
+                  res.status(201).json(website);
+                })
               }
             })
-            .then(() => {
-              res.status(201).send;
-            })
+
             .catch((err) => res.status(500).json(err));
 
           // .then(() => {
