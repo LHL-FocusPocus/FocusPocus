@@ -18,6 +18,7 @@ export default function useApplicationData() {
     axios
       .get("/api/data/dashboard")
       .then(userData => {
+        console.log('GETTING CALLED')
         const dashboardData = userData.data;
         dispatch({
           type: SET_DASHBOARD_DATA,
