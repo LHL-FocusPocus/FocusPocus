@@ -15,7 +15,7 @@ axios.defaults.withCredentials = true;
 // import Routes from "./routes";
 
 function App() {
-  const { state, loading, setLoading } = useApplicationData();
+  const { state, deleteBlacklistedSite } = useApplicationData();
   return (
     <div className="App">
       <Route exact path={["/", "/register"]} component={Landing} />
@@ -24,7 +24,7 @@ function App() {
         path="/dashboard"
         render={() => <Dashboard dashboardData={state} />}
       />
-      <Route exact path="/options" render={() => <Options users={state.users} blacklist={state.blacklist} />} />
+      <Route exact path="/options" render={() => <Options deleteBlacklistedSite={deleteBlacklistedSite} users={state.users} blacklist={state.blacklist} />} />
     </div>
   );
 }

@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Blacklisted({ blacklist }) {
+export default function Blacklisted({ blacklist, deleteBlacklistedSite }) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 

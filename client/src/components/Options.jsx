@@ -9,12 +9,12 @@ const Container = styled(Box)`
   height: 100%;
 `;
 
-export default function Options({ user, blacklist }) {
+export default function Options({ user, blacklist, deleteBlacklistedSite }) {
   return (
     <div>
       <Navbar user={user} />
       <Container bgcolor="background.paper">
-        <Blacklisted blacklist={blacklist} />
+        <Blacklisted deleteBlacklistedSite={deleteBlacklistedSite}blacklist={blacklist} />
       </Container>
     </div>
   );

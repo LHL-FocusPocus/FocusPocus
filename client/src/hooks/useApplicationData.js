@@ -46,5 +46,5 @@ export default function useApplicationData() {
       })
     })
   };
-  return { state, loading, setLoading };
+  return { state, loading, setLoading, deleteBlacklistedSite };
 }
