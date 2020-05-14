@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Blacklisted({ blacklist, deleteBlacklistedSite }) {
+export default function Blacklisted({ blacklist, disableBlacklistedSite }) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -76,7 +76,7 @@ export default function Blacklisted({ blacklist, deleteBlacklistedSite }) {
   const blacklistList = blacklist.map(website => {
     return (
       <BlacklistedCards
-        deleteSite={deleteBlacklistedSite}
+        deleteSite={disableBlacklistedSite}
         key={website.blacklists_id}
         hostname={website.hostname}
         name={website.name}

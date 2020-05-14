@@ -37,7 +37,7 @@ export default function useApplicationData() {
     });
   }, state.blacklist);
 
-  const deleteBlacklistedSite = id => {
+  const disableBlacklistedSite = id => {
     return Promise.resolve(axios.delete(`/api/user/blacklists/delete/${id}`, id))
     .then((res) => {
       console.log('CLIENT', res)
@@ -47,5 +47,5 @@ export default function useApplicationData() {
       // })
     })
   };
-  return { state, deleteBlacklistedSite };
+  return { state, disableBlacklistedSite };
 }
