@@ -3,6 +3,7 @@ import Landing from "./components/Landing";
 import LogoText from "./components/LogoText";
 import styled from "styled-components";
 import Dashboard from "./components/Dashboard";
+import Options from "./components/Options";
 import { Route, Link } from "react-router-dom";
 import useApplicationData from "./hooks/useApplicationData";
 
@@ -15,11 +16,15 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const { state, loading, setLoading } = useApplicationData();
-  console.log('state', state)
   return (
     <div className="App">
-        <Route exact path={["/", "/register"]} component={Landing} />
-        <Route exact path="/dashboard" render={() => <Dashboard dashboardData={state} />} />
+      <Route exact path={["/", "/register"]} component={Landing} />
+      <Route
+        exact
+        path="/dashboard"
+        render={() => <Dashboard dashboardData={state} />}
+      />
+      <Route exact path="/options" render={() => <Options users={state.users} />} />
     </div>
   );
 }
