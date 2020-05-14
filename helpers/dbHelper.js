@@ -421,9 +421,18 @@ module.exports = (db) => {
   };
 
   const getBlacklistedSiteByWebsiteId = (website_id) => {
-    return db.query(`
-      
-    `);
+    return db
+      .query(
+        `
+      SELECT * FROM websites WHERE id = 1;
+    `,
+        [website_id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      })
+      .catch((err) => console.error(err));
   };
 
   return {
