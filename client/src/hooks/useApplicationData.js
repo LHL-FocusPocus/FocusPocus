@@ -44,7 +44,6 @@ export default function useApplicationData() {
     ).then(res => {
       // console.log("CLIENT", res);
       // console.log("state", state);
-      console.log('res', res)
       dispatch({
         type: CHANGE_BLACKLIST,
         id: res.data.id,

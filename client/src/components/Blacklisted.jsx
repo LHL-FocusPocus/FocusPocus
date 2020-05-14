@@ -44,9 +44,9 @@ const Background = styled(CardActionArea)`
   background-color: rgba(71, 65, 87, 0.055);
 `;
 
-const Add = styled(IconButton)`
-  width: 20%;
-  margin: 3% 40%;
+const Add = styled(Fab)`
+  width: 12%;
+  margin: 5% 44%;
 `;
 
 const Form = styled(FormControl)`
@@ -75,19 +75,20 @@ export default function Blacklisted({ blacklisted, disableBlacklistedSite }) {
   };
 
   const [fields, handleFieldChange] = useFormFields({
-    website: "",
+    host_name: "",
   });
+
+  console.log('fields.host_name', fields.host_name)
 
   const handleSubmit = event => {
     event.preventDefault();
 
-    const credentials = {
-      email: fields.email,
-      password: fields.password,
-    };
+    // const credentials = {
+    //   website: fields.website;
+    // };
 
     axios
-      .post("/api/blacklists/add/:id", credentials)
+      .post("/api/blacklists/add/:host_name", fields.host_name)
       .then(res => {
         console.log(res);
         console.log("Successful login");
@@ -133,7 +134,11 @@ export default function Blacklisted({ blacklisted, disableBlacklistedSite }) {
             <Form>
               <InputLabel htmlFor="my-input" />
               <Input
-                id="my-input"
+                id="host_name"
+                label="Website"
+                value={fields.host_name}
+                type="url"
+                onChange={handleFieldChange}
                 aria-describedby="my-helper-text"
                 startAdornment={
                   <InputAdornment position="start">
@@ -141,11 +146,9 @@ export default function Blacklisted({ blacklisted, disableBlacklistedSite }) {
                   </InputAdornment>
                 }
               />
-              <Add aria-label="settings">
-                <Fab size="small" color="primary" aria-label="add">
+                <Add size="small" color="primary" aria-label="add">
                   <AddIcon />
-                </Fab>
-              </Add>
+                </Add>
             </Form>
           </CardContent>
         </Collapse>

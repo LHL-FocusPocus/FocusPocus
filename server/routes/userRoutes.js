@@ -111,7 +111,7 @@ module.exports = (db) => {
   //     .catch((err) => res.json(err));
   // });
 
-  router.post("/blacklists/add", (req, res) => {
+  router.post("/blacklists/add/:host_name", (req, res) => {
     const userId = req.session.userId;
     if (!userId) {
       return res.status(403).send("A user must be signed in!");
