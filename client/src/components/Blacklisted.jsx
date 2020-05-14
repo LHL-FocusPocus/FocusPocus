@@ -15,6 +15,7 @@ import AddIcon from "@material-ui/icons/Add";
 import Collapse from "@material-ui/core/Collapse";
 import clsx from "clsx";
 import useFormFields from "../hooks/useFormFields";
+import removeProtocol from "../helpers/removeProtocol";
 import axios from "axios";
 import FormControl from "@material-ui/core/FormControl";
 
@@ -83,13 +84,12 @@ export default function Blacklisted({
     host_name: "",
   });
 
-  // console.log("fields.host_name", fields.host_name);
-
   const handleSubmit = event => {
     event.preventDefault();
-    // console.log("fields.host_name", fields.host_name);
 
-    addBlacklistedSite(fields.host_name);
+    const withoutProtocol = removeProtocol(fields.host_name);
+
+    addBlacklistedSite(withoutProtocol);
   };
 
   // Prevents app from crashing when user has no blacklisted sites

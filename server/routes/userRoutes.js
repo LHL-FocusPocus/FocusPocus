@@ -88,12 +88,13 @@ module.exports = (db) => {
   });
 
   // When a user wants to add a site to their blacklist
-  router.post("/blacklists", (req, res) => {
+  router.post("/blacklists/add", (req, res) => {
     const userId = req.session.userId;
     if (!userId) {
       return res.status(403).send("A user must be signed in!");
     }
     const { host_name } = req.body;
+    console.log('host_name', host_name)
     const URL = remPrefix(host_name);
     dbHelper
       .getWebsiteIDByHostname(URL)
