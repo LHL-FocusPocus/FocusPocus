@@ -112,6 +112,7 @@ module.exports = (db) => {
         INSERT INTO blacklists (user_id, website_id)
         VALUES ($1, $2)
         RETURNING *;
+
         `,
         [user_id, website_id]
       )
