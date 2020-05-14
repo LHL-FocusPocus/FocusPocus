@@ -65,6 +65,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+// TODO: FIX BUG
+// If no blocked sites exist, it crashes
+
 export default function Blacklisted({ blacklist, disableBlacklistedSite }) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
