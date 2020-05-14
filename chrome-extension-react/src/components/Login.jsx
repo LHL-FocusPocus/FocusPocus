@@ -38,8 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Wrapper = styled(Container)`
-  margin: auto;
-  margin-top: 2em;
+  margin: auto;  
   z-index: 5;
   width: 350px;
   padding: 3em;
@@ -95,7 +94,7 @@ export default function Login(props) {
       <div className={classes.paper}>
         {/* <Img src="/images/clock.png" alt="landing image"></Img> */}
         <Typography component="h1" variant="h5">
-          Log In
+          FocusPocus Login
         </Typography>
         <form
           onSubmit={(e) => handleSubmit(e)}
@@ -144,12 +143,12 @@ export default function Login(props) {
           {loading && (
             <CircularProgress size={24} className={classes.buttonProgress} />
           )}
-          <Grid container justify="flex-end">
+          <Grid container justify="center">
             <Grid item>
               <p className={classes.error}>{errorMsg}</p>
             </Grid>
           </Grid>
-          <Grid container justify="flex-end">
+          <Grid container justify="center">
             <Grid item>
               <Link href="/register" variant="body2">
                 Don't have an account? Visit our website!
