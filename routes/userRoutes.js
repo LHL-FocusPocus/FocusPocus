@@ -117,16 +117,17 @@ module.exports = (db) => {
               );
             })
             .then((website) => {
-              // if (website.enabled) {
-              //   res.status(400);
-              // } else {
-              //   res.status(201).json(website);
-              // }
+              if (website.enabled) {
+                res.status(400);
+              } else {
+                res.status(201).json(website);
+              }
               res.status(201).json(website);
 
             })
             .catch((err) => res.status(500).json(err));
         } else {
+          console.log('site', site)
           dbHelper
             .enableBlacklistedSite(site.id, userId)
             .then((blacklistedSite) => {
