@@ -55,6 +55,7 @@ export default function Home(props) {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [domain, setDomain] = useState("");
+  const [blacklistDomains, setBlacklistDomains] = useState([]);
 
   const getDomain = () => {
     getCurrentTab((tab) => {
@@ -68,8 +69,25 @@ export default function Home(props) {
     });
   };
 
+  const getBlacklist = () => {
+    setLoading(true);
+    return axios
+      .get("/api/user/blacklists")
+      .then((blacklistObj) => {
+        console.log(blacklistObj);
+        const blacklist = blacklistObj.data.map((obj) => obj.hostname);
+        setBlacklistDomains(blacklist);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setBlacklistDomains([]);
+        setLoading(false);
+      });
+  };
+
   useEffect(() => {
     getDomain();
+    getBlacklist();
   }, []);
 
   const handleSubmit = (event) => {
@@ -88,6 +106,7 @@ export default function Home(props) {
   return (
     <Wrapper className={classes.main} component="main" maxWidth="xs">
       <div className={classes.paper}>
+        {`Blacklisted domains: ${blacklistDomains.length}`}
         <Typography variant="h5" className={classes.title}>
           FocusPocus Tracker
         </Typography>
