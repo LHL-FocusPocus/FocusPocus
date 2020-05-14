@@ -9,7 +9,7 @@ import Container from "@material-ui/core/Container";
 import styled from "styled-components";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { getCurrentTab } from "../helpers/chromeHelpers";
+import { getCurrentTab, getCurrentTimer } from "../helpers/chromeHelpers";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -64,6 +64,7 @@ export default function Home(props) {
   const [errorMsg, setErrorMsg] = useState("");
   const [currentDomain, setCurrentDomain] = useState("");
   const [blacklistDomains, setBlacklistDomains] = useState([]);
+  const [timerInSeconds, setTimerInSeconds] = useState(0);
 
   const getDomain = () => {
     getCurrentTab((tab) => {
@@ -74,6 +75,15 @@ export default function Home(props) {
       } catch (error) {
         setCurrentDomain("");
       }
+    });
+  };
+
+  const runTimer = () => {
+    getCurrentTimer((time) => {
+      setTimerInSeconds(time);
+      setInterval(() => {
+        setTimerInSeconds((prev) => prev + 1);
+      }, 1000);
     });
   };
 
@@ -96,6 +106,7 @@ export default function Home(props) {
   useEffect(() => {
     getDomain();
     getBlacklist();
+    runTimer();
   }, []);
 
   const isDomainBlocked = () => {
@@ -157,7 +168,7 @@ export default function Home(props) {
           </Typography>
           for
           <Typography component="h2" variant="h6">
-            xx minutes
+            {timerInSeconds} seconds
           </Typography>
           {`Blacklisted domains: ${blacklistDomains.length}`}
           <Grid className={classes.buttonGroup}>
@@ -184,7 +195,11 @@ export default function Home(props) {
           </Grid>
           <Grid container justify="center">
             <Grid item>
-              <Link href="http://localhost:3000" variant="body2" target="_blank">
+              <Link
+                href="http://localhost:3000"
+                variant="body2"
+                target="_blank"
+              >
                 For more stats, visit your dashboard!
               </Link>
             </Grid>

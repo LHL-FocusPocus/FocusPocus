@@ -25,8 +25,10 @@ chrome.runtime.onInstalled.addListener(function () {
 
 let timerInSeconds = 0;
 
+// Increment timer and store current value inside chrome
 setInterval(() => {
-  timerInSeconds++;  
+  timerInSeconds++;
+  chrome.storage.sync.set({ timerInSeconds });
 }, 1000);
 
 let lastDomain;
@@ -55,9 +57,10 @@ function handleBrowsing(tabId) {
     // tab.url will be undefined on chrome settings page etc.
     const currentDomain = tab.url ? getDomainFromUrl(tab.url) : undefined;
     // console.log(`domain was at ${lastDomain} for ${timerInSeconds} seconds`);
-    postBrowseTime(lastDomain, timerInSeconds);    
+    postBrowseTime(lastDomain, timerInSeconds);
     lastDomain = currentDomain;
     timerInSeconds = 0;
+    chrome.storage.sync.set({ timerInSeconds });
     //login(); // uncomment if you want to login
   });
 }
@@ -93,7 +96,7 @@ function postBrowseTime(hostName, durationInSeconds) {
   );
   request.onload = function () {
     const data = JSON.parse(this.response);
-    
+
     if (this.status >= 200 && this.status < 400) {
       console.log(data);
     } else {
