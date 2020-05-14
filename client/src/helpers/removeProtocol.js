@@ -1,4 +1,4 @@
-export default async function removeProtocol(host_name) {
+export default function removeProtocol(host_name) {
   try {
     const url = new URL(host_name);
     const domain = url.hostname.split("www.").join("");

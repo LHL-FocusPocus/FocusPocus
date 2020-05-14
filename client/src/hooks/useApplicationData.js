@@ -50,7 +50,8 @@ export default function useApplicationData() {
   };
 
   const addBlacklistedSite = host_name => {
-    axios
+    console.log('host_name', host_name)
+    axios 
       .post("/api/user/blacklists/add", { host_name })
       .then(res => {
         console.log("CLIENT", res);
