@@ -135,10 +135,12 @@ module.exports = (db) => {
           // Capitalizes first letter of hostname
           const name = remSuffix.charAt(0).toUpperCase() + remSuffix.slice(1);
           const category = null;
-          dbHelper.addWebsite(host_name, name, category).then((site) => {
+          dbHelper
+          .addWebsite(host_name, name, category)
+          .then((site) => {
             console.log("=====> Adding a new site to blacklist");
             console.log(site);
-            dbHelper.addWebsiteToBlacklist(userId, site.id);
+            return dbHelper.addWebsiteToBlacklist(userId, site.id);
           });
         } else {
           console.log("=====> Website exists in database");
