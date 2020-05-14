@@ -49,9 +49,9 @@ export default function useApplicationData() {
     });
   };
 
-  const addBlacklistedSite = host => {
+  const addBlacklistedSite = hostName => {
     axios
-      .post("/api/user/blacklists/add", { host })
+      .post("/api/user/blacklists/add", { hostName })
       .then(res => {
         console.log("CLIENT", res);
         // dispatch({
