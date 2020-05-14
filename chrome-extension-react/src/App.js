@@ -45,7 +45,7 @@ function App() {
 
   return (
     <div className="App">
-      {!loading && userData && <Home/>}
+      {!loading && userData && <Home getUserData={getUserData} userData={userData}/>}
       {!loading && !userData && (
         <Login getUserData={getUserData} />
       )}
