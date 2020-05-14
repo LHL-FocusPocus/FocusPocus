@@ -105,19 +105,23 @@ module.exports = (db) => {
         if (!site) {
           const name = extractNameFromURL(URL);
           const category = null;
+          console.log("name", name);
           // Creating the website in the database before it can be added to their blacklist
           dbHelper
             .addWebsite(URL, name, category)
             .then((site) => {
+              console.log("site", site);
               return dbHelper.addWebsiteToBlacklist(userId, site.id);
             })
             .then((blacklistedSite) => {
+              console.log("blacklistedSite", blacklistedSite);
               return dbHelper.getBlacklistedSiteByWebsiteId(
                 blacklistedSite.website_id,
                 userId
               );
             })
             .then((website) => {
+              console.log("website", website);
               res.status(201).json(website);
             })
             .catch((err) => res.status(500).json(err));
@@ -125,14 +129,20 @@ module.exports = (db) => {
           dbHelper
             .getBlacklistedSiteByWebsiteId(site.id, userId)
             .then((websiteScoped) => {
-              website = websiteScoped;
-              return dbHelper.enableBlacklistedSite(
-                websiteScoped.website_id,
-                userId
-              );
+              console.log("websiteScoped", websiteScoped);
+              if (websiteScoped.enabled) {
+                return res.status(400).send;
+              } else {
+                website = websiteScoped;
+                res.status(201).json(website);
+                return dbHelper.enableBlacklistedSite(
+                  websiteScoped.website_id,
+                  userId
+                );
+              }
             })
             .then(() => {
-              res.status(201).json(website);
+              res.status(201).send;
             })
             .catch((err) => res.status(500).json(err));
 

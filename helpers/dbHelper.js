@@ -408,8 +408,7 @@ module.exports = (db) => {
     return db
       .query(
         `
-      UPDATE blacklists SET enabled = TRUE WHERE website_id = $1 AND user_id = $2
-      RETURNING *;
+      UPDATE blacklists SET enabled = TRUE WHERE website_id = $1 AND user_id = $2;
     `,
         [website_id, user_id]
       )
@@ -424,7 +423,7 @@ module.exports = (db) => {
     return db
       .query(
         `
-      SELECT * FROM websites JOIN blacklists ON websites.id = website_id WHERE websites.id = $1 AND user_id = $2 AND enabled = false;
+      SELECT * FROM websites JOIN blacklists ON websites.id = website_id WHERE websites.id = $1 AND user_id = $2;
     `,
         [website_id, user_id]
       )
