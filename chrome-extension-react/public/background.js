@@ -25,13 +25,16 @@ chrome.runtime.onInstalled.addListener(function () {
 
 let timerInSeconds = 0;
 
-// Increment timer and store current value inside chrome
+// Increment timer and store current value inside chrome to be used by UI
 setInterval(() => {
   timerInSeconds++;
   chrome.storage.sync.set({ timerInSeconds });
 }, 1000);
 
 let lastDomain;
+let isOverQuota = false;
+
+getUserData();
 
 // Triggers when page loads in current tab
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
@@ -65,25 +68,38 @@ function handleBrowsing(tabId) {
   });
 }
 
-function testGetRequest() {
+/**
+ * GET request to the server to retrieve userData
+ */
+function getUserData() {
   const request = new XMLHttpRequest();
-  request.open("GET", "http://localhost:9000", true);
+  request.open("GET", "http://localhost:9000/api/data/dashboard", true);
 
   request.onload = function () {
     if (this.status >= 200 && this.status < 400) {
-      // Success!
       const data = JSON.parse(this.response);
       console.log(data);
     } else {
-      // We reached our target server, but it returned an error
+      const error = JSON.parse(this.response);
+      console.log(error);
     }
   };
   request.onerror = function () {
-    // There was a connection error of some sort
+    console.log("Could not connect to server");
   };
   request.send();
 }
 
+function parseAndStoreUserData(userData) {
+  const {
+    quota_today: {
+      allotment: { hours: quota_allotment_hours },
+      used: { minutes: used_minutes },
+    },
+  } = userData;
+
+  if (used_minutes * 60 > quota){}
+}
 /**
  * Sends post request to server to add the browse session to browse_times table
  */
