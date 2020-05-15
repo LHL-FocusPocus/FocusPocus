@@ -49,6 +49,13 @@ function getUserData() {
       const data = JSON.parse(this.response);
       console.log(data);
       parseAndStoreUserData(data);
+
+      // Trigger a check for the replacement script here on current tab
+      chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+        if (tabs[0]) {
+          changePictures(tabs[0].id, blacklistDomains);
+        }
+      });
     } else {
       const error = JSON.parse(this.response);
       console.log(error);
@@ -61,8 +68,8 @@ function getUserData() {
 }
 
 /**
- * Helper function that gets called whenever userData is retrieved from server.
- * Sets 2 global variables: blacklistDomains array and isOverQuota
+ * Synchronous helper function that gets called whenever userData is retrieved
+ * from server. Sets 2 global variables: blacklistDomains array and isOverQuota
  */
 function parseAndStoreUserData(userData) {
   // Extract used and allotted quotas to determine if quota is exceeded
@@ -82,6 +89,14 @@ function parseAndStoreUserData(userData) {
   blacklistDomains = blacklistObj.map((blacklist) => blacklist.hostname);
   console.log(blacklistDomains);
 }
+
+// Listens for message from UI when "add to blacklist" is clicked
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "recheck") {
+    console.log("rechecking");
+    getUserData();
+  }
+});
 
 // Triggers when page loads in current tab
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {

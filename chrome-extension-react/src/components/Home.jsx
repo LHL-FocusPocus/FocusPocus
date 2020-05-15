@@ -9,7 +9,7 @@ import Container from "@material-ui/core/Container";
 import styled from "styled-components";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { getCurrentTab, getCurrentTimer } from "../helpers/chromeHelpers";
+import { getCurrentTab, getCurrentTimer, recheckTab } from "../helpers/chromeHelpers";
 import humanizeDuration from "humanize-duration";
 
 const useStyles = makeStyles((theme) => ({
@@ -121,6 +121,7 @@ export default function Home(props) {
       .then((res) => {
         props.getUserData();
         setErrorMsg("");
+        recheckTab();
         setLoading(false);
       })
       .catch((err) => {
