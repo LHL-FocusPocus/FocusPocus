@@ -72,7 +72,8 @@ const Container = styled.div`
 `;
 
 export default function Navbar(props) {
-  console.log("NavBarProprs =======>")
+  console.log("NavBarProps =======>", props)
+  // user prop is coming back undefined from dashboard.jsx
   const history = useHistory()
 
   const classes = useStyles();
