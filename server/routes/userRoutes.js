@@ -12,7 +12,7 @@ const { extractNameFromURL, remPrefix } = require("../helpers/dataProcessor");
 
 module.exports = (db) => {
   const dbHelper = require("../helpers/dbHelper")(db);
-  router.post("/login", (req, res) => {
+  router.post("/login", (req, res) => {    
     if (req.session.userId) {
       console.log("Your user id is:", req.session.userId);
     }
@@ -25,6 +25,7 @@ module.exports = (db) => {
         }
         if (bcrypt.compareSync(password, user.password)) {
           req.session.userId = user.id;
+          console.log('req.session.userId', req.session.userId)
           res.status(200).send("Authenticated!");
         } else {
           res.status(401).send("Login failed!");
@@ -53,6 +54,27 @@ module.exports = (db) => {
       })
       .catch((e) => console.error(e));
   });
+
+  router.post("/logout", (req, res) => {
+    const userId = req.session.userId;
+    if (userId) {
+      req.session.userId = null;
+      return res.status(401).send("Logout Successful");
+    } else {
+      return res
+        .status(409)
+        .send("Cannot logout a user that is not signed in.");
+    }
+  });
+
+  router.put("/adjust_quota", (req, res) => {
+    const userId = req.session.userId;
+    if (!userId) {
+      return res.status(403).send("You must be signed in!");
+    }
+    
+
+  })
 
   // This can be removed, it is now in extensionRoutes.js file
   // router.post("/add_browse_time", (req, res) => {
@@ -88,38 +110,75 @@ module.exports = (db) => {
   });
 
   // When a user wants to add a site to their blacklist
-  router.post("/blacklists", (req, res) => {
+  router.post("/blacklists/add", (req, res) => {
     const userId = req.session.userId;
+
     if (!userId) {
       return res.status(403).send("A user must be signed in!");
     }
+
     const { host_name } = req.body;
     const URL = remPrefix(host_name);
+
+    let website;
     dbHelper
       .getWebsiteIDByHostname(URL)
       .then((site) => {
         if (!site) {
           const name = extractNameFromURL(URL);
           const category = null;
+          console.log("name", name);
           // Creating the website in the database before it can be added to their blacklist
           dbHelper
             .addWebsite(URL, name, category)
             .then((site) => {
+              console.log("site", site);
               return dbHelper.addWebsiteToBlacklist(userId, site.id);
             })
-            .then((blacklist) => res.status(201).json(blacklist))
+            .then((blacklistedSite) => {
+              console.log("blacklistedSite", blacklistedSite);
+              return dbHelper.getBlacklistedSiteByWebsiteId(
+                blacklistedSite.website_id,
+                userId
+              );
+            })
+            .then((website) => {
+              console.log("website", website);
+              res.status(201).json(website);
+            })
             .catch((err) => res.status(500).json(err));
         } else {
           dbHelper
-            .addWebsiteToBlacklist(userId, site.id)
-            .then((blacklist) => res.status(201).json(blacklist))
+            .getBlacklistedSiteByWebsiteId(site.id, userId)
+            .then((websiteScoped) => {
+              if (websiteScoped.enabled) {
+                return res.status(400).send;
+              } else {
+                website = websiteScoped;
+                return dbHelper
+                  .enableBlacklistedSite(websiteScoped.website_id, userId)
+                  .then(() => {
+                    res.status(201).json(website);
+                  });
+              }
+            })
+
             .catch((err) => res.status(500).json(err));
         }
       })
       .catch((err) => res.status(400).json(err));
   });
 
-  // Need to make a route to remove from user's blacklist
+  router.put("/blacklists/disable/:id", (req, res) => {
+    const { userId } = req.session;
+    const { id } = req.params;
+    if (!userId) {
+      return res.status(403).send("Please sign in first.");
+    }
+    dbHelper.disableWebsiteInBlacklist(id, userId).then((resp) => {
+      res.status(200).json(resp);
+    });
+  });
 
   //   // Just a test route to test db queries and response
   router.get("/test", (req, res) => {

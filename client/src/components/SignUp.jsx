@@ -7,7 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { useFormFields } from "../hooks/useFormFields";
+import useFormFields from "../hooks/useFormFields";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -66,15 +66,15 @@ export default function SignUp(props) {
       email: fields.email,
       password: fields.password,
       firstName: fields.firstName,
-      lastName: fields.lastName
+      lastName: fields.lastName,
     };
 
     axios
       .post("/api/user/register", credentials)
-      .then((res) => {
-        console.log(res)
+      .then(res => {
+        console.log(res);
         console.log("Successful login");
-        history.push("/dashboard")
+        history.push("/dashboard");
       })
       .catch(e => {
         console.error(e);
@@ -94,7 +94,7 @@ export default function SignUp(props) {
           Sign up
         </Typography>
         <form
-          onSubmit={(e) => handleSubmit(e)}
+          onSubmit={e => handleSubmit(e)}
           className={classes.form}
           noValidate
         >

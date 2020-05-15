@@ -63,7 +63,7 @@ module.exports = (db) => {
         SELECT blacklists.id as blacklists_id, user_id, website_id, hostname, name, category
         FROM blacklists
         JOIN websites ON website_id = websites.id
-        WHERE user_id = $1;
+        WHERE user_id = $1 AND enabled = TRUE;
         `,
         [id]
       )
@@ -119,6 +119,23 @@ module.exports = (db) => {
         return res.rows[0];
       })
       .catch((err) => err);
+  };
+
+  const disableWebsiteInBlacklist = (websiteId, userId) => {
+    return db
+      .query(
+        `
+        UPDATE blacklists SET enabled = NOT enabled
+        WHERE (website_id = $1 AND user_id = $2 AND enabled = TRUE)
+        RETURNING *;
+    `,
+        [websiteId, userId]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      })
+      .catch((err) => console.error(err));
   };
 
   const addQuotaForUser = function (
@@ -229,7 +246,7 @@ module.exports = (db) => {
         FROM browse_times
         JOIN blacklists ON browse_times.website_id = blacklists.website_id
         WHERE blacklists.user_id = $1
-        AND datetime_start >= CURRENT_DATE
+       AND datetime_start >= CURRENT_DATE
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
         GROUP BY browse_times.user_id;
       `,
@@ -355,7 +372,6 @@ module.exports = (db) => {
         `
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
@@ -376,10 +392,60 @@ module.exports = (db) => {
         [user_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
+  };
+
+  const enableBlacklistedSite = (website_id, user_id) => {
+    return db
+      .query(
+        `
+      UPDATE blacklists SET enabled = TRUE WHERE website_id = $1 AND user_id = $2;
+    `,
+        [website_id, user_id]
+      )
+      .then((res) => {
+        return res.rows[0];
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const getBlacklistedSiteByWebsiteId = (website_id, user_id) => {
+    return db
+      .query(
+        `
+      SELECT * FROM websites JOIN blacklists ON websites.id = website_id WHERE websites.id = $1 AND user_id = $2;
+    `,
+        [website_id, user_id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const isBlacklistedSiteEnabled = (website_id, user_id) => {
+    return db
+      .query(
+        `
+      SELECT * FROM blacklists JOIN WHERE website_id = $1 AND user_id = $2
+      RETURNING *;
+    `,
+        [website_id, user_id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const adjustUserQuota = () => {
+    return db.query(`
+      UPDATE quotas SET time_allotment
+    `);
   };
 
   return {
@@ -393,6 +459,7 @@ module.exports = (db) => {
     addQuotaForUser,
     addWebsite,
     addWebsiteToBlacklist,
+    disableWebsiteInBlacklist,
     addBrowseTimesToUserID,
     getTotalTimeForTodayByUserID,
     getTotalBlacklistTimeForTodayByUserID,
@@ -403,5 +470,8 @@ module.exports = (db) => {
     getTimeForLeaderboardWeek,
     getTimeForShameboardWeek,
     getHitsForBlacklistedSiteForPastWeek,
+    enableBlacklistedSite,
+    getBlacklistedSiteByWebsiteId,
+    isBlacklistedSiteEnabled,
   };
 };

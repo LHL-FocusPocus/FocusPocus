@@ -1,51 +1,64 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import Avatar from "@material-ui/core/Avatar";
+import styled from "styled-components";
+import DeleteIcon from "@material-ui/icons/Delete";
+import IconButton from "@material-ui/core/IconButton";
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 140,
-  },
-});
+// STRETCH: make cards draggable/droppable to delete?
 
-export default function BlacklistedCards() {
-  const classes = useStyles();
+const Logo = styled(Avatar)`
+  height: 60px;
+  width: 60px;
+  ${"" /* margin: 5% 5%; */}
+`;
 
+const Container = styled(Card)`
+  max-width: 345;
+  text-align: center;
+`;
+
+const Background = styled(CardActionArea)`
+  background-color: rgba(71, 65, 87, 0.055);
+`;
+
+const Delete = styled(IconButton)`
+  margin-top: 27%;
+  margin-right: 20%;
+`;
+
+export default function BlacklistedCards({ hostname, name, deleteSite, id }) {
   return (
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
-        />
-        <CardContent>
+    <Container>
+      {/* <Background> */}
+      <CardHeader
+        avatar={
+          <Logo aria-label="logo" src={`//logo.clearbit.com/${hostname}`} />
+        }
+        titleTypographyProps={{ variant: "h5" }}
+        title={`${name}`}
+        action={
+          <Delete onClick={() => deleteSite(id)} aria-label="Delete">
+            <DeleteIcon />
+          </Delete>
+        }
+      />
+
+      {/* <Logo image={`//logo.clearbit.com/${hostname}`} title={`${name}`} />
+        <Website>
           <Typography gutterBottom variant="h5" component="h2">
-            Lizard
+            {name}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
-    </Card>
+        </Website> */}
+      {/* </Background> */}
+    </Container>
   );
 }
