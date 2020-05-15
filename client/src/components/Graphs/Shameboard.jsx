@@ -71,6 +71,11 @@ export default function Shameboard({ shameboard }) {
     columnTemplate.column.cornerRadius(60, 10, 60, 10);
     columnTemplate.strokeOpacity = 0;
 
+    let title = chart.titles.create();
+    title.text = "Shameboard";
+    title.fontSize = 20;
+    title.marginBottom = 30;
+
     series.heatRules.push({
       target: columnTemplate,
       property: "fill",

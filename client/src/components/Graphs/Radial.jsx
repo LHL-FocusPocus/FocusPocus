@@ -72,6 +72,11 @@ export default function Radial({ radialData }) {
       return chart.colors.getIndex(target.dataItem.index);
     });
 
+    let title = chart.titles.create();
+    title.text = "Blacklisted Site Visits";
+    title.fontSize = 20;
+    title.marginBottom = 30;
+
     categoryAxis.sortBySeries = series;
 
     chart.cursor = new am4charts.RadarCursor();

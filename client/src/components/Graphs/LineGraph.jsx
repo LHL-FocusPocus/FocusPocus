@@ -65,6 +65,11 @@ export default function LineGraph({ lineData }) {
     const hoverState = bullet.states.create("hover");
     hoverState.properties.scale = 1.7;
 
+    let title = chart.titles.create();
+    title.text = "Long-Term Blacklisted Browsing Time";
+    title.fontSize = 20;
+    title.marginBottom = 30;
+
     // Initial zoom once chart is ready
     chart.events.once("datavalidated", function () {
       const today = new Date();

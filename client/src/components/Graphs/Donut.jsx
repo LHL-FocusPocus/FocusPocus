@@ -43,6 +43,11 @@ export default function Donut({ donutData }) {
     chart.scale = 1;
     // chart.resize = 50
 
+    let title = chart.titles.create();
+    title.text = "Blocked vs. Non-Blocked Sites";
+    title.fontSize = 20;
+    title.marginBottom = 30;
+
     const series = chart.series.push(new am4charts.PieSeries3D());
     series.dataFields.value = "time";
     series.dataFields.depthValue = "time";

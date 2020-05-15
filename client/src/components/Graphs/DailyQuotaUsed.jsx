@@ -44,6 +44,16 @@ export default function DailyQuotaUsed({ quota }) {
     );
     axis.renderer.grid.template.strokeOpacity = 0.3;
 
+    let title = chart.titles.create();
+    title.text = "Daily Quota Used";
+    title.fontSize = 20;
+    title.marginBottom = 30;
+
+    let label = chart.chartContainer.createChild(am4core.Label);
+    label.text = "%";
+    label.fontSize = 20;
+    label.align = "center";
+
     const colorSet = new am4core.ColorSet();
 
     const range0 = axis.axisRanges.create();

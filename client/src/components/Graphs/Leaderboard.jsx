@@ -91,6 +91,11 @@ export default function Leaderboard({ leaderboard }) {
     cursor.lineY.disabled = true;
     cursor.behavior = "none";
 
+    let title = chart.titles.create();
+    title.text = "Leaderboard";
+    title.fontSize = 20;
+    title.marginBottom = 30;
+
     const bullet = columnTemplate.createChild(am4charts.CircleBullet);
     bullet.circle.radius = 30;
     bullet.valign = "middle";
