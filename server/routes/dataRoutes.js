@@ -11,7 +11,6 @@ module.exports = (db) => {
   // Return data needed to render dashboard, access at /data/dashboard
   router.get("/dashboard", (req, res) => {
     const userId = req.session.userId;
-    console.log("userId", userId);
     if (!userId) {
       return res.status(403).send("A user must be signed in!");
     }
@@ -48,7 +47,10 @@ module.exports = (db) => {
 
         return res.status(200).json(userData);
       })
-      .catch((err) => res.status(500).json(err));
+      .catch((err) => {
+        console.log(err);
+        return res.status(500).json(err);
+      });
   });
   return router;
 };
