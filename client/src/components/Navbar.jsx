@@ -73,10 +73,11 @@ const Container = styled.div`
 
 export default function Navbar(props) {
   // May need to pass prop to get user.first_name... user prop is coming back undefined from dashboard.jsx
-  console.log("====> Navbar Props ====>", props.quota.used.minutes)
+  console.log("====> Navbar Props ====>", props.quota.all_browse_time.minutes)
   const { first_name } = props.user
   const used_quota = props.quota.used.minutes
   const allotment = props.quota.allotment.minutes
+  const total_browsing = props.quota.all_browse_time.minutes
   const classes = useStyles();
   const [state, setState] = useState({
     left: false,
@@ -129,6 +130,7 @@ export default function Navbar(props) {
         <p>You seem to be on task lately! Keep up the good work.</p>
         <p>You have used {used_quota} minutes.</p>
         <p>You have {allotment - used_quota} remaining minutes left of blacklisted browsing.</p>
+        <p>You have spent {Math.round(total_browsing)} total minutes browsing today.</p>
         {/* TODO: Make this dynamic based on quota usage? [STRETCH] */}
       </Message>
       <Divider />
