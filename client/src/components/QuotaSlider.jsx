@@ -11,12 +11,6 @@ const SliderDiv = styled.div`
   width: 400px;
 `;
 
-function valuetext(value) {
-  return `${value}°C`;
-}
-
-console.log("valuetext", valuetext);
-
 export default function DiscreteSlider() {
   const [disabled, setDisabled] = useState(true);
   // const [fields, handleFieldChange] = useFormFields({

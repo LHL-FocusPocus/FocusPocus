@@ -36,7 +36,6 @@ const Delete = styled(IconButton)`
 `;
 
 export default function BlacklistedCards({ hostname, name, deleteSite, id }) {
-  // console.log('id', id)
   return (
     <Container>
       {/* <Background> */}
