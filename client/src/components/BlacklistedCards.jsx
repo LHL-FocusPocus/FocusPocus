@@ -42,12 +42,12 @@ export default function BlacklistedCards({ hostname, name, deleteSite, id }) {
       {/* <Background> */}
       <CardHeader
         avatar={
-          <Logo aria-label="website" src={`//logo.clearbit.com/${hostname}`} />
+          <Logo aria-label="logo" src={`//logo.clearbit.com/${hostname}`} />
         }
         titleTypographyProps={{ variant: "h5" }}
         title={`${name}`}
         action={
-          <Delete onClick={() => deleteSite(id)} aria-label="settings">
+          <Delete onClick={() => deleteSite(id)} aria-label="Delete">
             <DeleteIcon />
           </Delete>
         }

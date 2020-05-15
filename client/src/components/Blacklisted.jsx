@@ -34,7 +34,9 @@ import IconButton from "@material-ui/core/IconButton";
 
 const Container = styled(Box)`
   min-height: 86vh;
-  padding: 0 40%;
+  padding: 0 10%;
+  width: 25%;
+  transform: translateX(22%)
 `;
 
 const AddNew = styled(Card)`
@@ -120,7 +122,7 @@ export default function Blacklisted({
             })}
             onClick={handleExpandClick}
             aria-expanded={expanded}
-            aria-label="show more"
+            aria-label="Add Site"
           />
         </Background>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
