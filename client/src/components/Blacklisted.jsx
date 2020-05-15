@@ -95,9 +95,9 @@ export default function Blacklisted({
   };
 
   // Prevents app from crashing when user has no blacklisted sites
-  // let blacklistList;
-  // if (blacklisted) {
-    const blacklistList = blacklisted.map(website => {
+  let blacklistList;
+  if (blacklisted) {
+    blacklistList = blacklisted.map(website => {
       return (
         <BlacklistedCards
           deleteSite={disableBlacklistedSite}
@@ -108,7 +108,7 @@ export default function Blacklisted({
         />
       );
     });
-  // }
+  }
 
   return (
     <Container>

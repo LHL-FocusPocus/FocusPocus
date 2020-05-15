@@ -13,14 +13,13 @@ export default function useApplicationData() {
 
   // const [loading, setLoading] = useState(false)
 
-  const setDashboard = () => {
-    return axios.get("/api/data/dashboard").then(userData => {
-      const dashboardData = userData.data;
-      dispatch({
-        type: SET_DASHBOARD_DATA,
-        payload: dashboardData,
-      });
-    })
+  const setDashboard = async () => {
+    const userData = await axios.get("/api/data/dashboard");
+    const dashboardData = userData.data;
+    dispatch({
+      type: SET_DASHBOARD_DATA,
+      payload: dashboardData,
+    });
   };
 
   useEffect(() => {
