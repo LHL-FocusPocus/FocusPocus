@@ -333,6 +333,7 @@ module.exports = (db) => {
         JOIN blacklists ON users.id = blacklists.user_id
         WHERE datetime_start >= CURRENT_DATE - INTERVAL '7 days'
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+        AND browse_times.website_id != 0
         GROUP BY users.id
         ORDER BY time
         ASC LIMIT 6;
@@ -355,6 +356,7 @@ module.exports = (db) => {
         JOIN blacklists ON users.id = blacklists.user_id
         WHERE datetime_start >= CURRENT_DATE - INTERVAL '7 days'
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+        AND browse_times.website_id != 0
         GROUP BY users.id
         ORDER BY time
         DESC LIMIT 6;
