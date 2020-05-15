@@ -71,7 +71,7 @@ function parseAndStoreUserData(userData) {
       allotment: { minutes: quota_allotment_minutes },
       used: { minutes: used_minutes },
     },
-    blacklist: blacklistObj,
+    blacklisted: blacklistObj,
   } = userData;
   if (used_minutes > quota_allotment_minutes) {
     isOverQuota = true;
