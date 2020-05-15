@@ -68,7 +68,6 @@ module.exports = (db) => {
         [id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
@@ -82,7 +81,6 @@ module.exports = (db) => {
         `
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
@@ -161,7 +159,6 @@ module.exports = (db) => {
         [user_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
@@ -182,7 +179,6 @@ module.exports = (db) => {
         [user_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
@@ -219,7 +215,7 @@ module.exports = (db) => {
         [user_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
+        if (res.rows.length === 0) return { sum: 0 };
         return res.rows[0];
       })
       .catch((err) => err);
@@ -240,7 +236,7 @@ module.exports = (db) => {
         [user_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
+        if (res.rows.length === 0) return { sum: 0 };
         return res.rows[0];
       })
       .catch((err) => err);
@@ -253,7 +249,8 @@ module.exports = (db) => {
         SELECT * FROM quotas
         WHERE user_id = $1
         AND CURRENT_DATE >= date_valid_from
-        AND CURRENT_DATE < date_valid_until;
+        AND CURRENT_DATE < date_valid_until
+        ORDER BY id DESC;
     `,
         [user_id]
       )
@@ -296,7 +293,6 @@ module.exports = (db) => {
         [user_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
@@ -317,7 +313,6 @@ module.exports = (db) => {
         [user_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
@@ -330,7 +325,7 @@ module.exports = (db) => {
         SELECT first_name as name, SUM(duration) as time
         FROM browse_times
         JOIN users on browse_times.user_id = users.id
-        JOIN blacklists ON users.id = blacklists.user_id
+        JOIN blacklists ON users.id = blacklists.user_id AND blacklists.website_id = browse_times.website_id
         WHERE datetime_start >= CURRENT_DATE - INTERVAL '7 days'
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
         GROUP BY users.id
@@ -339,7 +334,6 @@ module.exports = (db) => {
         `
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
@@ -352,7 +346,7 @@ module.exports = (db) => {
         SELECT first_name as name, SUM(duration) as time
         FROM browse_times
         JOIN users on browse_times.user_id = users.id
-        JOIN blacklists ON users.id = blacklists.user_id
+        JOIN blacklists ON users.id = blacklists.user_id AND blacklists.website_id = browse_times.website_id
         WHERE datetime_start >= CURRENT_DATE - INTERVAL '7 days'
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
         GROUP BY users.id
