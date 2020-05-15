@@ -53,12 +53,11 @@ export default function Dashboard({ dashboardData }) {
   }
   
 
-  const history = useHistory()
 
   
   return (
     <div>
-      <Navbar user={user} history={history}/>
+      <Navbar user={user} />
       <Container
         // isLoading={loading}
         bgcolor="background.paper"
