@@ -97,7 +97,7 @@ export default function Navbar(props) {
     .then(res => {
       console.log(res);
       console.log("Successful Logout");
-      history.push("/");
+      props.history.push("/");
     })
     .catch(e => {
       console.error(e);
