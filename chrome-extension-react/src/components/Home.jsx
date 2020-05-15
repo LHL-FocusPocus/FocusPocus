@@ -116,7 +116,7 @@ export default function Home(props) {
   const addToBlacklist = () => {
     setLoading(true);
     return axios
-      .post("/api/user/blacklists", { host_name: currentDomain })
+      .post("/api/user/blacklists/add", { host_name: currentDomain })
       .then((res) => {
         props.getUserData();
         setErrorMsg("");
