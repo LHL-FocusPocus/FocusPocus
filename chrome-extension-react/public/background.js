@@ -31,6 +31,7 @@ setInterval(() => {
   chrome.storage.local.set({ timerInSeconds });
 }, 1000);
 
+// Initialize global variables
 let lastDomain;
 let isOverQuota = false;
 let blacklistDomains = [];
@@ -59,18 +60,23 @@ function getUserData() {
   request.send();
 }
 
+/**
+ * Helper function that gets called whenever userData is retrieved from server.
+ * Sets 2 global variables: blacklistDomains array and isOverQuota
+ */
 function parseAndStoreUserData(userData) {
   // Extract used and allotted quotas to determine if quota is exceeded
   const {
     quota_today: {
-      allotment: { hours: quota_allotment_hours },
+      allotment: { minutes: quota_allotment_minutes },
       used: { minutes: used_minutes },
     },
     blacklist: blacklistObj,
   } = userData;
-  if (used_minutes / 60 > quota_allotment_hours) {
+  if (used_minutes > quota_allotment_minutes) {
     isOverQuota = true;
   }
+  console.log("Over quota?", isOverQuota);
 
   // Map blacklists into array of domain names
   blacklistDomains = blacklistObj.map((blacklist) => blacklist.hostname);
@@ -126,6 +132,7 @@ function postBrowseTime(hostName, durationInSeconds) {
 
     if (this.status >= 200 && this.status < 400) {
       console.log(data);
+      getUserData();
     } else {
       console.log(data);
     }
@@ -175,6 +182,8 @@ function changePictures(
     const url = new URL(tabs[0].url);
     const domain = url.hostname.split("www.").join("");
 
+    // Add && isOverQuota for correct functionality. Not adding now because
+    // then scripts won't execute until 3 hours on reddit.
     if (blackList.includes(domain)) {
       chrome.tabs.executeScript(tabId, { file: "helpers.js" });
 
