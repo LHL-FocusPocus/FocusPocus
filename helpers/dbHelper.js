@@ -325,7 +325,7 @@ module.exports = (db) => {
         SELECT first_name as name, SUM(duration) as time
         FROM browse_times
         JOIN users on browse_times.user_id = users.id
-        JOIN blacklists ON users.id = blacklists.user_id
+        JOIN blacklists ON users.id = blacklists.user_id AND blacklists.website_id = browse_times.website_id
         WHERE datetime_start >= CURRENT_DATE - INTERVAL '7 days'
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
         GROUP BY users.id
@@ -346,7 +346,7 @@ module.exports = (db) => {
         SELECT first_name as name, SUM(duration) as time
         FROM browse_times
         JOIN users on browse_times.user_id = users.id
-        JOIN blacklists ON users.id = blacklists.user_id
+        JOIN blacklists ON users.id = blacklists.user_id AND blacklists.website_id = browse_times.website_id
         WHERE datetime_start >= CURRENT_DATE - INTERVAL '7 days'
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
         GROUP BY users.id
