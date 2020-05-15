@@ -9,6 +9,8 @@ import Radial from "./Graphs/Radial";
 import Leaderboard from "./Graphs/Leaderboard";
 import Shameboard from "./Graphs/Shameboard";
 import loading from "../helpers/loading";
+import { useHistory } from "react-router-dom";
+
 
 const Container = styled(Box)`
   padding: 3em;
@@ -45,9 +47,12 @@ export default function Dashboard({ dashboardData, loading }) {
     quota_today,
   } = dashboardData;
 
+  const history = useHistory()
+
+  
   return (
     <div>
-      <Navbar user={user} />
+      <Navbar user={user} history={history}/>
       <Container
         // isLoading={loading}
         bgcolor="background.paper"
