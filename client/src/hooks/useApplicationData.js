@@ -13,6 +13,16 @@ export default function useApplicationData() {
 
   // const [loading, setLoading] = useState(false)
 
+  const setDashboard = () => {
+    return Promise.resolve(axios.get("/api/data/dashboard").then(userData => {
+      const dashboardData = userData.data;
+      dispatch({
+        type: SET_DASHBOARD_DATA,
+        payload: dashboardData,
+      });
+    }))
+  };
+
   useEffect(() => {
     // setLoading(true);
     axios
@@ -29,6 +39,19 @@ export default function useApplicationData() {
       .catch(e => console.error(e));
   }, []);
 
+  /*     const setDashboard = async () => {
+      await axios.get("/api/data/dashboard").then(userData => {
+        console.log("GETTING CALLED");
+        console.log("state", state);
+        const dashboardData = userData.data;
+        dispatch({
+          type: SET_DASHBOARD_DATA,
+          payload: dashboardData,
+        });
+      });
+    };
+    setDashboard() */
+
   useEffect(() => {
     axios.get("/api/user/blacklists").then(blacklist => {
       dispatch({
@@ -40,8 +63,8 @@ export default function useApplicationData() {
 
   const disableBlacklistedSite = id => {
     axios.put(`/api/user/blacklists/disable/${id}`, id).then(res => {
-      console.log('TEST')
-       dispatch({
+      console.log("TEST");
+      dispatch({
         type: CHANGE_BLACKLIST,
         id: res.data.id,
       });
@@ -63,5 +86,5 @@ export default function useApplicationData() {
       })
       .catch(e => console.error(e));
   };
-  return { state, disableBlacklistedSite, addBlacklistedSite };
+  return { state, disableBlacklistedSite, addBlacklistedSite, setDashboard };
 }

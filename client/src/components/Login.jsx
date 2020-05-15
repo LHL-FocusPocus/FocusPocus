@@ -48,9 +48,8 @@ const Img = styled.img`
   transform: translateY(-2em);
 `;
 
-export default function Login(props) {
+export default function Login({ setDashboard, history }) {
   const classes = useStyles();
-  const { history } = props;
 
   const [fields, handleFieldChange] = useFormFields({
     email: "",
@@ -67,10 +66,10 @@ export default function Login(props) {
 
     axios
       .post("/api/user/login", credentials, { withCredentials: true })
-      .then(res => {
-        console.log(res);
-        console.log("Successful login");
-        history.push("/dashboard");
+      .then(() => {
+        setDashboard().then(() => {
+          history.push("/dashboard");
+        });
       })
       .catch(e => {
         console.error(e);

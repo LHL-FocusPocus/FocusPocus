@@ -13,6 +13,7 @@ const { extractNameFromURL, remPrefix } = require("../helpers/dataProcessor");
 module.exports = (db) => {
   const dbHelper = require("../helpers/dbHelper")(db);
   router.post("/login", (req, res) => {
+    console.log("req.body", req.body);
     if (req.session.userId) {
       console.log("Your user id is:", req.session.userId);
     }
@@ -25,7 +26,8 @@ module.exports = (db) => {
         }
         if (bcrypt.compareSync(password, user.password)) {
           req.session.userId = user.id;
-          res.status(200).send("Authenticated!");
+          console.log('req.session.userId', req.session.userId)
+          return new Promise(res.status(200).send("Authenticated!"));
         } else {
           res.status(401).send("Login failed!");
         }
@@ -52,6 +54,18 @@ module.exports = (db) => {
         res.status(200).send("User created!");
       })
       .catch((e) => console.error(e));
+  });
+
+  router.post("/logout", (req, res) => {
+    const userId = req.session.userId;
+    if (userId) {
+      req.session.userId = null;
+      return res.status(401).send("Logout Successful");
+    } else {
+      return res
+        .status(409)
+        .send("Cannot logout a user that is not signed in.");
+    }
   });
 
   // This can be removed, it is now in extensionRoutes.js file
@@ -129,27 +143,19 @@ module.exports = (db) => {
           dbHelper
             .getBlacklistedSiteByWebsiteId(site.id, userId)
             .then((websiteScoped) => {
-              // console.log("websiteScoped", websiteScoped);
               if (websiteScoped.enabled) {
                 return res.status(400).send;
               } else {
                 website = websiteScoped;
-                return dbHelper.enableBlacklistedSite(
-                  websiteScoped.website_id,
-                  userId
-                ).then((data) => {
-                  res.status(201).json(website);
-                })
+                return dbHelper
+                  .enableBlacklistedSite(websiteScoped.website_id, userId)
+                  .then(() => {
+                    res.status(201).json(website);
+                  });
               }
             })
 
             .catch((err) => res.status(500).json(err));
-
-          // .then(() => {
-          //   console.log('website', website)
-          //   res.status(201).json(website);
-          // })
-          // .catch((err) => res.status(500).json(err));
         }
       })
       .catch((err) => res.status(400).json(err));

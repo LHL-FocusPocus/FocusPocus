@@ -32,9 +32,7 @@ const Wrapper = styled(Box)`
   } */}
 `;
 
-// const DashboardContainer = loading(Container);
-
-export default function Dashboard({ dashboardData, loading }) {
+export default function Dashboard({ dashboardData }) {
   const {
     donutGraph,
     lineGraph,
@@ -44,6 +42,10 @@ export default function Dashboard({ dashboardData, loading }) {
     user,
     quota_today,
   } = dashboardData;
+
+  if (!dashboardData || quota_today == undefined) {
+    return null;
+  }
 
   return (
     <div>

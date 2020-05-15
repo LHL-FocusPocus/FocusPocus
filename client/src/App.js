@@ -19,11 +19,16 @@ function App() {
     state,
     disableBlacklistedSite,
     addBlacklistedSite,
+    setDashboard,
   } = useApplicationData();
 
   return (
     <div className="App">
-      <Route exact path={["/", "/register"]} component={Landing} />
+      <Route
+        exact
+        path={["/", "/register"]}
+        render={() => <Landing setDashboard={setDashboard} />}
+      />
       <Route
         exact
         path="/dashboard"
