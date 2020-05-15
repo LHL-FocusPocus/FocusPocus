@@ -24,12 +24,13 @@ export default function Options({
   addBlacklistedSite,
   disableBlacklistedSite,
   quota,
+  changeQuota
 }) {
   return (
     <div>
       <Navbar user={user} />
       <Container bgcolor="background.paper">
-        <Slider quota={quota} />
+        <Slider quota={quota} changeQuota={changeQuota} />
         <Blacklisted
           addBlacklistedSite={addBlacklistedSite}
           disableBlacklistedSite={disableBlacklistedSite}

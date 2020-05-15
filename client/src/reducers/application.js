@@ -1,6 +1,7 @@
 export const SET_DASHBOARD_DATA = "SET_DASHBOARD_DATA";
 export const SET_BLACKLIST_DATA = "SET_BLACKLIST_DATA";
 export const CHANGE_BLACKLIST = "CHANGE_BLACKLIST";
+export const CHANGE_QUOTA = "CHANGE_QUOTA";
 
 export default function reducer(state, action) {
   switch (action.type) {
@@ -35,6 +36,30 @@ export default function reducer(state, action) {
       return {
         ...state,
         blacklisted: clonedBlacklist,
+      };
+
+    case CHANGE_QUOTA:
+      console.log('state', state)
+      console.log('action', action)
+      const new_quota = {
+        minutes: action.allotment,
+      };
+      console.log('new_quota', new_quota)
+
+      const test = {
+        ...state,
+        quota_today: {
+          allotment: new_quota,
+        },
+      };
+      
+      console.log("state", test)
+
+      return {
+        ...state,
+        quota_today: {
+          allotment: new_quota,
+        },
       };
   }
 }

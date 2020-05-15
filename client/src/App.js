@@ -20,6 +20,7 @@ function App() {
     disableBlacklistedSite,
     addBlacklistedSite,
     setDashboard,
+    changeQuota
   } = useApplicationData();
 
   return (
@@ -39,6 +40,7 @@ function App() {
         path="/options"
         render={() => (
           <Options
+            changeQuota={changeQuota}
             addBlacklistedSite={addBlacklistedSite}
             disableBlacklistedSite={disableBlacklistedSite}
             users={state.users}

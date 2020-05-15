@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
@@ -20,14 +20,16 @@ const Spinner = styled(CircularProgress)`
   margin-left: -12;
 `;
 
-export default function QuotaSlider({ quota }) {
+export default function QuotaSlider({ quota, changeQuota }) {
+  // console.log("quota", quota.allotment.minutes);
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [value, setValue] = useState(quota.allotment);
+  // const [value, setValue] = useState(120);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  // const handleChange = (event, newValue) => {
+  //   console.log("test", newValue);
+  //   setValue(newValue);
+  // };
 
   function valuetext(value) {
     return `${value} minutes`;
@@ -36,56 +38,62 @@ export default function QuotaSlider({ quota }) {
   const handleSubmit = event => {
     event.preventDefault();
 
-    const quotaInMinutes = valuetext(value);
+    const quotaInMinutes = valuetext(quota.allotment.minutes);
+    console.log('quotaInMinutes', quotaInMinutes)
 
-    axios
-      .put("/api/user/adjust_quota", { quotaInMinutes })
-      .then(res => {
-        console.log("res", res);
-      })
-      .catch(e => {
-        console.error(e);
-      });
+    // axios
+    //   .put("/api/user/adjust_quota", { quotaInMinutes })
+    //   .then(res => {
+    //     console.log("res", res);
+    //   })
+    //   .catch(e => {
+    //     console.error(e);
+    //   });
 
     setDisabled(!disabled);
   };
+  // useEffect(() => {
+  //   if (!quota || quota.allotment == undefined) {
+  //     // setLoading(true);
+  //     return <Spinner size={24} />;
+  //   }
 
-  if (!quota || quota.allotment == undefined) {
-    setLoading(true);
-    return <Spinner size={24} />;
-  }
-  setLoading(false);
+  //   setLoading(false);
+  // }, [quota]);
 
   return (
-    <SliderDiv>
-      <Typography id="discrete-slider" gutterBottom>
-        Daily Quota (Minutes)
-      </Typography>
-      <Slider
-        // defaultValue={value}
-        value={value}
-        aria-labelledby="discrete-slider"
-        valueLabelDisplay="auto"
-        getAriaValueText={valuetext}
-        step={10}
-        marks
-        min={0}
-        max={180}
-        disabled={disabled}
-        onChange={handleChange}
-      />
-      {/* STRETCH: can't change again until: 7 days from now */}
-      {disabled && (
-        <Button onClick={() => setDisabled(!disabled)} variant="contained">
-          Change Quota
-        </Button>
-      )}
-      {!disabled && (
-        <Button onClick={handleSubmit} variant="contained">
-          Set New Quota
-        </Button>
-      )}
-    </SliderDiv>
+    <>
+      {/* {!quota.allotment && <Spinner size={24} />} */}
+      <SliderDiv>
+        <Typography id="discrete-slider" gutterBottom>
+          Daily Quota (Minutes)
+        </Typography>
+        <Slider
+          // defaultValue={quota.allotment.minutes}
+          value={quota.allotment.minutes}
+          aria-labelledby="discrete-slider"
+          valueLabelDisplay="auto"
+          getAriaValueText={valuetext}
+          step={10}
+          marks
+          min={0}
+          max={180}
+          disabled={disabled}
+          onChange={(e, value) => changeQuota(value)}
+        />
+        {/* STRETCH: can't change again until: 7 days from now */}
+        {disabled && (
+          <Button onClick={() => setDisabled(!disabled)} variant="contained">
+            Change Quota
+          </Button>
+        )}
+        {!disabled && (
+          <Button onClick={() => setDisabled(disabled)} variant="contained">
+            Set New Quota
+          </Button>
+        )}
+      </SliderDiv>
+    </>
   );
 }
 

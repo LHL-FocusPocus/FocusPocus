@@ -4,18 +4,24 @@ import reducer, {
   SET_DASHBOARD_DATA,
   SET_BLACKLIST_DATA,
   CHANGE_BLACKLIST,
+  CHANGE_QUOTA,
 } from "../reducers/application";
 
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
     blacklisted: [],
+    quota_today: {
+      allotment: {
+        minutes: 120,
+      },
+    },
   });
 
   // const [loading, setLoading] = useState(false)
 
   const setDashboard = async () => {
     const userData = await axios.get("/api/data/dashboard");
-    console.log(userData)
+    console.log(userData);
     const dashboardData = userData.data;
     dispatch({
       type: SET_DASHBOARD_DATA,
@@ -27,7 +33,8 @@ export default function useApplicationData() {
     axios
       .get("/api/data/dashboard")
       .then(userData => {
-        console.log("GETTING CALLED");
+        console.log(userData);
+
         const dashboardData = userData.data;
         dispatch({
           type: SET_DASHBOARD_DATA,
@@ -56,6 +63,39 @@ export default function useApplicationData() {
     });
   };
 
+  // const setDashboard = async () => {
+  //   const userData = await axios.get("/api/data/dashboard");
+  //   console.log(userData)
+  //   const dashboardData = userData.data;
+  //   dispatch({
+
+  const changeQuota = quotaInMinutes => {
+    console.log("TEST", quotaInMinutes)
+    dispatch({
+      type: CHANGE_QUOTA,
+      allotment: quotaInMinutes,
+    });
+    axios
+      .put("/api/user/adjust_quota", {
+        quotaInMinutes,
+      })
+      .then(res => {
+        console.log('res', res)
+        // console.log("quota", quota);
+
+
+        // const quota = newQuota.data.split(" ")[0];
+
+        console.log("res.data", res.data);
+      });
+
+    // console.log("newQuota", quota);
+    // dispatch({
+    //   type: CHANGE_QUOTA,
+    // })
+    console.log("state", state);
+  };
+
   const addBlacklistedSite = host_name => {
     axios
       .post("/api/user/blacklists/add", { host_name })
@@ -71,5 +111,11 @@ export default function useApplicationData() {
       })
       .catch(e => console.error(e));
   };
-  return { state, disableBlacklistedSite, addBlacklistedSite, setDashboard };
+  return {
+    state,
+    disableBlacklistedSite,
+    addBlacklistedSite,
+    setDashboard,
+    changeQuota,
+  };
 }
