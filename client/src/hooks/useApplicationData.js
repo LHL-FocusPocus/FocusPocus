@@ -11,8 +11,11 @@ export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
     blacklisted: [],
     quota_today: {
+      used: {
+        minutes: 0,
+      },
       allotment: {
-        minutes: null,
+        minutes: 120,
       },
     },
   });
@@ -33,7 +36,7 @@ export default function useApplicationData() {
   useEffect(() => {
     axios
       .get("/api/data/dashboard")
-      .then(userData => {
+      .then((userData) => {
         console.log(userData);
 
         const dashboardData = userData.data;
@@ -47,11 +50,11 @@ export default function useApplicationData() {
           allotment: dashboardData.quota_today.allotment.minutes,
         });
       })
-      .catch(e => console.error(e));
+      .catch((e) => console.error(e));
   }, []);
 
   useEffect(() => {
-    axios.get("/api/user/blacklists").then(blacklist => {
+    axios.get("/api/user/blacklists").then((blacklist) => {
       dispatch({
         type: SET_BLACKLIST_DATA,
         blacklisted: blacklist.data,
@@ -59,8 +62,8 @@ export default function useApplicationData() {
     });
   }, []);
 
-  const disableBlacklistedSite = id => {
-    axios.put(`/api/user/blacklists/disable/${id}`, id).then(res => {
+  const disableBlacklistedSite = (id) => {
+    axios.put(`/api/user/blacklists/disable/${id}`, id).then((res) => {
       console.log("TEST");
       dispatch({
         type: CHANGE_BLACKLIST,
@@ -69,7 +72,7 @@ export default function useApplicationData() {
     });
   };
 
-  const changeQuota = quotaInMinutes => {
+  const changeQuota = (quotaInMinutes) => {
     axios
       .put("/api/user/adjust_quota", {
         quotaInMinutes,
@@ -80,15 +83,15 @@ export default function useApplicationData() {
           allotment: quotaInMinutes,
         });
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e);
       });
   };
 
-  const addBlacklistedSite = host_name => {
+  const addBlacklistedSite = (host_name) => {
     axios
       .post("/api/user/blacklists/add", { host_name })
-      .then(res => {
+      .then((res) => {
         const { id, hostname, name, category } = res.data;
         dispatch({
           type: CHANGE_BLACKLIST,
@@ -98,7 +101,7 @@ export default function useApplicationData() {
           category,
         });
       })
-      .catch(e => console.error(e));
+      .catch((e) => console.error(e));
   };
   return {
     state,
