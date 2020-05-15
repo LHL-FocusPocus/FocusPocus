@@ -81,7 +81,7 @@ function parseAndStoreUserData(userData) {
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (changeInfo.status === "complete" && tab.active) {
     handleBrowsing(tabId);
-    changePictures(tabId);
+    changePictures(tabId, blacklistDomains);
   }
 });
 
