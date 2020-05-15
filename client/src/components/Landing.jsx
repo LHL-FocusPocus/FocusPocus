@@ -1,8 +1,6 @@
 import React from "react";
 import SignUp from "./SignUp";
 import Login from "./Login";
-import Navbar from "./Navbar";
-
 import LogoText from "./LogoText";
 import styled from "styled-components";
 import { Route, Link } from "react-router-dom";
