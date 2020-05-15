@@ -398,7 +398,6 @@ module.exports = (db) => {
         [user_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
@@ -413,7 +412,6 @@ module.exports = (db) => {
         [website_id, user_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows[0];
       })
       .catch((err) => console.error(err));
@@ -428,7 +426,6 @@ module.exports = (db) => {
         [website_id, user_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows[0];
       })
       .catch((err) => console.error(err));
@@ -444,11 +441,16 @@ module.exports = (db) => {
         [website_id, user_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows[0];
       })
       .catch((err) => console.error(err));
   };
+
+  const adjustUserQuota = () => {
+    return db.query(`
+      UPDATE quotas SET time_allotment
+    `)
+  }
 
   return {
     getUserWithEmail,

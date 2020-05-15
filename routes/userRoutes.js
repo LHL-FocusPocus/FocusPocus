@@ -68,6 +68,15 @@ module.exports = (db) => {
     }
   });
 
+  router.put("/adjust_quota", (req, res) => {
+    const userId = req.session.userId;
+    if (!userId) {
+      return res.status(403).send("You must be signed in!");
+    }
+    
+
+  })
+
   // This can be removed, it is now in extensionRoutes.js file
   // router.post("/add_browse_time", (req, res) => {
   //   // checking cookie session for user, get user_id
