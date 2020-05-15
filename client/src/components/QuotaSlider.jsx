@@ -24,21 +24,21 @@ export default function DiscreteSlider() {
     return `${value} minutes/day`;
   }
 
-  // const handleSubmit = event => {
-  //   event.preventDefault();
-  //   console.log("test");
+  const handleSubmit = event => {
+    event.preventDefault();
+    console.log("test");
 
-  //   axios
-  //     .post("/api/user/adjust_quota", value, { withCredentials: true })
-  //     .then((res) => {
-  //       console.log('res', res)
-  //     })
-  //     .catch(e => {
-  //       console.error(e);
-  //     });
+    axios
+      .put("/api/user/adjust_quota", value)
+      .then((res) => {
+        console.log('res', res)
+      })
+      .catch(e => {
+        console.error(e);
+      });
 
-  //   setDisabled(!disabled);
-  // };
+    setDisabled(!disabled);
+  };
 
   return (
     <SliderDiv>
