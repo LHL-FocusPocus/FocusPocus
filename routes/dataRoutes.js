@@ -12,7 +12,7 @@ module.exports = (db) => {
   router.get("/dashboard", (req, res) => {
     const userId = req.session.userId;
     if (!userId) {
-      return res.status(403).send("A user must be signed in!");
+      return res.status(403).json("A user must be signed in!");
     }
     let userData = {};
 
