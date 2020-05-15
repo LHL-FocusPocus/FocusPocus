@@ -15,6 +15,7 @@ export default function useApplicationData() {
 
   const setDashboard = async () => {
     const userData = await axios.get("/api/data/dashboard");
+    console.log(userData)
     const dashboardData = userData.data;
     dispatch({
       type: SET_DASHBOARD_DATA,

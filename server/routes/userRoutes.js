@@ -12,8 +12,7 @@ const { extractNameFromURL, remPrefix } = require("../helpers/dataProcessor");
 
 module.exports = (db) => {
   const dbHelper = require("../helpers/dbHelper")(db);
-  router.post("/login", (req, res) => {
-    console.log("req.body", req.body);
+  router.post("/login", (req, res) => {    
     if (req.session.userId) {
       console.log("Your user id is:", req.session.userId);
     }
