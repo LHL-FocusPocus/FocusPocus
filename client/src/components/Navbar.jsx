@@ -71,9 +71,8 @@ const Container = styled.div`
   height: 100%;
 `;
 
-export default function Navbar( ) {
-  // console.log("NavBarProps =======>", props)
-  // user prop is coming back undefined from dashboard.jsx
+export default function Navbar() {
+  // May need to pass prop to get user.first_name... user prop is coming back undefined from dashboard.jsx
 
   const classes = useStyles();
   const [state, setState] = useState({
