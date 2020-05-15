@@ -9,7 +9,8 @@ import Container from "@material-ui/core/Container";
 import styled from "styled-components";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { getCurrentTab, getCurrentTimer } from "../helpers/chromeHelpers";
+import { getCurrentTab, getCurrentTimer, recheckTab } from "../helpers/chromeHelpers";
+import humanizeDuration from "humanize-duration";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -120,6 +121,7 @@ export default function Home(props) {
       .then((res) => {
         props.getUserData();
         setErrorMsg("");
+        recheckTab();
         setLoading(false);
       })
       .catch((err) => {
@@ -142,6 +144,12 @@ export default function Home(props) {
     },
   } = props.userData;
 
+  const humanizeDurationOptions = {
+    units: ["h", "m"],
+    delimiter: " and ",
+    round: true,
+  };
+
   return (
     <Wrapper className={classes.main} component="main" maxWidth="xs">
       <div className={classes.paper}>
@@ -150,11 +158,14 @@ export default function Home(props) {
         </Typography>
         Today's Quota Usage
         <Typography component="h2" variant="h6">
-          {used_minutes} minutes
+          {humanizeDuration(used_minutes * 60000, humanizeDurationOptions)}
         </Typography>
         of
         <Typography component="h2" variant="h6">
-          {quota_allotment_minutes} minutes
+          {humanizeDuration(
+            quota_allotment_minutes * 60000,
+            humanizeDurationOptions
+          )}
           <hr />
         </Typography>
         <form
@@ -168,7 +179,10 @@ export default function Home(props) {
           </Typography>
           for
           <Typography component="h2" variant="h6">
-            {timerInSeconds} seconds
+            {humanizeDuration(timerInSeconds * 1000, {
+              ...humanizeDurationOptions,
+              units: ["h", "m", "s"],
+            })}
           </Typography>
           {`Blacklisted domains: ${blacklistDomains.length}`}
           <Grid className={classes.buttonGroup}>

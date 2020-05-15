@@ -16,3 +16,7 @@ export function getCurrentTimer(callback) {
     callback(data.timerInSeconds);
   });
 }
+
+export function recheckTab() {
+  chrome.runtime.sendMessage({ action: "recheck" });
+}
