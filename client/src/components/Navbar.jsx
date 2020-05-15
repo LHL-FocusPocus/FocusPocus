@@ -86,18 +86,18 @@ export default function Navbar() {
     setState({ ...state, [anchor]: open });
   };
 
-  // const handleLogout = event => {
-  //   axios
-  //   .post("/api/user/logout" /*, credentials, { withCredentials: true } */ )
-  //   .then(res => {
-  //     console.log(res);
-  //     console.log("Successful Logout");
-  //     // history.push("/");
-  //   })
-  //   .catch(e => {
-  //     console.error(e);
-  //   });
-  // }
+  const handleLogout = event => {
+    axios
+    .post("/api/user/logout" /*, credentials, { withCredentials: true } */ )
+    .then(res => {
+      console.log(res);
+      console.log("Successful Logout");
+      // history.push("/");
+    })
+    .catch(e => {
+      console.error(e);
+    });
+  }
 
   const list = anchor => (
     <Container
@@ -137,8 +137,9 @@ export default function Navbar() {
       </List>
       <Divider />
       {/* <Logout/> */}
-      {/* <Logout
-        onClick={handleLogout}
+      {/* Remove this approach of logout, add logout functionality */}
+      <Logout
+        onClick={() => handleLogout()}
         >
         <ListItem button id="logout">
           <ListItemIcon>
@@ -146,7 +147,7 @@ export default function Navbar() {
           </ListItemIcon>
           <ListItemText primary="Log Out" />
         </ListItem>
-      </Logout> */}
+      </Logout>
     </Container>
   );
 
