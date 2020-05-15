@@ -39,7 +39,7 @@ module.exports = (db) => {
     const userId = req.session.userId;
     if (userId) {
       req.session = null;
-      return res.status(401).send("Logout Successful");
+      return res.status(200).send("Logout Successful");
       // This return is giving a console error when trying to logout
     } else {
       return res
