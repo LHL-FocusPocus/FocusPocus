@@ -27,6 +27,28 @@ const processTimeToMins = function (obj, dataObj, dataArr) {
   dataArr.push(dataObj);
 };
 
+/**
+ * Converts a time object given by node-postgres, which has multiple keys
+ * (i.e. {hours: 1, minutes: 30} etc into a time object with only minutes
+ * (i.e. {minutes: 90})
+ */
+const convertTimeObjToMinutes = function (timeObj) {
+  let minutes = 0;
+  if (timeObj.days) {
+    minutes += timeObj.days * 1440;
+  }
+  if (timeObj.hours) {
+    minutes += timeObj.hours * 60;
+  }
+  if (timeObj.minutes) {
+    minutes += timeObj.minutes;
+  }
+  if (timeObj.seconds) {
+    minutes += timeObj.seconds / 60;
+  }
+  return { minutes };
+};
+
 // Helper function to remove 'www.' and '.com' from URLs to determine URL's name
 const extractNameFromURL = function (url) {
   const remPrefix = url.split("www.").join("");
@@ -40,4 +62,9 @@ const remPrefix = function (host_name) {
   return host_name.split("www.").join("");
 };
 
-module.exports = { compileData, extractNameFromURL, remPrefix };
+module.exports = {
+  compileData,
+  extractNameFromURL,
+  remPrefix,
+  convertTimeObjToMinutes,
+};
