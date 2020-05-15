@@ -137,7 +137,7 @@ export default function Home(props) {
 
   const {
     quota_today: {
-      allotment: { hours: quota_allotment_hours },
+      allotment: { minutes: quota_allotment_minutes },
       used: { minutes: used_minutes },
     },
   } = props.userData;
@@ -154,7 +154,7 @@ export default function Home(props) {
         </Typography>
         of
         <Typography component="h2" variant="h6">
-          {quota_allotment_hours} hours
+          {quota_allotment_minutes} minutes
           <hr />
         </Typography>
         <form
