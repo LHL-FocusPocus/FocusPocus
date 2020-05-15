@@ -16,6 +16,7 @@ import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import styled from "styled-components";
 import Routes from "../routes";
 import axios from "axios";
+import { useHistory } from "react-router-dom"
 
 
 // import Logout from "./Logout"
@@ -70,8 +71,8 @@ const Container = styled.div`
   height: 100%;
 `;
 
-export default function Navbar({ history }) {
-  console.log("NavBarProps =======>", props)
+export default function Navbar( ) {
+  // console.log("NavBarProps =======>", props)
   // user prop is coming back undefined from dashboard.jsx
 
   const classes = useStyles();
@@ -89,6 +90,9 @@ export default function Navbar({ history }) {
 
     setState({ ...state, [anchor]: open });
   };
+
+  const history = useHistory();
+
 
   const handleLogout = function() {
     console.log("========> In handeLogout")
