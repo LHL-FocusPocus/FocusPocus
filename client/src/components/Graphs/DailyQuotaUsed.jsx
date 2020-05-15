@@ -70,7 +70,7 @@ export default function DailyQuotaUsed({ quota }) {
     const hand = chart.hands.push(new am4charts.ClockHand());
 
     const percentageQuotaUsed =
-      (toMinutes(quota.used) / toMinutes(quota.allotment)) * 100;
+      (quota.used.minutes / quota.allotment.minutes) * 100;
 
     hand.showValue(percentageQuotaUsed);
   }, [quota]);

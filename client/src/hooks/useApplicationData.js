@@ -11,6 +11,9 @@ export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
     blacklisted: [],
     quota_today: {
+      used: {
+        minutes: 0,
+      },
       allotment: {
         minutes: 120,
       },
@@ -40,11 +43,6 @@ export default function useApplicationData() {
         dispatch({
           type: SET_DASHBOARD_DATA,
           payload: dashboardData,
-        });
-
-        dispatch({
-          type: CHANGE_QUOTA,
-          allotment: dashboardData.quota_today.allotment.minutes,
         });
       })
       .catch(e => console.error(e));
