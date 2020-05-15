@@ -184,7 +184,7 @@ module.exports = (db) => {
           return dbHelper.addWebsiteToBlacklist(userId, site.id);
         }
       })
-      .then(() => res.send(`${URL} added to blacklist`))
+      .then(() => res.json(`${URL} added to blacklist`))
       .catch((err) => res.status(400).json(err));
   });
 
