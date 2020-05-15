@@ -12,7 +12,7 @@ export function getCurrentTab(callback) {
 }
 
 export function getCurrentTimer(callback) {
-  chrome.storage.sync.get("timerInSeconds", function (data) {
+  chrome.storage.local.get("timerInSeconds", function (data) {
     callback(data.timerInSeconds);
   });
 }
