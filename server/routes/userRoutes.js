@@ -12,7 +12,7 @@ const { extractNameFromURL, remPrefix } = require("../helpers/dataProcessor");
 
 module.exports = (db) => {
   const dbHelper = require("../helpers/dbHelper")(db);
-  router.post("/login", (req, res) => {    
+  router.post("/login", (req, res) => {
     if (req.session.userId) {
       console.log("Your user id is:", req.session.userId);
     }
@@ -25,7 +25,7 @@ module.exports = (db) => {
         }
         if (bcrypt.compareSync(password, user.password)) {
           req.session.userId = user.id;
-          console.log('req.session.userId', req.session.userId)
+          console.log("req.session.userId", req.session.userId);
           res.status(200).send("Authenticated!");
         } else {
           res.status(401).send("Login failed!");
@@ -72,9 +72,14 @@ module.exports = (db) => {
     if (!userId) {
       return res.status(403).send("You must be signed in!");
     }
-    
-
-  })
+    const { quotaInMinutes } = req.body;
+    dbHelper
+      .adjustUserQuota(quotaInMinutes, userId)
+      .then(() => {
+        res.status(200).send("New Quota Set");
+      })
+      .catch((e) => console.error(e));
+  });
 
   // This can be removed, it is now in extensionRoutes.js file
   // router.post("/add_browse_time", (req, res) => {
@@ -127,23 +132,19 @@ module.exports = (db) => {
         if (!site) {
           const name = extractNameFromURL(URL);
           const category = null;
-          console.log("name", name);
           // Creating the website in the database before it can be added to their blacklist
           dbHelper
             .addWebsite(URL, name, category)
             .then((site) => {
-              console.log("site", site);
               return dbHelper.addWebsiteToBlacklist(userId, site.id);
             })
             .then((blacklistedSite) => {
-              console.log("blacklistedSite", blacklistedSite);
               return dbHelper.getBlacklistedSiteByWebsiteId(
                 blacklistedSite.website_id,
                 userId
               );
             })
             .then((website) => {
-              console.log("website", website);
               res.status(201).json(website);
             })
             .catch((err) => res.status(500).json(err));

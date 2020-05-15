@@ -21,17 +21,18 @@ export default function QuotaSlider() {
   };
 
   function valuetext(value) {
-    return `${value} minutes/day`;
+    return `${value} minutes`;
   }
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log("test");
+    
+    const quotaInMinutes = valuetext(value);
 
     axios
-      .put("/api/user/adjust_quota", value)
-      .then((res) => {
-        console.log('res', res)
+      .put("/api/user/adjust_quota", { quotaInMinutes })
+      .then(res => {
+        console.log("res", res);
       })
       .catch(e => {
         console.error(e);
