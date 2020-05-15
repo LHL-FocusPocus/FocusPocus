@@ -16,7 +16,6 @@ import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import styled from "styled-components";
 import Routes from "../routes";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
 
 
 // import Logout from "./Logout"
@@ -74,7 +73,6 @@ const Container = styled.div`
 export default function Navbar(props) {
   console.log("NavBarProps =======>", props)
   // user prop is coming back undefined from dashboard.jsx
-  const history = useHistory()
 
   const classes = useStyles();
   const [state, setState] = useState({
