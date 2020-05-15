@@ -12,7 +12,7 @@ export default function useApplicationData() {
     blacklisted: [],
     quota_today: {
       allotment: {
-        minutes: 120,
+        minutes: null,
       },
     },
   });

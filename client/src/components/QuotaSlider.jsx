@@ -23,15 +23,23 @@ const Spinner = styled(CircularProgress)`
 export default function QuotaSlider({ quota, changeQuota }) {
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
-  // console.log('quota.allotment.minutes', quota.allotment.minutes)
+
   const [value, setValue] = useState(quota.allotment.minutes);
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('value', value)
+    console.log("value", value);
     changeQuota(value);
     setDisabled(true);
   };
+  // Console logs show quota.allotment.minutes takes time to initialize
+  // console.log(value);
+  // console.log("quota.allotment.minutes", quota.allotment.minutes);
+
+  // Use useEffect to update value when quota.allotment.minutes initializes
+  useEffect(() => {
+    setValue(quota.allotment.minutes);
+  }, [quota.allotment.minutes]);
 
   return (
     <>
@@ -68,13 +76,10 @@ export default function QuotaSlider({ quota, changeQuota }) {
   );
 }
 
-
 /*          {/* <Button onClick={(e, value) = changeQuota(value)} variant="contained">
             Set New Quota
           </Button> */
 // check if account is new (?), if so, suggest they dont touch the quota slider yet
-
-
 
 /*  return (
     <>
@@ -95,17 +100,17 @@ export default function QuotaSlider({ quota, changeQuota }) {
           onChange={(e, value) => setValue(value)}
         />
         {/* STRETCH: can't change again until: 7 days from now */
-  //       {disabled && (
-  //         <Button onClick={() => setDisabled(!disabled)} variant="contained">
-  //           Change Quota
-  //         </Button>
-  //       )}
-  //       {!disabled && (
-  //         <Button onClick={(e) => handleSubmit(e)} variant="contained">
-  //           Set New Quota
-  //         </Button>
- 
-  //       )}
-  //     </SliderDiv>
-  //   </>
-  // ); */
+//       {disabled && (
+//         <Button onClick={() => setDisabled(!disabled)} variant="contained">
+//           Change Quota
+//         </Button>
+//       )}
+//       {!disabled && (
+//         <Button onClick={(e) => handleSubmit(e)} variant="contained">
+//           Set New Quota
+//         </Button>
+
+//       )}
+//     </SliderDiv>
+//   </>
+// ); */
