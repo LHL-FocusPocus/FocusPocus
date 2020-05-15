@@ -9,6 +9,8 @@ import Radial from "./Graphs/Radial";
 import Leaderboard from "./Graphs/Leaderboard";
 import Shameboard from "./Graphs/Shameboard";
 import loading from "../helpers/loading";
+import { useHistory } from "react-router-dom";
+
 
 const Container = styled(Box)`
   padding: 3em;
@@ -47,8 +49,12 @@ export default function Dashboard({ dashboardData }) {
 
   if (!dashboardData || quota_today == undefined) {
     return null;
+    // return a spinner component
   }
+  
 
+
+  
   return (
     <div>
       <Navbar user={user} />

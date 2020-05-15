@@ -15,7 +15,7 @@ export default function useApplicationData() {
 
   const setDashboard = async () => {
     const userData = await axios.get("/api/data/dashboard");
-    console.log(userData)
+    console.log(userData);
     const dashboardData = userData.data;
     dispatch({
       type: SET_DASHBOARD_DATA,
@@ -26,7 +26,7 @@ export default function useApplicationData() {
   useEffect(() => {
     axios
       .get("/api/data/dashboard")
-      .then(userData => {
+      .then((userData) => {
         console.log("GETTING CALLED");
         const dashboardData = userData.data;
         dispatch({
@@ -34,11 +34,11 @@ export default function useApplicationData() {
           payload: dashboardData,
         });
       })
-      .catch(e => console.error(e));
+      .catch((e) => console.error(e));
   }, []);
 
   useEffect(() => {
-    axios.get("/api/user/blacklists").then(blacklist => {
+    axios.get("/api/user/blacklists").then((blacklist) => {
       dispatch({
         type: SET_BLACKLIST_DATA,
         blacklisted: blacklist.data,
@@ -46,8 +46,8 @@ export default function useApplicationData() {
     });
   }, []);
 
-  const disableBlacklistedSite = id => {
-    axios.put(`/api/user/blacklists/disable/${id}`, id).then(res => {
+  const disableBlacklistedSite = (id) => {
+    axios.put(`/api/user/blacklists/disable/${id}`, id).then((res) => {
       console.log("TEST");
       dispatch({
         type: CHANGE_BLACKLIST,
@@ -56,10 +56,10 @@ export default function useApplicationData() {
     });
   };
 
-  const addBlacklistedSite = host_name => {
+  const addBlacklistedSite = (host_name) => {
     axios
       .post("/api/user/blacklists/add", { host_name })
-      .then(res => {
+      .then((res) => {
         const { id, hostname, name, category } = res.data;
         dispatch({
           type: CHANGE_BLACKLIST,
@@ -69,7 +69,7 @@ export default function useApplicationData() {
           category,
         });
       })
-      .catch(e => console.error(e));
+      .catch((e) => console.error(e));
   };
   return { state, disableBlacklistedSite, addBlacklistedSite, setDashboard };
 }

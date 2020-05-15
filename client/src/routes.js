@@ -1,6 +1,6 @@
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
-import Options from "./components/Options"
+import Options from "./components/Options";
 import { Route, Switch } from "react-router-dom";
 import React from "react";
 
@@ -13,7 +13,6 @@ export default function Routes() {
     </Switch>
   );
 }
-
 
 /* const Routes = [
   {
