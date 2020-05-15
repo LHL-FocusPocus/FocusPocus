@@ -68,7 +68,6 @@ module.exports = (db) => {
         [id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
@@ -82,7 +81,6 @@ module.exports = (db) => {
         `
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
@@ -161,7 +159,6 @@ module.exports = (db) => {
         [user_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
@@ -182,7 +179,6 @@ module.exports = (db) => {
         [user_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
@@ -253,7 +249,8 @@ module.exports = (db) => {
         SELECT * FROM quotas
         WHERE user_id = $1
         AND CURRENT_DATE >= date_valid_from
-        AND CURRENT_DATE < date_valid_until;
+        AND CURRENT_DATE < date_valid_until
+        ORDER BY id DESC;
     `,
         [user_id]
       )
@@ -296,7 +293,6 @@ module.exports = (db) => {
         [user_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
@@ -317,7 +313,6 @@ module.exports = (db) => {
         [user_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
@@ -339,7 +334,6 @@ module.exports = (db) => {
         `
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
