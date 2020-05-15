@@ -1,6 +1,8 @@
 import React from "react";
 import SignUp from "./SignUp";
 import Login from "./Login";
+import Navbar from "./Navbar";
+
 import LogoText from "./LogoText";
 import styled from "styled-components";
 import { Route, Link } from "react-router-dom";
@@ -29,6 +31,8 @@ export default function Landing(props) {
       </InnerContainer>
       <Route exact path="/" render={() => <Login history={history} />} />
       <Route exact path="/register" render={() => <SignUp history={history} />} />
+      {/* <Route exact path="/" render={() => <Navbar history={history} />} /> */}
+
     </Container>
   );
 }
