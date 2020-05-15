@@ -13,10 +13,7 @@ const SliderDiv = styled.div`
 
 export default function DiscreteSlider() {
   const [disabled, setDisabled] = useState(true);
-  // const [fields, handleFieldChange] = useFormFields({
-  //   quota: 0,
-  // });
-  const [value, setValue] = React.useState(120);
+  const [value, setValue] = useState(120);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -27,26 +24,21 @@ export default function DiscreteSlider() {
     return `${value} minutes/day`;
   }
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    console.log("test");
+  // const handleSubmit = event => {
+  //   event.preventDefault();
+  //   console.log("test");
 
-    // const credentials = {
-    //   email: fields.email,
-    //   password: fields.password,
-    // };
+  //   axios
+  //     .post("/api/user/adjust_quota", value, { withCredentials: true })
+  //     .then((res) => {
+  //       console.log('res', res)
+  //     })
+  //     .catch(e => {
+  //       console.error(e);
+  //     });
 
-    // axios
-    //   .post("/api/user/adjust_quota", credentials, { withCredentials: true })
-    //   .then((res) => {
-    //     console.log('res', res)
-    //   })
-    //   .catch(e => {
-    //     console.error(e);
-    //   });
-
-    setDisabled(!disabled);
-  };
+  //   setDisabled(!disabled);
+  // };
 
   return (
     <SliderDiv>
