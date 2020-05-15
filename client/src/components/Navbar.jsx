@@ -15,7 +15,9 @@ import AssessmentIcon from "@material-ui/icons/Assessment";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import styled from "styled-components";
 import Routes from "../routes";
-import Logout from "./Logout"
+import axios from "axios";
+
+// import Logout from "./Logout"
 
 const useStyles = makeStyles({
   list: {
@@ -55,10 +57,10 @@ const Message = styled.div`
 `;
 
 // TODO: Push logout button to bottom of drawer -> can't get it to work without forcing it with margin (but irrelevant on full screen mode)
-// const Logout = styled(List)`
-//   ${"" /* margin-top: auto; */}
-//   margin-top: 35%;
-// `;
+const Logout = styled(List)`
+  ${"" /* margin-top: auto; */}
+  margin-top: 35%;
+`;
 
 const Container = styled.div`
   display: flex;
@@ -83,6 +85,19 @@ export default function Navbar() {
 
     setState({ ...state, [anchor]: open });
   };
+
+  // const handleLogout = event => {
+  //   axios
+  //   .post("/api/user/logout" /*, credentials, { withCredentials: true } */ )
+  //   .then(res => {
+  //     console.log(res);
+  //     console.log("Successful Logout");
+  //     // history.push("/");
+  //   })
+  //   .catch(e => {
+  //     console.error(e);
+  //   });
+  // }
 
   const list = anchor => (
     <Container
@@ -122,14 +137,16 @@ export default function Navbar() {
       </List>
       <Divider />
       {/* <Logout/> */}
-      <Logout>
+      {/* <Logout
+        onClick={handleLogout}
+        >
         <ListItem button id="logout">
           <ListItemIcon>
             <PowerSettingsNewIcon />
           </ListItemIcon>
           <ListItemText primary="Log Out" />
         </ListItem>
-      </Logout>
+      </Logout> */}
     </Container>
   );
 
