@@ -6,6 +6,7 @@ import Dashboard from "./components/Dashboard";
 import Options from "./components/Options";
 import { Route, Link } from "react-router-dom";
 import useApplicationData from "./hooks/useApplicationData";
+import Logout from "./components/Logout";
 
 import axios from "axios";
 import "./App.css";
@@ -24,7 +25,12 @@ function App() {
         path="/dashboard"
         render={() => <Dashboard dashboardData={state} />}
       />
-      <Route exact path="/options" render={() => <Options users={state.users} />} />
+      <Route
+        exact
+        path="/options"
+        render={() => <Options users={state.users} />}
+      />
+      {/* <Route exact path="/" render={() => <Logout users={null} />} /> */}
     </div>
   );
 }
