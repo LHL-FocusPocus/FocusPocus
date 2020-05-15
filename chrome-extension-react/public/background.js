@@ -101,7 +101,9 @@ function handleBrowsing(tabId) {
     // tab.url will be undefined on chrome settings page etc.
     const currentDomain = tab.url ? getDomainFromUrl(tab.url) : undefined;
     // console.log(`domain was at ${lastDomain} for ${timerInSeconds} seconds`);
-    postBrowseTime(lastDomain, timerInSeconds);
+    if (lastDomain) {
+      postBrowseTime(lastDomain, timerInSeconds);
+    }
     lastDomain = currentDomain;
     timerInSeconds = 0;
     chrome.storage.local.set({ timerInSeconds });
