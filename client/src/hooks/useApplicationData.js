@@ -23,7 +23,6 @@ export default function useApplicationData() {
   };
 
   useEffect(() => {
-    // setLoading(true);
     axios
       .get("/api/data/dashboard")
       .then(userData => {
@@ -34,22 +33,8 @@ export default function useApplicationData() {
           payload: dashboardData,
         });
       })
-      // .then(() => console.log("state", state))
       .catch(e => console.error(e));
   }, []);
-
-  /*     const setDashboard = async () => {
-      await axios.get("/api/data/dashboard").then(userData => {
-        console.log("GETTING CALLED");
-        console.log("state", state);
-        const dashboardData = userData.data;
-        dispatch({
-          type: SET_DASHBOARD_DATA,
-          payload: dashboardData,
-        });
-      });
-    };
-    setDashboard() */
 
   useEffect(() => {
     axios.get("/api/user/blacklists").then(blacklist => {
