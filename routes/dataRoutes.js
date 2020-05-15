@@ -11,7 +11,7 @@ module.exports = (db) => {
   // Return data needed to render dashboard, access at /data/dashboard
   router.get("/dashboard", (req, res) => {
     const userId = req.session.userId;
-    console.log('userId', userId)
+    console.log("userId", userId);
     if (!userId) {
       return res.status(403).send("A user must be signed in!");
     }
@@ -39,10 +39,7 @@ module.exports = (db) => {
           all_browse_time: convertTimeObjToMinutes(all[4].sum),
         };
         userData["blacklisted"] = all[2];
-        console.log('all[3]', all[3])
-        userData["donutGraph"] = compileData(all[3]);
-        console.log('donutGraph', donutGraph)
-        // console.log('userData.donutGraph', userData.donutGraph)
+        userData["donutGraph"] = compileData(all[3], "website");
         userData["lineGraph"] = compileData(all[6], "date");
         userData["leaderboard"] = compileData(all[7], "name");
         userData["shameboard"] = compileData(all[8], "name");
