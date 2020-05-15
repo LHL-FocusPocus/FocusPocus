@@ -39,8 +39,9 @@ module.exports = (db) => {
           all_browse_time: convertTimeObjToMinutes(all[4].sum),
         };
         userData["blacklisted"] = all[2];
-        userData["donutGraph"] = compileData(all[3], "website");
         console.log('all[3]', all[3])
+        userData["donutGraph"] = compileData(all[3]);
+        console.log('donutGraph', donutGraph)
         // console.log('userData.donutGraph', userData.donutGraph)
         userData["lineGraph"] = compileData(all[6], "date");
         userData["leaderboard"] = compileData(all[7], "name");

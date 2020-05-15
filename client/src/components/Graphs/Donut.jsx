@@ -36,7 +36,7 @@ export default function Donut({ donutData }) {
     const chart = am4core.create("donutChart", am4charts.PieChart3D);
     chart.hiddenState.properties.opacity = 0;
 
-    chart.data = donutData;
+    // chart.data = donutData;
 
     chart.innerRadius = am4core.percent(40);
     chart.depth = 40;

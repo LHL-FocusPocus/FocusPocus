@@ -132,6 +132,7 @@ module.exports = (db) => {
         [websiteId, userId]
       )
       .then((res) => {
+        if (res.rows.length === 0) return null;
         return res.rows[0];
       })
       .catch((err) => console.error(err));
@@ -302,7 +303,7 @@ module.exports = (db) => {
         FROM browse_times
         JOIN websites ON websites.id = website_id
         JOIN users ON users.id = user_id
-        WHERE user_id = 1
+        WHERE user_id = $1
         AND datetime_start >= CURRENT_DATE AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
         GROUP BY name;
         `,
@@ -371,7 +372,6 @@ module.exports = (db) => {
         `
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
@@ -420,6 +420,7 @@ module.exports = (db) => {
         [website_id, user_id]
       )
       .then((res) => {
+        if (res.rows.length === 0) return null;
         return res.rows[0];
       })
       .catch((err) => console.error(err));
@@ -435,6 +436,7 @@ module.exports = (db) => {
         [website_id, user_id]
       )
       .then((res) => {
+        if (res.rows.length === 0) return null;
         return res.rows[0];
       })
       .catch((err) => console.error(err));
@@ -443,8 +445,8 @@ module.exports = (db) => {
   const adjustUserQuota = () => {
     return db.query(`
       UPDATE quotas SET time_allotment
-    `)
-  }
+    `);
+  };
 
   return {
     getUserWithEmail,
@@ -470,6 +472,6 @@ module.exports = (db) => {
     getHitsForBlacklistedSiteForPastWeek,
     enableBlacklistedSite,
     getBlacklistedSiteByWebsiteId,
-    isBlacklistedSiteEnabled
+    isBlacklistedSiteEnabled,
   };
 };
