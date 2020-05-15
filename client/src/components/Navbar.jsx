@@ -71,9 +71,10 @@ const Container = styled.div`
   height: 100%;
 `;
 
-export default function Navbar() {
+export default function Navbar(props) {
   // May need to pass prop to get user.first_name... user prop is coming back undefined from dashboard.jsx
-
+  console.log("====> Navbar Props ====>", props.user.first_name)
+  const { first_name } = props.user
   const classes = useStyles();
   const [state, setState] = useState({
     left: false,
@@ -94,7 +95,7 @@ export default function Navbar() {
 
 
   const handleLogout = function() {
-    console.log("========> In handeLogout")
+    console.log("========> In handleLogout")
     axios
     .post("/api/user/logout")
     .then(res => {
@@ -119,7 +120,7 @@ export default function Navbar() {
         <Icon src="/imgs/multitasking.jpg"></Icon>
       </List>
       <Greeting>
-        Hi, Matt.
+        Hi, {first_name}
         {/* TODO: Make this dynamic based on user firstName */}
       </Greeting>
       <Message>
