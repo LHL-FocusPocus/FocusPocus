@@ -170,17 +170,17 @@ module.exports = (db) => {
       .getWebsiteIDByHostname(URL)
       .then((site) => {
         if (!site) {
-          console.log("=====> Website does not exist yet DB, adding to db");
+          // console.log("=====> Website does not exist yet DB, adding to db");
           const name = extractNameFromURL(URL);
           const category = null;
           dbHelper.addWebsite(URL, name, category).then((site) => {
-            console.log("=====> Adding a new site to blacklist");
+            // console.log("=====> Adding a new site to blacklist");
             console.log(site);
             return dbHelper.addWebsiteToBlacklist(userId, site.id);
           });
         } else {
-          console.log("=====> Website exists in database");
-          console.log("=====> Adding an old site to this user's blacklist");
+          // console.log("=====> Website exists in database");
+          // console.log("=====> Adding an old site to this user's blacklist");
           return dbHelper.addWebsiteToBlacklist(userId, site.id);
         }
       })
