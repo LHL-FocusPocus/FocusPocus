@@ -11,7 +11,6 @@ module.exports = (db) => {
   // Return data needed to render dashboard, access at /data/dashboard
   router.get("/dashboard", (req, res) => {
     const userId = req.session.userId;
-    console.log("userId", userId);
     if (!userId) {
       return res.status(403).send("A user must be signed in!");
     }
@@ -44,7 +43,6 @@ module.exports = (db) => {
         userData["leaderboard"] = compileData(all[7], "name");
         userData["shameboard"] = compileData(all[8], "name");
         userData["radialGraph"] = all[9];
-        // console.log(userData)
 
         return res.status(200).json(userData);
       })
