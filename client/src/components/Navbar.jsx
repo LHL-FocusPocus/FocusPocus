@@ -86,9 +86,10 @@ export default function Navbar() {
     setState({ ...state, [anchor]: open });
   };
 
-  const handleLogout = event => {
+  const handleLogout = function() {
+    console.log("=======>")
     axios
-    .post("/api/user/logout" /*, credentials, { withCredentials: true } */ )
+    .post("/api/user/logout")
     .then(res => {
       console.log(res);
       console.log("Successful Logout");
@@ -137,9 +138,8 @@ export default function Navbar() {
       </List>
       <Divider />
       {/* <Logout/> */}
-      {/* Remove this approach of logout, add logout functionality */}
       <Logout
-        onClick={() => handleLogout()}
+        onClick={handleLogout}
         >
         <ListItem button id="logout">
           <ListItemIcon>
