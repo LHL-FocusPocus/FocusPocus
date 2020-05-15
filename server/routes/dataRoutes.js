@@ -3,7 +3,10 @@ const router = express.Router();
 
 module.exports = (db) => {
   const dbHelper = require("../helpers/dbHelper")(db);
-  const { compileData } = require("../helpers/dataProcessor");
+  const {
+    compileData,
+    convertTimeObjToMinutes,
+  } = require("../helpers/dataProcessor");
 
   // Return data needed to render dashboard, access at /data/dashboard
   router.get("/dashboard", (req, res) => {
@@ -30,9 +33,9 @@ module.exports = (db) => {
         // all is now an array of data that each promise returns
         userData["user"] = all[0];
         userData["quota_today"] = {
-          allotment: all[1].time_allotment,
-          used: all[5].sum,
-          all_browse_time: all[4].sum,
+          allotment: convertTimeObjToMinutes(all[1].time_allotment),
+          used: convertTimeObjToMinutes(all[5].sum),
+          all_browse_time: convertTimeObjToMinutes(all[4].sum),
         };
         // Currently all[2] is not used -> might be useful later
         // console.log(all[2])
