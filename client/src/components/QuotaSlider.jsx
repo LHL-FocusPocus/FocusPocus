@@ -6,18 +6,27 @@ import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import useFormFields from "../hooks/useFormFields";
 import axios from "axios";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const SliderDiv = styled.div`
   width: 400px;
 `;
 
-export default function QuotaSlider() {
+const Spinner = styled(CircularProgress)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -10;
+  margin-left: -12;
+`;
+
+export default function QuotaSlider({ quota }) {
   const [disabled, setDisabled] = useState(true);
-  const [value, setValue] = useState(120);
+  const [loading, setLoading] = useState(false);
+  const [value, setValue] = useState(quota.allotment);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    console.log("valuetext", valuetext(value));
   };
 
   function valuetext(value) {
@@ -26,7 +35,7 @@ export default function QuotaSlider() {
 
   const handleSubmit = event => {
     event.preventDefault();
-    
+
     const quotaInMinutes = valuetext(value);
 
     axios
@@ -41,12 +50,20 @@ export default function QuotaSlider() {
     setDisabled(!disabled);
   };
 
+  if (!quota || quota.allotment == undefined) {
+    setLoading(true);
+    return <Spinner size={24} />;
+  }
+  setLoading(false);
+
   return (
     <SliderDiv>
       <Typography id="discrete-slider" gutterBottom>
         Daily Quota (Minutes)
       </Typography>
       <Slider
+        // defaultValue={value}
+        value={value}
         aria-labelledby="discrete-slider"
         valueLabelDisplay="auto"
         getAriaValueText={valuetext}

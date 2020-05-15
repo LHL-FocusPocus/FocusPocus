@@ -42,6 +42,7 @@ function App() {
             addBlacklistedSite={addBlacklistedSite}
             disableBlacklistedSite={disableBlacklistedSite}
             users={state.users}
+            quota={state.quota_today}
             blacklisted={state.blacklisted}
           />
         )}

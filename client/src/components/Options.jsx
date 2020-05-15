@@ -13,8 +13,8 @@ const Container = styled(Box)`
 `;
 
 const Slider = styled(QuotaSlider)`
-  ${'' /* width: 30%; */}
-  ${'' /* padding-left: 20%; */}
+  ${"" /* width: 30%; */}
+  ${"" /* padding-left: 20%; */}
   transform: translateX(200px);
 `;
 
@@ -23,12 +23,13 @@ export default function Options({
   blacklisted,
   addBlacklistedSite,
   disableBlacklistedSite,
+  quota,
 }) {
   return (
     <div>
       <Navbar user={user} />
       <Container bgcolor="background.paper">
-        <Slider />
+        <Slider quota={quota} />
         <Blacklisted
           addBlacklistedSite={addBlacklistedSite}
           disableBlacklistedSite={disableBlacklistedSite}
