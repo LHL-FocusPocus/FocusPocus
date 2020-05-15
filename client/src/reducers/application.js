@@ -39,21 +39,9 @@ export default function reducer(state, action) {
       };
 
     case CHANGE_QUOTA:
-      console.log('state', state)
-      console.log('action', action)
       const new_quota = {
         minutes: action.allotment,
       };
-      console.log('new_quota', new_quota)
-
-      const test = {
-        ...state,
-        quota_today: {
-          allotment: new_quota,
-        },
-      };
-      
-      console.log("state", test)
 
       return {
         ...state,

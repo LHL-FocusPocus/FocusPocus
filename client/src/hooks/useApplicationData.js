@@ -16,6 +16,7 @@ export default function useApplicationData() {
       },
     },
   });
+  console.log("state", state);
 
   // const [loading, setLoading] = useState(false)
 
@@ -40,6 +41,11 @@ export default function useApplicationData() {
           type: SET_DASHBOARD_DATA,
           payload: dashboardData,
         });
+
+        dispatch({
+          type: CHANGE_QUOTA,
+          allotment: dashboardData.quota_today.allotment.minutes,
+        });
       })
       .catch(e => console.error(e));
   }, []);
@@ -63,37 +69,20 @@ export default function useApplicationData() {
     });
   };
 
-  // const setDashboard = async () => {
-  //   const userData = await axios.get("/api/data/dashboard");
-  //   console.log(userData)
-  //   const dashboardData = userData.data;
-  //   dispatch({
-
   const changeQuota = quotaInMinutes => {
-    console.log("TEST", quotaInMinutes)
-    dispatch({
-      type: CHANGE_QUOTA,
-      allotment: quotaInMinutes,
-    });
     axios
       .put("/api/user/adjust_quota", {
         quotaInMinutes,
       })
-      .then(res => {
-        console.log('res', res)
-        // console.log("quota", quota);
-
-
-        // const quota = newQuota.data.split(" ")[0];
-
-        console.log("res.data", res.data);
+      .then(() => {
+        dispatch({
+          type: CHANGE_QUOTA,
+          allotment: quotaInMinutes,
+        });
+      })
+      .catch(e => {
+        console.error(e);
       });
-
-    // console.log("newQuota", quota);
-    // dispatch({
-    //   type: CHANGE_QUOTA,
-    // })
-    console.log("state", state);
   };
 
   const addBlacklistedSite = host_name => {
