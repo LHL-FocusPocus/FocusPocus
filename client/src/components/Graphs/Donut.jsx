@@ -26,11 +26,11 @@ const Chart = styled.div`
   height: 100%;
   transform: translateY(60px);
   padding-bottom: 18%;
-
 `;
 
 export default function Donut({ donutData }) {
   useEffect(() => {
+    console.log('donutData', donutData)
     am4core.useTheme(am4themes_animated);
 
     const chart = am4core.create("donutChart", am4charts.PieChart3D);

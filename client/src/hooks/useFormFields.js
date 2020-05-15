@@ -1,15 +1,15 @@
 import { useState } from "react";
 
-export function useFormFields(initialState) {
+export default function useFormFields(initialState) {
   const [fields, setFields] = useState(initialState);
 
   return [
     fields,
-    (event) => {
+    event => {
       setFields({
         ...fields,
-        [event.target.id]: event.target.value
-      })
-    }
-  ]
+        [event.target.id]: event.target.value,
+      });
+    },
+  ];
 }

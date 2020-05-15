@@ -29,7 +29,7 @@ const Chart = styled.div`
 
 export default function Leaderboard({ leaderboard }) {
   useEffect(() => {
-    console.log('leaderboard', leaderboard)
+    console.log("leaderboard", leaderboard);
     am4core.useTheme(am4themes_animated);
 
     const chart = am4core.create("leaderboard", am4charts.XYChart);
@@ -140,7 +140,5 @@ export default function Leaderboard({ leaderboard }) {
     });
   }, [leaderboard]);
 
-  return (
-      <Chart id="leaderboard"></Chart>
-  );
+  return <Chart id="leaderboard"></Chart>;
 }

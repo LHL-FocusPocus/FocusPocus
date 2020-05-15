@@ -70,7 +70,7 @@ const Container = styled.div`
   height: 100%;
 `;
 
-export default function Navbar(props) {
+export default function Navbar({ history }) {
   console.log("NavBarProps =======>", props)
   // user prop is coming back undefined from dashboard.jsx
 
@@ -97,7 +97,7 @@ export default function Navbar(props) {
     .then(res => {
       console.log(res);
       console.log("Successful Logout");
-      props.history.push("/");
+      history.push("/");
     })
     .catch(e => {
       console.error(e);
