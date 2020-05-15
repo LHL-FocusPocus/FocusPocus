@@ -219,7 +219,7 @@ module.exports = (db) => {
         [user_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
+        if (res.rows.length === 0) return { sum: 0 };
         return res.rows[0];
       })
       .catch((err) => err);
@@ -240,7 +240,7 @@ module.exports = (db) => {
         [user_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
+        if (res.rows.length === 0) return { sum: 0 };
         return res.rows[0];
       })
       .catch((err) => err);
