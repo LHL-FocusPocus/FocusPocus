@@ -52,7 +52,7 @@ export default function Dashboard({ dashboardData }) {
     // return a spinner component
   }
   
-
+console.log("In dashboard, user should be =====>", user)
 
   
   return (
