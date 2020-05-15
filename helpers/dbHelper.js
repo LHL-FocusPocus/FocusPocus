@@ -339,13 +339,12 @@ module.exports = (db) => {
     return db
       .query(
         `
-        SELECT first_name as name, SUM(duration) as time
+        SELECT first_name as name, users.id, SUM(duration) as time
         FROM browse_times
         JOIN users on browse_times.user_id = users.id
         JOIN blacklists ON users.id = blacklists.user_id AND blacklists.website_id = browse_times.website_id
         WHERE datetime_start >= CURRENT_DATE - INTERVAL '7 days'
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
-        AND browse_times.website_id != 0
         GROUP BY users.id
         ORDER BY time
         ASC LIMIT 6;
@@ -361,13 +360,12 @@ module.exports = (db) => {
     return db
       .query(
         `
-        SELECT first_name as name, SUM(duration) as time
+        SELECT first_name as name, users.id, SUM(duration) as time
         FROM browse_times
         JOIN users on browse_times.user_id = users.id
         JOIN blacklists ON users.id = blacklists.user_id AND blacklists.website_id = browse_times.website_id
         WHERE datetime_start >= CURRENT_DATE - INTERVAL '7 days'
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
-        AND browse_times.website_id != 0
         GROUP BY users.id
         ORDER BY time
         DESC LIMIT 6;
