@@ -73,8 +73,10 @@ const Container = styled.div`
 
 export default function Navbar(props) {
   // May need to pass prop to get user.first_name... user prop is coming back undefined from dashboard.jsx
-  console.log("====> Navbar Props ====>", props.user.first_name)
+  console.log("====> Navbar Props ====>", props.quota.used.minutes)
   const { first_name } = props.user
+  const used_quota = props.quota.used.minutes
+  const allotment = props.quota.allotment.minutes
   const classes = useStyles();
   const [state, setState] = useState({
     left: false,
@@ -120,11 +122,13 @@ export default function Navbar(props) {
         <Icon src="/imgs/multitasking.jpg"></Icon>
       </List>
       <Greeting>
-        Hi, {first_name}
+        Welcome, {first_name}!
         {/* TODO: Make this dynamic based on user firstName */}
       </Greeting>
       <Message>
-        Your seem to be on task lately! Keep up the good work.
+        <p>You seem to be on task lately! Keep up the good work.</p>
+        <p>You have used {used_quota} minutes.</p>
+        <p>You have {allotment - used_quota} remaining minutes left of blacklisted browsing.</p>
         {/* TODO: Make this dynamic based on quota usage? [STRETCH] */}
       </Message>
       <Divider />
