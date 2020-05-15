@@ -6,7 +6,6 @@ import Dashboard from "./components/Dashboard";
 import Options from "./components/Options";
 import { Route, Link } from "react-router-dom";
 import useApplicationData from "./hooks/useApplicationData";
-import Logout from "./components/Logout";
 
 import axios from "axios";
 import "./App.css";

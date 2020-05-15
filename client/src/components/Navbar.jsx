@@ -16,6 +16,8 @@ import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import styled from "styled-components";
 import Routes from "../routes";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+
 
 // import Logout from "./Logout"
 
@@ -69,7 +71,10 @@ const Container = styled.div`
   height: 100%;
 `;
 
-export default function Navbar() {
+export default function Navbar(props) {
+  console.log("NavBarProprs =======>")
+  const history = useHistory()
+
   const classes = useStyles();
   const [state, setState] = useState({
     left: false,
@@ -87,13 +92,13 @@ export default function Navbar() {
   };
 
   const handleLogout = function() {
-    console.log("=======>")
+    console.log("========> In handeLogout")
     axios
     .post("/api/user/logout")
     .then(res => {
       console.log(res);
       console.log("Successful Logout");
-      // history.push("/");
+      history.push("/");
     })
     .catch(e => {
       console.error(e);
