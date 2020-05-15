@@ -72,13 +72,18 @@ module.exports = (db) => {
     if (!userId) {
       return res.status(403).send("You must be signed in!");
     }
+    console.log('req.body', req.body)
     const { quotaInMinutes } = req.body;
+    console.log(`${quotaInMinutes} minutes`)
     dbHelper
-      .adjustUserQuota(quotaInMinutes, userId)
+      .adjustUserQuota(`${quotaInMinutes} minutes`, userId)
       .then(() => {
-        res.status(200).send("New Quota Set");
+        res.status(200).json(quotaInMinutes)
       })
-      .catch((e) => console.error(e));
+      .catch((e) => {
+        console.error(e)
+        return res.status(500).json(e)
+      });
   });
 
   // This can be removed, it is now in extensionRoutes.js file
