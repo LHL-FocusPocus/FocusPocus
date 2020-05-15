@@ -442,10 +442,19 @@ module.exports = (db) => {
       .catch((err) => console.error(err));
   };
 
-  const adjustUserQuota = () => {
-    return db.query(`
-      UPDATE quotas SET time_allotment
-    `);
+  const adjustUserQuota = (newQuota, userId) => {
+    return db
+      .query(
+        `
+      UPDATE quotas SET time_allotment = $1 WHERE user_id = $2;
+    `,
+        [newQuota, userId]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      })
+      .catch((err) => console.error(err));
   };
 
   return {
@@ -473,5 +482,6 @@ module.exports = (db) => {
     enableBlacklistedSite,
     getBlacklistedSiteByWebsiteId,
     isBlacklistedSiteEnabled,
+    adjustUserQuota,
   };
 };

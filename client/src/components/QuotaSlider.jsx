@@ -11,7 +11,7 @@ const SliderDiv = styled.div`
   width: 400px;
 `;
 
-export default function DiscreteSlider() {
+export default function QuotaSlider() {
   const [disabled, setDisabled] = useState(true);
   const [value, setValue] = useState(120);
 
