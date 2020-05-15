@@ -26,6 +26,8 @@ const Chart = styled.div`
   width: 100%;
   padding-right: 13%;
   padding-bottom: 8%;
+  border: 1px solid black;
+  border-radius: 0.9em;
 
   @media (max-width: 1300px) {
     padding-right: 0;

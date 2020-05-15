@@ -13,6 +13,14 @@ const Wrapper = styled(Box)`
   items-align: center;
   justify-content: center;
   height: 400px;
+  &:before {
+    content: "";
+    position: absolute;
+    height: 42%;
+    width: 35%;
+    border: 1px solid green;
+    border-radius: 1em;
+  }
 
   @media (max-width: 1300px) {
     flex: 1 100%;

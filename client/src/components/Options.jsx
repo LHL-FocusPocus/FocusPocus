@@ -6,7 +6,7 @@ import styled from "styled-components";
 import QuotaSlider from "./QuotaSlider";
 
 const Container = styled(Box)`
-  padding: 5em;
+  padding: 4em;
   height: 100%;
   display: flex;
   justify-content: flex-start;

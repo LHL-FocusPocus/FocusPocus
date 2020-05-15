@@ -44,8 +44,7 @@ export default function Dashboard({ dashboardData }) {
     user,
     quota_today,
   } = dashboardData;
-  console.log('donutGraph', donutGraph)
-  console.log('lineGraph', lineGraph)
+
 
   if (!dashboardData || quota_today == undefined) {
     return null;

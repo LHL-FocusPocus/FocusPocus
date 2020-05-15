@@ -57,6 +57,13 @@ const Form = styled.form`
   padding: 0;
 `;
 
+const Title = styled.h1`
+  text-align: center;
+  margin-top: 0;
+  transform: translateY(-20%)
+
+`
+
 const useStyles = makeStyles(theme => ({
   expand: {
     transform: "rotate(0deg)",
@@ -112,6 +119,7 @@ export default function Blacklisted({
 
   return (
     <Container>
+      <Title>Blacklist</Title>
       <AddNew>
         <Background>
           <CardHeader

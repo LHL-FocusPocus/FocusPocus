@@ -24,6 +24,8 @@ const Chart = styled.div`
   width: 100%;
   height: 100%;
   margin: 2em 0em;
+  border: 1px solid black;
+  border-radius: 0.9em;
   ${"" /* margin-left: 400px; */}
   ${"" /* transform: translateX(2000px) */}
 `;
@@ -73,8 +75,9 @@ export default function Shameboard({ shameboard }) {
 
     let title = chart.titles.create();
     title.text = "Shameboard";
-    title.fontSize = 20;
+    title.fontSize = 25;
     title.marginBottom = 30;
+    // title.fontFamily = 
 
     series.heatRules.push({
       target: columnTemplate,

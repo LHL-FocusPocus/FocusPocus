@@ -13,6 +13,13 @@ const Wrapper = styled(Box)`
   justify-content: center;
   ${"" /* padding: 3em; */}
   height: 400px;
+  &:before {
+    content: "";
+    position: absolute;
+    height: 42%;
+    width: 35%;
+    border: 1px solid green;
+    border-radius: 1em;
 
   @media (max-width: 1300px) {
     flex: 1 40%;
@@ -26,6 +33,7 @@ const Chart = styled.div`
   height: 100%;
   transform: translateY(60px);
   padding-bottom: 18%;
+  
 `;
 
 export default function Donut({ donutData }) {

@@ -93,7 +93,7 @@ export default function Leaderboard({ leaderboard }) {
 
     let title = chart.titles.create();
     title.text = "Leaderboard";
-    title.fontSize = 20;
+    title.fontSize = 25;
     title.marginBottom = 30;
 
     const bullet = columnTemplate.createChild(am4charts.CircleBullet);
