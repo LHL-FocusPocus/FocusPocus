@@ -22,6 +22,10 @@ function App() {
     setDashboard,
   } = useApplicationData();
 
+  console.log("====> setDashboard", setDashboard);
+  const { quota_today } = setDashboard;
+  console.log("====> Appjs State", state);
+
   return (
     <div className="App">
       <Route
@@ -41,8 +45,9 @@ function App() {
           <Options
             addBlacklistedSite={addBlacklistedSite}
             disableBlacklistedSite={disableBlacklistedSite}
-            users={state.users}
+            user={state.user}
             blacklisted={state.blacklisted}
+            quota_today={quota_today}
           />
         )}
       />

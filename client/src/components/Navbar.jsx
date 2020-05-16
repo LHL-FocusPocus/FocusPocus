@@ -72,7 +72,7 @@ const Container = styled.div`
 `;
 
 export default function Navbar(props) {
-  // console.log("====> Navbar Props ====>", props.quota.all_browse_time.minutes)
+  console.log("====> Navbar Props ====>", props)
   const { first_name } = props.user
   const used_quota = Math.round(props.quota.used.minutes)
   const allotment = Math.round(props.quota.allotment.minutes)

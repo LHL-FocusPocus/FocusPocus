@@ -23,10 +23,19 @@ export default function Options({
   blacklisted,
   addBlacklistedSite,
   disableBlacklistedSite,
+  // setDashboard
+  // quota_today
 }) {
+  console.log("====> On OPTIONS page")
+
+  console.log("====> Options blacklisted", blacklisted)
+  console.log("====> Options User", user)
+  // const quota_today = { setDashboard }
   return (
     <div>
-      <Navbar user={user} />
+      <Navbar user={user} 
+      // quota={quota_today} 
+      />
       <Container bgcolor="background.paper">
         <Slider />
         <Blacklisted

@@ -9,6 +9,7 @@ import reducer, {
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
     blacklisted: [],
+    user: {},
   });
 
   // const [loading, setLoading] = useState(false)
