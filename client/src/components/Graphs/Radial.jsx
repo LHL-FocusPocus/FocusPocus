@@ -16,6 +16,7 @@ const Wrapper = styled(Box)`
   height: 400px;
   padding-bottom: 6em;
   padding-top: 2em;
+  margin-left: 1.5em;  
   @media (max-width: 1300px) {
     order: 2;
     flex: 1 100%;
@@ -30,6 +31,7 @@ const Chart = styled.div`
   ${'' /* align-self: center;
   height: 100%;
   width: 100%; */}
+  
 
   align-self: center;
   width: 90%;
@@ -99,7 +101,7 @@ export default function Radial({ radialData }) {
 
     let title = chart.titles.create();
     title.text = "Blacklisted Site Visits";
-    title.fontSize = 20;
+    title.fontSize = 25;
     title.marginBottom = 30;
 
     categoryAxis.sortBySeries = series;

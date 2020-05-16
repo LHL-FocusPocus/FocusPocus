@@ -11,6 +11,8 @@ const Wrapper = styled(Box)`
   items-align: center;
   justify-content: center;
   margin-bottom: 3em;  
+  margin-left: 3em;  
+
 
 
   @media (max-width: 1300px) {
@@ -31,7 +33,9 @@ const Chart = styled.div`
   height: 400px;
 ${'' /*   border: 1px solid black;
   border-radius: 0.9em; */}
-  padding: 1.7em;
+  padding-left: 3.5em;
+  padding-top: 2.5em;
+  ${'' /* padding: 1.7em; */}
 `;
 
 export default function LineGraph({ lineData }) {
@@ -79,8 +83,8 @@ export default function LineGraph({ lineData }) {
 
     let title = chart.titles.create();
     title.text = "Long-Term Blacklisted Browsing Time";
-    title.fontSize = 20;
-    title.marginBottom = 5;
+    title.fontSize = 27;
+    title.marginBottom = 15;
     // title.paddingTop =  40;
 
     // Initial zoom once chart is ready

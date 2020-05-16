@@ -13,7 +13,7 @@ import { useHistory } from "react-router-dom";
 
 
 const Container = styled(Box)`
-  padding: 3em;
+  padding: 5em;
   height: 100%;
 `;
 
@@ -31,9 +31,9 @@ const Wrapper = styled(Box)`
   items-align: center;
   justify-content: center;
   ${"" /* padding: 3em; */}
-  height: 450px;
+  height: 500px;
   ${'' /* transform: translateX(30px); */}
-  padding-top: 2%;
+  padding-right: 3%;
   margin-bottom: 3em;  
 
 

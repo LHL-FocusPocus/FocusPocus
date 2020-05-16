@@ -17,6 +17,7 @@ const Wrapper = styled(Box)`
   height: 400px;
   padding-bottom: 6em;
   padding-top: 2em;
+  margin-right: 1.5em;  
   
   &:before {
     ${'' /* content: "";
@@ -64,7 +65,7 @@ export default function Donut({ donutData }) {
 
     let title = chart.titles.create();
     title.text = "Blocked vs. Non-Blocked Sites";
-    title.fontSize = 20;
+    title.fontSize = 25;
     title.marginBottom = 30;
 
     const series = chart.series.push(new am4charts.PieSeries3D());

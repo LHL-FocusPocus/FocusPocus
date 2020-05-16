@@ -53,7 +53,7 @@ export default function DailyQuotaUsed({ quota }) {
 
     let title = chart.titles.create();
     title.text = "Daily Quota Used";
-    title.fontSize = 20;
+    title.fontSize = 25;
     title.marginBottom = 30;
 
     let label = chart.chartContainer.createChild(am4core.Label);

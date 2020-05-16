@@ -21,11 +21,10 @@ const Wrapper = styled(Box)`
 
 const Chart = styled.div`
   align-self: center;
-  width: 90%;
-  height: 90%;
+  width: 70%;
+  height: 85%;
   ${'' /* margin: 2em 0em; */}
   ${"" /* margin-left: 400px; */}
-  ${"" /* transform: translateX(2000px) */}
 `;
 
 export default function Shameboard({ shameboard }) {
@@ -36,7 +35,7 @@ export default function Shameboard({ shameboard }) {
     chart.hiddenState.properties.opacity = 0;
 
     chart.paddingRight = 40;
-    chart.scale = 0.8;
+    chart.scale = 0.95;
 
     chart.data = shameboard;
 
