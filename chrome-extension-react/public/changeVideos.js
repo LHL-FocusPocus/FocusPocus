@@ -25,7 +25,7 @@
   ) {
     replaceElementsOnPage("video", newVideo, replaceVideoTagSrc, interval);
     replaceElementsOnPage(
-      "iframe.media-element",
+      "iframe[allowfullscreen]",
       newVideo,
       replaceVideoTagSrc,
       interval
