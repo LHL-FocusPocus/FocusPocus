@@ -100,7 +100,7 @@ export default function Radial({ radialData }) {
     });
 
     let subTitle = chart.titles.create();
-    subTitle.text = "Past week";
+    subTitle.text = "During past week";
     subTitle.fontSize = 12;
     subTitle.marginBottom = 20;
 

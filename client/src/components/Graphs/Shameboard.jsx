@@ -76,7 +76,7 @@ export default function Shameboard({ shameboard }) {
     columnTemplate.strokeOpacity = 0;
 
     let subtitle = chart.titles.create();
-    subtitle.text = "Minutes squandered past week";
+    subtitle.text = "Minutes squandered since last week";
     subtitle.fontSize = 12;
     subtitle.marginBottom = 20;
 
