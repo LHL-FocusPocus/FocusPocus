@@ -16,6 +16,7 @@ export default function useApplicationData() {
     radialGraph: [],
     shameboard: [],
     user: {},
+    quota_today: {}
   });
 
   // const [loading, setLoading] = useState(false)

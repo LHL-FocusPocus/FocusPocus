@@ -21,8 +21,10 @@ const Spinner = styled(CircularProgress)`
 `;
 
 export default function QuotaSlider({ quota, changeQuota }) {
+  console.log('quota SLIDER', quota)
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(true);
+
 
   const [value, setValue] = useState(quota.allotment.minutes);
 

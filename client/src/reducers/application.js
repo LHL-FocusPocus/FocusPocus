@@ -39,22 +39,29 @@ export default function reducer(state, action) {
       };
 
     case CHANGE_QUOTA:
+      console.log("quotaInMinutes", action.allotment);
+
       const { used, all_browse_time } = state.quota_today;
       const newQuota = {
         minutes: action.allotment,
       };
 
+      console.log("newQuota", newQuota);
+      console.log("all_browse_time", all_browse_time);
+
       const quotaData = {
-        quota_today: {
-          allotment: newQuota,
-          used: used.minutes,
-          all_browse_time: all_browse_time.minutes,
+        allotment: newQuota,
+        used: {
+          minutes: used.minutes,
+        },
+        all_browse_time: {
+          minutes: all_browse_time.minutes,
         },
       };
 
       return {
         ...state,
-        quotaData,
+        quota_today: quotaData,
       };
   }
 }

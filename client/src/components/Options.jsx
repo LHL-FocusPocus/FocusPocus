@@ -29,31 +29,34 @@ export default function Options({
 }) {
   const { user, quota_today } = dashboardData;
 
-  console.log('quota_today', quota_today)
 
-  if (!dashboardData || !user || quota_today === undefined) {
-    return null;
-    // return a spinner component
-  }
-
-
+  // if (!dashboardData || !user || quota_today == undefined) {
+  //   return null;
+  //   // return a spinner component
+  // }
 
   // const quota_today = { setDashboard }
   return (
-    <div>
-      <Navbar
-        user={dashboardData.user}
-        quota={quota_today}
-        // dashboard={setDashboard}
-      />
-      <Container bgcolor="background.paper">
-        {quota_today && <Slider quota={quota_today} changeQuota={changeQuota} />}
-        <Blacklisted
-          addBlacklistedSite={addBlacklistedSite}
-          disableBlacklistedSite={disableBlacklistedSite}
-          blacklisted={blacklisted}
-        />
-      </Container>
-    </div>
+    <>
+      {quota_today && (
+        <div>
+          <Navbar
+            user={dashboardData.user}
+            quota={quota_today}
+            // dashboard={setDashboard}
+          />
+          <Container bgcolor="background.paper">
+            {quota_today && (
+              <Slider quota={quota_today} changeQuota={changeQuota} />
+            )}
+            <Blacklisted
+              addBlacklistedSite={addBlacklistedSite}
+              disableBlacklistedSite={disableBlacklistedSite}
+              blacklisted={blacklisted}
+            />
+          </Container>
+        </div>
+      )}{" "}
+    </>
   );
 }
