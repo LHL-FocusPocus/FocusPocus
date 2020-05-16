@@ -43,7 +43,7 @@ function App() {
             changeQuota={changeQuota}
             addBlacklistedSite={addBlacklistedSite}
             disableBlacklistedSite={disableBlacklistedSite}
-            users={state.users}
+            user={state.users}
             quota={state.quota_today}
             blacklisted={state.blacklisted}
           />
