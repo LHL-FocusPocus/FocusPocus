@@ -6,12 +6,14 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 const Wrapper = styled(Box)`
-  flex: 1 40vw;
+  flex: 1 45%;
   display: flex;
   items-align: center;
   justify-content: center;
-  
-
+  ${"" /* padding: 3em; */}
+  height: 400px;
+  padding-bottom: 6em;
+  padding-top: 2em;
 
   @media (max-width: 1300px) {
     flex: 1 100%;
@@ -20,12 +22,11 @@ const Wrapper = styled(Box)`
 `;
 
 const Chart = styled.div`
-  align-self: right;
   width: 100%;
   height: 400px;
 ${'' /*   border: 1px solid black;
   border-radius: 0.9em; */}
-  ${'' /* padding: 2em; */}
+  padding: 1.7em;
 `;
 
 export default function LineGraph({ lineData }) {
@@ -40,8 +41,7 @@ export default function LineGraph({ lineData }) {
 
     chart.scrollbarX = new am4core.Scrollbar();
     chart.data = lineData;
-    // chart.resize = 0.8;
-    chart.scale = 0.85;
+    chart.scale = 0.93;
 
     // Create axes
     const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
@@ -75,7 +75,8 @@ export default function LineGraph({ lineData }) {
     let title = chart.titles.create();
     title.text = "Long-Term Blacklisted Browsing Time";
     title.fontSize = 20;
-    title.marginBottom = 30;
+    title.marginBottom = 5;
+    // title.paddingTop =  40;
 
     // Initial zoom once chart is ready
     chart.events.once("datavalidated", function () {

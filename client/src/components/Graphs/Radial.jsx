@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import Box from "@material-ui/core/Box";
+import { Paper, Box } from "@material-ui/core";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
@@ -8,26 +8,45 @@ import am4themes_material from "@amcharts/amcharts4/themes/material";
 
 const Wrapper = styled(Box)`
   ${"" /* border: solid 3px black; */}
-  flex: 1 49%;
+  flex: 1 45%;
   display: flex;
   items-align: center;
-  height: 400px;
   justify-content: center;
-
+  ${"" /* padding: 3em; */}
+  height: 400px;
+  padding-bottom: 6em;
+  padding-top: 2em;
   @media (max-width: 1300px) {
     order: 2;
     flex: 1 100%;
   }
 `;
 
+const Card = styled(Paper)`
+  height: 400px;
+`
+
 const Chart = styled.div`
-  align-self: center;
+  ${'' /* align-self: center;
   height: 100%;
+  width: 100%; */}
+
+  align-self: center;
   width: 100%;
-  padding-right: 13%;
-  padding-bottom: 8%;
-  border: 1px solid black;
-  border-radius: 0.9em;
+  height: 100%;
+  transform: translateY(30px);
+  padding-bottom: 5%;
+  ${'' /* padding-right: 5%; */}
+  ${'' /* padding-bottom: 8%; */}
+  &:after {
+    ${'' /* height: 120%; */}
+    ${'' /* content: "";
+    position: absolute;
+    transform: translateX(105px) translateY(-24px);
+    height: 475px;
+    width: 775px;
+    border: 1px solid green;
+    border-radius: 1em; */}
 
   @media (max-width: 1300px) {
     padding-right: 0;
@@ -60,6 +79,10 @@ export default function Radial({ radialData }) {
 
     chart.seriesContainer.zIndex = -10;
 
+    chart.scale = 1.1;
+    chart.paddingRight = 60;
+
+
     const series = chart.series.push(new am4charts.RadarColumnSeries());
     series.dataFields.categoryX = "name";
     series.dataFields.valueY = "hits";
@@ -88,8 +111,8 @@ export default function Radial({ radialData }) {
   }, [radialData]);
 
   return (
-    <Wrapper>
+    <Card elevation={24} component={Wrapper}>
       <Chart id="radial-chart"></Chart>
-    </Wrapper>
+    </Card>
   );
 }

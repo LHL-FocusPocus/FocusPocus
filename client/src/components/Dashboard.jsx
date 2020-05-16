@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "./Navbar";
 import styled from "styled-components";
 import DailyQuotaUsed from "./Graphs/DailyQuotaUsed";
-import Box from "@material-ui/core/Box";
+import { Paper, Box } from "@material-ui/core";
 import LineGraph from "./Graphs/LineGraph";
 import Donut from "./Graphs/Donut";
 import Radial from "./Graphs/Radial";
@@ -13,7 +13,7 @@ import { useHistory } from "react-router-dom";
 
 
 const Container = styled(Box)`
-  padding: 3em;
+  padding: 2em;
   height: 100%;
 `;
 
@@ -25,7 +25,7 @@ const Wrapper = styled(Box)`
   justify-content: center;
   ${"" /* padding: 3em; */}
   height: 400px;
-  transform: translateX(30px);
+  ${'' /* transform: translateX(30px); */}
   padding-top: 3%;
 
   ${"" /* @media (max-width: 1300px) {
@@ -65,10 +65,10 @@ export default function Dashboard({ dashboardData }) {
       >
         {quota_today && <DailyQuotaUsed quota={quota_today} />}
         {lineGraph && <LineGraph lineData={lineGraph} />}
-        <Wrapper>
+        <Paper component={Wrapper} elevation={24}>
           {leaderboard && <Leaderboard leaderboard={leaderboard} />}
           {shameboard && <Shameboard shameboard={shameboard} />}
-        </Wrapper>
+        </Paper>
 
         {donutGraph && <Donut donutData={donutGraph} />}
         {radialGraph && <Radial radialData={radialGraph} />}

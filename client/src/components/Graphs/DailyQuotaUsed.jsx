@@ -13,6 +13,7 @@ const Wrapper = styled(Box)`
   items-align: center;
   justify-content: center;
   height: 400px;
+  padding-right: 4em;
   &:before {
     content: "";
     position: absolute;
