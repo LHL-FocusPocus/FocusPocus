@@ -1,3 +1,6 @@
+/**
+ * This script block is injected into the page to replace videos.
+ */
 {
   let newVideoGlobal = "https://rickrolled.fr/rickroll.mp4";
   let newImgGlobal =
@@ -19,7 +22,7 @@
   const replaceAllVideosOnPage = function (
     newVideo = newVideoGlobal,
     interval = 0 // Immediately replace videos for now
-  ) {    
+  ) {
     replaceElementsOnPage("video", newVideo, replaceVideoTagSrc, interval);
     replaceElementsOnPage(
       "iframe.media-element",

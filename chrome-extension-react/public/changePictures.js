@@ -1,3 +1,6 @@
+/**
+ * This script block is injected into the page to replace images.
+ */
 {
   let newImgGlobal =
     "https://memegen.link/bad/get_back_to_work/you_lazy_bum.jpg";
@@ -29,7 +32,7 @@
   const replaceAllImagesOnPage = function (
     newImg = newImgGlobal,
     interval = 300
-  ) {    
+  ) {
     // Replace images specified by img tags
     replaceElementsOnPage("img", newImg, replaceImgTagSrc, interval);
 
