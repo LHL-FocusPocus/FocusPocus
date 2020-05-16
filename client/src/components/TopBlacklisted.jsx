@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     width: "70%",
     height: "95%",
     left: "13%",
-    bottom: "10%"
+    bottom: "10%",
     // marginLeft: "14%",
     // paddingRight: "auto",
   },
@@ -76,10 +76,9 @@ const tileData = [
     img: "//logo.clearbit.com/instagram.com",
     title: "Image",
   },
-
 ];
 
-export default function TitlebarGridList() {
+export default function TopBlacklisted({ topBlacklisted }) {
   const classes = useStyles();
 
   return (
@@ -88,12 +87,16 @@ export default function TitlebarGridList() {
         <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
           <ListSubheader component="div">Top Blacklisted Sites</ListSubheader>
         </GridListTile>
-        {tileData.map(tile => (
+        {topBlacklisted.map(tile => (
           <GridListTile key={tile.img}>
-            <img className={classes.image} src={tile.img} alt={tile.title} />
+            <img
+              className={classes.image}
+              src={`//logo.clearbit.com/${tile.hostname}`}
+              alt={tile.title}
+            />
             <GridListTileBar
-            className={classes.tileBar}
-              title={tile.title}
+              className={classes.tileBar}
+              title={tile.name}
               actionIcon={
                 <IconButton
                   aria-label={`info about ${tile.title}`}
