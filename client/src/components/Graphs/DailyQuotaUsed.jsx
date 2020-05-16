@@ -8,11 +8,11 @@ import { Paper, Box } from "@material-ui/core";
 
 const Wrapper = styled(Box)`
   ${"" /* border: solid 3px black; */}
-  flex: 1 25%;
+  flex: 1;
   display: flex;
   items-align: center;
   justify-content: center;
-  height: 400px;
+  ${'' /* height: 600px; */}
   ${'' /* padding-right: 4em; */}
 
   @media (max-width: 1300px) {

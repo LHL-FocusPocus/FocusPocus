@@ -6,7 +6,7 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 const Wrapper = styled(Box)`
-  flex: 1 60%;
+  flex: 2;
   display: flex;
   items-align: center;
   justify-content: center;
@@ -91,7 +91,7 @@ export default function LineGraph({ lineData }) {
   }, [lineData]);
 
   return (
-    <Card component={Wrapper} elevation={24}>
+    <Card component={Wrapper} elevation={23}>
       <Chart id="line_chart"></Chart>
     </Card>
   );

@@ -13,7 +13,7 @@ import { useHistory } from "react-router-dom";
 
 
 const Container = styled(Box)`
-  padding: 2em;
+  padding: 3em;
   height: 100%;
 `;
 
@@ -34,6 +34,8 @@ const Wrapper = styled(Box)`
   height: 450px;
   ${'' /* transform: translateX(30px); */}
   padding-top: 2%;
+  margin-bottom: 3em;  
+
 
   ${"" /* @media (max-width: 1300px) {
     flex: 1 100;
