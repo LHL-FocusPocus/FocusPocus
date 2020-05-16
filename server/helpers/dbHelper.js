@@ -339,7 +339,7 @@ module.exports = (db) => {
     return db
       .query(
         `
-        SELECT first_name as name, SUM(duration) as time
+        SELECT first_name as name, users.id, SUM(duration) as time
         FROM browse_times
         JOIN users on browse_times.user_id = users.id
         JOIN blacklists ON users.id = blacklists.user_id AND blacklists.website_id = browse_times.website_id
@@ -360,7 +360,7 @@ module.exports = (db) => {
     return db
       .query(
         `
-        SELECT first_name as name, SUM(duration) as time
+        SELECT first_name as name, users.id, SUM(duration) as time
         FROM browse_times
         JOIN users on browse_times.user_id = users.id
         JOIN blacklists ON users.id = blacklists.user_id AND blacklists.website_id = browse_times.website_id

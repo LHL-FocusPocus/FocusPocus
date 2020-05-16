@@ -15,6 +15,11 @@ import AssessmentIcon from "@material-ui/icons/Assessment";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import styled from "styled-components";
 import Routes from "../routes";
+import axios from "axios";
+import { useHistory } from "react-router-dom"
+
+
+// import Logout from "./Logout"
 
 const useStyles = makeStyles({
   list: {
@@ -56,7 +61,7 @@ const Message = styled.div`
 // TODO: Push logout button to bottom of drawer -> can't get it to work without forcing it with margin (but irrelevant on full screen mode)
 const Logout = styled(List)`
   ${"" /* margin-top: auto; */}
-  margin-top: 105%;
+  margin-top: 35%;
 `;
 
 const Container = styled.div`
@@ -67,6 +72,8 @@ const Container = styled.div`
 `;
 
 export default function Navbar() {
+  // May need to pass prop to get user.first_name... user prop is coming back undefined from dashboard.jsx
+
   const classes = useStyles();
   const [state, setState] = useState({
     left: false,
@@ -82,6 +89,23 @@ export default function Navbar() {
 
     setState({ ...state, [anchor]: open });
   };
+
+  const history = useHistory();
+
+
+  const handleLogout = function() {
+    console.log("========> In handeLogout")
+    axios
+    .post("/api/user/logout")
+    .then(res => {
+      console.log(res);
+      console.log("Successful Logout");
+      history.push("/");
+    })
+    .catch(e => {
+      console.error(e);
+    });
+  }
 
   const list = anchor => (
     <Container
@@ -120,7 +144,10 @@ export default function Navbar() {
         ))}
       </List>
       <Divider />
-      <Logout>
+      {/* <Logout/> */}
+      <Logout
+        onClick={handleLogout}
+        >
         <ListItem button id="logout">
           <ListItemIcon>
             <PowerSettingsNewIcon />

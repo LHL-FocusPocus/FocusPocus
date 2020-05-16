@@ -26,12 +26,25 @@ module.exports = (db) => {
         if (bcrypt.compareSync(password, user.password)) {
           req.session.userId = user.id;
           console.log("req.session.userId", req.session.userId);
-          res.status(200).send("Authenticated!");
+          return res.status(200).send("Authenticated!");
         } else {
-          res.status(401).send("Login failed!");
+          return res.status(401).send("Login failed!");
         }
       })
       .catch((e) => res.json(e));
+  });
+
+  router.post("/logout", (req, res) => {
+    const userId = req.session.userId;
+    if (userId) {
+      req.session = null;
+      return res.status(200).send("Logout Successful");
+      // This return is giving a console error when trying to logout
+    } else {
+      return res
+        .status(409)
+        .send("Cannot logout a user that is not signed in.");
+    }
   });
 
   router.post("/register", (req, res) => {
@@ -53,18 +66,6 @@ module.exports = (db) => {
         res.status(200).send("User created!");
       })
       .catch((e) => console.error(e));
-  });
-
-  router.post("/logout", (req, res) => {
-    const userId = req.session.userId;
-    if (userId) {
-      req.session.userId = null;
-      return res.status(401).send("Logout Successful");
-    } else {
-      return res
-        .status(409)
-        .send("Cannot logout a user that is not signed in.");
-    }
   });
 
   router.put("/adjust_quota", (req, res) => {
@@ -197,21 +198,21 @@ module.exports = (db) => {
       .getWebsiteIDByHostname(URL)
       .then((site) => {
         if (!site) {
-          console.log("=====> Website does not exist yet DB, adding to db");
+          // console.log("=====> Website does not exist yet DB, adding to db");
           const name = extractNameFromURL(URL);
           const category = null;
           dbHelper.addWebsite(URL, name, category).then((site) => {
-            console.log("=====> Adding a new site to blacklist");
+            // console.log("=====> Adding a new site to blacklist");
             console.log(site);
             return dbHelper.addWebsiteToBlacklist(userId, site.id);
           });
         } else {
-          console.log("=====> Website exists in database");
-          console.log("=====> Adding an old site to this user's blacklist");
+          // console.log("=====> Website exists in database");
+          // console.log("=====> Adding an old site to this user's blacklist");
           return dbHelper.addWebsiteToBlacklist(userId, site.id);
         }
       })
-      .then(() => res.send(`${URL} added to blacklist`))
+      .then(() => res.json(`${URL} added to blacklist`))
       .catch((err) => res.status(400).json(err));
   });
 

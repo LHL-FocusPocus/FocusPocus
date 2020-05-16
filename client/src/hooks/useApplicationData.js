@@ -39,7 +39,7 @@ export default function useApplicationData() {
           blacklisted: all[1].data,
         });
       })
-      .catch(e => console.error(e));
+      .catch((e) => console.error(e));
   }, []);
 
   const setDashboard = async () => {
@@ -79,7 +79,7 @@ export default function useApplicationData() {
   const addBlacklistedSite = host_name => {
     axios
       .post("/api/user/blacklists/add", { host_name })
-      .then(res => {
+      .then((res) => {
         const { id, hostname, name, category } = res.data;
         dispatch({
           type: CHANGE_BLACKLIST,
@@ -89,7 +89,7 @@ export default function useApplicationData() {
           category,
         });
       })
-      .catch(e => console.error(e));
+      .catch((e) => console.error(e));
   };
   return {
     state,
