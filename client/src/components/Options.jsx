@@ -4,6 +4,7 @@ import Blacklisted from "./Blacklisted";
 import Box from "@material-ui/core/Box";
 import styled from "styled-components";
 import QuotaSlider from "./QuotaSlider";
+import TopBlacklisted from "./TopBlacklisted";
 
 const Container = styled(Box)`
   padding: 5em;
@@ -34,6 +35,7 @@ export default function Options({
           disableBlacklistedSite={disableBlacklistedSite}
           blacklisted={blacklisted}
         />
+        <TopBlacklisted />
       </Container>
     </div>
   );
