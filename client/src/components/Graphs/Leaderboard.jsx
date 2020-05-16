@@ -48,7 +48,7 @@ export default function Leaderboard({ leaderboard }) {
     categoryAxis.dataFields.category = "name";
     categoryAxis.renderer.grid.template.strokeOpacity = 0;
     categoryAxis.renderer.minGridDistance = 10;
-    // categoryAxis.renderer.labels.template.dx = 40;
+    categoryAxis.renderer.labels.template.dx = 40;
     categoryAxis.renderer.minWidth = 0;
     categoryAxis.renderer.tooltip.dx = -40;
     categoryAxis.renderer.opposite = true;
