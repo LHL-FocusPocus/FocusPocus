@@ -137,25 +137,25 @@ export default function Leaderboard({ leaderboard }) {
       return circleBullet.circle;
     });
 
-    let previousBullet;
-    chart.cursor.events.on("cursorpositionchanged", function (event) {
-      const dataItem = series.tooltipDataItem;
+    // let previousBullet;
+    // chart.cursor.events.on("cursorpositionchanged", function (event) {
+    //   const dataItem = series.tooltipDataItem;
 
-      if (dataItem.column) {
-        const bullet = dataItem.column.children.getIndex(1);
+    //   if (dataItem.column) {
+    //     const bullet = dataItem.column.children.getIndex(1);
 
-        if (previousBullet && previousBullet != bullet) {
-          previousBullet.isHover = false;
-        }
+    //     if (previousBullet && previousBullet != bullet) {
+    //       previousBullet.isHover = false;
+    //     }
 
-        if (previousBullet != bullet) {
-          const hs = bullet.states.getKey("hover");
-          hs.properties.dx = dataItem.column.pixelWidth;
-          bullet.isHover = true;
-          previousBullet = bullet;
-        }
-      }
-    });
+    //     if (previousBullet != bullet) {
+    //       const hs = bullet.states.getKey("hover");
+    //       hs.properties.dx = dataItem.column.pixelWidth;
+    //       bullet.isHover = true;
+    //       previousBullet = bullet;
+    //     }
+    //   }
+    // });
   }, [leaderboard]);
 
   return <Chart id="leaderboard"></Chart>;
