@@ -39,13 +39,13 @@ function App() {
       <Route
         exact
         path="/dashboard"
-        render={() => <Dashboard dashboardData={state} />}
+        render={() => state.quota_today.allotment && <Dashboard dashboardData={state} />}
       />
       <Route
         exact
         path="/options"
         render={() => (
-          <Options
+          state.quota_today.allotment && <Options
             changeQuota={changeQuota}
             addBlacklistedSite={addBlacklistedSite}
             disableBlacklistedSite={disableBlacklistedSite}
