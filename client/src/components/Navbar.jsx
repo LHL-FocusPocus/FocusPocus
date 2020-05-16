@@ -72,10 +72,9 @@ const Container = styled.div`
 `;
 
 export default function Navbar(props) {
-  // May need to pass prop to get user.first_name... user prop is coming back undefined from dashboard.jsx
-  console.log("====> Navbar Props ====>", props.quota.all_browse_time.minutes)
+  // console.log("====> Navbar Props ====>", props.quota.all_browse_time.minutes)
   const { first_name } = props.user
-  const used_quota = props.quota.used.minutes
+  const used_quota = Math.round(props.quota.used.minutes)
   const allotment = Math.round(props.quota.allotment.minutes)
   const total_browsing = Math.round(props.quota.all_browse_time.minutes)
   const classes = useStyles();
