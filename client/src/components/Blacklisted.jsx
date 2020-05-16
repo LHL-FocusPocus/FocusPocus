@@ -18,6 +18,7 @@ import useFormFields from "../hooks/useFormFields";
 import removeProtocol from "../helpers/removeProtocol";
 import axios from "axios";
 import FormControl from "@material-ui/core/FormControl";
+import { ItemTypes } from "../utils/constants";
 
 import {
   Input,
@@ -31,12 +32,13 @@ import LanguageIcon from "@material-ui/icons/Language";
 import styled from "styled-components";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
+import { useDrop } from "react-dnd";
 
 const Container = styled(Box)`
   min-height: 86vh;
   padding: 0 10%;
   width: 25%;
-  ${'' /* transform: translateX(22%) */}
+  ${"" /* transform: translateX(22%) */}
 `;
 
 const AddNew = styled(Card)`
@@ -60,8 +62,8 @@ const Form = styled.form`
 const Title = styled.h1`
   text-align: center;
   margin-top: 0;
-  transform: translateY(-20%)
-`
+  transform: translateY(-20%);
+`;
 
 const useStyles = makeStyles(theme => ({
   expand: {
@@ -100,24 +102,31 @@ export default function Blacklisted({
     addBlacklistedSite(withoutProtocol);
   };
 
+  const [{ isOver }, drop] = useDrop({
+    accept: ItemTypes.CARD,
+    collect: monitor => ({
+      isOver: !!monitor.isOver(),
+    }),
+  });
+
   // Prevents app from crashing when user has no blacklisted sites
-  let blacklistList;
-  if (blacklisted) {
-    blacklistList = blacklisted.map(website => {
-      return (
-        <BlacklistedCards
-          deleteSite={disableBlacklistedSite}
-          key={website.website_id}
-          hostname={website.hostname}
-          name={website.name}
-          id={website.website_id}
-        />
-      );
-    });
-  }
+  const blacklistList = blacklisted.map(website => {
+    return (
+      <BlacklistedCards
+        deleteSite={disableBlacklistedSite}
+        key={website.website_id}
+        hostname={website.hostname}
+        name={website.name}
+        id={website.website_id}
+      />
+    );
+  });
 
   return (
-    <Container>
+    <Container
+      style={{ backgroundColor: isOver ? "green" : "blue" }}
+      ref={drop}
+    >
       <Title>Blacklist</Title>
       <AddNew>
         <Background>

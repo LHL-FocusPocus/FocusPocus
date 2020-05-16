@@ -32,12 +32,12 @@ const useStyles = makeStyles(theme => ({
   // }
 }));
 
-export default function BlacklistDraggable({ hostname, name }) {
+export default function BlacklistDraggable({ hostname, name, id }) {
   const classes = useStyles();
 
   const [{ isDragging }, drag] = useDrag({
     // Here is where you identify WHICH piece if being dragged
-    item: { type: ItemTypes.CARD },
+    item: { type: ItemTypes.CARD, id },
     // transforms state from DnD system into usable props for component
     collect: monitor => ({
       isDragging: !!monitor.isDragging(),
@@ -46,7 +46,7 @@ export default function BlacklistDraggable({ hostname, name }) {
 
   /* ref={drag} */
   return (
-    <GridListTile  ref={drag} key={name}>
+    <GridListTile ref={drag} key={name}>
       <img
         style={{
           opacity: "isDragging ? 0.5 : 1",
@@ -56,8 +56,7 @@ export default function BlacklistDraggable({ hostname, name }) {
         alt={name}
       />
       <GridListTileBar
-        style={{backgroundColor: isDragging ? "blue" : "green"
-}}
+        style={{ backgroundColor: isDragging ? "blue" : "green" }}
         className={classes.tileBar}
         title={name}
         actionIcon={

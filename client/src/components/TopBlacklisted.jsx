@@ -68,7 +68,7 @@ export default function TopBlacklisted({ topBlacklisted }) {
             key={tile.name}
             hostname={tile.hostname}
             name={tile.name}
-            id={tile.name}
+            id={tile.hostname}
            /> 
 
         ))}
