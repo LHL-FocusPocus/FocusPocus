@@ -1,3 +1,3 @@
 export const ItemTypes = {
-  BLACKLISTED: "blacklisted",
+  CARD: "card",
 };

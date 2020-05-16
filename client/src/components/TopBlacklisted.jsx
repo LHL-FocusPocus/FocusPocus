@@ -6,8 +6,9 @@ import GridListTileBar from "@material-ui/core/GridListTileBar";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import IconButton from "@material-ui/core/IconButton";
 import InfoIcon from "@material-ui/icons/Info";
-import { useDrag } from 'react-dnd'
-import { ItemTypes } from "../modules/constants"
+import { useDrag } from "react-dnd";
+import { ItemTypes } from "../utils/constants";
+import BlacklistDraggable from "./BlacklistDraggable";
 // import tileData from "./tileData";
 
 const useStyles = makeStyles(theme => ({
@@ -27,27 +28,34 @@ const useStyles = makeStyles(theme => ({
   },
   image: {
     borderRadius: "100%",
-    width: "70%",
-    height: "95%",
-    left: "13%",
-    bottom: "10%",
+    // width: "70%",
+    // height: "95%",
+    // left: "13%",
+    // bottom: "10%",
     // marginLeft: "14%",
     // paddingRight: "auto",
   },
   tileBar: {
     backgroundColor: "black",
   },
+  // website: {
+  //   opacity: "isDragging ? 0.5 : 1",
+  // }
 }));
 
 export default function TopBlacklisted({ topBlacklisted }) {
   const classes = useStyles();
 
-  const [{ isDragging }, drag] = useDrag({
-    item: { type: ItemTypes.BLACKLISTED },
-    collect: monitor => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  })
+  // 1 -> props object ; contains properties collected from DnD system
+  // 2 -> ref function; attach DOM elements to react-dnd
+  // const [{ isDragging }, drag] = useDrag({
+  //   // Here is where you identify WHICH piece if being dragged
+  //   item: { type: ItemTypes.BLACKLISTED },
+  //   // transforms state from DnD system into usable props for component
+  //   collect: monitor => ({
+  //     isDragging: !!monitor.isDragging(),
+  //   }),
+  // });
 
   return (
     <div className={classes.root}>
@@ -56,25 +64,13 @@ export default function TopBlacklisted({ topBlacklisted }) {
           <ListSubheader component="div">Top Blacklisted Sites</ListSubheader>
         </GridListTile>
         {topBlacklisted.map(tile => (
-          <GridListTile key={tile.name}>
-            <img
-              className={classes.image}
-              src={`//logo.clearbit.com/${tile.hostname}`}
-              alt={tile.name}
-            />
-            <GridListTileBar
-              className={classes.tileBar}
-              title={tile.name}
-              actionIcon={
-                <IconButton
-                  aria-label={`${tile.name}`}
-                  className={classes.icon}
-                >
-                  <InfoIcon />
-                </IconButton>
-              }
-            />
-          </GridListTile>
+          <BlacklistDraggable
+            key={tile.name}
+            hostname={tile.hostname}
+            name={tile.name}
+            id={tile.name}
+           /> 
+
         ))}
       </GridList>
     </div>
