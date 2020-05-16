@@ -1,4 +1,11 @@
 {
+  const MEDIA_TAGS = [
+    "img",
+    "[style*='background-image']",
+    "video",
+    "iframe.media-element",
+  ];
+  
   /**
    * Replacement of jQuery's document.ready (from youmightnotneedjquery.com).
    * @param {Function} fn The function to call when document is ready
@@ -49,10 +56,14 @@
     // Replace images specified by tag
     const elements = Array.from(document.querySelectorAll(elementTag));
 
-    // Filter out small-sized elements and already processed elements
-    const elementsToBeReplaced = elements.filter(element =>
-      shouldBeReplaced(element, newUrl)
-    );
+    const elementsToBeReplaced = elements.filter(element => {
+      if (MEDIA_TAGS.includes(elementTag)) {
+        // Filter out small-sized elements and already processed elements
+        return filterMedia(element, newUrl);
+      } else {
+        return true;
+      }
+    });
     tagElementsForReplacement(elementsToBeReplaced);
     shuffle(elementsToBeReplaced);
 
@@ -73,7 +84,7 @@
    * @param {Number} minHeight
    * @return Returns true if image fits criteria (needs to be changed)
    */
-  function shouldBeReplaced(element, newUrl, minHeight = 50) {
+  function filterMedia(element, newUrl, minHeight = 50) {
     return (
       !element.getAttribute("focuspocused") &&
       getHeight(element) > minHeight &&
