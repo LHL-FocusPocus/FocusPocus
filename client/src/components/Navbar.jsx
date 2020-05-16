@@ -83,6 +83,7 @@ const Container = styled.div`
 `;
 
 export default function Navbar({ user, quota }) {
+  console.log('quota in navbar', quota)
   // console.log("====> Navbar Props ====>", props);
   const { first_name } = user;
   const humanizeDurationOptions = {

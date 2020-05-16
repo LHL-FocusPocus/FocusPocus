@@ -28,7 +28,7 @@ export default function reducer(state, action) {
       } else {
         // Find index where the blacklisted site lives
         const siteIndex = state.blacklisted.indexOf(
-          state.blacklisted.find((site) => site.blacklists_id === id)
+          state.blacklisted.find(site => site.blacklists_id === id)
         );
 
         clonedBlacklist.splice(siteIndex, 1);
@@ -39,15 +39,22 @@ export default function reducer(state, action) {
       };
 
     case CHANGE_QUOTA:
-      const new_quota = {
+      const { used, all_browse_time } = state.quota_today;
+      const newQuota = {
         minutes: action.allotment,
+      };
+
+      const quotaData = {
+        quota_today: {
+          allotment: newQuota,
+          used: used.minutes,
+          all_browse_time: all_browse_time.minutes,
+        },
       };
 
       return {
         ...state,
-        quota_today: {
-          allotment: new_quota,
-        },
+        quotaData,
       };
   }
 }

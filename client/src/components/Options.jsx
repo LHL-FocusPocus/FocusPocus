@@ -29,15 +29,14 @@ export default function Options({
 }) {
   const { user, quota_today } = dashboardData;
 
-  console.log("====> On OPTIONS page");
+  console.log('quota_today', quota_today)
 
   if (!dashboardData || !user || quota_today === undefined) {
     return null;
     // return a spinner component
   }
 
-  console.log("====> Options blacklisted", blacklisted);
-  console.log("====> Options User", user);
+
 
   // const quota_today = { setDashboard }
   return (
@@ -48,7 +47,7 @@ export default function Options({
         // dashboard={setDashboard}
       />
       <Container bgcolor="background.paper">
-        {quota && <Slider quota={quota} changeQuota={changeQuota} />}
+        {quota_today && <Slider quota={quota_today} changeQuota={changeQuota} />}
         <Blacklisted
           addBlacklistedSite={addBlacklistedSite}
           disableBlacklistedSite={disableBlacklistedSite}
