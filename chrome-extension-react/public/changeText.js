@@ -2,10 +2,12 @@
  * This script block is injected into the page to replace text.
  */
 {
-  const replaceTextContentLoop = function (textTagElement, newText) {
+  const replaceTextContent = function (textTagElement, newText) {
     const existingText = textTagElement.textContent;
     const existingWords = shuffle([...new Set(existingText.split(" "))]);
-    const thresholdLength = existingWords.length / 2;
+
+    // Stop when 15% of words are replaced
+    const thresholdLength = existingWords.length * 0.85;
     const replacementWords = [...new Set(newText.split(" "))];
     let replacementText = existingText;
     let timer = 0;
@@ -23,7 +25,7 @@
     replaceElementsOnPage(
       "p, span, h1, h2, h3, h4, h5, h6",
       "Get back to work!",
-      replaceTextContentLoop,
+      replaceTextContent,
       0
     );
   };
