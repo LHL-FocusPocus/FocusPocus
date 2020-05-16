@@ -36,7 +36,7 @@ VALUES
   (1, 1, '2020-05-15 01:23:45-04', '75 minutes'),
   (1, 1, '2020-05-16 01:23:45-04', '70 minutes'),
 
--- Adding blacklisted Browse Time for the past month where user_id = 1,
+-- Adding blacklisted Browse Time for the past week where user_id = 1,
   (1, 1, '2020-05-15 01:23:45-04', '100 minutes'),
   (1, 1, '2020-05-16 01:23:45-04', '14 minutes'),
   (1, 1, '2020-05-17 01:23:45-04', '44 minutes'),
@@ -64,18 +64,18 @@ VALUES
   (1, 0, '2020-05-16 01:23:45-04', '64 minutes'),
 
 
--- Adding bad browsing time for Friends over past week,
-  (3, 2, '2020-05-11 01:23:45-04', '64 minutes'),
-  (4, 2, '2020-05-11 01:23:45-04', '100 minutes'),
-  (5, 2, '2020-05-11 01:23:45-04', '164 minutes'),
-  (6, 2, '2020-05-11 01:23:45-04', '40 minutes'),
-  (7, 2, '2020-05-11 01:23:45-04', '200 minutes'),
-  (8, 2, '2020-05-11 01:23:45-04', '300 minutes'),
+-- Adding bad browsing time for Friends within past week,
+  (3, 2, '2020-05-15 01:23:45-04', '64 minutes'),
+  (4, 2, '2020-05-15 01:23:45-04', '100 minutes'),
+  (5, 2, '2020-05-15 01:23:45-04', '164 minutes'),
+  (6, 2, '2020-05-15 01:23:45-04', '40 minutes'),
+  (7, 2, '2020-05-15 01:23:45-04', '200 minutes'),
+  (8, 2, '2020-05-15 01:23:45-04', '300 minutes'),
 
--- Adding good browsing time for Friends over past week,
-  (3, 0, '2020-05-11 01:23:45-04', '64 minutes'),
-  (4, 0, '2020-05-11 01:23:45-04', '100 minutes'),
-  (5, 0, '2020-05-11 01:23:45-04', '164 minutes'),
-  (6, 0, '2020-05-11 01:23:45-04', '40 minutes'),
-  (7, 0, '2020-05-11 01:23:45-04', '200 minutes'),
-  (8, 0, '2020-05-11 01:23:45-04', '300 minutes');
+-- Adding good browsing time for Friends within past week,
+  (3, 0, '2020-05-15 01:23:45-04', '64 minutes'),
+  (4, 0, '2020-05-15 01:23:45-04', '100 minutes'),
+  (5, 0, '2020-05-15 01:23:45-04', '164 minutes'),
+  (6, 0, '2020-05-15 01:23:45-04', '40 minutes'),
+  (7, 0, '2020-05-15 01:23:45-04', '200 minutes'),
+  (8, 0, '2020-05-15 01:23:45-04', '300 minutes');
