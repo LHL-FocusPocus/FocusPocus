@@ -19,7 +19,7 @@ const InnerContainer = styled.div`
   width: 66vw;
 `;
 
-export default function Landing({setDashboard}) {
+export default function Landing({ setDashboard }) {
   const history = useHistory();
 
   return (
@@ -27,7 +27,11 @@ export default function Landing({setDashboard}) {
       <InnerContainer>
         <LogoText />
       </InnerContainer>
-      <Route exact path="/" render={() => <Login setDashboard={setDashboard} history={history} />} />
+      <Route
+        exact
+        path="/"
+        render={() => <Login setDashboard={setDashboard} history={history} />}
+      />
       <Route
         exact
         path="/register"

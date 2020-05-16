@@ -16,8 +16,7 @@ import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import styled from "styled-components";
 import Routes from "../routes";
 import axios from "axios";
-import { useHistory } from "react-router-dom"
-
+import { useHistory } from "react-router-dom";
 
 // import Logout from "./Logout"
 
@@ -72,17 +71,17 @@ const Container = styled.div`
 `;
 
 export default function Navbar(props) {
-  console.log("====> Navbar Props ====>", props)
-  const { first_name } = props.user
-  const used_quota = Math.round(props.quota.used.minutes)
-  const allotment = Math.round(props.quota.allotment.minutes)
-  const total_browsing = Math.round(props.quota.all_browse_time.minutes)
+  console.log("====> Navbar Props ====>", props);
+  const { first_name } = props.user;
+  const used_quota = Math.round(props.quota.used.minutes);
+  const allotment = Math.round(props.quota.allotment.minutes);
+  const total_browsing = Math.round(props.quota.all_browse_time.minutes);
   const classes = useStyles();
   const [state, setState] = useState({
     left: false,
   });
 
-  const toggleDrawer = (anchor, open) => event => {
+  const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
       (event.key === "Tab" || event.key === "Shift")
@@ -95,21 +94,21 @@ export default function Navbar(props) {
 
   const history = useHistory();
 
-  console.log(used_quota)
+  console.log(used_quota);
 
-  const handleLogout = function() {
-    console.log("========> In handleLogout")
+  const handleLogout = function () {
+    console.log("========> In handleLogout");
     axios
-    .post("/api/user/logout")
-    .then(res => {
-      console.log(res);
-      console.log("Successful Logout");
-      history.push("/");
-    })
-    .catch(e => {
-      console.error(e);
-    });
-  }
+      .post("/api/user/logout")
+      .then((res) => {
+        console.log(res);
+        console.log("Successful Logout");
+        history.push("/");
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
 
   // let text;
   // switch (remaining) {
@@ -118,23 +117,23 @@ export default function Navbar(props) {
   //       break;
   //   }
 
-    const text = (used_quota, allotment) => {
-      const remaining = used_quota/allotment
+  const text = (used_quota, allotment) => {
+    const remaining = used_quota / allotment;
     if (remaining < 0.5) {
-      return "Keep it up"
+      return "Keep it up";
     }
     if (remaining < 0.8) {
-      return "You're getting close to your browsing cap!"
+      return "You're getting close to your browsing cap!";
     }
     if (remaining >= 0.8 && remaining < 1) {
-      return "Too close to your cap, GET BACK ON TRACK"
+      return "Too close to your cap, GET BACK ON TRACK";
     }
     if (remaining >= 1) {
-      return "Welp welp welp, have fun browsing now!"
+      return "Welp welp welp, have fun browsing now!";
     }
-  }
+  };
 
-  const list = anchor => (
+  const list = (anchor) => (
     <Container
       className={classes.list}
       role="presentation"
@@ -151,7 +150,9 @@ export default function Navbar(props) {
       </Greeting>
       <Message>
         <p>{text(used_quota, allotment)}</p>
-        <p>Usage: {used_quota} / {allotment} minutes</p>
+        <p>
+          Usage: {used_quota} / {allotment} minutes
+        </p>
         {/* TODO: Make this dynamic based on quota usage? [STRETCH] */}
       </Message>
       <Divider />
@@ -173,9 +174,7 @@ export default function Navbar(props) {
       </List>
       <Divider />
       {/* <Logout/> */}
-      <Logout
-        onClick={handleLogout}
-        >
+      <Logout onClick={handleLogout}>
         <ListItem button id="logout">
           <ListItemIcon>
             <PowerSettingsNewIcon />

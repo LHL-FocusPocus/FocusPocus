@@ -26,15 +26,11 @@ export default function Options({
   dashboardData,
   // quota_today,
 }) {
+  const { user, quota_today } = dashboardData;
 
-  const {
-    user,
-    quota_today,
-  } = dashboardData;
-  
   console.log("====> On OPTIONS page");
 
-  if (!dashboardData || !user || quota_today === undefined ) {
+  if (!dashboardData || !user || quota_today === undefined) {
     return null;
     // return a spinner component
   }

@@ -11,7 +11,7 @@ import useFormFields from "../hooks/useFormFields";
 import styled from "styled-components";
 import axios from "axios";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   main: {
     marginLeft: -30,
   },
@@ -56,7 +56,7 @@ export default function Login({ setDashboard, history }) {
     password: "",
   });
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     const credentials = {
@@ -71,7 +71,7 @@ export default function Login({ setDashboard, history }) {
           history.push("/dashboard");
         });
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e);
       });
   };
@@ -89,7 +89,7 @@ export default function Login({ setDashboard, history }) {
           Log In
         </Typography>
         <form
-          onSubmit={e => handleSubmit(e)}
+          onSubmit={(e) => handleSubmit(e)}
           className={classes.form}
           noValidate
         >
