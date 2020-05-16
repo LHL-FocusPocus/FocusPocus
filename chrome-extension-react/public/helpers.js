@@ -4,6 +4,7 @@
     "[style*='background-image']",
     "video",
     "iframe.media-element",
+    "iframe[allowfullscreen]",
   ];
 
   /**
@@ -59,7 +60,7 @@
     const elementsToBeReplaced = elements.filter(element => {
       if (MEDIA_TAGS.includes(elementTag)) {
         // Filter out small-sized elements and already processed elements
-        return filterMedia(element, newUrl);
+        return filterMedia(element, newUrl, 40);
       } else {
         return filterText(element);
       }
@@ -84,7 +85,7 @@
    * @param {Number} minHeight
    * @return Returns true if image fits criteria (needs to be changed)
    */
-  function filterMedia(element, newUrl, minHeight = 50) {
+  function filterMedia(element, newUrl, minHeight) {
     return (
       !element.getAttribute("focuspocused") &&
       getHeight(element) > minHeight &&
@@ -102,7 +103,7 @@
    */
   function filterText(element) {
     return (
-      !element.getAttribute("focuspocused") && element.textContent.length > 25
+      !element.getAttribute("focuspocused") && element.textContent.length > 40
     );
   }
 
