@@ -17,6 +17,7 @@ import styled from "styled-components";
 import Routes from "../routes";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import humanizeDuration from "humanize-duration";
 
 // import Logout from "./Logout"
 
@@ -63,6 +64,11 @@ const QuotaMessage = styled.div`
   padding-bottom: 4em;
 `;
 
+const QuotaTime = styled.div` 
+  font-size: 1.1em;
+  padding: 0.5em;
+`;
+
 // TODO: Push logout button to bottom of drawer -> can't get it to work without forcing it with margin (but irrelevant on full screen mode)
 const Logout = styled(List)`
   ${"" /* margin-top: auto; */}
@@ -79,9 +85,23 @@ const Container = styled.div`
 export default function Navbar(props) {
   console.log("====> Navbar Props ====>", props);
   const { first_name } = props.user;
-  const used_quota = Math.round(props.quota.used.minutes);
-  const allotment = Math.round(props.quota.allotment.minutes);
-  const total_browsing = Math.round(props.quota.all_browse_time.minutes);
+  const humanizeDurationOptions = {
+    units: ["h", "m"],
+    delimiter: " and ",
+    round: true,
+  };
+  const used_quota = humanizeDuration(
+    props.quota.used.minutes * 60000,
+    humanizeDurationOptions
+  );
+  const allotment = humanizeDuration(
+    props.quota.allotment.minutes * 60000,
+    humanizeDurationOptions
+  );
+  const total_browsing = humanizeDuration(
+    props.quota.all_browse_time.minutes * 60000,
+    humanizeDurationOptions
+  );
   const classes = useStyles();
   const [state, setState] = useState({
     left: false,
@@ -151,12 +171,14 @@ export default function Navbar(props) {
         Welcome, {first_name}!
         {/* TODO: Make this dynamic based on user firstName */}
       </Greeting>
-      <Message>{text(used_quota, allotment)}</Message>
+      <Message>
+        {text(props.quota.used.minutes, props.quota.allotment.minutes)}
+      </Message>
       <QuotaMessage>
-        <p>Today's Usage:</p>{" "}
-        <p>
-          {used_quota} / {allotment} minutes
-        </p>
+        Today's Usage:
+        <QuotaTime>{used_quota}</QuotaTime>        
+        of
+        <QuotaTime>{allotment}</QuotaTime>
       </QuotaMessage>
       <Divider />
       <List>
