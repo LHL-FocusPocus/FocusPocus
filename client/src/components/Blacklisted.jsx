@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import BlacklistedCards from "./BlacklistedCards";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
@@ -19,6 +19,7 @@ import removeProtocol from "../helpers/removeProtocol";
 import axios from "axios";
 import FormControl from "@material-ui/core/FormControl";
 import { ItemTypes } from "../utils/constants";
+import { CardContext } from "./Options"
 
 import {
   Input,
@@ -85,6 +86,7 @@ export default function Blacklisted({
 }) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
+  const { addTopSiteToUserBlacklist} = useContext(CardContext)
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -104,6 +106,7 @@ export default function Blacklisted({
 
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.CARD,
+    drop: (item, monitor) => addTopSiteToUserBlacklist(item.id),
     collect: monitor => ({
       isOver: !!monitor.isOver(),
     }),

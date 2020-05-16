@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from "react";
 import Navbar from "./Navbar";
 import Blacklisted from "./Blacklisted";
 import Box from "@material-ui/core/Box";
@@ -7,6 +7,8 @@ import QuotaSlider from "./QuotaSlider";
 import TopBlacklisted from "./TopBlacklisted";
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
+
+export const CardContext = createContext({});
 
 const Container = styled(Box)`
   padding: 4em;
@@ -37,25 +39,32 @@ export default function Options({
   //   // return a spinner component
   // }
 
+  const addTopSiteToUserBlacklist = (id) => {
+    console.log("WORKS!!!!");
+    console.log('id', id)
+  };
+
   // const quota_today = { setDashboard }
   return (
     <DndProvider backend={Backend}>
-      <Navbar
-        user={dashboardData.user}
-        quota={quota_today}
-        // dashboard={setDashboard}
-      />
-      <Container bgcolor="background.paper">
-        {quota_today && (
-          <Slider quota={quota_today} changeQuota={changeQuota} />
-        )}
-        <Blacklisted
-          addBlacklistedSite={addBlacklistedSite}
-          disableBlacklistedSite={disableBlacklistedSite}
-          blacklisted={blacklisted}
+      <CardContext.Provider value={{ addTopSiteToUserBlacklist }}>
+        <Navbar
+          user={dashboardData.user}
+          quota={quota_today}
+          // dashboard={setDashboard}
         />
-        <TopBlacklisted topBlacklisted={topBlacklisted} />
-      </Container>
+        <Container bgcolor="background.paper">
+          {quota_today && (
+            <Slider quota={quota_today} changeQuota={changeQuota} />
+          )}
+          <Blacklisted
+            addBlacklistedSite={addBlacklistedSite}
+            disableBlacklistedSite={disableBlacklistedSite}
+            blacklisted={blacklisted}
+          />
+          <TopBlacklisted topBlacklisted={topBlacklisted} />
+        </Container>
+      </CardContext.Provider>
     </DndProvider>
   );
 }
