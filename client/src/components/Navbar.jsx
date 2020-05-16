@@ -64,7 +64,7 @@ const QuotaMessage = styled.div`
   padding-bottom: 4em;
 `;
 
-const QuotaTime = styled.div` 
+const QuotaTime = styled.div`
   font-size: 1.1em;
   padding: 0.5em;
 `;
@@ -82,24 +82,24 @@ const Container = styled.div`
   height: 100%;
 `;
 
-export default function Navbar(props) {
-  console.log("====> Navbar Props ====>", props);
-  const { first_name } = props.user;
+export default function Navbar({ user, quota }) {
+  // console.log("====> Navbar Props ====>", props);
+  const { first_name } = user;
   const humanizeDurationOptions = {
     units: ["h", "m"],
     delimiter: " and ",
     round: true,
   };
   const used_quota = humanizeDuration(
-    props.quota.used.minutes * 60000,
+    quota.used.minutes * 60000,
     humanizeDurationOptions
   );
   const allotment = humanizeDuration(
-    props.quota.allotment.minutes * 60000,
+    quota.allotment.minutes * 60000,
     humanizeDurationOptions
   );
   const total_browsing = humanizeDuration(
-    props.quota.all_browse_time.minutes * 60000,
+    quota.all_browse_time.minutes * 60000,
     humanizeDurationOptions
   );
   const classes = useStyles();
@@ -107,7 +107,7 @@ export default function Navbar(props) {
     left: false,
   });
 
-  const toggleDrawer = (anchor, open) => (event) => {
+  const toggleDrawer = (anchor, open) => event => {
     if (
       event.type === "keydown" &&
       (event.key === "Tab" || event.key === "Shift")
@@ -120,28 +120,19 @@ export default function Navbar(props) {
 
   const history = useHistory();
 
-  console.log(used_quota);
 
   const handleLogout = function () {
-    console.log("========> In handleLogout");
     axios
       .post("/api/user/logout")
-      .then((res) => {
+      .then(res => {
         console.log(res);
         console.log("Successful Logout");
         history.push("/");
       })
-      .catch((e) => {
+      .catch(e => {
         console.error(e);
       });
   };
-
-  // let text;
-  // switch (remaining) {
-  //     case remaining < 0.1:
-  //       text = "test"
-  //       break;
-  //   }
 
   const text = (used_quota, allotment) => {
     const remaining = used_quota / allotment;
@@ -156,7 +147,7 @@ export default function Navbar(props) {
     }
   };
 
-  const list = (anchor) => (
+  const list = anchor => (
     <Container
       className={classes.list}
       role="presentation"
@@ -172,11 +163,11 @@ export default function Navbar(props) {
         {/* TODO: Make this dynamic based on user firstName */}
       </Greeting>
       <Message>
-        {text(props.quota.used.minutes, props.quota.allotment.minutes)}
+        {text(quota.used.minutes, quota.allotment.minutes)}
       </Message>
       <QuotaMessage>
         Today's Usage:
-        <QuotaTime>{used_quota}</QuotaTime>        
+        <QuotaTime>{used_quota}</QuotaTime>
         of
         <QuotaTime>{allotment}</QuotaTime>
       </QuotaMessage>

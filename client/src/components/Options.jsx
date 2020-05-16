@@ -42,7 +42,7 @@ export default function Options({
   return (
     <div>
       <Navbar
-        user={user}
+        user={dashboardData.user}
         quota={quota_today}
         // dashboard={setDashboard}
       />
