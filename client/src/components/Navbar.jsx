@@ -53,6 +53,12 @@ const Logo = styled.div`
 const Message = styled.div`
   text-align: center;
   padding: 1.5em;
+  font-size: 1.1em;  
+`;
+
+const QuotaMessage = styled.div`
+  text-align: center;
+  padding: 1.5em;
   font-size: 0.9em;
   padding-bottom: 4em;
 `;
@@ -120,16 +126,16 @@ export default function Navbar(props) {
   const text = (used_quota, allotment) => {
     const remaining = used_quota / allotment;
     if (remaining < 0.5) {
-      return "Keep it up";
+      return "You seem to be on track today, keep up the good work!";
     }
     if (remaining < 0.8) {
-      return "You're getting close to your browsing cap!";
+      return "Pace yourself, you're getting close to your browsing cap!";
     }
     if (remaining >= 0.8 && remaining < 1) {
-      return "Too close to your cap, GET BACK ON TRACK";
+      return "You're almost at the cap for today!";
     }
     if (remaining >= 1) {
-      return "Welp welp welp, have fun browsing now!";
+      return "Welp, have fun browsing now!";
     }
   };
 
@@ -147,14 +153,11 @@ export default function Navbar(props) {
       <Greeting>
         Welcome, {first_name}!
         {/* TODO: Make this dynamic based on user firstName */}
-      </Greeting>
-      <Message>
-        <p>{text(used_quota, allotment)}</p>
-        <p>
-          Usage: {used_quota} / {allotment} minutes
-        </p>
-        {/* TODO: Make this dynamic based on quota usage? [STRETCH] */}
-      </Message>
+      </Greeting>      
+      <Message>{text(used_quota, allotment)}</Message>
+      <QuotaMessage>
+        Usage: {used_quota} / {allotment} minutes
+      </QuotaMessage>
       <Divider />
       <List>
         {/* <Routes /> */}
