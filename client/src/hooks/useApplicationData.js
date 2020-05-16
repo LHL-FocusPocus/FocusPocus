@@ -9,12 +9,7 @@ import reducer, {
 
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
-    blacklisted: [],
-    quota_today: {
-      allotment: {
-        minutes: 120,
-      },
-    },
+    blacklisted: [],    
     donutGraph: [],
     leaderboard: [],
     lineGraph: [],
