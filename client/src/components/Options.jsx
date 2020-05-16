@@ -52,6 +52,7 @@ export default function Options({
           disableBlacklistedSite={disableBlacklistedSite}
           blacklisted={blacklisted}
         />
+        <TopBlacklisted />
       </Container>
     </div>
   );
