@@ -16,8 +16,8 @@ import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import styled from "styled-components";
 import Routes from "../routes";
 import axios from "axios";
-import { useHistory } from "react-router-dom"
-
+import { useHistory } from "react-router-dom";
+import humanizeDuration from "humanize-duration";
 
 // import Logout from "./Logout"
 
@@ -54,8 +54,19 @@ const Logo = styled.div`
 const Message = styled.div`
   text-align: center;
   padding: 1.5em;
+  font-size: 1.1em;
+`;
+
+const QuotaMessage = styled.div`
+  text-align: center;
+  padding: 1.5em;
   font-size: 0.9em;
   padding-bottom: 4em;
+`;
+
+const QuotaTime = styled.div`
+  font-size: 1.1em;
+  padding: 0.5em;
 `;
 
 // TODO: Push logout button to bottom of drawer -> can't get it to work without forcing it with margin (but irrelevant on full screen mode)
@@ -71,9 +82,26 @@ const Container = styled.div`
   height: 100%;
 `;
 
-export default function Navbar() {
-  // May need to pass prop to get user.first_name... user prop is coming back undefined from dashboard.jsx
-
+export default function Navbar({ user, quota }) {
+  // console.log("====> Navbar Props ====>", props);
+  const { first_name } = user;
+  const humanizeDurationOptions = {
+    units: ["h", "m"],
+    delimiter: " and ",
+    round: true,
+  };
+  const used_quota = humanizeDuration(
+    quota.used.minutes * 60000,
+    humanizeDurationOptions
+  );
+  const allotment = humanizeDuration(
+    quota.allotment.minutes * 60000,
+    humanizeDurationOptions
+  );
+  const total_browsing = humanizeDuration(
+    quota.all_browse_time.minutes * 60000,
+    humanizeDurationOptions
+  );
   const classes = useStyles();
   const [state, setState] = useState({
     left: false,
@@ -93,19 +121,31 @@ export default function Navbar() {
   const history = useHistory();
 
 
-  const handleLogout = function() {
-    console.log("========> In handeLogout")
+  const handleLogout = function () {
     axios
-    .post("/api/user/logout")
-    .then(res => {
-      console.log(res);
-      console.log("Successful Logout");
-      history.push("/");
-    })
-    .catch(e => {
-      console.error(e);
-    });
-  }
+      .post("/api/user/logout")
+      .then(res => {
+        console.log(res);
+        console.log("Successful Logout");
+        history.push("/");
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  };
+
+  const text = (used_quota, allotment) => {
+    const remaining = used_quota / allotment;
+    if (remaining < 0.5) {
+      return "You seem to be on track today, keep up the good work!";
+    } else if (remaining < 0.8) {
+      return "Pace yourself, you're getting close to your browsing cap!";
+    } else if (remaining < 1) {
+      return "You're almost at the cap for today!";
+    } else {
+      return "Welp, have fun browsing now!";
+    }
+  };
 
   const list = anchor => (
     <Container
@@ -119,13 +159,18 @@ export default function Navbar() {
         <Icon src="/imgs/multitasking.jpg"></Icon>
       </List>
       <Greeting>
-        Hi, Matt.
+        Welcome, {first_name}!
         {/* TODO: Make this dynamic based on user firstName */}
       </Greeting>
       <Message>
-        Your seem to be on task lately! Keep up the good work.
-        {/* TODO: Make this dynamic based on quota usage? [STRETCH] */}
+        {text(quota.used.minutes, quota.allotment.minutes)}
       </Message>
+      <QuotaMessage>
+        Today's Usage:
+        <QuotaTime>{used_quota}</QuotaTime>
+        of
+        <QuotaTime>{allotment}</QuotaTime>
+      </QuotaMessage>
       <Divider />
       <List>
         {/* <Routes /> */}
@@ -145,9 +190,7 @@ export default function Navbar() {
       </List>
       <Divider />
       {/* <Logout/> */}
-      <Logout
-        onClick={handleLogout}
-        >
+      <Logout onClick={handleLogout}>
         <ListItem button id="logout">
           <ListItemIcon>
             <PowerSettingsNewIcon />

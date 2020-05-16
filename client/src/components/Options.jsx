@@ -14,20 +14,39 @@ const Container = styled(Box)`
 `;
 
 const Slider = styled(QuotaSlider)`
-  ${'' /* width: 30%; */}
-  ${'' /* padding-left: 20%; */}
+  ${"" /* width: 30%; */}
+  ${"" /* padding-left: 20%; */}
   transform: translateX(200px);
 `;
 
 export default function Options({
-  user,
+  // user,
   blacklisted,
   addBlacklistedSite,
   disableBlacklistedSite,
+  dashboardData,
+  // quota_today,
 }) {
+  const { user, quota_today } = dashboardData;
+
+  console.log("====> On OPTIONS page");
+
+  if (!dashboardData || !user || quota_today === undefined) {
+    return null;
+    // return a spinner component
+  }
+
+  console.log("====> Options blacklisted", blacklisted);
+  console.log("====> Options User", user);
+
+  // const quota_today = { setDashboard }
   return (
     <div>
-      <Navbar user={user} />
+      <Navbar
+        user={dashboardData.user}
+        quota={quota_today}
+        // dashboard={setDashboard}
+      />
       <Container bgcolor="background.paper">
         <Slider />
         <Blacklisted
