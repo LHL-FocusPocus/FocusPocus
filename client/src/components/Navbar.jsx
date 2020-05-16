@@ -76,8 +76,8 @@ export default function Navbar(props) {
   console.log("====> Navbar Props ====>", props.quota.all_browse_time.minutes)
   const { first_name } = props.user
   const used_quota = props.quota.used.minutes
-  const allotment = props.quota.allotment.minutes
-  const total_browsing = props.quota.all_browse_time.minutes
+  const allotment = Math.round(props.quota.allotment.minutes)
+  const total_browsing = Math.round(props.quota.all_browse_time.minutes)
   const classes = useStyles();
   const [state, setState] = useState({
     left: false,
@@ -96,6 +96,7 @@ export default function Navbar(props) {
 
   const history = useHistory();
 
+  console.log(used_quota)
 
   const handleLogout = function() {
     console.log("========> In handleLogout")
@@ -109,6 +110,33 @@ export default function Navbar(props) {
     .catch(e => {
       console.error(e);
     });
+  }
+
+  // let text;
+  // switch (remaining) {
+    //   case remaining < 0.1:
+    //     text = "test"
+    //     break;
+    // }
+    
+    const text = (used_quota, allotment) => {
+      console.log("used_quota=====>", used_quota)
+      console.log("allotment=====>", allotment)
+
+      const remaining = used_quota/allotment
+      console.log("in text ====>", used_quota, remaining)
+    if (remaining < 0.5) {
+      return "Keep it up"
+    }
+    if (remaining < 0.8) {
+      return "You're getting close to your browsing cap!"
+    }
+    if (remaining >= 0.8 && remaining < 1) {
+      return "Too close to your cap, GET BACK ON TRACK"
+    }
+    if (remaining >= 1) {
+      return "Welp welp welp, have fun browsing now!"
+    }
   }
 
   const list = anchor => (
@@ -127,10 +155,8 @@ export default function Navbar(props) {
         {/* TODO: Make this dynamic based on user firstName */}
       </Greeting>
       <Message>
-        <p>You seem to be on task lately! Keep up the good work.</p>
-        <p>You have used {used_quota} minutes.</p>
-        <p>You have {allotment - used_quota} remaining minutes left of blacklisted browsing.</p>
-        <p>You have spent {Math.round(total_browsing)} total minutes browsing today.</p>
+        <p>You seem to be on task lately! Keep up the good work.{text()}</p>
+        <p>Usage: {used_quota} / {allotment} minutes</p>
         {/* TODO: Make this dynamic based on quota usage? [STRETCH] */}
       </Message>
       <Divider />
