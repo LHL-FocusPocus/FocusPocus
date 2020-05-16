@@ -25,21 +25,15 @@ export default function useApplicationData() {
 
   // const [loading, setLoading] = useState(false)
   useEffect(() => {
-    Promise.all([
-      axios.get("/api/data/dashboard"),
-      axios.get("/api/user/blacklists"),
-    ])
-      .then(all => {
+    axios
+      .get("/api/data/dashboard")
+      .then(dashboard => {
         dispatch({
           type: SET_DASHBOARD_DATA,
-          payload: all[0].data,
-        });
-        dispatch({
-          type: SET_BLACKLIST_DATA,
-          blacklisted: all[1].data,
+          payload: dashboard.data,
         });
       })
-      .catch((e) => console.error(e));
+      .catch(e => console.error(e));
   }, []);
 
   const setDashboard = async () => {
@@ -79,7 +73,7 @@ export default function useApplicationData() {
   const addBlacklistedSite = host_name => {
     axios
       .post("/api/user/blacklists/add", { host_name })
-      .then((res) => {
+      .then(res => {
         const { id, hostname, name, category } = res.data;
         dispatch({
           type: CHANGE_BLACKLIST,
@@ -89,7 +83,7 @@ export default function useApplicationData() {
           category,
         });
       })
-      .catch((e) => console.error(e));
+      .catch(e => console.error(e));
   };
   return {
     state,
