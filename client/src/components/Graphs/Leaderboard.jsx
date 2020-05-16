@@ -21,10 +21,12 @@ const Wrapper = styled(Box)`
 
 const Chart = styled.div`
   align-self: center;
-  width: 100%;
-  height: 100%;
-  margin: 2em 0em;
-  padding-left: 3%;
+  ${'' /* width: 100%;
+  height: 100%; */}
+  ${'' /* margin: 2em 0em; */}
+  width: 90%;
+  height: 90%;
+  padding-left: 6%;
 `;
 
 export default function Leaderboard({ leaderboard }) {

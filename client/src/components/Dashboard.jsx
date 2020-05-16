@@ -17,6 +17,13 @@ const Container = styled(Box)`
   height: 100%;
 `;
 
+
+const Card = styled(Paper)`
+  ${'' /* width: 100%; */}
+  height: 2px;
+  
+`
+
 const Wrapper = styled(Box)`
   ${"" /* border: solid 3px black; */}
   flex: 1 100%;
@@ -65,10 +72,10 @@ export default function Dashboard({ dashboardData }) {
       >
         {quota_today && <DailyQuotaUsed quota={quota_today} />}
         {lineGraph && <LineGraph lineData={lineGraph} />}
-        <Paper component={Wrapper} elevation={24}>
+        <Card component={Wrapper} elevation={24}>
           {leaderboard && <Leaderboard leaderboard={leaderboard} />}
           {shameboard && <Shameboard shameboard={shameboard} />}
-        </Paper>
+        </Card>
 
         {donutGraph && <Donut donutData={donutGraph} />}
         {radialGraph && <Radial radialData={radialGraph} />}
