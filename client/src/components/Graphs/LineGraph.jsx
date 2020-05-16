@@ -33,8 +33,8 @@ const Chart = styled.div`
   height: 90%;
 ${'' /*   border: 1px solid black;
   border-radius: 0.9em; */}
-  padding-left: 3.5em;
-  padding-top: 2.5em;  
+  margin-left: 3.5em;
+  margin-top: 2.5em;  
   transform: translateY(5px);
   ${'' /* padding: 1.7em; */}
 `;
