@@ -3,7 +3,7 @@
  */
 {
   let newImgGlobal =
-    "https://memegen.link/bad/get_back_to_work/you_lazy_bum.jpg";
+    "https://memegen.link/bad/you're_browsing_bad_sites/and_you_should_feel_bad.jpg";
 
   /**
    * Replaces src and similar attributes in img elements.
