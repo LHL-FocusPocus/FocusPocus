@@ -9,7 +9,8 @@ import reducer, {
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
     blacklisted: [],
-    user: {},
+    // user: {},
+    // quota_today: {}, this breaks dashboard
   });
 
   // const [loading, setLoading] = useState(false)

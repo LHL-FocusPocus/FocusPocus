@@ -24,7 +24,7 @@ export default function Options({
   addBlacklistedSite,
   disableBlacklistedSite,
   // setDashboard
-  // quota_today
+  quota_today
 }) {
   console.log("====> On OPTIONS page")
 
@@ -34,7 +34,7 @@ export default function Options({
   return (
     <div>
       <Navbar user={user} 
-      // quota={quota_today} 
+      quota={quota_today} 
       />
       <Container bgcolor="background.paper">
         <Slider />
