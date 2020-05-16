@@ -32,6 +32,9 @@ const useStyles = makeStyles(theme => ({
     // marginLeft: "14%",
     // paddingRight: "auto",
   },
+  tileBar: {
+    backgroundColor: "white",
+  },
 }));
 
 // /**
@@ -89,8 +92,8 @@ export default function TitlebarGridList() {
           <GridListTile key={tile.img}>
             <img className={classes.image} src={tile.img} alt={tile.title} />
             <GridListTileBar
+            className={classes.tileBar}
               title={tile.title}
-              subtitle={<span>by: {tile.author}</span>}
               actionIcon={
                 <IconButton
                   aria-label={`info about ${tile.title}`}
