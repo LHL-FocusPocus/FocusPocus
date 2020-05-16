@@ -5,6 +5,8 @@ import Box from "@material-ui/core/Box";
 import styled from "styled-components";
 import QuotaSlider from "./QuotaSlider";
 import TopBlacklisted from "./TopBlacklisted";
+import { DndProvider } from "react-dnd";
+import Backend from "react-dnd-html5-backend";
 
 const Container = styled(Box)`
   padding: 4em;
@@ -37,7 +39,7 @@ export default function Options({
 
   // const quota_today = { setDashboard }
   return (
-    <div>
+    <DndProvider backend={Backend}>
       <Navbar
         user={dashboardData.user}
         quota={quota_today}
@@ -54,6 +56,6 @@ export default function Options({
         />
         <TopBlacklisted topBlacklisted={topBlacklisted} />
       </Container>
-    </div>
+    </DndProvider>
   );
 }

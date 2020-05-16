@@ -6,6 +6,8 @@ import GridListTileBar from "@material-ui/core/GridListTileBar";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import IconButton from "@material-ui/core/IconButton";
 import InfoIcon from "@material-ui/icons/Info";
+import { useDrag } from 'react-dnd'
+import { ItemTypes } from "../modules/constants"
 // import tileData from "./tileData";
 
 const useStyles = makeStyles(theme => ({
@@ -37,49 +39,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// /**
-//  * The example data is structured as follows:
-//  *
-//  * import image from 'path/to/image.jpg';
-//  * [etc...]
-//  *
-const tileData = [
-  {
-    img: "//logo.clearbit.com/reddit.com",
-    title: "Image",
-  },
-  {
-    img: "//logo.clearbit.com/twitter.com",
-    title: "Image",
-  },
-  {
-    img: "//logo.clearbit.com/instagram.com",
-    title: "Image",
-  },
-  {
-    img: "//logo.clearbit.com/tv.com",
-    title: "Image",
-  },
-  {
-    img: "//logo.clearbit.com/facebook.com",
-    title: "Image",
-  },
-  {
-    img: "//logo.clearbit.com/reddit.com",
-    title: "Image",
-  },
-  {
-    img: "//logo.clearbit.com/instagram.com",
-    title: "Image",
-  },
-  {
-    img: "//logo.clearbit.com/instagram.com",
-    title: "Image",
-  },
-];
-
 export default function TopBlacklisted({ topBlacklisted }) {
   const classes = useStyles();
+
+  const [{ isDragging }, drag] = useDrag({
+    item: { type: ItemTypes.BLACKLISTED },
+    collect: monitor => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  })
 
   return (
     <div className={classes.root}>
@@ -88,18 +56,18 @@ export default function TopBlacklisted({ topBlacklisted }) {
           <ListSubheader component="div">Top Blacklisted Sites</ListSubheader>
         </GridListTile>
         {topBlacklisted.map(tile => (
-          <GridListTile key={tile.img}>
+          <GridListTile key={tile.name}>
             <img
               className={classes.image}
               src={`//logo.clearbit.com/${tile.hostname}`}
-              alt={tile.title}
+              alt={tile.name}
             />
             <GridListTileBar
               className={classes.tileBar}
               title={tile.name}
               actionIcon={
                 <IconButton
-                  aria-label={`info about ${tile.title}`}
+                  aria-label={`${tile.name}`}
                   className={classes.icon}
                 >
                   <InfoIcon />
