@@ -48,13 +48,18 @@ export default function Shameboard({ shameboard }) {
     categoryAxis.renderer.tooltip.dx = -40;
 
     const valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+    valueAxis.title.text = "Most unproductive browsing time (minutes) for last week";
+    valueAxis.title.marginBottom = 20;
+    valueAxis.title.fontSize = 15;
     valueAxis.renderer.inside = true;
     valueAxis.renderer.labels.template.fillOpacity = 0.3;
     valueAxis.renderer.grid.template.strokeOpacity = 0;
     valueAxis.min = 0;
     valueAxis.cursorTooltipEnabled = false;
     valueAxis.renderer.baseGrid.strokeOpacity = 0;
-    valueAxis.renderer.labels.template.dy = 20;
+    valueAxis.renderer.labels.template.dy = -20;
+    valueAxis.renderer.opposite = true;
+
 
     const series = chart.series.push(new am4charts.ColumnSeries());
     series.dataFields.valueX = "time";
@@ -73,7 +78,7 @@ export default function Shameboard({ shameboard }) {
     let title = chart.titles.create();
     title.text = "Shameboard";
     title.fontSize = 28;
-    title.marginBottom = 30;
+    title.marginBottom = 15;
     // title.fontFamily = 
 
     series.heatRules.push({

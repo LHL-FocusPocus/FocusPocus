@@ -48,13 +48,16 @@ export default function Leaderboard({ leaderboard }) {
     categoryAxis.dataFields.category = "name";
     categoryAxis.renderer.grid.template.strokeOpacity = 0;
     categoryAxis.renderer.minGridDistance = 10;
-    categoryAxis.renderer.labels.template.dx = 40;
+    // categoryAxis.renderer.labels.template.dx = 40;
     categoryAxis.renderer.minWidth = 0;
     categoryAxis.renderer.tooltip.dx = -40;
     categoryAxis.renderer.opposite = true;
     categoryAxis.renderer.inversed = true;
 
     const valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+    valueAxis.title.text = "Least unproductive browsing time (minutes) for last week";
+    valueAxis.title.marginBottom = 20;
+    valueAxis.title.fontSize = 15;
     valueAxis.renderer.inside = true;
     valueAxis.renderer.labels.template.fillOpacity = 0.3;
     valueAxis.renderer.grid.template.strokeOpacity = 0;
@@ -98,7 +101,8 @@ export default function Leaderboard({ leaderboard }) {
     let title = chart.titles.create();
     title.text = "Leaderboard";
     title.fontSize = 28;
-    title.marginBottom = 30;
+    title.marginBottom = 15;
+
 
     const bullet = columnTemplate.createChild(am4charts.CircleBullet);
     bullet.circle.radius = 30;
