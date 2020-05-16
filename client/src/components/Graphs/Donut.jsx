@@ -13,11 +13,13 @@ const Wrapper = styled(Box)`
   justify-content: center;
   ${"" /* padding: 3em; */}
   height: 400px;
+  padding-bottom: 6em;
+  padding-top: 2em;
   &:before {
     content: "";
     position: absolute;
-    height: 42%;
-    width: 35%;
+    height: 50%;
+    width: 40%;
     border: 1px solid green;
     border-radius: 1em;
 
@@ -32,7 +34,7 @@ const Chart = styled.div`
   width: 100%;
   height: 100%;
   transform: translateY(60px);
-  padding-bottom: 18%;
+  padding-bottom: 5%;
   
 `;
 

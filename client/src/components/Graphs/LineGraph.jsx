@@ -10,6 +10,8 @@ const Wrapper = styled(Box)`
   display: flex;
   items-align: center;
   justify-content: center;
+  
+
 
   @media (max-width: 1300px) {
     flex: 1 100%;
@@ -18,11 +20,12 @@ const Wrapper = styled(Box)`
 `;
 
 const Chart = styled.div`
-  align-self: center;
+  align-self: right;
   width: 100%;
   height: 400px;
-  border: 1px solid black;
-  border-radius: 0.9em;
+${'' /*   border: 1px solid black;
+  border-radius: 0.9em; */}
+  ${'' /* padding: 2em; */}
 `;
 
 export default function LineGraph({ lineData }) {
@@ -37,6 +40,8 @@ export default function LineGraph({ lineData }) {
 
     chart.scrollbarX = new am4core.Scrollbar();
     chart.data = lineData;
+    // chart.resize = 0.8;
+    chart.scale = 0.85;
 
     // Create axes
     const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
