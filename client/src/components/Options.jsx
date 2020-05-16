@@ -19,16 +19,34 @@ const Slider = styled(QuotaSlider)`
 `;
 
 export default function Options({
-  user,
+  // user,
   blacklisted,
   addBlacklistedSite,
   disableBlacklistedSite,
-  quota,
   changeQuota,
+  dashboardData,
+  // quota_today,
 }) {
+  const { user, quota_today } = dashboardData;
+
+  console.log("====> On OPTIONS page");
+
+  if (!dashboardData || !user || quota_today === undefined) {
+    return null;
+    // return a spinner component
+  }
+
+  console.log("====> Options blacklisted", blacklisted);
+  console.log("====> Options User", user);
+
+  // const quota_today = { setDashboard }
   return (
     <div>
-      <Navbar user={user} />
+      <Navbar
+        user={dashboardData.user}
+        quota={quota_today}
+        // dashboard={setDashboard}
+      />
       <Container bgcolor="background.paper">
         {quota && <Slider quota={quota} changeQuota={changeQuota} />}
         <Blacklisted

@@ -28,7 +28,7 @@ export default function reducer(state, action) {
       } else {
         // Find index where the blacklisted site lives
         const siteIndex = state.blacklisted.indexOf(
-          state.blacklisted.find(site => site.blacklists_id === id)
+          state.blacklisted.find((site) => site.blacklists_id === id)
         );
 
         clonedBlacklist.splice(siteIndex, 1);
