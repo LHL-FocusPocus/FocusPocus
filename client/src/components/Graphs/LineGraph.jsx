@@ -30,11 +30,11 @@ const Card = styled(Paper)`
 
 const Chart = styled.div`
   width: 100%;
-  height: 90%;
+  height: 80%;
 ${'' /*   border: 1px solid black;
   border-radius: 0.9em; */}
   margin-left: 3.5em;
-  margin-top: 2.5em;  
+  margin-top: 2.5em;
   transform: translateY(5px);
   ${'' /* padding: 1.7em; */}
 `;
