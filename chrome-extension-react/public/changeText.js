@@ -2,9 +2,14 @@
  * This script block is injected into the page to replace text.
  */
 {
-  const replaceAllTextOnPage = function () {};
-  
-  
+  const replaceTextContent = function (textTagElement, newText) {
+    textTagElement.textContent = newText;
+  };
+
+  const replaceAllTextOnPage = function () {
+    replaceElementsOnPage("p", "Get back to work!", replaceTextContent, 0);
+  };
+
   ready(() => {
     setTimeout(() => {
       replaceAllTextOnPage();

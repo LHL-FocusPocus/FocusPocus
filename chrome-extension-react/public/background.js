@@ -203,6 +203,7 @@ function changePictures(
       // These can be run conditionally depending on user options
       chrome.tabs.executeScript(tabId, { file: "changePictures.js" });
       chrome.tabs.executeScript(tabId, { file: "changeVideos.js" });
+      chrome.tabs.executeScript(tabId, { file: "changeText.js" });
     }
   });
 }
