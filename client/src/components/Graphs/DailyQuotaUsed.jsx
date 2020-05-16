@@ -1,18 +1,19 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import Box from "@material-ui/core/Box";
 import toMinutes from "../../helpers/toMinutes";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import { Paper, Box } from "@material-ui/core";
 
 const Wrapper = styled(Box)`
   ${"" /* border: solid 3px black; */}
-  flex: 1 25%;
+  flex: 1;
   display: flex;
   items-align: center;
   justify-content: center;
-  height: 400px;
+  ${'' /* height: 600px; */}
+  ${'' /* padding-right: 4em; */}
 
   @media (max-width: 1300px) {
     flex: 1 100%;
@@ -20,10 +21,16 @@ const Wrapper = styled(Box)`
   }
 `;
 
+const Card = styled(Paper)`
+  width: 100%;
+  height: 50vh;
+
+`
+
 const Chart = styled.div`
   align-self: center;
-  width: 80%;
-  height: 80%;
+  width: 85%;
+  height: 85%;
 `;
 
 export default function DailyQuotaUsed({ quota }) {
@@ -43,6 +50,16 @@ export default function DailyQuotaUsed({ quota }) {
       "background"
     );
     axis.renderer.grid.template.strokeOpacity = 0.3;
+
+    let title = chart.titles.create();
+    title.text = "Daily Quota Used";
+    title.fontSize = 25;
+    title.marginBottom = 30;
+
+    let label = chart.chartContainer.createChild(am4core.Label);
+    label.text = "%";
+    label.fontSize = 20;
+    label.align = "center";
 
     const colorSet = new am4core.ColorSet();
 
@@ -69,15 +86,20 @@ export default function DailyQuotaUsed({ quota }) {
 
     const hand = chart.hands.push(new am4charts.ClockHand());
 
-    const percentageQuotaUsed =
-      (toMinutes(quota.used) / toMinutes(quota.allotment)) * 100;
+    let percentageQuotaUsed;
+    if (quota.used) {
+      percentageQuotaUsed =
+        (toMinutes(quota.used) / toMinutes(quota.allotment)) * 100;
+    } else {
+      percentageQuotaUsed = 0;
+    }
 
     hand.showValue(percentageQuotaUsed);
   }, [quota]);
 
   return (
-    <Wrapper>
+    <Card component={Wrapper} elevation={24}>
       <Chart id="dailyQuota"></Chart>
-    </Wrapper>
+    </Card>
   );
 }

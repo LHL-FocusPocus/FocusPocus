@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "./Navbar";
 import styled from "styled-components";
 import DailyQuotaUsed from "./Graphs/DailyQuotaUsed";
-import Box from "@material-ui/core/Box";
+import { Paper, Box } from "@material-ui/core";
 import LineGraph from "./Graphs/LineGraph";
 import Donut from "./Graphs/Donut";
 import Radial from "./Graphs/Radial";
@@ -13,9 +13,16 @@ import { useHistory } from "react-router-dom";
 
 
 const Container = styled(Box)`
-  padding: 3em;
+  padding: 5em;
   height: 100%;
 `;
+
+
+const Card = styled(Paper)`
+  ${'' /* width: 100%; */}
+  height: 2px;
+  
+`
 
 const Wrapper = styled(Box)`
   ${"" /* border: solid 3px black; */}
@@ -24,9 +31,11 @@ const Wrapper = styled(Box)`
   items-align: center;
   justify-content: center;
   ${"" /* padding: 3em; */}
-  height: 400px;
-  transform: translateX(30px);
-  padding-top: 3%;
+  height: 500px;
+  ${'' /* transform: translateX(30px); */}
+  padding-right: 3%;
+  margin-bottom: 3em;  
+
 
   ${"" /* @media (max-width: 1300px) {
     flex: 1 100;
@@ -44,8 +53,7 @@ export default function Dashboard({ dashboardData }) {
     user,
     quota_today,
   } = dashboardData;
-  console.log('donutGraph', donutGraph)
-  console.log('lineGraph', lineGraph)
+
 
   if (!dashboardData || quota_today == undefined) {
     return null;
@@ -66,10 +74,10 @@ console.log("In dashboard, quota_today should be =====>", quota_today)
       >
         {quota_today && <DailyQuotaUsed quota={quota_today} />}
         {lineGraph && <LineGraph lineData={lineGraph} />}
-        <Wrapper>
+        <Card component={Wrapper} elevation={24}>
           {leaderboard && <Leaderboard leaderboard={leaderboard} />}
           {shameboard && <Shameboard shameboard={shameboard} />}
-        </Wrapper>
+        </Card>
 
         {donutGraph && <Donut donutData={donutGraph} />}
         {radialGraph && <Radial radialData={radialGraph} />}

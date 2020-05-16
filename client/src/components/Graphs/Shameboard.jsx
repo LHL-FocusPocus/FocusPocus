@@ -21,11 +21,10 @@ const Wrapper = styled(Box)`
 
 const Chart = styled.div`
   align-self: center;
-  width: 100%;
-  height: 100%;
-  margin: 2em 0em;
+  width: 70%;
+  height: 85%;
+  ${'' /* margin: 2em 0em; */}
   ${"" /* margin-left: 400px; */}
-  ${"" /* transform: translateX(2000px) */}
 `;
 
 export default function Shameboard({ shameboard }) {
@@ -36,7 +35,7 @@ export default function Shameboard({ shameboard }) {
     chart.hiddenState.properties.opacity = 0;
 
     chart.paddingRight = 40;
-    chart.scale = 0.8;
+    chart.scale = 0.95;
 
     chart.data = shameboard;
 
@@ -70,6 +69,12 @@ export default function Shameboard({ shameboard }) {
     columnTemplate.maxHeight = 50;
     columnTemplate.column.cornerRadius(60, 10, 60, 10);
     columnTemplate.strokeOpacity = 0;
+
+    let title = chart.titles.create();
+    title.text = "Shameboard";
+    title.fontSize = 28;
+    title.marginBottom = 30;
+    // title.fontFamily = 
 
     series.heatRules.push({
       target: columnTemplate,

@@ -6,7 +6,7 @@ import styled from "styled-components";
 import QuotaSlider from "./QuotaSlider";
 
 const Container = styled(Box)`
-  padding: 5em;
+  padding: 4em;
   height: 100%;
   display: flex;
   justify-content: flex-start;
@@ -23,37 +23,40 @@ export default function Options({
   blacklisted,
   addBlacklistedSite,
   disableBlacklistedSite,
+  changeQuota,
   dashboardData,
   // quota_today,
 }) {
   const { user, quota_today } = dashboardData;
 
-  console.log("====> On OPTIONS page");
 
-  if (!dashboardData || !user || quota_today === undefined) {
-    return null;
-    // return a spinner component
-  }
-
-  console.log("====> Options blacklisted", blacklisted);
-  console.log("====> Options User", user);
+  // if (!dashboardData || !user || quota_today == undefined) {
+  //   return null;
+  //   // return a spinner component
+  // }
 
   // const quota_today = { setDashboard }
   return (
-    <div>
-      <Navbar
-        user={dashboardData.user}
-        quota={quota_today}
-        // dashboard={setDashboard}
-      />
-      <Container bgcolor="background.paper">
-        <Slider />
-        <Blacklisted
-          addBlacklistedSite={addBlacklistedSite}
-          disableBlacklistedSite={disableBlacklistedSite}
-          blacklisted={blacklisted}
-        />
-      </Container>
-    </div>
+    <>
+      {quota_today && (
+        <div>
+          <Navbar
+            user={dashboardData.user}
+            quota={quota_today}
+            // dashboard={setDashboard}
+          />
+          <Container bgcolor="background.paper">
+            {quota_today && (
+              <Slider quota={quota_today} changeQuota={changeQuota} />
+            )}
+            <Blacklisted
+              addBlacklistedSite={addBlacklistedSite}
+              disableBlacklistedSite={disableBlacklistedSite}
+              blacklisted={blacklisted}
+            />
+          </Container>
+        </div>
+      )}{" "}
+    </>
   );
 }
