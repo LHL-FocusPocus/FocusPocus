@@ -347,7 +347,7 @@ module.exports = (db) => {
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
         GROUP BY users.id
         ORDER BY time
-        ASC LIMIT 6;
+        ASC LIMIT 5;
         `
       )
       .then((res) => {
@@ -368,11 +368,11 @@ module.exports = (db) => {
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
         GROUP BY users.id
         ORDER BY time
-        DESC LIMIT 6;
+        DESC LIMIT 5;
         `
       )
       .then((res) => {
-        return res.rows;
+        return res.rows.reverse();
       })
       .catch((err) => err);
   };
