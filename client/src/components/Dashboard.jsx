@@ -60,12 +60,12 @@ export default function Dashboard({ dashboardData }) {
     // return a spinner component
   }
   
-
+console.log("In dashboard, quota_today should be =====>", quota_today)
 
   
   return (
     <div>
-      <Navbar user={user} />
+      <Navbar user={user} quota={quota_today} />
       <Container
         // isLoading={loading}
         bgcolor="background.paper"
