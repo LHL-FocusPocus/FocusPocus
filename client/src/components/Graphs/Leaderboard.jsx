@@ -99,7 +99,7 @@ export default function Leaderboard({ leaderboard }) {
     cursor.behavior = "none";
 
     let subtitle = chart.titles.create();
-    subtitle.text = "minutes squandered last week";
+    subtitle.text = "Minutes squandered last week";
     subtitle.fontSize = 12;
     subtitle.marginBottom = 20;
 
@@ -110,7 +110,7 @@ export default function Leaderboard({ leaderboard }) {
 
 
     const bullet = columnTemplate.createChild(am4charts.CircleBullet);
-    bullet.circle.radius = 30;
+    bullet.circle.radius = 25;
     bullet.valign = "middle";
     bullet.align = "left";
     bullet.isMeasured = true;

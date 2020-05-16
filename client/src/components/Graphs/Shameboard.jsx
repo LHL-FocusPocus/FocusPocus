@@ -76,7 +76,7 @@ export default function Shameboard({ shameboard }) {
     columnTemplate.strokeOpacity = 0;
 
     let subtitle = chart.titles.create();
-    subtitle.text = "minutes squandered last week";
+    subtitle.text = "Minutes squandered last week";
     subtitle.fontSize = 12;
     subtitle.marginBottom = 20;
 
@@ -103,7 +103,7 @@ export default function Shameboard({ shameboard }) {
     cursor.behavior = "none";
 
     const bullet = columnTemplate.createChild(am4charts.CircleBullet);
-    bullet.circle.radius = 30;
+    bullet.circle.radius = 25;
     bullet.valign = "middle";
     bullet.align = "right";
     bullet.isMeasured = true;
