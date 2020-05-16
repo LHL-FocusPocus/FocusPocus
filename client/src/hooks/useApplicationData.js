@@ -11,13 +11,16 @@ export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
     blacklisted: [],
     quota_today: {
-      used: {
-        minutes: 0,
-      },
       allotment: {
         minutes: 120,
       },
     },
+    donutGraph: [],
+    leaderboard: [],
+    lineGraph: [],
+    radialGraph: [],
+    shameboard: [],
+    user: {},
   });
   console.log("state", state);
 
@@ -50,30 +53,6 @@ export default function useApplicationData() {
       })
       .catch(e => console.error(e));
   }, []);
-
-  // useEffect(() => {
-  //   axios
-  //     .get("/api/data/dashboard")
-  //     .then(userData => {
-  //       console.log(userData);
-
-  //       const dashboardData = userData.data;
-  //       dispatch({
-  //         type: SET_DASHBOARD_DATA,
-  //         payload: dashboardData,
-  //       });
-  //     })
-  //     .catch(e => console.error(e));
-  // }, []);
-
-  // useEffect(() => {
-  //   axios.get("/api/user/blacklists").then(blacklist => {
-  //     dispatch({
-  //       type: SET_BLACKLIST_DATA,
-  //       blacklisted: blacklist.data,
-  //     });
-  //   });
-  // }, []);
 
   const disableBlacklistedSite = id => {
     axios.put(`/api/user/blacklists/disable/${id}`, id).then(res => {
