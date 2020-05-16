@@ -36,7 +36,7 @@ const Chart = styled.div`
   align-self: center;
   width: 90%;
   height: 90%;
-  transform: translateY(30px);
+  transform: translateY(18px);
   padding-bottom: 5%;
   ${'' /* padding-right: 5%; */}
   ${'' /* padding-bottom: 8%; */}

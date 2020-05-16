@@ -30,11 +30,12 @@ const Card = styled(Paper)`
 
 const Chart = styled.div`
   width: 100%;
-  height: 400px;
+  height: 90%;
 ${'' /*   border: 1px solid black;
   border-radius: 0.9em; */}
   padding-left: 3.5em;
-  padding-top: 2.5em;
+  padding-top: 2.5em;  
+  transform: translateY(5px);
   ${'' /* padding: 1.7em; */}
 `;
 
@@ -82,7 +83,7 @@ export default function LineGraph({ lineData }) {
     hoverState.properties.scale = 1.7;
 
     let title = chart.titles.create();
-    title.text = "Long-Term Blacklisted Browsing Time";
+    title.text = "Blacklisted Browsing Time (Last 30 Days)";
     title.fontSize = 27;
     title.marginBottom = 15;
     // title.paddingTop =  40;
