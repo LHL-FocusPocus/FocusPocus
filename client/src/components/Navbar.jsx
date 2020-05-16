@@ -114,17 +114,13 @@ export default function Navbar(props) {
 
   // let text;
   // switch (remaining) {
-    //   case remaining < 0.1:
-    //     text = "test"
-    //     break;
-    // }
-    
-    const text = (used_quota, allotment) => {
-      console.log("used_quota=====>", used_quota)
-      console.log("allotment=====>", allotment)
+  //     case remaining < 0.1:
+  //       text = "test"
+  //       break;
+  //   }
 
+    const text = (used_quota, allotment) => {
       const remaining = used_quota/allotment
-      console.log("in text ====>", used_quota, remaining)
     if (remaining < 0.5) {
       return "Keep it up"
     }
@@ -155,7 +151,7 @@ export default function Navbar(props) {
         {/* TODO: Make this dynamic based on user firstName */}
       </Greeting>
       <Message>
-        <p>You seem to be on task lately! Keep up the good work.{text()}</p>
+        <p>{text(used_quota, allotment)}</p>
         <p>Usage: {used_quota} / {allotment} minutes</p>
         {/* TODO: Make this dynamic based on quota usage? [STRETCH] */}
       </Message>
