@@ -1,15 +1,19 @@
 import React, { useEffect } from "react";
-import Box from "@material-ui/core/Box";
+import { Paper, Box } from "@material-ui/core";
 import styled from "styled-components";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 const Wrapper = styled(Box)`
-  flex: 1 40vw;
+  flex: 2;
   display: flex;
   items-align: center;
   justify-content: center;
+  margin-bottom: 3em;  
+  margin-left: 3em;  
+
+
 
   @media (max-width: 1300px) {
     flex: 1 100%;
@@ -17,10 +21,22 @@ const Wrapper = styled(Box)`
   }
 `;
 
+
+const Card = styled(Paper)`
+  width: 20vw;
+  height: 50vh;
+
+`
+
 const Chart = styled.div`
-  align-self: center;
   width: 100%;
-  height: 400px;
+  height: 80%;
+${'' /*   border: 1px solid black;
+  border-radius: 0.9em; */}
+  margin-left: 3.5em;
+  margin-top: 2.5em;
+  transform: translateY(5px);
+  ${'' /* padding: 1.7em; */}
 `;
 
 export default function LineGraph({ lineData }) {
@@ -35,6 +51,7 @@ export default function LineGraph({ lineData }) {
 
     chart.scrollbarX = new am4core.Scrollbar();
     chart.data = lineData;
+    chart.scale = 0.93;
 
     // Create axes
     const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
@@ -65,6 +82,12 @@ export default function LineGraph({ lineData }) {
     const hoverState = bullet.states.create("hover");
     hoverState.properties.scale = 1.7;
 
+    let title = chart.titles.create();
+    title.text = "Blacklisted Browsing Time (Last 30 Days)";
+    title.fontSize = 27;
+    title.marginBottom = 15;
+    // title.paddingTop =  40;
+
     // Initial zoom once chart is ready
     chart.events.once("datavalidated", function () {
       const today = new Date();
@@ -73,8 +96,8 @@ export default function LineGraph({ lineData }) {
   }, [lineData]);
 
   return (
-    <Wrapper>
+    <Card component={Wrapper} elevation={23}>
       <Chart id="line_chart"></Chart>
-    </Wrapper>
+    </Card>
   );
 }

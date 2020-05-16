@@ -21,10 +21,12 @@ const Wrapper = styled(Box)`
 
 const Chart = styled.div`
   align-self: center;
-  width: 100%;
-  height: 100%;
-  margin: 2em 0em;
-  padding-left: 3%;
+  ${'' /* width: 100%;
+  height: 100%; */}
+  ${'' /* margin: 2em 0em; */}
+  width: 70%;
+  height: 85%;
+  padding-left: 6%;
 `;
 
 export default function Leaderboard({ leaderboard }) {
@@ -36,9 +38,11 @@ export default function Leaderboard({ leaderboard }) {
     chart.hiddenState.properties.opacity = 0;
 
     chart.paddingRight = 40;
-    chart.scale = 0.8;
+    // chart.scale = 0.8;
+        chart.scale = 0.95;
 
-    chart.data = leaderboard.reverse();
+
+    chart.data = leaderboard;
 
     const categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "name";
@@ -80,8 +84,8 @@ export default function Leaderboard({ leaderboard }) {
       target: columnTemplate,
       property: "fill",
       dataField: "valueX",
-      min: am4core.color("#e5dc36"),
-      max: am4core.color("#5faa46"),
+      max: am4core.color("#e5dc36"),
+      min: am4core.color("#5faa46"),
     });
     series.mainContainer.mask = undefined;
 
@@ -90,6 +94,11 @@ export default function Leaderboard({ leaderboard }) {
     cursor.lineX.disabled = true;
     cursor.lineY.disabled = true;
     cursor.behavior = "none";
+
+    let title = chart.titles.create();
+    title.text = "Leaderboard";
+    title.fontSize = 28;
+    title.marginBottom = 30;
 
     const bullet = columnTemplate.createChild(am4charts.CircleBullet);
     bullet.circle.radius = 30;

@@ -43,7 +43,6 @@ module.exports = (db) => {
         userData["leaderboard"] = compileData(all[7], "name");
         userData["shameboard"] = compileData(all[8], "name");
         userData["radialGraph"] = all[9];
-        // console.log(userData)
 
         return res.status(200).json(userData);
       })
