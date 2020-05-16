@@ -12,7 +12,7 @@ module.exports = (db) => {
   router.get("/dashboard", (req, res) => {
     const userId = req.session.userId;
     if (!userId) {
-      return res.status(403).send("A user must be signed in!");
+      return res.status(403).json("A user must be signed in!");
     }
     let userData = {};
 
@@ -46,7 +46,10 @@ module.exports = (db) => {
 
         return res.status(200).json(userData);
       })
-      .catch((err) => res.status(500).json(err));
+      .catch((err) => {
+        console.log(err);
+        return res.status(500).json(err);
+      });
   });
   return router;
 };
