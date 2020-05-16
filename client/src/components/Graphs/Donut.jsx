@@ -37,8 +37,8 @@ const Chart = styled.div`
   align-self: center;
   width: 90%;
   height: 90%;
-  transform: translateY(60px);
-  padding-bottom: 5%;
+  ${'' /* transform: translateY(60px); */}
+  ${'' /* padding-bottom: 5%; */}
 
   
 `;
@@ -60,8 +60,10 @@ export default function Donut({ donutData }) {
 
     chart.innerRadius = am4core.percent(40);
     chart.depth = 40;
-    chart.scale = 1;
-    // chart.resize = 50
+    chart.scale = 1.1;
+    chart.paddingRight = 60;
+    chart.paddingTop = 15;
+
 
     let title = chart.titles.create();
     title.text = "Blocked vs. Non-Blocked Sites";

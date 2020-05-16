@@ -72,7 +72,7 @@ export default function Shameboard({ shameboard }) {
 
     let title = chart.titles.create();
     title.text = "Shameboard";
-    title.fontSize = 25;
+    title.fontSize = 28;
     title.marginBottom = 30;
     // title.fontFamily = 
 
