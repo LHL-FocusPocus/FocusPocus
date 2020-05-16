@@ -461,7 +461,7 @@ module.exports = (db) => {
     return db
       .query(
         `
-      SELECT name, COUNT(website_id) AS number FROM blacklists JOIN websites ON website_id = websites.id GROUP BY name ORDER BY number DESC LIMIT 8;
+      SELECT hostname, name, COUNT(website_id) AS number_blocked FROM blacklists JOIN websites ON website_id = websites.id GROUP BY name, hostname ORDER BY number_blocked DESC LIMIT 8;
     `
       )
       .then((res) => {
@@ -496,6 +496,6 @@ module.exports = (db) => {
     getBlacklistedSiteByWebsiteId,
     isBlacklistedSiteEnabled,
     adjustUserQuota,
-    getTopBlacklistedSites
+    getTopBlacklistedSites,
   };
 };

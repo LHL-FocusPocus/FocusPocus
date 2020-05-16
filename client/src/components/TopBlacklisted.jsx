@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     // paddingRight: "auto",
   },
   tileBar: {
-    backgroundColor: "white",
+    backgroundColor: "black",
   },
 }));
 
@@ -45,35 +45,35 @@ const useStyles = makeStyles(theme => ({
 //  *
 const tileData = [
   {
-    img: "//logo.clearbit.com/www.reddit.com",
+    img: "//logo.clearbit.com/reddit.com",
     title: "Image",
   },
   {
-    img: "//logo.clearbit.com/www.twitter.com",
+    img: "//logo.clearbit.com/twitter.com",
     title: "Image",
   },
   {
-    img: "//logo.clearbit.com/www.instagram.com",
+    img: "//logo.clearbit.com/instagram.com",
     title: "Image",
   },
   {
-    img: "//logo.clearbit.com/www.tv.com",
+    img: "//logo.clearbit.com/tv.com",
     title: "Image",
   },
   {
-    img: "//logo.clearbit.com/www.facebook.com",
+    img: "//logo.clearbit.com/facebook.com",
     title: "Image",
   },
   {
-    img: "//logo.clearbit.com/www.reddit.com",
+    img: "//logo.clearbit.com/reddit.com",
     title: "Image",
   },
   {
-    img: "//logo.clearbit.com/www.instagram.com",
+    img: "//logo.clearbit.com/instagram.com",
     title: "Image",
   },
   {
-    img: "//logo.clearbit.com/www.instagram.com",
+    img: "//logo.clearbit.com/instagram.com",
     title: "Image",
   },
 

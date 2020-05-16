@@ -28,7 +28,7 @@ export default function Options({
   dashboardData,
   // quota_today,
 }) {
-  const { user, quota_today } = dashboardData;
+  const { quota_today, topBlacklisted } = dashboardData;
 
   // if (!dashboardData || !user || quota_today == undefined) {
   //   return null;
@@ -52,7 +52,7 @@ export default function Options({
           disableBlacklistedSite={disableBlacklistedSite}
           blacklisted={blacklisted}
         />
-        <TopBlacklisted />
+        <TopBlacklisted topBlacklisted={topBlacklisted} />
       </Container>
     </div>
   );
