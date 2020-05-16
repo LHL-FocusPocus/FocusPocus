@@ -5,9 +5,11 @@
   const replaceTextContentLoop = function (textTagElement, newText) {
     const existingText = textTagElement.textContent;
     const existingWords = shuffle([...new Set(existingText.split(" "))]);
+    const thresholdLength = existingWords.length / 2;
+    const replacementWords = [...new Set(newText.split(" "))];
     let replacementText = existingText;
     let timer = 0;
-    while (existingWords.length > 0) {
+    while (existingWords.length > thresholdLength) {
       const randomWord = existingWords.pop();
       setTimeout(() => {
         replacementText = replacementText.replace(randomWord, "snake");
