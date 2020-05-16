@@ -48,9 +48,9 @@ function App() {
             addBlacklistedSite={addBlacklistedSite}
             disableBlacklistedSite={disableBlacklistedSite}
             dashboardData={state}
-            user={state.user}
+            // user={state.user}
             blacklisted={state.blacklisted}
-            quota_today={state.quota_today}
+            // quota_today={state.quota_today}
           />
         )}
       />
