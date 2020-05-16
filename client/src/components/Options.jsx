@@ -39,9 +39,10 @@ export default function Options({
   //   // return a spinner component
   // }
 
-  const addTopSiteToUserBlacklist = (id) => {
+  const addTopSiteToUserBlacklist = hostname => {
     console.log("WORKS!!!!");
-    console.log('id', id)
+    console.log("id", hostname);
+    addBlacklistedSite(hostname);
   };
 
   // const quota_today = { setDashboard }
