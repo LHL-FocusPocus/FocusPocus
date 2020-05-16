@@ -112,7 +112,7 @@ export default function Shameboard({ shameboard }) {
     image.height = 60;
     image.horizontalCenter = "middle";
     image.verticalCenter = "middle";
-    image.propertyFields.href = "href";
+    image.propertyFields.href = "picture";
 
     image.adapter.add("mask", function (mask, target) {
       const circleBullet = target.parent;
