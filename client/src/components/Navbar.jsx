@@ -153,7 +153,10 @@ export default function Navbar(props) {
       </Greeting>
       <Message>{text(used_quota, allotment)}</Message>
       <QuotaMessage>
-        Usage: {used_quota} / {allotment} minutes
+        <p>Today's Usage:</p>{" "}
+        <p>
+          {used_quota} / {allotment} minutes
+        </p>
       </QuotaMessage>
       <Divider />
       <List>
