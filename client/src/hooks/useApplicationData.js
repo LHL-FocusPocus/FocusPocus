@@ -25,6 +25,17 @@ export default function useApplicationData() {
     });
   };
 
+  // Do I need to set the user?
+  const setUser = async () => {
+    const userData = await axios.get("/api/data/dashboard");
+    console.log("====> Set User", userData);
+    const dashboardData = userData.data;
+    dispatch({
+      type: SET_DASHBOARD_DATA,
+      payload: dashboardData,
+    });
+  };
+
   useEffect(() => {
     axios
       .get("/api/data/dashboard")

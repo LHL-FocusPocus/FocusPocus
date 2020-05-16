@@ -47,6 +47,7 @@ function App() {
           <Options
             addBlacklistedSite={addBlacklistedSite}
             disableBlacklistedSite={disableBlacklistedSite}
+            dashboardData={state}
             user={state.user}
             blacklisted={state.blacklisted}
             quota_today={state.quota_today}
