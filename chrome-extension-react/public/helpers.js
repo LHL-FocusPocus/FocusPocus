@@ -33,6 +33,13 @@
     return height;
   }
 
+  /**
+   *
+   * @param {String} elementTag The string to be used in querySelectorAll
+   * @param {String} newUrl The new url to set the replacement image/video to
+   * @param {Function} replacementFn Function to be called to do the replacing
+   * @param {Number} interval Ms to wait between each replacementFn call
+   */
   function replaceElementsOnPage(
     elementTag,
     newUrl,
@@ -43,7 +50,7 @@
     const elements = Array.from(document.querySelectorAll(elementTag));
 
     // Filter out small-sized elements and already processed elements
-    const elementsToBeReplaced = elements.filter((element) =>
+    const elementsToBeReplaced = elements.filter(element =>
       shouldBeReplaced(element, newUrl)
     );
     tagElementsForReplacement(elementsToBeReplaced);
