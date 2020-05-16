@@ -73,40 +73,19 @@ module.exports = (db) => {
     if (!userId) {
       return res.status(403).send("You must be signed in!");
     }
-    console.log('req.body', req.body)
+    console.log("req.body", req.body);
     const { quotaInMinutes } = req.body;
-    console.log(`${quotaInMinutes} minutes`)
+    console.log(`${quotaInMinutes} minutes`);
     dbHelper
       .adjustUserQuota(`${quotaInMinutes} minutes`, userId)
       .then(() => {
-        res.status(200).json(quotaInMinutes)
+        res.status(200).json(quotaInMinutes);
       })
       .catch((e) => {
-        console.error(e)
-        return res.status(500).json(e)
+        console.error(e);
+        return res.status(500).json(e);
       });
   });
-
-  // This can be removed, it is now in extensionRoutes.js file
-  // router.post("/add_browse_time", (req, res) => {
-  //   // checking cookie session for user, get user_id
-  //   const userId = req.session.userId;
-  //   if (!userId) {
-  //     return res.status(403).send("A user must be signed in!");
-  //   }
-
-  //   // extension will send browse time data here
-  //   // host_name, datetime_start, duration
-  //   const { host_name, duration } = req.body;
-  //   const URL = remPrefix(host_name);
-  //   // using host_name, insert website_id, datetime_start, duration, etc into the db.
-  //   dbHelper
-  //     .getWebsiteIDByHostname(URL)
-  //     .then((site) => {
-  //       dbHelper.addBrowseTimesToUserID(user_id, site.id, duration);
-  //     })
-  //     .catch((err) => res.status(400).json(err));
-  // });
 
   // Retrieving a user's blacklisted sites
   router.get("/blacklists", (req, res) => {
