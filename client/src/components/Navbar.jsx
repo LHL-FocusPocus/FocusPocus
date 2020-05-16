@@ -53,7 +53,7 @@ const Logo = styled.div`
 const Message = styled.div`
   text-align: center;
   padding: 1.5em;
-  font-size: 1.1em;  
+  font-size: 1.1em;
 `;
 
 const QuotaMessage = styled.div`
@@ -127,14 +127,11 @@ export default function Navbar(props) {
     const remaining = used_quota / allotment;
     if (remaining < 0.5) {
       return "You seem to be on track today, keep up the good work!";
-    }
-    if (remaining < 0.8) {
+    } else if (remaining < 0.8) {
       return "Pace yourself, you're getting close to your browsing cap!";
-    }
-    if (remaining >= 0.8 && remaining < 1) {
+    } else if (remaining < 1) {
       return "You're almost at the cap for today!";
-    }
-    if (remaining >= 1) {
+    } else {
       return "Welp, have fun browsing now!";
     }
   };
@@ -153,7 +150,7 @@ export default function Navbar(props) {
       <Greeting>
         Welcome, {first_name}!
         {/* TODO: Make this dynamic based on user firstName */}
-      </Greeting>      
+      </Greeting>
       <Message>{text(used_quota, allotment)}</Message>
       <QuotaMessage>
         Usage: {used_quota} / {allotment} minutes
