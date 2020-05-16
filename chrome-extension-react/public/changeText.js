@@ -7,7 +7,12 @@
   };
 
   const replaceAllTextOnPage = function () {
-    replaceElementsOnPage("p", "Get back to work!", replaceTextContent, 0);
+    replaceElementsOnPage(
+      "p, span, h1, h2, h3, h4, h5, h6",
+      "Get back to work!",
+      replaceTextContent,
+      300
+    );
   };
 
   ready(() => {

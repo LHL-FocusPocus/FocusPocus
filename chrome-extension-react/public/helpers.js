@@ -5,7 +5,7 @@
     "video",
     "iframe.media-element",
   ];
-  
+
   /**
    * Replacement of jQuery's document.ready (from youmightnotneedjquery.com).
    * @param {Function} fn The function to call when document is ready
@@ -61,7 +61,7 @@
         // Filter out small-sized elements and already processed elements
         return filterMedia(element, newUrl);
       } else {
-        return true;
+        return filterText(element);
       }
     });
     tagElementsForReplacement(elementsToBeReplaced);
@@ -91,6 +91,18 @@
       ((element.getAttribute("src") && element.getAttribute("src") != newUrl) ||
         (element.style.backgroundImage &&
           !element.style.backgroundImage.includes(newUrl)))
+    );
+  }
+
+  /**
+   * Function used to filter for text that need to be replaced.
+   * Excludes elements already replaced, and also very short texts
+   * @param {Object} element
+   * @return Returns true if text element fits criteria
+   */
+  function filterText(element) {
+    return (
+      !element.getAttribute("focuspocused") && element.textContent.length > 25
     );
   }
 
