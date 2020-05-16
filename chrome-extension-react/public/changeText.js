@@ -2,16 +2,27 @@
  * This script block is injected into the page to replace text.
  */
 {
-  const replaceTextContent = function (textTagElement, newText) {
-    textTagElement.textContent = newText;
+  const replaceTextContentLoop = function (textTagElement, newText) {
+    const existingText = textTagElement.textContent;
+    const existingWords = shuffle([...new Set(existingText.split(" "))]);
+    let replacementText = existingText;
+    let timer = 0;
+    while (existingWords.length > 0) {
+      const randomWord = existingWords.pop();
+      setTimeout(() => {
+        replacementText = replacementText.replace(randomWord, "snake");
+        textTagElement.textContent = replacementText;
+      }, timer);
+      timer += 4000;
+    }
   };
 
   const replaceAllTextOnPage = function () {
     replaceElementsOnPage(
       "p, span, h1, h2, h3, h4, h5, h6",
       "Get back to work!",
-      replaceTextContent,
-      300
+      replaceTextContentLoop,
+      0
     );
   };
 
@@ -24,6 +35,6 @@
       addListeners("body", () => {
         replaceAllTextOnPage();
       });
-    }, 3000);
+    }, 0);
   });
 }
