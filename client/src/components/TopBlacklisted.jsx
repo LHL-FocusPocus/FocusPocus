@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
   gridList: {
     width: 500,
-    height: 450,
+    height: 800,
   },
   icon: {
     color: "rgba(255, 255, 255, 0.54)",
@@ -27,8 +27,11 @@ const useStyles = makeStyles(theme => ({
     borderRadius: "100%",
     width: "70%",
     height: "95%",
-    textAlign: "center",
-  }
+    left: "13%",
+    bottom: "10%"
+    // marginLeft: "14%",
+    // paddingRight: "auto",
+  },
 }));
 
 // /**
@@ -41,8 +44,36 @@ const tileData = [
   {
     img: "//logo.clearbit.com/www.reddit.com",
     title: "Image",
-    author: "author",
   },
+  {
+    img: "//logo.clearbit.com/www.twitter.com",
+    title: "Image",
+  },
+  {
+    img: "//logo.clearbit.com/www.instagram.com",
+    title: "Image",
+  },
+  {
+    img: "//logo.clearbit.com/www.tv.com",
+    title: "Image",
+  },
+  {
+    img: "//logo.clearbit.com/www.facebook.com",
+    title: "Image",
+  },
+  {
+    img: "//logo.clearbit.com/www.reddit.com",
+    title: "Image",
+  },
+  {
+    img: "//logo.clearbit.com/www.instagram.com",
+    title: "Image",
+  },
+  {
+    img: "//logo.clearbit.com/www.instagram.com",
+    title: "Image",
+  },
+
 ];
 
 export default function TitlebarGridList() {
@@ -52,7 +83,7 @@ export default function TitlebarGridList() {
     <div className={classes.root}>
       <GridList cellHeight={180} className={classes.gridList}>
         <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
-          <ListSubheader component="div">December</ListSubheader>
+          <ListSubheader component="div">Top Blacklisted Sites</ListSubheader>
         </GridListTile>
         {tileData.map(tile => (
           <GridListTile key={tile.img}>

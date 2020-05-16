@@ -36,7 +36,7 @@ const Container = styled(Box)`
   min-height: 86vh;
   padding: 0 10%;
   width: 25%;
-  transform: translateX(22%)
+  ${'' /* transform: translateX(22%) */}
 `;
 
 const AddNew = styled(Card)`
