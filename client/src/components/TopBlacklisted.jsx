@@ -8,7 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import InfoIcon from "@material-ui/icons/Info";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../utils/constants";
-import BlacklistDraggable from "./BlacklistDraggable";
+import TopBlacklistCards from "./TopBlacklistCards";
 // import tileData from "./tileData";
 
 const useStyles = makeStyles(theme => ({
@@ -44,14 +44,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function TopBlacklisted({ topBlacklisted }) {
-  const [{ isDragging }, drag] = useDrag({
-    // Here is where you identify WHICH piece if being dragged
-    item: { type: ItemTypes.CARD, id },
-    // transforms state from DnD system into usable props for component
-    collect: monitor => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  });
+  // const [{ isDragging }, drag] = useDrag({
+  //   // Here is where you identify WHICH piece if being dragged
+  //   item: { type: ItemTypes.CARD, id },
+  //   // transforms state from DnD system into usable props for component
+  //   collect: monitor => ({
+  //     isDragging: !!monitor.isDragging(),
+  //   }),
+  // });
+  console.log("topBlacklisted", topBlacklisted);
   const classes = useStyles();
 
   // 1 -> props object ; contains properties collected from DnD system
@@ -71,10 +72,23 @@ export default function TopBlacklisted({ topBlacklisted }) {
         <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
           <ListSubheader component="div">Top Blacklisted Sites</ListSubheader>
         </GridListTile>
+        {topBlacklisted.map(tile => (
+          <TopBlacklistCards
+            key={tile.name}
+            hostname={tile.hostname}
+            name={tile.name}
+            id={tile.id}
+          />
+        ))}
+      </GridList>
+    </div>
+  );
+}
 
+/* 
         {topBlacklisted.map(tile => (
           <GridListTile
-            key={tile.name}
+            key={tile.id}
             hostname={tile.hostname}
             name={tile.name}
             id={tile.hostname}
@@ -103,19 +117,4 @@ export default function TopBlacklisted({ topBlacklisted }) {
               }
             />
           </GridListTile>
-        ))}
-
-        {/* 
-        {topBlacklisted.map(tile => (
-          <BlacklistDraggable
-            key={tile.name}
-            hostname={tile.hostname}
-            name={tile.name}
-            id={tile.hostname}
-           /> 
-
-        ))} */}
-      </GridList>
-    </div>
-  );
-}
+        ))} */

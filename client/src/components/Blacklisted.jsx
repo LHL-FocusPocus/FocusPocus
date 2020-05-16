@@ -19,7 +19,7 @@ import removeProtocol from "../helpers/removeProtocol";
 import axios from "axios";
 import FormControl from "@material-ui/core/FormControl";
 import { ItemTypes } from "../utils/constants";
-import { CardContext } from "./Options"
+import { CardContext } from "./Options";
 
 import {
   Input,
@@ -86,7 +86,7 @@ export default function Blacklisted({
 }) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
-  const { addTopSiteToUserBlacklist} = useContext(CardContext)
+  const { addTopSiteToUserBlacklist } = useContext(CardContext);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -106,7 +106,7 @@ export default function Blacklisted({
 
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.CARD,
-    drop: (item, monitor) => addTopSiteToUserBlacklist(item.id),
+    drop: (item, monitor) => addTopSiteToUserBlacklist(item.hostname),
     collect: monitor => ({
       isOver: !!monitor.isOver(),
     }),
@@ -155,14 +155,6 @@ export default function Blacklisted({
                   value={fields.host_name}
                   // type="url"
                   onChange={handleFieldChange}
-                  // aria-describedby="my-helper-text"
-                  // InputProps={{
-                  //   startAdornment: (
-                  //     <InputAdornment position="start">
-                  //       <LanguageIcon />
-                  //     </InputAdornment>
-                  //   ),
-                  // }}
                   startAdornment={
                     <InputAdornment position="start">
                       <LanguageIcon />
