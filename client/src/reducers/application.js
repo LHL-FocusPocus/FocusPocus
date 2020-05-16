@@ -1,6 +1,7 @@
 export const SET_DASHBOARD_DATA = "SET_DASHBOARD_DATA";
 export const SET_BLACKLIST_DATA = "SET_BLACKLIST_DATA";
 export const CHANGE_BLACKLIST = "CHANGE_BLACKLIST";
+export const CHANGE_QUOTA = "CHANGE_QUOTA";
 
 export default function reducer(state, action) {
   switch (action.type) {
@@ -27,7 +28,7 @@ export default function reducer(state, action) {
       } else {
         // Find index where the blacklisted site lives
         const siteIndex = state.blacklisted.indexOf(
-          state.blacklisted.find((site) => site.blacklists_id === id)
+          state.blacklisted.find(site => site.blacklists_id === id)
         );
 
         clonedBlacklist.splice(siteIndex, 1);
@@ -35,6 +36,32 @@ export default function reducer(state, action) {
       return {
         ...state,
         blacklisted: clonedBlacklist,
+      };
+
+    case CHANGE_QUOTA:
+      console.log("quotaInMinutes", action.allotment);
+
+      const { used, all_browse_time } = state.quota_today;
+      const newQuota = {
+        minutes: action.allotment,
+      };
+
+      console.log("newQuota", newQuota);
+      console.log("all_browse_time", all_browse_time);
+
+      const quotaData = {
+        allotment: newQuota,
+        used: {
+          minutes: used.minutes,
+        },
+        all_browse_time: {
+          minutes: all_browse_time.minutes,
+        },
+      };
+
+      return {
+        ...state,
+        quota_today: quotaData,
       };
   }
 }
