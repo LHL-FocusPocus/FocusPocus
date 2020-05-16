@@ -9,6 +9,7 @@ import useApplicationData from "./hooks/useApplicationData";
 
 import axios from "axios";
 import "./App.css";
+import { quadOut } from "@amcharts/amcharts4/.internal/core/utils/Ease";
 axios.defaults.baseURL = "http://localhost:9000";
 axios.defaults.withCredentials = true;
 
@@ -21,6 +22,11 @@ function App() {
     addBlacklistedSite,
     setDashboard,
   } = useApplicationData();
+
+  // console.log("====> setDashboard", setDashboard);
+  // const { quota_today } = setDashboard;
+  console.log("====> quota in App.js", state.quota_today);
+  console.log("====> Appjs State", state);
 
   return (
     <div className="App">
@@ -41,8 +47,10 @@ function App() {
           <Options
             addBlacklistedSite={addBlacklistedSite}
             disableBlacklistedSite={disableBlacklistedSite}
-            users={state.users}
+            dashboardData={state}
+            // user={state.user}
             blacklisted={state.blacklisted}
+            // quota_today={state.quota_today}
           />
         )}
       />

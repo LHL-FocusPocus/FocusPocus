@@ -49,7 +49,6 @@ const Img = styled.img`
 `;
 
 export default function SignUp(props) {
-  console.log("SignUp Props =======>", props)
   
   const classes = useStyles();
   const { history } = props;
