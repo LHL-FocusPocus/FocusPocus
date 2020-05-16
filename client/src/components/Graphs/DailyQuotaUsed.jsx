@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import Box from "@material-ui/core/Box";
 import toMinutes from "../../helpers/toMinutes";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import { Paper, Box } from "@material-ui/core";
 
 const Wrapper = styled(Box)`
   ${"" /* border: solid 3px black; */}
@@ -13,15 +13,7 @@ const Wrapper = styled(Box)`
   items-align: center;
   justify-content: center;
   height: 400px;
-  padding-right: 4em;
-  &:before {
-    content: "";
-    position: absolute;
-    height: 42%;
-    width: 35%;
-    border: 1px solid green;
-    border-radius: 1em;
-  }
+  ${'' /* padding-right: 4em; */}
 
   @media (max-width: 1300px) {
     flex: 1 100%;
@@ -29,10 +21,16 @@ const Wrapper = styled(Box)`
   }
 `;
 
+const Card = styled(Paper)`
+  width: 100%;
+  height: 50vh;
+
+`
+
 const Chart = styled.div`
   align-self: center;
-  width: 80%;
-  height: 80%;
+  width: 85%;
+  height: 85%;
 `;
 
 export default function DailyQuotaUsed({ quota }) {
@@ -95,8 +93,8 @@ export default function DailyQuotaUsed({ quota }) {
   }, [quota]);
 
   return (
-    <Wrapper>
+    <Card component={Wrapper} elevation={24}>
       <Chart id="dailyQuota"></Chart>
-    </Wrapper>
+    </Card>
   );
 }

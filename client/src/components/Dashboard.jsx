@@ -24,9 +24,9 @@ const Wrapper = styled(Box)`
   items-align: center;
   justify-content: center;
   ${"" /* padding: 3em; */}
-  height: 400px;
+  height: 450px;
   ${'' /* transform: translateX(30px); */}
-  padding-top: 3%;
+  padding-top: 2%;
 
   ${"" /* @media (max-width: 1300px) {
     flex: 1 100;

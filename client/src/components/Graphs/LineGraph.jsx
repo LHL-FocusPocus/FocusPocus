@@ -1,25 +1,30 @@
 import React, { useEffect } from "react";
-import Box from "@material-ui/core/Box";
+import { Paper, Box } from "@material-ui/core";
 import styled from "styled-components";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 const Wrapper = styled(Box)`
-  flex: 1 45%;
+  flex: 1 60%;
   display: flex;
   items-align: center;
   justify-content: center;
-  ${"" /* padding: 3em; */}
-  height: 400px;
-  padding-bottom: 6em;
-  padding-top: 2em;
+  margin-bottom: 3em;  
+
 
   @media (max-width: 1300px) {
     flex: 1 100%;
     order: 5;
   }
 `;
+
+
+const Card = styled(Paper)`
+  width: 20vw;
+  height: 50vh;
+
+`
 
 const Chart = styled.div`
   width: 100%;
@@ -86,8 +91,8 @@ export default function LineGraph({ lineData }) {
   }, [lineData]);
 
   return (
-    <Wrapper>
+    <Card component={Wrapper} elevation={24}>
       <Chart id="line_chart"></Chart>
-    </Wrapper>
+    </Card>
   );
 }
