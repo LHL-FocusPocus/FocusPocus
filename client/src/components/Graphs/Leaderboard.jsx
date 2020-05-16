@@ -99,7 +99,7 @@ export default function Leaderboard({ leaderboard }) {
     cursor.behavior = "none";
 
     let subtitle = chart.titles.create();
-    subtitle.text = "Minutes squandered last week";
+    subtitle.text = "Minutes squandered past week";
     subtitle.fontSize = 12;
     subtitle.marginBottom = 20;
 
