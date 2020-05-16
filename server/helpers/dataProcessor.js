@@ -1,9 +1,12 @@
 // Helper function to manage obj:keys data and change all time to minutes
-const compileData = function (data, key) {
+const compileData = function (data, key, key2) {
   const dataArr = [];
   data.map((obj) => {
     const dataObj = {};
     dataObj[key] = obj[key];
+    if (key2) {
+      dataObj[key2] = obj[key2];
+    }
     processTimeToMins(obj, dataObj, dataArr);
   });
   return dataArr;
