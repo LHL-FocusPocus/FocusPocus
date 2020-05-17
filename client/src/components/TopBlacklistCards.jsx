@@ -9,6 +9,7 @@ import InfoIcon from "@material-ui/icons/Info";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../utils/constants";
 import { Typography } from "@material-ui/core";
+import clsx from "clsx";
 
 import styled from "styled-components";
 
@@ -18,13 +19,19 @@ const useStyles = makeStyles(theme => ({
   // },
   title: {
     color: theme.palette.common.black,
-
-  }
+  },
+  notDragging: {
+    opacity: 1,
+  },
+  dragging: {
+    opacity: 0,
+    boxShadow: "none"
+  },
 }));
 
 const WebsiteTitle = styled(GridListTileBar)`
   text-align: center;
-   ${'' /* background: linear-gradient(#e66465, #9198e5); */}
+  ${"" /* background: linear-gradient(#e66465, #9198e5); */}
   ${"" /* background: white; */}
   background: none;
   ${"" /* padding-left: 12%; */}
@@ -41,13 +48,13 @@ const Icon = styled.img`
 `;
 
 const Card = styled(GridListTile)`
-  ${'' /* width: 220px; */}
-  ${'' /* width: 46.8%; */}
-  margin: 0.5em;  
+  ${"" /* width: 220px; */}
+  ${"" /* width: 46.8%; */}
+  margin: 0.5em;
   padding-top: 1em;
   box-shadow: 1px 2px 3px 1px slategrey;
   flex-grow: 1;
-  ${'' /* width: 45%; */}
+  ${"" /* width: 45%; */}
 `;
 
 export default function TopBlacklistCards({ hostname, name, id }) {
@@ -63,20 +70,27 @@ export default function TopBlacklistCards({ hostname, name, id }) {
   });
 
   return (
-    <Card key={name} ref={drag}>
+    <Card
+      className={clsx({
+        [classes.dragging]: isDragging,
+      })}
+      key={name}
+      ref={drag}
+    >
       <Icon
-        style={{
-          opacity: isDragging ? 0 : 1,
-        }}
-        className={classes.image}
+        className={clsx({
+          [classes.dragging]: isDragging,
+          [classes.image]: true,
+        })}
         src={`//logo.clearbit.com/${hostname}`}
         alt={name}
       />
       <WebsiteTitle
         textColor="black"
-        style={{ opacity: isDragging ? 0 : 1 }}
+        className={clsx({
+          [classes.dragging]: isDragging
+        })}
         classes={{
-          tileBar: classes.tileBar,
           title: classes.title,
         }}
         title={name}

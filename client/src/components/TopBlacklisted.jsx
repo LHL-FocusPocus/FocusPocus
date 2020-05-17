@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
@@ -18,16 +18,8 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    // display: "flex",
-    // // flexWrap: "wrap",
-    // overflow: "hidden",
-    // flexDirection: "column",
-    // backgroundColor: theme.palette.background.paper,
-    // flex: 1,
-
     display: "flex",
     flexWrap: "wrap",
-    // justifyContent: 'space-around',
     flexDirection: "column",
     overflow: "hidden",
     backgroundColor: theme.palette.background.paper,
@@ -37,8 +29,6 @@ const useStyles = makeStyles(theme => ({
     height: 600,
     width: 350,
     alignSelf: "center",
-    // padding: 0,
-    // paddingLeft: "auto",
   },
   popover: {
     pointerEvents: "none",
@@ -54,13 +44,12 @@ const Title = styled.h1`
 `;
 
 const Popup = styled.div`
-  ${"" /* padding: 0; */}
   text-align: center;
   margin-bottom: 1em;
 `;
 
 export default function TopBlacklisted({ topBlacklisted }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const classes = useStyles();
 

@@ -17,9 +17,7 @@ const Container = styled(Box)`
 `;
 
 const Slider = styled(QuotaSlider)`
-  ${"" /* width: 30%; */}
-  ${"" /* padding-left: 20%; */}
-  transform: translateX(200px);
+  ${'' /* transform: translateX(200px); */}
 `;
 
 export default function Options({
