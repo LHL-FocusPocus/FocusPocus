@@ -125,12 +125,12 @@ module.exports = (db) => {
           dbHelper
             .addWebsite(URL, name, category)
             .then((site) => {
-              console.log("Adding website to blacklist", userId, site.id);
+              console.log("Adding website to blacklist=====>", userId, site.id);
               return dbHelper.addWebsiteToBlacklist(userId, site.id);
             })
             .then((blacklistedSite) => {
               console.log(
-                "Getting blacklisted site by website ID",
+                "Getting blacklisted site by website ID ======>",
                 userId,
                 blacklistedSite.website_id
               );
@@ -139,6 +139,7 @@ module.exports = (db) => {
                 blacklistedSite.website_id,
                 userId
               );
+              // return dbHelper.getBlacklistedSitesWithUserID(userId);
             })
             .then((website) => {
               return res.status(201).json(website);
@@ -150,12 +151,13 @@ module.exports = (db) => {
           // to enabled
           dbHelper
             .getBlacklistedSiteByWebsiteId(site.id, userId)
+            // .getBlacklistedSitesWithUserID(userId)
             .then((websiteScoped) => {
               // If website already in user's blacklist, set its flag to enabled
               if (websiteScoped) {
                 if (websiteScoped.enabled) {
                   // User is trying to add something already enabled
-                  return res.status(400).json("Already on blacklist!");
+                  return res.status(409).json("Already on blacklist!");
                 } else {
                   website = websiteScoped;
                   return dbHelper
@@ -206,6 +208,9 @@ module.exports = (db) => {
     console.log("website ID ====>Before", id);
     dbHelper.disableWebsiteInBlacklist(id, userId).then((resp) => {
       console.log("website ID ====>After", id);
+      if (!id) {
+        return res.status(400).json(err);
+      }
       return res.status(200).json(resp);
     });
   });
