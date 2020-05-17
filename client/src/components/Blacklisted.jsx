@@ -40,6 +40,7 @@ const Container = styled(Box)`
   padding: 0 5%;
   width: 25%;
   padding-top: 20px;
+  flex: 1
   ${"" /* transform: translateX(22%) */}
 `;
 

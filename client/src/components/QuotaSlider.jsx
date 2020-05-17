@@ -10,6 +10,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 const SliderDiv = styled.div`
   width: 400px;
+  flex: 1;
 `;
 
 const Spinner = styled(CircularProgress)`

@@ -18,16 +18,27 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
   root: {
+    // display: "flex",
+    // // flexWrap: "wrap",
+    // overflow: "hidden",
+    // flexDirection: "column",
+    // backgroundColor: theme.palette.background.paper,
+    // flex: 1,
+
     display: "flex",
     flexWrap: "wrap",
-    overflow: "hidden",
+    // justifyContent: 'space-around',
     flexDirection: "column",
+    overflow: "hidden",
     backgroundColor: theme.palette.background.paper,
-    width: "20%",
+    flex: 1,
   },
   gridList: {
-    width: 350,
     height: 700,
+    width: 350,
+    alignSelf: "center",
+    // padding: 0,
+    // paddingLeft: "auto",
   },
   popover: {
     pointerEvents: "none",
@@ -39,14 +50,13 @@ const useStyles = makeStyles(theme => ({
 
 const Title = styled.h1`
   font-size: 1.5em;
-  width: 80%;
-  margin-left: 62px;
-  margin-right: 100px;
+  text-align: center;
 `;
 
-const GridTile = styled(GridListTile)`
-  padding: 0;
+const Popup = styled.div`
+  ${"" /* padding: 0; */}
   text-align: center;
+  margin-bottom: 1em;
 `;
 
 export default function TopBlacklisted({ topBlacklisted }) {
@@ -67,42 +77,44 @@ export default function TopBlacklisted({ topBlacklisted }) {
   return (
     <div className={classes.root}>
       <Title>Top Blacklisted Sites</Title>
-      <GridList cellHeight={180} className={classes.gridList}>
-        <GridTile cols={2} style={{ height: "50px" }}>
-          <IconButton
-            aria-owns={open ? "mouse-over-popover" : undefined}
-            aria-haspopup="true"
-            onMouseEnter={handlePopoverOpen}
-            onMouseLeave={handlePopoverClose}
-            aria-label={`test`}
-          >
-            <InfoIcon />
-          </IconButton>
+      <Popup>
+        <IconButton
+          aria-owns={open ? "mouse-over-popover" : undefined}
+          aria-haspopup="true"
+          onMouseEnter={handlePopoverOpen}
+          onMouseLeave={handlePopoverClose}
+          aria-label={`test`}
+        >
+          <InfoIcon />
+        </IconButton>
 
-          <Popover
-            id="mouse-over-popover"
-            className={classes.popover}
-            classes={{
-              paper: classes.paper,
-            }}
-            open={open}
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "center",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "center",
-            }}
-            onClose={handlePopoverClose}
-            disableRestoreFocus
-          >
-            <Typography>Drag and Drop to Blacklist</Typography>
-          </Popover>
-        </GridTile>
+        <Popover
+          id="mouse-over-popover"
+          className={classes.popover}
+          classes={{
+            paper: classes.paper,
+          }}
+          open={open}
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          onClose={handlePopoverClose}
+          disableRestoreFocus
+        >
+          <Typography>Drag and Drop to Blacklist</Typography>
+        </Popover>
+      </Popup>
+
+      <GridList cellHeight={180} className={classes.gridList}>
         {topBlacklisted.map(tile => (
           <TopBlacklistCards
+            className={classes.cards}
             key={tile.id}
             hostname={tile.hostname}
             name={tile.name}
