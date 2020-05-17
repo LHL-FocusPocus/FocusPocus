@@ -44,7 +44,21 @@
   ready(() => {
     setTimeout(() => {
       replaceAllTextOnPage();
-
+      console.log(
+        new POSTagger().tag([
+          "i",
+          "went",
+          "to",
+          "the",
+          "store",
+          "to",
+          "buy",
+          "5.2",
+          "gallons",
+          "of",
+          "milk",
+        ])
+      );
       // Set up listener for DOM changes (infinite scroll websites) and clicks
       // (instagram like button)
       addListeners("body", () => {

@@ -205,6 +205,10 @@ function changePictures(
     if (blackList.includes(domain) && isOverQuota) {
       chrome.tabs.executeScript(tabId, { file: "helpers.js" });
 
+      // Inject speech tagger files
+      chrome.tabs.executeScript(tabId, { file: "lexicon.js_" });
+      chrome.tabs.executeScript(tabId, { file: "lexer.js" });
+      chrome.tabs.executeScript(tabId, { file: "POSTagger.js" });
       // These can be run conditionally depending on user options
       chrome.tabs.executeScript(tabId, { file: "changePictures.js" });
       chrome.tabs.executeScript(tabId, { file: "changeVideos.js" });
