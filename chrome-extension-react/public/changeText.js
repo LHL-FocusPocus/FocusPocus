@@ -4,15 +4,18 @@
 {
   const replaceTextContent = function (textTagElement, newText) {
     const existingText = textTagElement.textContent;
-    const existingWords = shuffle([...new Set(existingText.split(" "))]);
+    const existingWordSet = [...new Set(existingText.split(" "))];
+    const regex = /^[a-z]/;
+    const filteredWordSet = existingWordSet.filter(word => regex.test(word));
+    const shuffledWordSet = shuffle(filteredWordSet);
 
     // Stop when 15% of words are replaced
-    const thresholdLength = existingWords.length * 0.85;
-    const replacementWords = [...new Set(newText.split(" "))];
+    const thresholdLength = shuffledWordSet.length * 0.85;
+    // const replacementWords = [...new Set(newText.split(" "))];
     let replacementText = existingText;
     let timer = 0;
-    while (existingWords.length > thresholdLength) {
-      const randomWord = existingWords.pop();
+    while (shuffledWordSet.length > thresholdLength) {
+      const randomWord = shuffledWordSet.pop();
       setTimeout(() => {
         replacementText = replacementText.replace(randomWord, "snake");
         textTagElement.textContent = replacementText;
