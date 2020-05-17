@@ -125,15 +125,15 @@ module.exports = (db) => {
           dbHelper
             .addWebsite(URL, name, category)
             .then((site) => {
-              console.log("Adding website to blacklist=====>", userId, site.id);
+              // console.log("Adding website to blacklist=====>", userId, site.id);
               return dbHelper.addWebsiteToBlacklist(userId, site.id);
             })
             .then((blacklistedSite) => {
-              console.log(
-                "Getting blacklisted site by website ID ======>",
-                userId,
-                blacklistedSite.website_id
-              );
+              // console.log(
+              //   "Getting blacklisted site by website ID ======>",
+              //   userId,
+              //   blacklistedSite.website_id
+              // );
 
               return dbHelper.getBlacklistedSiteByWebsiteId(
                 blacklistedSite.website_id,
@@ -200,14 +200,14 @@ module.exports = (db) => {
   router.put("/blacklists/disable/:id", (req, res) => {
     const { userId } = req.session;
     const { id } = req.params;
-    console.log("Req Params =======>", req.params);
-    console.log("Req Body ======>", req.body);
+    // console.log("Req Params =======>", req.params);
+    // console.log("Req Body ======>", req.body);
     if (!userId) {
       return res.status(403).json("Please sign in first.");
     }
-    console.log("website ID ====>Before", id);
+    // console.log("website ID ====>Before", id);
     dbHelper.disableWebsiteInBlacklist(id, userId).then((resp) => {
-      console.log("website ID ====>After", id);
+      // console.log("website ID ====>After", id);
       if (!id) {
         return res.status(400).json(err);
       }
