@@ -79,7 +79,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [dailyQuota, setQuota] = useState(quota.allotment.minutes);
   const [targetQuota, setTargetQuota] = useState();
-  const [increment, setIncrement] = useState();
+  const [increment, setIncrement] = useState(5);
 
   const classes = useStyles();
 
@@ -98,7 +98,8 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
     console.log("quota", dailyQuota);
     console.log("targetQuota", targetQuota);
     console.log("increment", increment);
-    changeQuota(dailyQuota, targetQuota, increment);
+    // Increment is initially a string value -> must be converted
+    changeQuota(dailyQuota, targetQuota, Number(increment));
     setDisabled(true);
   };
 
@@ -158,6 +159,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
                 // }}
               >
                 <option aria-label="Daily-Change" />
+                <option value={0}>Static</option>
                 <option value={1}>1</option>
                 <option value={2}>2</option>
                 <option value={3}>3</option>

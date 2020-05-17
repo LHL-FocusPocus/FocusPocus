@@ -55,16 +55,17 @@ export default function useApplicationData() {
 
   const changeQuota = (quotaStart, quotaTarget, quotaIncrement) => {
     axios
-      .put("/api/user/adjust_quota", {
+      .post("/api/user/adjust_quota", {
         quotaStart,
         quotaTarget,
         quotaIncrement,
       })
-      .then(() => {
-        dispatch({
-          type: CHANGE_QUOTA,
-          allotment: quotaStart,
-        });
+      .then((res) => {
+        console.log('res :>> ', res);
+        // dispatch({
+        //   type: CHANGE_QUOTA,
+        //   allotment: quotaStart,
+        // });
       })
       .catch(e => {
         console.error(e);

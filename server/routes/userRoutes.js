@@ -73,12 +73,13 @@ module.exports = (db) => {
    * quota, increment, and target quota
    */
   router.post("/adjust_quota", (req, res) => {
-    const userId = 1; //req.session.userId;
+    const userId = req.session.userId; //req.session.userId;
     
     if (!userId) {
       return res.status(403).send("You must be signed in!");
     }
     const { quotaStart, quotaIncrement, quotaTarget } = req.body;
+    console.log('req.body :>> ', req.body);
     if (
       !(quotaStart && (quotaIncrement || quotaIncrement === 0) && quotaTarget)
     ) {
