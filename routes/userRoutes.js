@@ -131,29 +131,37 @@ module.exports = (db) => {
               );
             })
             .then((website) => {
-              res.status(201).json(website);
+              return res.status(201).json(website);
             })
             .catch((err) => res.status(500).json(err));
         } else {
-          // If the website exists in the database, get it's ID, scope it and change the user's flag
+          // If the website exists in the database, use its ID to see if it's
+          // already in the user's blacklist, in which case its flag must be set
+          // to enabled
           dbHelper
             .getBlacklistedSiteByWebsiteId(site.id, userId)
             .then((websiteScoped) => {
+              // If website already in user's blacklist, set its flag to enabled
               if (websiteScoped) {
                 if (websiteScoped.enabled) {
-                  return res.status(400).send;
+                  // User is trying to add something already enabled
+                  return res.status(400).json("Already on blacklist!");
                 } else {
                   website = websiteScoped;
                   return dbHelper
                     .enableBlacklistedSite(websiteScoped.website_id, userId)
                     .then(() => {
-                      res.status(201).json(website);
-                    });
+                      return res
+                        .status(201)
+                        .json(website);
+                    })
+                    .catch((err) => res.status(500).json(err));
                 }
               }
-              // If the website exists in the db, but cannot scope it, then add it to the user's blacklist, and return the data
+              // If the website exists in the db, but has never been on user's
+              // blacklist, then add it to the user's blacklist
               else if (!websiteScoped) {
-                return dbHelper
+                dbHelper
                   .addWebsiteToBlacklist(userId, site.id)
                   .then((blacklistedSite) => {
                     return dbHelper.getBlacklistedSiteByWebsiteId(
@@ -162,12 +170,11 @@ module.exports = (db) => {
                     );
                   })
                   .then((website) => {
-                    res.status(201).json(website);
+                    return res.status(201).json(website);
                   })
                   .catch((err) => res.status(500).json(err));
               }
             })
-
             .catch((err) => res.status(500).json(err));
         }
       })
@@ -178,10 +185,10 @@ module.exports = (db) => {
     const { userId } = req.session;
     const { id } = req.params;
     if (!userId) {
-      return res.status(403).send("Please sign in first.");
+      return res.status(403).json("Please sign in first.");
     }
     dbHelper.disableWebsiteInBlacklist(id, userId).then((resp) => {
-      res.status(200).json(resp);
+      return res.status(200).json(resp);
     });
   });
 
