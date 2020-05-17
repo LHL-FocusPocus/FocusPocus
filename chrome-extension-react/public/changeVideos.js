@@ -4,7 +4,7 @@
 {
   let newVideoGlobal = "https://rickrolled.fr/rickroll.mp4";
   let newImgGlobal =
-    "https://memegen.link/bad/you're_browsing_bad_sites/and_you_should_feel_bad.jpg";
+    "https://memegen.link/bad/browsing_this_site_is_bad/and_you_should_feel_bad.jpg";
   /**
    * Replaces src and similar attributes in video elements.
    */

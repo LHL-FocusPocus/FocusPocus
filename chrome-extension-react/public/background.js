@@ -23,6 +23,11 @@ chrome.runtime.onInstalled.addListener(function () {
   });
 });
 
+const imgArray = [
+  "https://memegen.link/bad/browsing_this_site_is_bad/and_you_should_feel_bad.jpg",
+  "https://memegen.link/doge/so_browseful_wow/much_procrastinate.jpg",
+];
+
 let timerInSeconds = 0;
 
 // Increment timer and store current value inside chrome to be used by UI
