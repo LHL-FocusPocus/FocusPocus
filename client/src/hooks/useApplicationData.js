@@ -50,15 +50,17 @@ export default function useApplicationData() {
     });
   };
 
-  const changeQuota = quotaInMinutes => {
+  const changeQuota = (dailyQuota, targetQuota, quotaIncrement) => {
     axios
       .put("/api/user/adjust_quota", {
-        quotaInMinutes,
+        dailyQuota,
+        targetQuota,
+        quotaIncrement,
       })
       .then(() => {
         dispatch({
           type: CHANGE_QUOTA,
-          allotment: quotaInMinutes,
+          allotment: dailyQuota,
         });
       })
       .catch(e => {

@@ -77,23 +77,24 @@ module.exports = (db) => {
     if (!userId) {
       return res.status(403).send("You must be signed in!");
     }
+    console.log('req.body', req.body)
 
-    const { quotaStart, quotaIncrement, quotaTarget } = req.body;
+    const { dailyQuota, quotaIncrement, targetQuota } = req.body;
 
-    // User wants a static quota
-    if (quotaIncrement === 0) {
-      dbHelper
-        .adjustUserQuota(`${quotaStart} minutes`, userId)
-        .then(() => {
-          res.status(200).json(quotaStart);
-        })
-        .catch((e) => {
-          console.error(e);
-          return res.status(500).json(e);
-        });
-    } else {
-      // Handle adding multiple quotas
-    }
+    // // User wants a static quota
+    // if (quotaIncrement === 0) {
+    //   dbHelper
+    //     .adjustUserQuota(`${dailyQuota} minutes`, userId)
+    //     .then(() => {
+    //       res.status(200).json(dailyQuota);
+    //     })
+    //     .catch((e) => {
+    //       console.error(e);
+    //       return res.status(500).json(e);
+    //     });
+    // } else {
+    //   // Handle adding multiple quotas
+    // }
   });
 
   // Retrieving a user's blacklisted sites

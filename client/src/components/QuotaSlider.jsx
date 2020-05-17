@@ -78,7 +78,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
   const [loading, setLoading] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [dailyQuota, setQuota] = useState(quota.allotment.minutes);
-  const [targetQuota, setTargetQuota] = useState(20);
+  const [targetQuota, setTargetQuota] = useState();
   const [increment, setIncrement] = useState();
 
   const classes = useStyles();
@@ -98,7 +98,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
     console.log("quota", dailyQuota);
     console.log("targetQuota", targetQuota);
     console.log("increment", increment);
-    changeQuota(dailyQuota);
+    changeQuota(dailyQuota, targetQuota, increment);
     setDisabled(true);
   };
 
