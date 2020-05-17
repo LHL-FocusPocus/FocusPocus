@@ -12,13 +12,21 @@ import NativeSelect from "@material-ui/core/NativeSelect";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
+import IconButton from "@material-ui/core/IconButton";
+import { useDrag } from "react-dnd";
+import { ItemTypes } from "../utils/constants";
+import TopBlacklistCards from "./TopBlacklistCards";
+import InfoIcon from "@material-ui/icons/Info";
+import Tooltip from "@material-ui/core/Tooltip";
+import Popover from "@material-ui/core/Popover";
 
 const SliderDiv = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
-  padding-top: 2em;
-  flex-direction: column;
+  align-items: center;
+  padding-bottom: 5em;
+  ${"" /* flex-direction: column; */}
 `;
 
 const SliderComponent = styled.div`
@@ -35,29 +43,55 @@ const Spinner = styled(CircularProgress)`
 `;
 
 const DailyAdjuster = styled.div`
+  ${"" /* width: 100%; */}
+  padding: 0.5em;
+  display: flex;
+  justify-content: center;
+`;
+
+const QuotaButton = styled.div`
   width: 100%;
   text-align: center;
-  padding: 0.5em;
+`;
+
+const Popup = styled.div`
+  margin-top: 3%;
 `;
 
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    minWidth: 160,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+  popover: {
+    pointerEvents: "none",
+  },
+  paper: {
+    padding: theme.spacing(1),
+  },
 }));
 
 export default function QuotaSlider({ quota, changeQuota }) {
-  const classes = useStyles();
-
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(true);
-
+  const [anchorEl, setAnchorEl] = useState(null);
   const [dailyQuota, setQuota] = useState(quota.allotment.minutes);
   const [targetQuota, setTargetQuota] = useState();
+
+  const classes = useStyles();
+
+  const handlePopoverOpen = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -112,10 +146,11 @@ export default function QuotaSlider({ quota, changeQuota }) {
           </SliderComponent>
           <DailyAdjuster>
             <FormControl variant="filled" className={classes.formControl}>
-              <InputLabel htmlFor="filled-age-native-simple">Age</InputLabel>
+              <InputLabel htmlFor="filled-age-native-simple">
+                Change/day
+              </InputLabel>
               <Select
-                          disabled={disabled}
-
+                disabled={disabled}
                 native
                 // value={state.age}
                 // onChange={handleChange}
@@ -124,16 +159,62 @@ export default function QuotaSlider({ quota, changeQuota }) {
                   id: "filled-age-native-simple",
                 }}
               >
-                <option aria-label="None" value="" />
-                <option value={10}>Ten</option>
-                <option value={20}>Twenty</option>
-                <option value={30}>Thirty</option>
+                <option aria-label="Daily-Change" value="" />
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+                <option value={4}>4</option>
+                <option value={5}>5</option>
+                <option value={6}>6</option>
+                <option value={7}>7</option>
+                <option value={8}>8</option>
+                <option value={9}>9</option>
+                <option value={10}>10</option>
               </Select>
             </FormControl>
+            <Popup>
+              <IconButton
+                aria-owns={open ? "mouse-over-popover" : undefined}
+                aria-haspopup="true"
+                onMouseEnter={handlePopoverOpen}
+                onMouseLeave={handlePopoverClose}
+                aria-label={`test`}
+              >
+                <InfoIcon />
+              </IconButton>
+
+              <Popover
+                id="mouse-over-popover"
+                className={classes.popover}
+                classes={{
+                  paper: classes.paper,
+                }}
+                open={open}
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "center",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "right",
+                  horizontal: "left",
+                  // vert: bot cen top
+                  // hor:  left right center
+                }}
+                onClose={handlePopoverClose}
+                disableRestoreFocus
+              >
+                <Typography>
+                  How much your quota will change per day (minutes) until target
+                  quota reached
+                </Typography>
+              </Popover>
+            </Popup>
           </DailyAdjuster>
-          <DailyAdjuster>
+          <QuotaButton>
             {disabled && (
               <Button
+                fullWidth={true}
                 onClick={() => setDisabled(!disabled)}
                 variant="contained"
               >
@@ -141,11 +222,15 @@ export default function QuotaSlider({ quota, changeQuota }) {
               </Button>
             )}
             {!disabled && (
-              <Button onClick={handleSubmit} variant="contained">
+              <Button
+                fullWidth={true}
+                onClick={handleSubmit}
+                variant="contained"
+              >
                 Set New Quota
               </Button>
             )}
-          </DailyAdjuster>
+          </QuotaButton>
         </SliderComponent>
       </SliderDiv>
     </>
