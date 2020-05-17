@@ -493,6 +493,19 @@ module.exports = (db) => {
       .catch((e) => console.error(e));
   };
 
+  const updateUserOptionQuota = (
+    userId,
+    optionsObject
+  ) => {
+    return db.query(
+      `
+      UPDATE users
+      SET options = $2
+      WHERE id = $1;
+      `,
+      [userId, optionsObject]
+    );
+  };
   return {
     getUserWithEmail,
     getUserWithID,
@@ -521,5 +534,6 @@ module.exports = (db) => {
     addStaticQuota,
     getTopBlacklistedSites,
     addQuotaWithDate,
+    updateUserOptionQuota,
   };
 };
