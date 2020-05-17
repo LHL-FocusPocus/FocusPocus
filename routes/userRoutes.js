@@ -73,13 +73,15 @@ module.exports = (db) => {
    * quota, increment, and target quota
    */
   router.post("/adjust_quota", (req, res) => {
-    const userId = req.session.userId;
+    const userId = 1; //req.session.userId;
     if (!userId) {
       return res.status(403).send("You must be signed in!");
     }
 
     const { quotaStart, quotaIncrement, quotaTarget } = req.body;
-
+    if (!(quotaStart && quotaIncrement && quotaTarget)) {
+      return res.status(400).json("Invalid request");
+    }
     // User wants a static quota
     if (quotaIncrement === 0) {
       dbHelper
@@ -97,6 +99,35 @@ module.exports = (db) => {
         .json("Target quota must be lower than starting quota!");
     } else {
       // Handle adding multiple quotas
+      let i = 0;
+
+      let today = new Date();
+      let tomorrow = new Date();
+      let today2;
+      let tomorrow2;
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      for (
+        let quota = quotaStart;
+        quota > quotaTarget;
+        quota -= quotaIncrement
+      ) {
+        console.log(quota, i, today, tomorrow);
+        dbHelper
+          .addUserQuotaWithDate(userId, `${quota} minutes`, today, tomorrow)
+          .catch((err) => {
+            console.log(err);
+            return res.status(500).json(err);
+          });
+        i++;
+
+        // Increment today and tomorrow for next quota entry.
+        // Dates are immutable objects so need to do this hacky thing
+        today2 = today;
+        today = new Date();
+        today.setDate(today2.getDate() + 1);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+      }
+      return res.status(201).json("Complete");
     }
   });
 

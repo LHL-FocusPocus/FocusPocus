@@ -457,16 +457,16 @@ module.exports = (db) => {
       .catch((err) => console.error(err));
   };
 
-  const addUserQuotaWithDate = (newQuota, daysFromToday, userId) => {
+  const addUserQuotaWithDate = (userId, newQuota, startDate, endDate) => {
     return db
       .query(
         `
         INSERT INTO quotas
           (user_id, time_allotment, date_valid_from, date_valid_until)
         VALUES
-          ($1, $2, CURRENT_DATE + INTERVAL '$3 d', CURRENT_DATE + INTERVAL '$4 d');
+          ($1, $2, $3, $4);
         `,
-        [userId, newQuota, daysFromToday, daysFromToday + 1]
+        [userId, newQuota, startDate, endDate]
       )
       .then((res) => {
         if (res.rows.length === 0) return null;
@@ -515,5 +515,6 @@ module.exports = (db) => {
     isBlacklistedSiteEnabled,
     adjustUserQuota,
     getTopBlacklistedSites,
+    addUserQuotaWithDate,
   };
 };
