@@ -40,7 +40,7 @@ export default function Options({
   // }
 
   const addTopSiteToUserBlacklist = hostname => {
-    console.log('hostname', hostname)
+    console.log("hostname", hostname);
     addBlacklistedSite(hostname);
   };
 
@@ -63,8 +63,6 @@ export default function Options({
             blacklisted={blacklisted}
           />
           <TopBlacklisted topBlacklisted={topBlacklisted} />
-
-          
         </Container>
       </CardContext.Provider>
     </DndProvider>

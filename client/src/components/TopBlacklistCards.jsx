@@ -26,7 +26,8 @@ const Icon = styled.img`
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 46%;
+  ${'' /* transform: translateY(-5px) */}
 `;
 
 const Card = styled(GridListTile)`
