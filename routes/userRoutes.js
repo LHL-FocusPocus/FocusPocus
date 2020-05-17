@@ -91,6 +91,10 @@ module.exports = (db) => {
           console.error(e);
           return res.status(500).json(e);
         });
+    } else if (quotaTarget >= quotaStart) {
+      return res
+        .status(400)
+        .json("Target quota must be lower than starting quota!");
     } else {
       // Handle adding multiple quotas
     }
