@@ -115,17 +115,25 @@ module.exports = (db) => {
       .getWebsiteIDByHostname(URL)
       .then((site) => {
         if (!site) {
+          console.log("=====> !site", site);
+
           const name = extractNameFromURL(URL);
           const category = null;
           // Creating the website in the database before it can be added to their blacklist
           dbHelper
             .addWebsite(URL, name, category)
             .then((site) => {
-              console.log("=====> Added site.id", site.id);
-
+              console.log("=====> Added site", site);
+              // Adding to blacklist table
               return dbHelper.addWebsiteToBlacklist(userId, site.id);
+              //  &&
+              // dbHelper.enableBlacklistedSite(site.id, userId)
             })
             .then((blacklistedSite) => {
+              console.log(
+                "Blacklisting this site flag being set to TRUE ====>",
+                blacklistedSite
+              );
               return dbHelper.getBlacklistedSiteByWebsiteId(
                 blacklistedSite.website_id,
                 userId
@@ -136,22 +144,80 @@ module.exports = (db) => {
             })
             .catch((err) => res.status(500).json(err));
         } else {
+          // need to get website id
+          // if the website exists in the users db, then change the flag - doing this right now
+          // if the website exists in the db but the user has never added it, add it and set flag - not doing this
           dbHelper
+            // .getWebsiteIDByHostname(URL)
+            // .then(console.log("====> URL", URL))
             .getBlacklistedSiteByWebsiteId(site.id, userId)
             .then((websiteScoped) => {
               console.log("=====> Scoped site.id", site.id);
+              console.log("=====> Scoped userId", userId);
               console.log("=====> Scoped websiteScoped", websiteScoped);
+              if (websiteScoped) {
+                if (websiteScoped.enabled) {
+                  return res.status(400).send;
+                } else {
+                  website = websiteScoped;
+                  return dbHelper
+                    .enableBlacklistedSite(websiteScoped.website_id, userId)
+                    .then(() => {
+                      console.log("=====> Scoped website", website);
+                      res.status(201).json(website);
+                    });
+                }
+              } else if (!websiteScoped) {
+                console.log("====> !websiteScoped USER ID", userId);
+                console.log("====> !websiteScoped SITE", site.id);
 
-              if (websiteScoped.enabled) {
-                return res.status(400).send;
-              } else {
-                website = websiteScoped;
                 return dbHelper
-                  .enableBlacklistedSite(websiteScoped.website_id, userId)
-                  .then(() => {
+                  .addWebsiteToBlacklist(userId, site.id)
+                  .then((blacklistedSite) => {
+                    console.log(
+                      "Blacklisting this site flag being set to TRUE ====>",
+                      blacklistedSite
+                    );
+                    return dbHelper.getBlacklistedSiteByWebsiteId(
+                      blacklistedSite.website_id,
+                      userId
+                    );
+                  })
+                  .then((website) => {
                     res.status(201).json(website);
-                  });
+                  })
+                  .catch((err) => res.status(500).json(err));
+                // .then((site) => {
+                //   console.log(
+                //     "====> !websiteScoped Adding website and returning json",
+                //     site
+                //   );
+                //   return res.status(201).json(site);
+                // });
+                // .then((site) => {
+                //   console.log(
+                //     "=====> jasdjaskdjaksjdljsajdkl Added site.id",
+                //     site
+                //   );
+                //   // Adding to blacklist table
+                //   return dbHelper.addWebsiteToBlacklist(userId, site.id);
+                //   //  &&
+                // dbHelper.enableBlacklistedSite(site.id, userId)
               }
+
+              //  &&
+              // dbHelper.enableBlacklistedSite(site.id, userId)
+
+              // .then((blacklistedSite) => {
+              //   console.log(
+              //     "Blacklisting this site ====>",
+              //     blacklistedSite
+              //   );
+              //   return dbHelper.getBlacklistedSiteByWebsiteId(
+              //     blacklistedSite.website_id,
+              //     userId
+              //   );
+              // });
             })
 
             .catch((err) => res.status(500).json(err));
