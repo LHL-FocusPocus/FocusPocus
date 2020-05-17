@@ -3,17 +3,25 @@
  */
 {
   const replaceTextContent = function (textTagElement, newText) {
+    // Get the text, split into words, and deduplicate
     const existingText = textTagElement.textContent;
     const existingWordSet = [...new Set(existingText.split(" "))];
+
+    // Filter wordset (right now, only lowercase, but eventually nouns?)
     const regex = /^[a-z]/;
     const filteredWordSet = existingWordSet.filter(word => regex.test(word));
+
+    // Randomize wordset order
     const shuffledWordSet = shuffle(filteredWordSet);
 
     // Stop when 15% of words are replaced
     const thresholdLength = shuffledWordSet.length * 0.85;
+
     // const replacementWords = [...new Set(newText.split(" "))];
     let replacementText = existingText;
     let timer = 0;
+
+    // Replace a random word with "snake" every few seconds
     while (shuffledWordSet.length > thresholdLength) {
       const randomWord = shuffledWordSet.pop();
       setTimeout(() => {
