@@ -100,32 +100,19 @@ module.exports = (db) => {
     } else {
       // Handle adding multiple quotas
       let i = 0;
-
-      let today = new Date();
-      let tomorrow = new Date();
-      let today2;
-      let tomorrow2;
-      tomorrow.setDate(tomorrow.getDate() + 1);
       for (
         let quota = quotaStart;
         quota > quotaTarget;
         quota -= quotaIncrement
       ) {
-        console.log(quota, i, today, tomorrow);
+        console.log(quota, i);
         dbHelper
-          .addUserQuotaWithDate(userId, `${quota} minutes`, today, tomorrow)
+          .addUserQuotaWithDate(userId, `${quota} minutes`, i)
           .catch((err) => {
             console.log(err);
             return res.status(500).json(err);
           });
         i++;
-
-        // Increment today and tomorrow for next quota entry.
-        // Dates are immutable objects so need to do this hacky thing
-        today2 = today;
-        today = new Date();
-        today.setDate(today2.getDate() + 1);
-        tomorrow.setDate(tomorrow.getDate() + 1);
       }
       return res.status(201).json("Complete");
     }
