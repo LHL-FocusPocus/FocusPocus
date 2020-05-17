@@ -87,6 +87,8 @@ function parseAndStoreUserData(userData) {
   } = userData;
   if (used_minutes > quota_allotment_minutes) {
     isOverQuota = true;
+  } else {
+    isOverQuota = false;
   }
   console.log("Over quota?", isOverQuota);
 
