@@ -51,25 +51,24 @@ export default function useApplicationData() {
   };
 
   /*     const { quotaStart, quotaIncrement, quotaTarget } = req.body;
- */
+   */
 
   const changeQuota = (quotaStart, quotaTarget, quotaIncrement) => {
-    console.log('object', object)
-    // axios
-    //   .put("/api/user/adjust_quota", {
-    //     dailyQuota,
-    //     targetQuota,
-    //     quotaIncrement,
-    //   })
-    //   .then(() => {
-    //     dispatch({
-    //       type: CHANGE_QUOTA,
-    //       allotment: dailyQuota,
-    //     });
-    //   })
-    //   .catch(e => {
-    //     console.error(e);
-    //   });
+    axios
+      .put("/api/user/adjust_quota", {
+        quotaStart,
+        quotaTarget,
+        quotaIncrement,
+      })
+      .then(() => {
+        dispatch({
+          type: CHANGE_QUOTA,
+          allotment: quotaStart,
+        });
+      })
+      .catch(e => {
+        console.error(e);
+      });
   };
 
   const addBlacklistedSite = host_name => {
