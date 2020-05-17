@@ -85,13 +85,16 @@ module.exports = (db) => {
     ) {
       return res.status(400).json("Invalid request");
     }
+    const optionsObj = { quotaStart, quotaIncrement, quotaTarget };
     // User wants a static quota
     if (quotaIncrement === 0) {
       dbHelper
         .addStaticQuota(userId, `${quotaStart} minutes`)
         .then(() => {
-          res.status(200).json(quotaStart);
+          // Update the user's option to reflect their choice
+          return dbHelper.updateUserOptionQuota(userId, optionsObj);
         })
+        .then((user) => res.status(201).json(user))
         .catch((e) => {
           console.error(e);
           return res.status(500).json(e);
@@ -108,7 +111,6 @@ module.exports = (db) => {
         quota > quotaTarget;
         quota -= quotaIncrement
       ) {
-        console.log(quota, i);
         dbHelper
           .addQuotaWithDate(
             userId,
@@ -130,11 +132,15 @@ module.exports = (db) => {
           `CURRENT_DATE + INTERVAL '${i} day'`,
           `'INFINITY'`
         )
+        .then(() => {
+          // Update the user's option to reflect their choice
+          return dbHelper.updateUserOptionQuota(userId, optionsObj);
+        })
+        .then((user) => res.status(201).json(user))
         .catch((err) => {
           console.log(err);
           return res.status(500).json(err);
-        });
-      return res.status(201).json("Complete");
+        });      
     }
   });
 
