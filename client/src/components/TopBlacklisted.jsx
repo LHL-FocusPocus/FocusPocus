@@ -19,8 +19,7 @@ import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
-    // flexWrap: "wrap",
-    // justifyContent: "start",
+    flexWrap: "wrap",
     overflow: "hidden",
     flexDirection: "column",
     backgroundColor: theme.palette.background.paper,
@@ -41,28 +40,13 @@ const useStyles = makeStyles(theme => ({
 const Title = styled.h1`
   font-size: 1.5em;
   width: 80%;
-  ${'' /* text-align: center; */}
   margin-left: 62px;
   margin-right: 100px;
-  ${"" /* text-align: center;
-  width: 100%; */}
-  ${"" /* height: 100%; */}
-  ${"" /* padding-top: 2em; */}
-`;
-
-const Popup = styled.div`
-  height: 50px;
-  text-align: center;
 `;
 
 const NotCards = styled(GridListTile)`
   padding: 0;
   text-align: center;
-`;
-
-const PopupIcon = styled(IconButton)`
-  ${"" /* text-align: center;
-  height: 20%; */}
 `;
 
 export default function TopBlacklisted({ topBlacklisted }) {
@@ -85,7 +69,7 @@ export default function TopBlacklisted({ topBlacklisted }) {
       <Title>Top Blacklisted Sites</Title>
       <GridList cellHeight={180} className={classes.gridList}>
         <NotCards cols={2} style={{ height: "50px" }}>
-          <PopupIcon
+          <IconButton
             aria-owns={open ? "mouse-over-popover" : undefined}
             aria-haspopup="true"
             onMouseEnter={handlePopoverOpen}
@@ -93,7 +77,7 @@ export default function TopBlacklisted({ topBlacklisted }) {
             aria-label={`test`}
           >
             <InfoIcon />
-          </PopupIcon>
+          </IconButton>
 
           <Popover
             id="mouse-over-popover"
@@ -128,37 +112,3 @@ export default function TopBlacklisted({ topBlacklisted }) {
     </div>
   );
 }
-
-/* 
-        {topBlacklisted.map(tile => (
-          <GridListTile
-            key={tile.id}
-            hostname={tile.hostname}
-            name={tile.name}
-            id={tile.hostname}
-            ref={drag}
-            key={tile.name}
-          >
-            <img
-              style={{
-                opacity: "isDragging ? 0.5 : 1",
-              }}
-              className={classes.image}
-              src={`//logo.clearbit.com/${tile.hostname}`}
-              alt={tile.name}
-            />
-            <GridListTileBar
-              style={{ backgroundColor: isDragging ? "blue" : "green" }}
-              className={classes.tileBar}
-              title={tile.name}
-              actionIcon={
-                <IconButton
-                  aria-label={`${tile.name}`}
-                  className={classes.icon}
-                >
-                  <InfoIcon />
-                </IconButton>
-              }
-            />
-          </GridListTile>
-        ))} */

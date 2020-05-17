@@ -39,6 +39,7 @@ const Container = styled(Box)`
   min-height: 86vh;
   padding: 0 5%;
   width: 25%;
+  padding-top: 20px;
   ${"" /* transform: translateX(22%) */}
 `;
 
@@ -77,6 +78,20 @@ const useStyles = makeStyles(theme => ({
   expandOpen: {
     // transform: "rotate(180deg)",
   },
+  border: {
+    // border: "2px solid black",
+    // border: "3px solid transparent",
+    // borderImage: "linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%)",
+    // borderImageSlice: 1,
+    // backdropFilter: "drop-shadow(40px 40px 60px black)",
+    filter: "blur(5px)",
+
+  },
+  regular: {
+    border: "3x solid transparent",
+    borderImageSlice: 1,
+
+    }
 }));
 
 export default function Blacklisted({
@@ -126,8 +141,9 @@ export default function Blacklisted({
   });
 
   return (
-    <Container
+    <Container className={isOver? classes.border : "regular"}
       ref={drop}
+      style
     >
       <Title>Blacklist</Title>
       <AddNew>

@@ -12,7 +12,6 @@ export const CardContext = createContext({});
 
 const Container = styled(Box)`
   padding: 5em;
-  height: 100%;
   display: flex;
   justify-content: space-around;
 `;
@@ -40,7 +39,6 @@ export default function Options({
   // }
 
   const addTopSiteToUserBlacklist = hostname => {
-    console.log("hostname", hostname);
     addBlacklistedSite(hostname);
   };
 
