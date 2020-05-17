@@ -127,7 +127,6 @@ export default function Blacklisted({
 
   return (
     <Container
-      style={{ backgroundColor: isOver ? "green" : "blue" }}
       ref={drop}
     >
       <Title>Blacklist</Title>

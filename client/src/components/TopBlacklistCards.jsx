@@ -8,35 +8,38 @@ import IconButton from "@material-ui/core/IconButton";
 import InfoIcon from "@material-ui/icons/Info";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../utils/constants";
-
-// import tileData from "./tileData";
+import styled from "styled-components";
 
 const useStyles = makeStyles(theme => ({
   icon: {
     color: "rgba(255, 255, 255, 0.54)",
   },
-  image: {
-    borderRadius: "100%",
-    width: "70%",
-    height: "60%",
-    // left: "13%",
-    // bottom: "10%",
-    // marginLeft: "14%",
-    // paddingRight: "auto",
-  },
-  // tileBar: {
-  //   backgroundColor: "black",
-  // },
-  // website: {
-  //   opacity: "isDragging ? 0.5 : 1",
-  // }
 }));
+
+const WebsiteTitle = styled(GridListTileBar)`
+  text-align: center;
+  background: linear-gradient(#e66465, #9198e5);
+`;
+
+const Icon = styled.img`
+  border-radius: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+`;
+
+const Card = styled(GridListTile)`
+  width: 50%;
+  padding: 0.2em;
+  margin-bottom: 0.8em;
+`;
 
 export default function TopBlacklistCards({ hostname, name, id }) {
   const classes = useStyles();
 
   const [{ isDragging }, drag] = useDrag({
-    // Here is where you identify WHICH piece if being dragged
+    // Here is where you identify WHICH piece is being dragged
     item: { type: ItemTypes.CARD, hostname },
     // transforms state from DnD system into usable props for component
     collect: monitor => ({
@@ -46,25 +49,25 @@ export default function TopBlacklistCards({ hostname, name, id }) {
 
   /* ref={drag} */
   return (
-    <GridListTile ref={drag} key={id}>
-      <img
+    <Card key={name} ref={drag}>
+      <Icon
         style={{
-          opacity: "isDragging ? 0.5 : 1",
+          opacity: isDragging ? 0.4 : 1,
         }}
         className={classes.image}
         src={`//logo.clearbit.com/${hostname}`}
         alt={name}
       />
-      <GridListTileBar
-        style={{ backgroundColor: isDragging ? "blue" : "green" }}
+      <WebsiteTitle
+        style={{ opacity: isDragging ? 0.4 : 1 }}
         className={classes.tileBar}
         title={name}
-        actionIcon={
-          <IconButton aria-label={`${name}`} className={classes.icon}>
-            <InfoIcon />
-          </IconButton>
-        }
+        // actionIcon={
+        //   <IconButton aria-label={`${name}`} className={classes.icon}>
+        //     <InfoIcon />
+        //   </IconButton>
+        // }
       />
-    </GridListTile>
+    </Card>
   );
 }

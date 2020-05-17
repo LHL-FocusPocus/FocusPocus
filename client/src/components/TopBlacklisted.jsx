@@ -20,27 +20,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
   },
   gridList: {
-    width: 500,
+    width: 383,
     height: 800,
   },
-  icon: {
-    color: "rgba(255, 255, 255, 0.54)",
-  },
-  image: {
-    borderRadius: "100%",
-    width: "70%",
-    height: "95%",
-    left: "13%",
-    bottom: "10%",
-    // marginLeft: "14%",
-    // paddingRight: "auto",
-  },
-  tileBar: {
-    backgroundColor: "black",
-  },
-  // website: {
-  //   opacity: "isDragging ? 0.5 : 1",
-  // }
 }));
 
 export default function TopBlacklisted({ topBlacklisted }) {
@@ -52,7 +34,6 @@ export default function TopBlacklisted({ topBlacklisted }) {
   //     isDragging: !!monitor.isDragging(),
   //   }),
   // });
-  console.log("topBlacklisted", topBlacklisted);
   const classes = useStyles();
 
   // 1 -> props object ; contains properties collected from DnD system
@@ -72,12 +53,23 @@ export default function TopBlacklisted({ topBlacklisted }) {
         <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
           <ListSubheader component="div">Top Blacklisted Sites</ListSubheader>
         </GridListTile>
+        {/* {topBlacklisted.map((tile) => (
+          <GridListTile>
+            <img src={tile.img} alt={tile.title} />
+            <GridListTileBar
+              actionIcon={
+                <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
+                  <InfoIcon />
+                </IconButton>
+              }
+            />
+          </GridListTile>
+        ))} */}
         {topBlacklisted.map(tile => (
           <TopBlacklistCards
-            key={tile.name}
+            key={tile.id}
             hostname={tile.hostname}
             name={tile.name}
-            id={tile.id}
           />
         ))}
       </GridList>
