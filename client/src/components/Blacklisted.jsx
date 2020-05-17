@@ -83,8 +83,9 @@ const useStyles = makeStyles(theme => ({
     // border: "3px solid transparent",
     // borderImage: "linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%)",
     // borderImageSlice: 1,
-    boxShadow: "5px 5px 15px black"
+    boxShadow: "5px 5px 15px black",
     //filter: "blur(5px)",
+    transform: "scaleY(1.02) scaleX(1.02)",
 
   },
   regular: {
