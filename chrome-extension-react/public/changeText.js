@@ -3,27 +3,31 @@
  */
 {
   const replaceTextContent = function (textTagElement, newText) {
-    // Get the text, split into words, and deduplicate
+    // Get text, split into words with lexer, tag with postagger
     const existingText = textTagElement.textContent;
-    const existingWordSet = [...new Set(existingText.split(" "))];
+    const existingWords = new Lexer().lex(existingText);
+    const taggedWords = new POSTagger().tag(existingWords);
 
-    // Filter wordset (right now, only lowercase, but eventually nouns?)
-    const regex = /^[a-z]{4,}/;
-    const filteredWordSet = existingWordSet.filter(word => regex.test(word));
+    // extract nouns
+    const nouns = [];
+    taggedWords.forEach(taggedWord => {
+      if (taggedWord[1] === "NN") {
+        nouns.push(taggedWord[0]);
+      }
+    });
 
+    const nounSet = [...new Set(nouns)];
     // Randomize wordset order
-    const shuffledWordSet = shuffle(filteredWordSet);
+    const shuffledNounSet = shuffle(nounSet);
 
-    // Stop when 15% of words are replaced
-    const thresholdLength = shuffledWordSet.length * 0.85;
-
-    // const replacementWords = [...new Set(newText.split(" "))];
-    let replacementText = existingText;
-    let timer = 0;
+    // Stop when 25% of nouns are replaced
+    const thresholdLength = shuffledNounSet.length * 0.75;
 
     // Replace a random word with "snake" every few seconds
-    while (shuffledWordSet.length > thresholdLength) {
-      const randomWord = shuffledWordSet.pop();
+    let replacementText = existingText;
+    let timer = 0;
+    while (shuffledNounSet.length > thresholdLength) {
+      const randomWord = shuffledNounSet.pop();
       setTimeout(() => {
         replacementText = replacementText.replace(randomWord, "snake");
         textTagElement.textContent = replacementText;
@@ -44,21 +48,7 @@
   ready(() => {
     setTimeout(() => {
       replaceAllTextOnPage();
-      console.log(
-        new POSTagger().tag([
-          "i",
-          "went",
-          "to",
-          "the",
-          "store",
-          "to",
-          "buy",
-          "5.2",
-          "gallons",
-          "of",
-          "milk",
-        ])
-      );
+
       // Set up listener for DOM changes (infinite scroll websites) and clicks
       // (instagram like button)
       addListeners("body", () => {
