@@ -41,9 +41,6 @@ export default function QuotaSlider({ quota, changeQuota }) {
     changeQuota(value);
     setDisabled(true);
   };
-  // Console logs show quota.allotment.minutes takes time to initialize
-  // console.log(value);
-  // console.log("quota.allotment.minutes", quota.allotment.minutes);
 
   // Use useEffect to update value when quota.allotment.minutes initializes
   useEffect(() => {
@@ -86,42 +83,3 @@ export default function QuotaSlider({ quota, changeQuota }) {
     </>
   );
 }
-
-/*          {/* <Button onClick={(e, value) = changeQuota(value)} variant="contained">
-            Set New Quota
-          </Button> */
-// check if account is new (?), if so, suggest they dont touch the quota slider yet
-
-/*  return (
-    <>
-      <SliderDiv>
-        <Typography id="discrete-slider" gutterBottom>
-          Daily Quota (Minutes)
-        </Typography>
-        <Slider
-          value={value}
-          aria-labelledby="discrete-slider"
-          valueLabelDisplay="auto"
-          // getAriaValueText={valuetext}
-          step={10}
-          marks
-          min={0}
-          max={180}
-          disabled={disabled}
-          onChange={(e, value) => setValue(value)}
-        />
-        {/* STRETCH: can't change again until: 7 days from now */
-//       {disabled && (
-//         <Button onClick={() => setDisabled(!disabled)} variant="contained">
-//           Change Quota
-//         </Button>
-//       )}
-//       {!disabled && (
-//         <Button onClick={(e) => handleSubmit(e)} variant="contained">
-//           Set New Quota
-//         </Button>
-
-//       )}
-//     </SliderDiv>
-//   </>
-// ); */
