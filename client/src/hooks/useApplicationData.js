@@ -23,13 +23,13 @@ export default function useApplicationData() {
   useEffect(() => {
     axios
       .get("/api/data/dashboard")
-      .then(dashboard => {
+      .then((dashboard) => {
         dispatch({
           type: SET_DASHBOARD_DATA,
           payload: dashboard.data,
         });
       })
-      .catch(e => console.error(e));
+      .catch((e) => console.error(e));
   }, []);
 
   const setDashboard = async () => {
@@ -41,8 +41,11 @@ export default function useApplicationData() {
     });
   };
 
-  const disableBlacklistedSite = id => {
-    axios.put(`/api/user/blacklists/disable/${id}`, id).then(res => {
+  const disableBlacklistedSite = (id) => {
+    console.log("ID before axios put=====>", id);
+    axios.put(`/api/user/blacklists/disable/${id}`, id).then((res) => {
+      console.log("res =======>", res);
+      console.log("id =======>", id);
       dispatch({
         type: CHANGE_BLACKLIST,
         id: res.data.id,
@@ -50,7 +53,7 @@ export default function useApplicationData() {
     });
   };
 
-  const changeQuota = quotaInMinutes => {
+  const changeQuota = (quotaInMinutes) => {
     axios
       .put("/api/user/adjust_quota", {
         quotaInMinutes,
@@ -61,15 +64,15 @@ export default function useApplicationData() {
           allotment: quotaInMinutes,
         });
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e);
       });
   };
 
-  const addBlacklistedSite = host_name => {
+  const addBlacklistedSite = (host_name) => {
     axios
       .post("/api/user/blacklists/add", { host_name })
-      .then(res => {
+      .then((res) => {
         const { id, hostname, name, category } = res.data;
         dispatch({
           type: CHANGE_BLACKLIST,
@@ -79,7 +82,7 @@ export default function useApplicationData() {
           category,
         });
       })
-      .catch(e => console.error(e));
+      .catch((e) => console.error(e));
   };
 
   return {
