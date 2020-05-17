@@ -9,7 +9,8 @@
    */
   const nounFilter = function (noun) {
     // Require at least 3 letters to eliminates buggy noun tagging
-    const regex = /^[a-z]{3,}/i;
+    // (?!.*[:,']) is negative lookahead to exclude words containing :,'
+    const regex = /^(?!.*[:,'])[a-z]{3,}/i;
     return regex.test(noun);
   };
 
