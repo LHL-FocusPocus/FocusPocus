@@ -7,6 +7,11 @@ import Button from "@material-ui/core/Button";
 import useFormFields from "../hooks/useFormFields";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Select from "@material-ui/core/Select";
+import NativeSelect from "@material-ui/core/NativeSelect";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
 
 const SliderDiv = styled.div`
   flex: 1;
@@ -29,8 +34,25 @@ const Spinner = styled(CircularProgress)`
   margin-left: -12;
 `;
 
+const DailyAdjuster = styled.div`
+  width: 100%;
+  text-align: center;
+  padding: 0.5em;
+`;
+
+const useStyles = makeStyles(theme => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
+
 export default function QuotaSlider({ quota, changeQuota }) {
-  console.log("quota SLIDER", quota);
+  const classes = useStyles();
+
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(true);
 
@@ -88,16 +110,42 @@ export default function QuotaSlider({ quota, changeQuota }) {
               onChange={(e, targetQuota) => setTargetQuota(targetQuota)}
             />
           </SliderComponent>
-          {disabled && (
-            <Button onClick={() => setDisabled(!disabled)} variant="contained">
-              Change Quota
-            </Button>
-          )}
-          {!disabled && (
-            <Button onClick={handleSubmit} variant="contained">
-              Set New Quota
-            </Button>
-          )}
+          <DailyAdjuster>
+            <FormControl variant="filled" className={classes.formControl}>
+              <InputLabel htmlFor="filled-age-native-simple">Age</InputLabel>
+              <Select
+                          disabled={disabled}
+
+                native
+                // value={state.age}
+                // onChange={handleChange}
+                inputProps={{
+                  name: "age",
+                  id: "filled-age-native-simple",
+                }}
+              >
+                <option aria-label="None" value="" />
+                <option value={10}>Ten</option>
+                <option value={20}>Twenty</option>
+                <option value={30}>Thirty</option>
+              </Select>
+            </FormControl>
+          </DailyAdjuster>
+          <DailyAdjuster>
+            {disabled && (
+              <Button
+                onClick={() => setDisabled(!disabled)}
+                variant="contained"
+              >
+                Change Quota
+              </Button>
+            )}
+            {!disabled && (
+              <Button onClick={handleSubmit} variant="contained">
+                Set New Quota
+              </Button>
+            )}
+          </DailyAdjuster>
         </SliderComponent>
       </SliderDiv>
     </>
