@@ -4,20 +4,12 @@ import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
-import useFormFields from "../hooks/useFormFields";
-import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Select from "@material-ui/core/Select";
-import NativeSelect from "@material-ui/core/NativeSelect";
 import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import IconButton from "@material-ui/core/IconButton";
-import { useDrag } from "react-dnd";
-import { ItemTypes } from "../utils/constants";
-import TopBlacklistCards from "./TopBlacklistCards";
 import InfoIcon from "@material-ui/icons/Info";
-import Tooltip from "@material-ui/core/Tooltip";
 import Popover from "@material-ui/core/Popover";
 
 const SliderDiv = styled.div`
@@ -147,7 +139,7 @@ export default function QuotaSlider({ quota, changeQuota }) {
           <DailyAdjuster>
             <FormControl variant="filled" className={classes.formControl}>
               <InputLabel htmlFor="filled-age-native-simple">
-                Change/day
+                Reduction/day
               </InputLabel>
               <Select
                 disabled={disabled}
@@ -205,7 +197,7 @@ export default function QuotaSlider({ quota, changeQuota }) {
                 disableRestoreFocus
               >
                 <Typography>
-                  How much your quota will change per day (minutes) until target
+                  How much your quota will decrease per day (minutes) until target
                   quota reached
                 </Typography>
               </Popover>
