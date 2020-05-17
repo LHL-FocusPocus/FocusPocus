@@ -44,7 +44,7 @@ const Title = styled.h1`
   margin-right: 100px;
 `;
 
-const NotCards = styled(GridListTile)`
+const GridTile = styled(GridListTile)`
   padding: 0;
   text-align: center;
 `;
@@ -68,7 +68,7 @@ export default function TopBlacklisted({ topBlacklisted }) {
     <div className={classes.root}>
       <Title>Top Blacklisted Sites</Title>
       <GridList cellHeight={180} className={classes.gridList}>
-        <NotCards cols={2} style={{ height: "50px" }}>
+        <GridTile cols={2} style={{ height: "50px" }}>
           <IconButton
             aria-owns={open ? "mouse-over-popover" : undefined}
             aria-haspopup="true"
@@ -100,7 +100,7 @@ export default function TopBlacklisted({ topBlacklisted }) {
           >
             <Typography>Drag and Drop to Blacklist</Typography>
           </Popover>
-        </NotCards>
+        </GridTile>
         {topBlacklisted.map(tile => (
           <TopBlacklistCards
             key={tile.id}
