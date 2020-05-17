@@ -48,13 +48,18 @@ export default function Shameboard({ shameboard }) {
     categoryAxis.renderer.tooltip.dx = -40;
 
     const valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+    // valueAxis.title.text = "minutes wasted last week";
+    // valueAxis.title.marginBottom = 20;
+    // valueAxis.title.fontSize = 15;
     valueAxis.renderer.inside = true;
     valueAxis.renderer.labels.template.fillOpacity = 0.3;
     valueAxis.renderer.grid.template.strokeOpacity = 0;
     valueAxis.min = 0;
     valueAxis.cursorTooltipEnabled = false;
     valueAxis.renderer.baseGrid.strokeOpacity = 0;
-    valueAxis.renderer.labels.template.dy = 20;
+    valueAxis.renderer.labels.template.dy = -20;
+    valueAxis.renderer.opposite = true;
+
 
     const series = chart.series.push(new am4charts.ColumnSeries());
     series.dataFields.valueX = "time";
@@ -70,11 +75,17 @@ export default function Shameboard({ shameboard }) {
     columnTemplate.column.cornerRadius(60, 10, 60, 10);
     columnTemplate.strokeOpacity = 0;
 
+    let subtitle = chart.titles.create();
+    subtitle.text = "Minutes squandered during past week";
+    subtitle.fontSize = 12;
+    subtitle.marginBottom = 20;
+
     let title = chart.titles.create();
     title.text = "Shameboard";
     title.fontSize = 28;
-    title.marginBottom = 30;
+    title.marginBottom = 10;
     // title.fontFamily = 
+
 
     series.heatRules.push({
       target: columnTemplate,
@@ -92,7 +103,7 @@ export default function Shameboard({ shameboard }) {
     cursor.behavior = "none";
 
     const bullet = columnTemplate.createChild(am4charts.CircleBullet);
-    bullet.circle.radius = 30;
+    bullet.circle.radius = 25;
     bullet.valign = "middle";
     bullet.align = "right";
     bullet.isMeasured = true;
@@ -112,33 +123,33 @@ export default function Shameboard({ shameboard }) {
     image.height = 60;
     image.horizontalCenter = "middle";
     image.verticalCenter = "middle";
-    image.propertyFields.href = "href";
+    image.propertyFields.href = "picture";
 
     image.adapter.add("mask", function (mask, target) {
       const circleBullet = target.parent;
       return circleBullet.circle;
     });
 
-    let previousBullet;
-    chart.cursor.events.on("cursorpositionchanged", function (event) {
-      const dataItem = series.tooltipDataItem;
+    // let previousBullet;
+    // chart.cursor.events.on("cursorpositionchanged", function (event) {
+    //   const dataItem = series.tooltipDataItem;
 
-      if (dataItem.column) {
-        const bullet = dataItem.column.children.getIndex(1);
+    //   if (dataItem.column) {
+    //     const bullet = dataItem.column.children.getIndex(1);
 
-        if (previousBullet && previousBullet != bullet) {
-          previousBullet.isHover = false;
-        }
+    //     if (previousBullet && previousBullet != bullet) {
+    //       previousBullet.isHover = false;
+    //     }
 
-        if (previousBullet != bullet) {
-          const hs = bullet.states.getKey("hover");
-          hs.properties.dx = -dataItem.column.pixelWidth;
-          bullet.isHover = true;
+    //     if (previousBullet != bullet) {
+    //       const hs = bullet.states.getKey("hover");
+    //       hs.properties.dx = -dataItem.column.pixelWidth;
+    //       bullet.isHover = true;
 
-          previousBullet = bullet;
-        }
-      }
-    });
+    //       previousBullet = bullet;
+    //     }
+    //   }
+    // });
   }, [shameboard]);
 
   return <Chart id="shameboard"></Chart>;
