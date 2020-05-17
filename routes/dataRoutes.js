@@ -46,7 +46,6 @@ module.exports = (db) => {
         userData["radialGraph"] = all[9];
         userData["topBlacklisted"] = all[10];
 
-        console.log('userData.topBlacklisted', userData.topBlacklisted)
         return res.status(200).json(userData);
       })
       .catch((err) => {
