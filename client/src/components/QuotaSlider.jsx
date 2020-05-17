@@ -29,7 +29,7 @@ const Spinner = styled(CircularProgress)`
 `;
 
 export default function QuotaSlider({ quota, changeQuota }) {
-  console.log("quota SLIDER", quota);
+  // console.log("quota SLIDER", quota);
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(true);
 
@@ -37,7 +37,7 @@ export default function QuotaSlider({ quota, changeQuota }) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log("value", value);
+    // console.log("value", value);
     changeQuota(value);
     setDisabled(true);
   };

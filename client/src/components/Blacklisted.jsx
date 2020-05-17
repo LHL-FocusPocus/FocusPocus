@@ -121,6 +121,9 @@ export default function Blacklisted({
     addBlacklistedSite(withoutProtocol);
   };
 
+  // console.log("====> blacklisted disabled blacklisted site", disableBlacklistedSite);
+
+
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.CARD,
     drop: (item, monitor) => addTopSiteToUserBlacklist(item.hostname),

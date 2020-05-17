@@ -23,13 +23,13 @@ export default function useApplicationData() {
   useEffect(() => {
     axios
       .get("/api/data/dashboard")
-      .then(dashboard => {
+      .then((dashboard) => {
         dispatch({
           type: SET_DASHBOARD_DATA,
           payload: dashboard.data,
         });
       })
-      .catch(e => console.error(e));
+      .catch((e) => console.error(e));
   }, []);
 
   const setDashboard = async () => {
@@ -41,16 +41,21 @@ export default function useApplicationData() {
     });
   };
 
-  const disableBlacklistedSite = id => {
-    axios.put(`/api/user/blacklists/disable/${id}`, id).then(res => {
-      dispatch({
-        type: CHANGE_BLACKLIST,
-        id: res.data.id,
+  const disableBlacklistedSite = (blacklists_id) => {
+    // console.log("ID before axios put=====>", blacklists_id);
+    axios
+      .put(`/api/user/blacklists/disable/${blacklists_id}`, blacklists_id)
+      .then((res) => {
+        // console.log("res inisde axios =======>", res);
+        // console.log("site id inside axios =======>", id);
+        dispatch({
+          type: CHANGE_BLACKLIST,
+          id: res.data.id,
+        });
       });
-    });
   };
 
-  const changeQuota = quotaInMinutes => {
+  const changeQuota = (quotaInMinutes) => {
     axios
       .put("/api/user/adjust_quota", {
         quotaInMinutes,
@@ -61,25 +66,27 @@ export default function useApplicationData() {
           allotment: quotaInMinutes,
         });
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e);
       });
   };
 
-  const addBlacklistedSite = host_name => {
+  const addBlacklistedSite = (host_name) => {
     axios
       .post("/api/user/blacklists/add", { host_name })
-      .then(res => {
-        const { id, hostname, name, category } = res.data;
+      .then((res) => {
+        const { id, hostname, name, category, website_id, user_id } = res.data;
         dispatch({
           type: CHANGE_BLACKLIST,
           id,
           hostname,
           name,
           category,
+          user_id,
+          website_id,
         });
       })
-      .catch(e => console.error(e));
+      .catch((e) => console.error(e));
   };
 
   return {
