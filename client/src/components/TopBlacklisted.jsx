@@ -5,10 +5,16 @@ import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import IconButton from "@material-ui/core/IconButton";
-import InfoIcon from "@material-ui/icons/Info";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../utils/constants";
 import TopBlacklistCards from "./TopBlacklistCards";
+import styled from "styled-components";
+import InfoIcon from "@material-ui/icons/Info";
+import Tooltip from "@material-ui/core/Tooltip";
+import Popover from "@material-ui/core/Popover";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+
 // import tileData from "./tileData";
 
 const useStyles = makeStyles(theme => ({
@@ -21,50 +27,86 @@ const useStyles = makeStyles(theme => ({
   },
   gridList: {
     width: 383,
-    height: 800,
+    height: 700,
+  },
+  popover: {
+    pointerEvents: "none",
+  },
+  paper: {
+    padding: theme.spacing(1),
   },
 }));
 
+const Title = styled(ListSubheader)`
+  font-size: 1.5em;
+  text-align: center;
+`;
+
+const Popup = styled.div`
+  text-align: center;
+  margin-bottom: 2em;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  overflow: hidden;
+`;
+
 export default function TopBlacklisted({ topBlacklisted }) {
-  // const [{ isDragging }, drag] = useDrag({
-  //   // Here is where you identify WHICH piece if being dragged
-  //   item: { type: ItemTypes.CARD, id },
-  //   // transforms state from DnD system into usable props for component
-  //   collect: monitor => ({
-  //     isDragging: !!monitor.isDragging(),
-  //   }),
-  // });
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
   const classes = useStyles();
 
-  // 1 -> props object ; contains properties collected from DnD system
-  // 2 -> ref function; attach DOM elements to react-dnd
-  // const [{ isDragging }, drag] = useDrag({
-  //   // Here is where you identify WHICH piece if being dragged
-  //   item: { type: ItemTypes.BLACKLISTED },
-  //   // transforms state from DnD system into usable props for component
-  //   collect: monitor => ({
-  //     isDragging: !!monitor.isDragging(),
-  //   }),
-  // });
+  const handlePopoverOpen = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
 
   return (
-    <div className={classes.root}>
+    <Container className={classes.root}>
+      <Title>Top Blacklisted Sites</Title>
+      <Popup>
+        <IconButton
+          aria-owns={open ? "mouse-over-popover" : undefined}
+          aria-haspopup="true"
+          onMouseEnter={handlePopoverOpen}
+          onMouseLeave={handlePopoverClose}
+          aria-label={`test`}
+        >
+          <InfoIcon />
+        </IconButton>
+
+        <Popover
+          id="mouse-over-popover"
+          className={classes.popover}
+          classes={{
+            paper: classes.paper,
+          }}
+          open={open}
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          transformOrigin={{
+            vertical: "right",
+            horizontal: "center",
+          }}
+          onClose={handlePopoverClose}
+          disableRestoreFocus
+        >
+          <Typography>Drag and Drop to Blacklist</Typography>
+        </Popover>
+      </Popup>
       <GridList cellHeight={180} className={classes.gridList}>
-        <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
-          <ListSubheader component="div">Top Blacklisted Sites</ListSubheader>
-        </GridListTile>
-        {/* {topBlacklisted.map((tile) => (
-          <GridListTile>
-            <img src={tile.img} alt={tile.title} />
-            <GridListTileBar
-              actionIcon={
-                <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
-                  <InfoIcon />
-                </IconButton>
-              }
-            />
-          </GridListTile>
-        ))} */}
         {topBlacklisted.map(tile => (
           <TopBlacklistCards
             key={tile.id}
@@ -73,7 +115,7 @@ export default function TopBlacklisted({ topBlacklisted }) {
           />
         ))}
       </GridList>
-    </div>
+    </Container>
   );
 }
 
