@@ -121,6 +121,8 @@ module.exports = (db) => {
           dbHelper
             .addWebsite(URL, name, category)
             .then((site) => {
+              console.log("=====> Added site.id", site.id);
+
               return dbHelper.addWebsiteToBlacklist(userId, site.id);
             })
             .then((blacklistedSite) => {
@@ -137,6 +139,9 @@ module.exports = (db) => {
           dbHelper
             .getBlacklistedSiteByWebsiteId(site.id, userId)
             .then((websiteScoped) => {
+              console.log("=====> Scoped site.id", site.id);
+              console.log("=====> Scoped websiteScoped", websiteScoped);
+
               if (websiteScoped.enabled) {
                 return res.status(400).send;
               } else {
