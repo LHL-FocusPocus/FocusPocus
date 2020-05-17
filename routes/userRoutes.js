@@ -131,11 +131,15 @@ module.exports = (db) => {
           `CURRENT_DATE + INTERVAL '${i} day'`,
           `'INFINITY'`
         )
+        .then(() => {
+          // Update the user's option to reflect their choice
+          return dbHelper.updateUserOptionQuota(userId, optionsObj);
+        })
+        .then((user) => res.status(201).json(user))
         .catch((err) => {
           console.log(err);
           return res.status(500).json(err);
-        });
-      return res.status(201).json("Complete");
+        });      
     }
   });
 
