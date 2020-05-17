@@ -64,11 +64,16 @@ export default function Donut({ donutData }) {
     chart.paddingRight = 60;
     chart.paddingTop = 15;
 
+    let subtitle = chart.titles.create();
+    subtitle.text = "Blocked vs. Non-Blocked Sites";
+    subtitle.fontSize = 12;
+    subtitle.marginBottom = 20;
 
     let title = chart.titles.create();
-    title.text = "Blocked vs. Non-Blocked Sites";
+    title.text = "Today's Browsing";
     title.fontSize = 25;
-    title.marginBottom = 30;
+    title.marginBottom = 10;
+
 
     const series = chart.series.push(new am4charts.PieSeries3D());
     series.dataFields.value = "time";

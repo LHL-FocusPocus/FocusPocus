@@ -99,10 +99,15 @@ export default function Radial({ radialData }) {
       return chart.colors.getIndex(target.dataItem.index);
     });
 
+    let subTitle = chart.titles.create();
+    subTitle.text = "During past week";
+    subTitle.fontSize = 12;
+    subTitle.marginBottom = 20;
+
     let title = chart.titles.create();
     title.text = "Blacklisted Site Visits";
     title.fontSize = 25;
-    title.marginBottom = 30;
+    title.marginBottom = 10;
 
     categoryAxis.sortBySeries = series;
 
