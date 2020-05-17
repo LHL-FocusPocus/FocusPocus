@@ -37,7 +37,7 @@ export default function QuotaSlider({ quota, changeQuota }) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log("value", value);
+    // console.log("value", value);
     changeQuota(value);
     setDisabled(true);
   };

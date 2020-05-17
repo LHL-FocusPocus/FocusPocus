@@ -126,7 +126,7 @@ export default function Navbar({ user, quota }) {
     axios
       .post("/api/user/logout")
       .then(res => {
-        console.log(res);
+        // console.log(res);
         console.log("Successful Logout");
         history.push("/");
       })

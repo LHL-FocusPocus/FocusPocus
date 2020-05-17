@@ -50,7 +50,7 @@ const Card = styled(Paper)`
 
 export default function Donut({ donutData }) {
   useEffect(() => {
-    console.log('donutData', donutData)
+    // console.log('donutData', donutData)
     am4core.useTheme(am4themes_animated);
 
     const chart = am4core.create("donutChart", am4charts.PieChart3D);

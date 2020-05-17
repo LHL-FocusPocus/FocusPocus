@@ -53,8 +53,8 @@ export default function reducer(state, action) {
         minutes: action.allotment,
       };
 
-      console.log("newQuota", newQuota);
-      console.log("all_browse_time", all_browse_time);
+      // console.log("newQuota", newQuota);
+      // console.log("all_browse_time", all_browse_time);
 
       const quotaData = {
         allotment: newQuota,
