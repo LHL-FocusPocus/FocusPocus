@@ -13,6 +13,7 @@ const SliderDiv = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 2em;
+  flex-direction: column;
 `;
 
 const SliderComponent = styled.div`
@@ -33,18 +34,19 @@ export default function QuotaSlider({ quota, changeQuota }) {
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(true);
 
-  const [value, setValue] = useState(quota.allotment.minutes);
+  const [dailyQuota, setQuota] = useState(quota.allotment.minutes);
+  const [targetQuota, setTargetQuota] = useState();
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log("value", value);
-    changeQuota(value);
+    console.log("quota", dailyQuota);
+    changeQuota(dailyQuota);
     setDisabled(true);
   };
 
   // Use useEffect to update value when quota.allotment.minutes initializes
   useEffect(() => {
-    setValue(quota.allotment.minutes);
+    setQuota(quota.allotment.minutes);
   }, [quota.allotment.minutes]);
 
   return (
@@ -52,13 +54,13 @@ export default function QuotaSlider({ quota, changeQuota }) {
       {/* {!quota.allotment && <Spinner size={24} />} */}
       <SliderDiv>
         <SliderComponent>
-          <Typography id="discrete-slider" gutterBottom>
+          <Typography id="Daily-Quota" gutterBottom>
             Daily Quota (Minutes)
           </Typography>
           <Slider
             // defaultValue={quota.allotment.minutes}
-            value={value}
-            aria-labelledby="discrete-slider"
+            value={dailyQuota}
+            aria-labelledby="Daily-Quota"
             valueLabelDisplay="auto"
             // getAriaValueText={valuetext}
             step={10}
@@ -66,8 +68,26 @@ export default function QuotaSlider({ quota, changeQuota }) {
             min={0}
             max={180}
             disabled={disabled}
-            onChange={(e, value) => setValue(value)}
+            onChange={(e, dailyQuota) => setQuota(dailyQuota)}
           />
+          <SliderComponent>
+            <Typography id="Target-Quota" gutterBottom>
+              Target Quota
+            </Typography>
+            <Slider
+              // defaultValue={quota.allotment.minutes}
+              value={targetQuota}
+              aria-labelledby="Target-Quota"
+              valueLabelDisplay="auto"
+              // getAriaValueText={valuetext}
+              step={10}
+              marks
+              min={0}
+              max={180}
+              disabled={disabled}
+              onChange={(e, targetQuota) => setTargetQuota(targetQuota)}
+            />
+          </SliderComponent>
           {disabled && (
             <Button onClick={() => setDisabled(!disabled)} variant="contained">
               Change Quota
