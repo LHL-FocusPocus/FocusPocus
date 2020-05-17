@@ -73,40 +73,19 @@ module.exports = (db) => {
     if (!userId) {
       return res.status(403).send("You must be signed in!");
     }
-    console.log('req.body', req.body)
+    console.log("req.body", req.body);
     const { quotaInMinutes } = req.body;
-    console.log(`${quotaInMinutes} minutes`)
+    console.log(`${quotaInMinutes} minutes`);
     dbHelper
       .adjustUserQuota(`${quotaInMinutes} minutes`, userId)
       .then(() => {
-        res.status(200).json(quotaInMinutes)
+        res.status(200).json(quotaInMinutes);
       })
       .catch((e) => {
-        console.error(e)
-        return res.status(500).json(e)
+        console.error(e);
+        return res.status(500).json(e);
       });
   });
-
-  // This can be removed, it is now in extensionRoutes.js file
-  // router.post("/add_browse_time", (req, res) => {
-  //   // checking cookie session for user, get user_id
-  //   const userId = req.session.userId;
-  //   if (!userId) {
-  //     return res.status(403).send("A user must be signed in!");
-  //   }
-
-  //   // extension will send browse time data here
-  //   // host_name, datetime_start, duration
-  //   const { host_name, duration } = req.body;
-  //   const URL = remPrefix(host_name);
-  //   // using host_name, insert website_id, datetime_start, duration, etc into the db.
-  //   dbHelper
-  //     .getWebsiteIDByHostname(URL)
-  //     .then((site) => {
-  //       dbHelper.addBrowseTimesToUserID(user_id, site.id, duration);
-  //     })
-  //     .catch((err) => res.status(400).json(err));
-  // });
 
   // Retrieving a user's blacklisted sites
   router.get("/blacklists", (req, res) => {
@@ -132,13 +111,14 @@ module.exports = (db) => {
     const URL = remPrefix(host_name);
 
     let website;
+    // Get the website, then add site to the db, then blacklist it for the user
     dbHelper
       .getWebsiteIDByHostname(URL)
       .then((site) => {
+        // If the website DOES NOT exist in the db, run this if block: add the website, add to users blacklist, then return the data
         if (!site) {
           const name = extractNameFromURL(URL);
           const category = null;
-          // Creating the website in the database before it can be added to their blacklist
           dbHelper
             .addWebsite(URL, name, category)
             .then((site) => {
@@ -151,25 +131,50 @@ module.exports = (db) => {
               );
             })
             .then((website) => {
-              res.status(201).json(website);
+              return res.status(201).json(website);
             })
             .catch((err) => res.status(500).json(err));
         } else {
+          // If the website exists in the database, use its ID to see if it's
+          // already in the user's blacklist, in which case its flag must be set
+          // to enabled
           dbHelper
             .getBlacklistedSiteByWebsiteId(site.id, userId)
             .then((websiteScoped) => {
-              if (websiteScoped.enabled) {
-                return res.status(400).send;
-              } else {
-                website = websiteScoped;
-                return dbHelper
-                  .enableBlacklistedSite(websiteScoped.website_id, userId)
-                  .then(() => {
-                    res.status(201).json(website);
-                  });
+              // If website already in user's blacklist, set its flag to enabled
+              if (websiteScoped) {
+                if (websiteScoped.enabled) {
+                  // User is trying to add something already enabled
+                  return res.status(400).json("Already on blacklist!");
+                } else {
+                  website = websiteScoped;
+                  return dbHelper
+                    .enableBlacklistedSite(websiteScoped.website_id, userId)
+                    .then(() => {
+                      return res
+                        .status(201)
+                        .json(website);
+                    })
+                    .catch((err) => res.status(500).json(err));
+                }
+              }
+              // If the website exists in the db, but has never been on user's
+              // blacklist, then add it to the user's blacklist
+              else if (!websiteScoped) {
+                dbHelper
+                  .addWebsiteToBlacklist(userId, site.id)
+                  .then((blacklistedSite) => {
+                    return dbHelper.getBlacklistedSiteByWebsiteId(
+                      blacklistedSite.website_id,
+                      userId
+                    );
+                  })
+                  .then((website) => {
+                    return res.status(201).json(website);
+                  })
+                  .catch((err) => res.status(500).json(err));
               }
             })
-
             .catch((err) => res.status(500).json(err));
         }
       })
@@ -180,10 +185,10 @@ module.exports = (db) => {
     const { userId } = req.session;
     const { id } = req.params;
     if (!userId) {
-      return res.status(403).send("Please sign in first.");
+      return res.status(403).json("Please sign in first.");
     }
     dbHelper.disableWebsiteInBlacklist(id, userId).then((resp) => {
-      res.status(200).json(resp);
+      return res.status(200).json(resp);
     });
   });
 
