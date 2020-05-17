@@ -442,13 +442,16 @@ module.exports = (db) => {
       .catch((err) => console.error(err));
   };
 
-  const adjustUserQuota = (newQuota, userId) => {
+  const addStaticQuota = (userId, newQuota) => {
     return db
       .query(
         `
-      UPDATE quotas SET time_allotment = $1 WHERE user_id = $2;
-    `,
-        [newQuota, userId]
+        INSERT INTO quotas
+          (user_id, time_allotment)
+        VALUES
+          ($1, $2) 
+        `,
+        [userId, newQuota]
       )
       .then((res) => {
         if (res.rows.length === 0) return null;
@@ -457,7 +460,7 @@ module.exports = (db) => {
       .catch((err) => console.error(err));
   };
 
-  const addUserQuotaWithDate = (userId, newQuota, daysFromNow) => {
+  const addQuotaWithDate = (userId, newQuota, daysFromNow) => {
     return db
       .query(
         `
@@ -515,8 +518,8 @@ module.exports = (db) => {
     enableBlacklistedSite,
     getBlacklistedSiteByWebsiteId,
     isBlacklistedSiteEnabled,
-    adjustUserQuota,
+    addStaticQuota,
     getTopBlacklistedSites,
-    addUserQuotaWithDate,
+    addQuotaWithDate,
   };
 };
