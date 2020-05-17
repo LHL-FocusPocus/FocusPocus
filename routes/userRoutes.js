@@ -73,28 +73,66 @@ module.exports = (db) => {
    * quota, increment, and target quota
    */
   router.post("/adjust_quota", (req, res) => {
-    const userId = req.session.userId;
+    const userId = 1; //req.session.userId;
+    
     if (!userId) {
       return res.status(403).send("You must be signed in!");
     }
-    console.log('req.body', req.body)
-
-    const { dailyQuota, quotaIncrement, targetQuota } = req.body;
-
-    // // User wants a static quota
-    // if (quotaIncrement === 0) {
-    //   dbHelper
-    //     .adjustUserQuota(`${dailyQuota} minutes`, userId)
-    //     .then(() => {
-    //       res.status(200).json(dailyQuota);
-    //     })
-    //     .catch((e) => {
-    //       console.error(e);
-    //       return res.status(500).json(e);
-    //     });
-    // } else {
-    //   // Handle adding multiple quotas
-    // }
+    const { quotaStart, quotaIncrement, quotaTarget } = req.body;
+    if (!(quotaStart && quotaIncrement && quotaTarget)) {
+      return res.status(400).json("Invalid request");
+    }
+    // User wants a static quota
+    if (quotaIncrement === 0) {
+      dbHelper
+        .addStaticQuota(userId, `${quotaStart} minutes`)
+        .then(() => {
+          res.status(200).json(quotaStart);
+        })
+        .catch((e) => {
+          console.error(e);
+          return res.status(500).json(e);
+        });
+    } else if (quotaTarget >= quotaStart) {
+      return res
+        .status(400)
+        .json("Target quota must be lower than starting quota!");
+    } else {
+      // Handle adding multiple quotas
+      let i = 0;
+      for (
+        let quota = quotaStart;
+        quota > quotaTarget;
+        quota -= quotaIncrement
+      ) {
+        console.log(quota, i);
+        dbHelper
+          .addQuotaWithDate(
+            userId,
+            `${quota} minutes`,
+            `CURRENT_DATE + INTERVAL '${i} day'`,
+            `CURRENT_DATE + INTERVAL '${i + 1} day'`
+          )
+          .catch((err) => {
+            console.log(err);
+            return res.status(500).json(err);
+          });
+        i++;
+      }
+      // Add a final query with infinity datetime_start
+      dbHelper
+        .addQuotaWithDate(
+          userId,
+          `${quotaTarget} minutes`,
+          `CURRENT_DATE + INTERVAL '${i} day'`,
+          `'INFINITY'`
+        )
+        .catch((err) => {
+          console.log(err);
+          return res.status(500).json(err);
+        });
+      return res.status(201).json("Complete");
+    }
   });
 
   // Retrieving a user's blacklisted sites
