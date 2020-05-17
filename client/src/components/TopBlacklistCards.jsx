@@ -52,7 +52,7 @@ const Card = styled(GridListTile)`
   ${"" /* width: 46.8%; */}
   margin: 0.5em;
   padding-top: 1em;
-  box-shadow: 1px 2px 3px 1px slategrey;
+  box-shadow: 1px 1px 5px slategrey;
   flex-grow: 1;
   ${"" /* width: 45%; */}
 `;
