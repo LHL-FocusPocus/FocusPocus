@@ -493,18 +493,22 @@ module.exports = (db) => {
       .catch((e) => console.error(e));
   };
 
-  const updateUserOptionQuota = (
-    userId,
-    optionsObject
-  ) => {
-    return db.query(
-      `
+  const updateUserOptionQuota = (userId, optionsObject) => {
+    return db
+      .query(
+        `
       UPDATE users
       SET options = $2
-      WHERE id = $1;
+      WHERE id = $1
+      RETURNING *;
       `,
-      [userId, optionsObject]
-    );
+        [userId, optionsObject]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      })
+      .catch((err) => err);
   };
   return {
     getUserWithEmail,
