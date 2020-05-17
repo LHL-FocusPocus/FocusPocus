@@ -53,14 +53,14 @@ export default function TopBlacklistCards({ hostname, name, id }) {
     <Card key={name} ref={drag}>
       <Icon
         style={{
-          opacity: isDragging ? 0.4 : 1,
+          opacity: isDragging ? 0 : 1,
         }}
         className={classes.image}
         src={`//logo.clearbit.com/${hostname}`}
         alt={name}
       />
       <WebsiteTitle
-        style={{ opacity: isDragging ? 0.4 : 1 }}
+        style={{ opacity: isDragging ? 0 : 1 }}
         className={classes.tileBar}
         title={name}
         // actionIcon={
