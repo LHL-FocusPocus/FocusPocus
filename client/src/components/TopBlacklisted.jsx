@@ -92,7 +92,7 @@ export default function TopBlacklisted({ topBlacklisted }) {
               horizontal: "center",
             }}
             transformOrigin={{
-              vertical: "",
+              vertical: "top",
               horizontal: "center",
             }}
             onClose={handlePopoverClose}
