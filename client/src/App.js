@@ -25,10 +25,8 @@ function App() {
   } = useApplicationData();
 
   // console.log("====> setDashboard", setDashboard);
-  // const { quota_today } = setDashboard;
   // console.log("====> quota in App.js", state.quota_today);
-  console.log("====> Appjs Blacklisted State", state.blacklisted);
-  // console.log("====> Appjs disabled blacklisted site", disableBlacklistedSite);
+  // console.log("====> Appjs Blacklisted State", state.blacklisted);
 
   return (
     <div className="App">
