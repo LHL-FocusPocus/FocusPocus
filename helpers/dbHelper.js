@@ -460,16 +460,14 @@ module.exports = (db) => {
       .catch((err) => console.error(err));
   };
 
-  const addQuotaWithDate = (userId, newQuota, daysFromNow) => {
+  const addQuotaWithDate = (userId, newQuota, startDate, endDate) => {
     return db
       .query(
         `
         INSERT INTO quotas
           (user_id, time_allotment, date_valid_from, date_valid_until)
         VALUES
-          ($1, $2, CURRENT_DATE + INTERVAL '${daysFromNow} day', CURRENT_DATE + INTERVAL '${
-          daysFromNow + 1
-        } day');
+          ($1, $2, ${startDate}, ${endDate});
         `,
         [userId, newQuota]
       )

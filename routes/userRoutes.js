@@ -107,7 +107,12 @@ module.exports = (db) => {
       ) {
         console.log(quota, i);
         dbHelper
-          .addQuotaWithDate(userId, `${quota} minutes`, i)
+          .addQuotaWithDate(
+            userId,
+            `${quota} minutes`,
+            `CURRENT_DATE + INTERVAL '${i} day'`,
+            `CURRENT_DATE + INTERVAL '${i + 1} day'`
+          )
           .catch((err) => {
             console.log(err);
             return res.status(500).json(err);
@@ -115,6 +120,17 @@ module.exports = (db) => {
         i++;
       }
       // Add a final query with infinity datetime_start
+      dbHelper
+        .addQuotaWithDate(
+          userId,
+          `${quotaTarget} minutes`,
+          `CURRENT_DATE + INTERVAL '${i} day'`,
+          `'INFINITY'`
+        )
+        .catch((err) => {
+          console.log(err);
+          return res.status(500).json(err);
+        });
       return res.status(201).json("Complete");
     }
   });
