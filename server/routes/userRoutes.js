@@ -39,7 +39,7 @@ module.exports = (db) => {
     if (userId) {
       req.session = null;
       return res.status(200).send("Logout Successful");
-      // This return is giving a console error when trying to logout
+      // This return was giving a console error when trying to logout because the res.status was a 400 code
     } else {
       return res
         .status(409)
