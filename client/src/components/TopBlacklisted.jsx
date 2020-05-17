@@ -19,9 +19,10 @@ import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
+    // flexWrap: "wrap",
+    // justifyContent: "start",
     overflow: "hidden",
+    flexDirection: "column",
     backgroundColor: theme.palette.background.paper,
     width: "20%",
   },
@@ -37,11 +38,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Title = styled(ListSubheader)`
+const Title = styled.h1`
   font-size: 1.5em;
-  text-align: center;
-  width: 100%;
-  ${'' /* padding-top: 2em; */}
+  width: 80%;
+  ${'' /* text-align: center; */}
+  margin-left: 62px;
+  margin-right: 100px;
+  ${"" /* text-align: center;
+  width: 100%; */}
+  ${"" /* height: 100%; */}
+  ${"" /* padding-top: 2em; */}
 `;
 
 const Popup = styled.div`
@@ -76,7 +82,7 @@ export default function TopBlacklisted({ topBlacklisted }) {
 
   return (
     <div className={classes.root}>
-        <Title component="div">Top Blacklisted Sites</Title>
+      <Title>Top Blacklisted Sites</Title>
       <GridList cellHeight={180} className={classes.gridList}>
         <NotCards cols={2} style={{ height: "50px" }}>
           <PopupIcon

@@ -19,6 +19,7 @@ const useStyles = makeStyles(theme => ({
 const WebsiteTitle = styled(GridListTileBar)`
   text-align: center;
   background: linear-gradient(#e66465, #9198e5);
+  ${'' /* border-radius: 80%; */}
 `;
 
 const Icon = styled.img`
