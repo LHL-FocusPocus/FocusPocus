@@ -8,7 +8,7 @@
     const existingWordSet = [...new Set(existingText.split(" "))];
 
     // Filter wordset (right now, only lowercase, but eventually nouns?)
-    const regex = /^[a-z]/;
+    const regex = /^[a-z]{4,}/;
     const filteredWordSet = existingWordSet.filter(word => regex.test(word));
 
     // Randomize wordset order
@@ -28,7 +28,7 @@
         replacementText = replacementText.replace(randomWord, "snake");
         textTagElement.textContent = replacementText;
       }, timer);
-      timer += 4000;
+      timer += 500;
     }
   };
 
