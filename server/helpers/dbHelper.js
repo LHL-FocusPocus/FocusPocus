@@ -402,7 +402,7 @@ module.exports = (db) => {
       .query(
         `
       UPDATE blacklists SET enabled = TRUE WHERE website_id = $1 AND user_id = $2;
-    `,
+      `,
         [website_id, user_id]
       )
       .then((res) => {
@@ -416,7 +416,7 @@ module.exports = (db) => {
       .query(
         `
       SELECT * FROM websites JOIN blacklists ON websites.id = website_id WHERE websites.id = $1 AND user_id = $2;
-    `,
+      `,
         [website_id, user_id]
       )
       .then((res) => {
@@ -432,7 +432,7 @@ module.exports = (db) => {
         `
       SELECT * FROM blacklists JOIN WHERE website_id = $1 AND user_id = $2
       RETURNING *;
-    `,
+      `,
         [website_id, user_id]
       )
       .then((res) => {
@@ -447,7 +447,7 @@ module.exports = (db) => {
       .query(
         `
       UPDATE quotas SET time_allotment = $1 WHERE user_id = $2;
-    `,
+      `,
         [newQuota, userId]
       )
       .then((res) => {
@@ -462,12 +462,58 @@ module.exports = (db) => {
       .query(
         `
       SELECT websites.id, hostname, name, COUNT(website_id) AS number_blocked FROM blacklists JOIN websites ON website_id = websites.id GROUP BY name, websites.id, hostname ORDER BY number_blocked DESC LIMIT 8;
-    `
+      `
       )
       .then((res) => {
         return res.rows;
       })
       .catch((e) => console.error(e));
+  };
+
+  const getUserFriends = (user_id) => {
+    return db
+      .query(
+        `
+        SELECT * FROM friends WHERE user_id = 1;
+        `,
+        [user_id]
+      )
+      .then((res) => {
+        return res.rows;
+      })
+      .catch((e) => console.error(e));
+  };
+
+  const getPendingFriends = (user_id) => {
+    return db
+      .query(
+        `
+      SELECT * FROM friends WHERE user_id = 1 AND pending = true;
+      `,
+        [user_id]
+      )
+      .then((res) => {
+        return res.rows;
+      })
+      .catch((e) => console.error(e));
+  };
+
+  const getAcceptedFriends = (user_id) => {
+    return db.query(
+      `
+      SELECT * FROM friends WHERE user_id = 1 AND pending = false;
+      `,
+      [user_id]
+    );
+  };
+
+  const sendFriendRequest = (user_id, friend_id) => {
+    return db.query(
+      `
+
+      `,
+      [user_id, friend_id]
+    );
   };
 
   return {
