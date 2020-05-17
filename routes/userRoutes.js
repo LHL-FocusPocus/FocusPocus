@@ -74,7 +74,7 @@ module.exports = (db) => {
    */
   router.post("/adjust_quota", (req, res) => {
     const userId = 1; //req.session.userId;
-    
+
     if (!userId) {
       return res.status(403).send("You must be signed in!");
     }
@@ -87,10 +87,7 @@ module.exports = (db) => {
     // User wants a static quota
     if (quotaIncrement === 0) {
       dbHelper
-        .addStaticQuota(userId, `${quotaStart} minutes`)
-        .then(() => {
-          res.status(200).json(quotaStart);
-        })
+        .addStaticQuota(userId, `${quotaStart} minutes`)        
         .catch((e) => {
           console.error(e);
           return res.status(500).json(e);
@@ -107,7 +104,6 @@ module.exports = (db) => {
         quota > quotaTarget;
         quota -= quotaIncrement
       ) {
-        console.log(quota, i);
         dbHelper
           .addQuotaWithDate(
             userId,
