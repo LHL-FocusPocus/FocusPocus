@@ -457,6 +457,24 @@ module.exports = (db) => {
       .catch((err) => console.error(err));
   };
 
+  const addUserQuotaWithDate = (newQuota, daysFromToday, userId) => {
+    return db
+      .query(
+        `
+        INSERT INTO quotas
+          (user_id, time_allotment, date_valid_from, date_valid_until)
+        VALUES
+          ($1, $2, CURRENT_DATE + INTERVAL '$3 d', CURRENT_DATE + INTERVAL '$4 d');
+        `,
+        [userId, newQuota, daysFromToday, daysFromToday + 1]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      })
+      .catch((err) => console.error(err));
+  };
+
   const getTopBlacklistedSites = () => {
     return db
       .query(
