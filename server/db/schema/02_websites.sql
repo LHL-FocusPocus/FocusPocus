@@ -8,3 +8,4 @@ CREATE TABLE websites
   name      VARCHAR(255)  NOT NULL,
   category  VARCHAR(255)
 )
+;

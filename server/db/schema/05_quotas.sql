@@ -10,3 +10,4 @@ CREATE TABLE quotas
   date_valid_from   DATE      DEFAULT CURRENT_DATE,
   date_valid_until  DATE      DEFAULT 'INFINITY'
 )
+;
