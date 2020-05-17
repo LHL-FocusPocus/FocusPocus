@@ -66,12 +66,20 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function QuotaSlider({ quota, changeQuota }) {
+// {quotaTarget: 60, quotaIncrement: 5}
+
+/* user.options.quotaGoal to get 60
+but if it's null i guess set the default on the inputs to 0 and current quota
+right now you're PUTing with just {quotaInMinutes}, so change it to {quotaStarting, quotaIncrement, quotaTarget} */
+
+export default function QuotaSlider({ quota, changeQuota, options }) {
+  console.log("options", options);
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [dailyQuota, setQuota] = useState(quota.allotment.minutes);
-  const [targetQuota, setTargetQuota] = useState();
+  const [targetQuota, setTargetQuota] = useState(20);
+  const [increment, setIncrement] = useState();
 
   const classes = useStyles();
 
@@ -88,6 +96,8 @@ export default function QuotaSlider({ quota, changeQuota }) {
   const handleSubmit = event => {
     event.preventDefault();
     console.log("quota", dailyQuota);
+    console.log("targetQuota", targetQuota);
+    console.log("increment", increment);
     changeQuota(dailyQuota);
     setDisabled(true);
   };
@@ -106,11 +116,9 @@ export default function QuotaSlider({ quota, changeQuota }) {
             Daily Quota (Minutes)
           </Typography>
           <Slider
-            // defaultValue={quota.allotment.minutes}
             value={dailyQuota}
             aria-labelledby="Daily-Quota"
             valueLabelDisplay="auto"
-            // getAriaValueText={valuetext}
             step={10}
             marks
             min={0}
@@ -123,11 +131,9 @@ export default function QuotaSlider({ quota, changeQuota }) {
               Target Quota
             </Typography>
             <Slider
-              // defaultValue={quota.allotment.minutes}
               value={targetQuota}
               aria-labelledby="Target-Quota"
               valueLabelDisplay="auto"
-              // getAriaValueText={valuetext}
               step={10}
               marks
               min={0}
@@ -144,14 +150,14 @@ export default function QuotaSlider({ quota, changeQuota }) {
               <Select
                 disabled={disabled}
                 native
-                // value={state.age}
-                // onChange={handleChange}
-                inputProps={{
-                  name: "age",
-                  id: "filled-age-native-simple",
-                }}
+                value={increment}
+                onChange={e => setIncrement(e.target.value)}
+                // inputProps={{
+                //   name: "age",
+                //   id: "filled-age-native-simple",
+                // }}
               >
-                <option aria-label="Daily-Change" value="" />
+                <option aria-label="Daily-Change" />
                 <option value={1}>1</option>
                 <option value={2}>2</option>
                 <option value={3}>3</option>
@@ -188,7 +194,7 @@ export default function QuotaSlider({ quota, changeQuota }) {
                   horizontal: "right",
                 }}
                 transformOrigin={{
-                  vertical: "right",
+                  vertical: "top",
                   horizontal: "left",
                   // vert: bot cen top
                   // hor:  left right center
@@ -197,8 +203,8 @@ export default function QuotaSlider({ quota, changeQuota }) {
                 disableRestoreFocus
               >
                 <Typography>
-                  How much your quota will decrease per day (minutes) until target
-                  quota reached
+                  How much your quota will decrease per day (minutes) until
+                  target quota reached
                 </Typography>
               </Popover>
             </Popup>
