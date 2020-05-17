@@ -83,8 +83,8 @@ const useStyles = makeStyles(theme => ({
     // border: "3px solid transparent",
     // borderImage: "linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%)",
     // borderImageSlice: 1,
-    // backdropFilter: "drop-shadow(40px 40px 60px black)",
-    filter: "blur(5px)",
+    boxShadow: "5px 5px 15px black"
+    //filter: "blur(5px)",
 
   },
   regular: {
@@ -141,7 +141,7 @@ export default function Blacklisted({
   });
 
   return (
-    <Container className={isOver? classes.border : "regular"}
+    <Container 
       ref={drop}
       style
     >
@@ -189,7 +189,9 @@ export default function Blacklisted({
           </CardContent>
         </Collapse>
       </AddNew>
-      {blacklistList}
+      <div className={isOver? classes.border : "regular"}>
+        {blacklistList}
+      </div>
     </Container>
   );
 }
