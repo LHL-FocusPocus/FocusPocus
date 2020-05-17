@@ -46,6 +46,8 @@ const Card = styled(GridListTile)`
   margin: 0.5em;  
   padding-top: 1em;
   box-shadow: 1px 2px 3px 1px slategrey;
+  flex-grow: 1;
+  ${'' /* width: 45%; */}
 `;
 
 export default function TopBlacklistCards({ hostname, name, id }) {

@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     flex: 1,
   },
   gridList: {
-    height: 700,
+    height: 600,
     width: 350,
     alignSelf: "center",
     // padding: 0,
