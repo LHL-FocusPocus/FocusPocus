@@ -111,9 +111,11 @@ module.exports = (db) => {
     const URL = remPrefix(host_name);
 
     let website;
+    // Get the website, then add site to the db, then blacklist it for the user
     dbHelper
       .getWebsiteIDByHostname(URL)
       .then((site) => {
+        // If the website DOES NOT exist in the db, run this if block: add the website, add to users blacklist, then return the data
         if (!site) {
           const name = extractNameFromURL(URL);
           const category = null;
@@ -133,6 +135,7 @@ module.exports = (db) => {
             })
             .catch((err) => res.status(500).json(err));
         } else {
+          // If the website exists in the database, get it's ID, scope it and change the user's flag
           dbHelper
             .getBlacklistedSiteByWebsiteId(site.id, userId)
             .then((websiteScoped) => {
@@ -147,7 +150,9 @@ module.exports = (db) => {
                       res.status(201).json(website);
                     });
                 }
-              } else if (!websiteScoped) {
+              }
+              // If the website exists in the db, but cannot scope it, then add it to the user's blacklist, and return the data
+              else if (!websiteScoped) {
                 return dbHelper
                   .addWebsiteToBlacklist(userId, site.id)
                   .then((blacklistedSite) => {
