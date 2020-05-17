@@ -28,6 +28,7 @@ module.exports = (db) => {
       dbHelper.getTimeForLeaderboardWeek(),
       dbHelper.getTimeForShameboardWeek(),
       dbHelper.getHitsForBlacklistedSiteForPastWeek(userId),
+      dbHelper.getTopBlacklistedSites(),
     ])
       .then((all) => {
         // all is now an array of data that each promise returns
@@ -43,6 +44,7 @@ module.exports = (db) => {
         userData["leaderboard"] = compileData(all[7], "name", "picture");
         userData["shameboard"] = compileData(all[8], "name", "picture");
         userData["radialGraph"] = all[9];
+        userData["topBlacklisted"] = all[10];
 
         return res.status(200).json(userData);
       })

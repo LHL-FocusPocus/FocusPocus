@@ -457,6 +457,19 @@ module.exports = (db) => {
       .catch((err) => console.error(err));
   };
 
+  const getTopBlacklistedSites = () => {
+    return db
+      .query(
+        `
+      SELECT websites.id, hostname, name, COUNT(website_id) AS number_blocked FROM blacklists JOIN websites ON website_id = websites.id GROUP BY name, websites.id, hostname ORDER BY number_blocked DESC LIMIT 8;
+    `
+      )
+      .then((res) => {
+        return res.rows;
+      })
+      .catch((e) => console.error(e));
+  };
+
   return {
     getUserWithEmail,
     getUserWithID,
@@ -483,5 +496,6 @@ module.exports = (db) => {
     getBlacklistedSiteByWebsiteId,
     isBlacklistedSiteEnabled,
     adjustUserQuota,
+    getTopBlacklistedSites,
   };
 };

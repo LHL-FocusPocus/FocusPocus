@@ -1,21 +1,23 @@
-import React from "react";
+import React, { createContext } from "react";
 import Navbar from "./Navbar";
 import Blacklisted from "./Blacklisted";
 import Box from "@material-ui/core/Box";
 import styled from "styled-components";
 import QuotaSlider from "./QuotaSlider";
+import TopBlacklisted from "./TopBlacklisted";
+import { DndProvider } from "react-dnd";
+import Backend from "react-dnd-html5-backend";
+
+export const CardContext = createContext({});
 
 const Container = styled(Box)`
-  padding: 4em;
-  height: 100%;
+  padding: 5em;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-around;
 `;
 
 const Slider = styled(QuotaSlider)`
-  ${"" /* width: 30%; */}
-  ${"" /* padding-left: 20%; */}
-  transform: translateX(200px);
+  ${'' /* transform: translateX(200px); */}
 `;
 
 export default function Options({
@@ -27,36 +29,38 @@ export default function Options({
   dashboardData,
   // quota_today,
 }) {
-  const { user, quota_today } = dashboardData;
-
+  const { quota_today, topBlacklisted } = dashboardData;
 
   // if (!dashboardData || !user || quota_today == undefined) {
   //   return null;
   //   // return a spinner component
   // }
 
+  const addTopSiteToUserBlacklist = hostname => {
+    addBlacklistedSite(hostname);
+  };
+
   // const quota_today = { setDashboard }
   return (
-    <>
-      {quota_today && (
-        <div>
-          <Navbar
-            user={dashboardData.user}
-            quota={quota_today}
-            // dashboard={setDashboard}
+    <DndProvider backend={Backend}>
+      <CardContext.Provider value={{ addTopSiteToUserBlacklist }}>
+        <Navbar
+          user={dashboardData.user}
+          quota={quota_today}
+          // dashboard={setDashboard}
+        />
+        <Container bgcolor="background.paper">
+          {quota_today && (
+            <Slider quota={quota_today} changeQuota={changeQuota} />
+          )}
+          <Blacklisted
+            addBlacklistedSite={addBlacklistedSite}
+            disableBlacklistedSite={disableBlacklistedSite}
+            blacklisted={blacklisted}
           />
-          <Container bgcolor="background.paper">
-            {quota_today && (
-              <Slider quota={quota_today} changeQuota={changeQuota} />
-            )}
-            <Blacklisted
-              addBlacklistedSite={addBlacklistedSite}
-              disableBlacklistedSite={disableBlacklistedSite}
-              blacklisted={blacklisted}
-            />
-          </Container>
-        </div>
-      )}{" "}
-    </>
+          <TopBlacklisted topBlacklisted={topBlacklisted} />
+        </Container>
+      </CardContext.Provider>
+    </DndProvider>
   );
 }

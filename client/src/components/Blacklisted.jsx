@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import BlacklistedCards from "./BlacklistedCards";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,6 +18,8 @@ import useFormFields from "../hooks/useFormFields";
 import removeProtocol from "../helpers/removeProtocol";
 import axios from "axios";
 import FormControl from "@material-ui/core/FormControl";
+import { ItemTypes } from "../utils/constants";
+import { CardContext } from "./Options";
 
 import {
   Input,
@@ -31,12 +33,15 @@ import LanguageIcon from "@material-ui/icons/Language";
 import styled from "styled-components";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
+import { useDrop } from "react-dnd";
 
 const Container = styled(Box)`
   min-height: 86vh;
-  padding: 0 10%;
+  padding: 0 5%;
   width: 25%;
-  transform: translateX(22%)
+  padding-top: 20px;
+  flex: 1
+  ${"" /* transform: translateX(22%) */}
 `;
 
 const AddNew = styled(Card)`
@@ -60,8 +65,8 @@ const Form = styled.form`
 const Title = styled.h1`
   text-align: center;
   margin-top: 0;
-  transform: translateY(-20%)
-`
+  transform: translateY(-20%);
+`;
 
 const useStyles = makeStyles(theme => ({
   expand: {
@@ -74,6 +79,21 @@ const useStyles = makeStyles(theme => ({
   expandOpen: {
     // transform: "rotate(180deg)",
   },
+  border: {
+    // border: "2px solid black",
+    // border: "3px solid transparent",
+    // borderImage: "linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%)",
+    // borderImageSlice: 1,
+    boxShadow: "5px 5px 15px black",
+    //filter: "blur(5px)",
+    transform: "scaleY(1.02) scaleX(1.02)",
+
+  },
+  regular: {
+    border: "3x solid transparent",
+    borderImageSlice: 1,
+
+    }
 }));
 
 export default function Blacklisted({
@@ -83,6 +103,7 @@ export default function Blacklisted({
 }) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
+  const { addTopSiteToUserBlacklist } = useContext(CardContext);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -100,24 +121,32 @@ export default function Blacklisted({
     addBlacklistedSite(withoutProtocol);
   };
 
+  const [{ isOver }, drop] = useDrop({
+    accept: ItemTypes.CARD,
+    drop: (item, monitor) => addTopSiteToUserBlacklist(item.hostname),
+    collect: monitor => ({
+      isOver: !!monitor.isOver(),
+    }),
+  });
+
   // Prevents app from crashing when user has no blacklisted sites
-  let blacklistList;
-  if (blacklisted) {
-    blacklistList = blacklisted.map(website => {
-      return (
-        <BlacklistedCards
-          deleteSite={disableBlacklistedSite}
-          key={website.website_id}
-          hostname={website.hostname}
-          name={website.name}
-          id={website.website_id}
-        />
-      );
-    });
-  }
+  const blacklistList = blacklisted.map(website => {
+    return (
+      <BlacklistedCards
+        deleteSite={disableBlacklistedSite}
+        key={website.website_id}
+        hostname={website.hostname}
+        name={website.name}
+        id={website.website_id}
+      />
+    );
+  });
 
   return (
-    <Container>
+    <Container 
+      ref={drop}
+      style
+    >
       <Title>Blacklist</Title>
       <AddNew>
         <Background>
@@ -143,14 +172,6 @@ export default function Blacklisted({
                   value={fields.host_name}
                   // type="url"
                   onChange={handleFieldChange}
-                  // aria-describedby="my-helper-text"
-                  // InputProps={{
-                  //   startAdornment: (
-                  //     <InputAdornment position="start">
-                  //       <LanguageIcon />
-                  //     </InputAdornment>
-                  //   ),
-                  // }}
                   startAdornment={
                     <InputAdornment position="start">
                       <LanguageIcon />
@@ -170,7 +191,9 @@ export default function Blacklisted({
           </CardContent>
         </Collapse>
       </AddNew>
-      {blacklistList}
+      <div className={isOver? classes.border : "regular"}>
+        {blacklistList}
+      </div>
     </Container>
   );
 }

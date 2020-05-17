@@ -10,6 +10,11 @@ VALUES
   (1, 8),
   (2, 4),
   (2, 2),
+  (3, 5),
+  (4, 6),
+  (6, 4),
+  (8, 8),
+  (7, 7),
   -- Adding Friends' Facebook to users blacklisted sites:
   (3, 2),
   (4, 2),

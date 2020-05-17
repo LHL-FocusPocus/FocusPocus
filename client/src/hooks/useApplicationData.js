@@ -9,14 +9,14 @@ import reducer, {
 
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
-    blacklisted: [],    
+    blacklisted: [],
     donutGraph: [],
     leaderboard: [],
     lineGraph: [],
     radialGraph: [],
     shameboard: [],
     user: {},
-    quota_today: {}
+    quota_today: {},
   });
 
   // const [loading, setLoading] = useState(false)
@@ -81,6 +81,7 @@ export default function useApplicationData() {
       })
       .catch(e => console.error(e));
   };
+
   return {
     state,
     disableBlacklistedSite,
