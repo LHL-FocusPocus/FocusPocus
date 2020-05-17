@@ -449,7 +449,8 @@ module.exports = (db) => {
         INSERT INTO quotas
           (user_id, time_allotment)
         VALUES
-          ($1, $2) 
+          ($1, $2)
+        RETURNING *;
         `,
         [userId, newQuota]
       )
@@ -457,7 +458,7 @@ module.exports = (db) => {
         if (res.rows.length === 0) return null;
         return res.rows[0];
       })
-      .catch((err) => console.error(err));
+      .catch((err) => err);
   };
 
   const addQuotaWithDate = (userId, newQuota, startDate, endDate) => {
@@ -467,7 +468,8 @@ module.exports = (db) => {
         INSERT INTO quotas
           (user_id, time_allotment, date_valid_from, date_valid_until)
         VALUES
-          ($1, $2, ${startDate}, ${endDate});
+          ($1, $2, ${startDate}, ${endDate})
+        RETURNING *;
         `,
         [userId, newQuota]
       )
@@ -475,7 +477,7 @@ module.exports = (db) => {
         if (res.rows.length === 0) return null;
         return res.rows[0];
       })
-      .catch((err) => console.error(err));
+      .catch((err) => err);
   };
 
   const getTopBlacklistedSites = () => {
@@ -491,6 +493,23 @@ module.exports = (db) => {
       .catch((e) => console.error(e));
   };
 
+  const updateUserOptionQuota = (userId, optionsObject) => {
+    return db
+      .query(
+        `
+      UPDATE users
+      SET options = $2
+      WHERE id = $1
+      RETURNING *;
+      `,
+        [userId, optionsObject]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      })
+      .catch((err) => err);
+  };
   return {
     getUserWithEmail,
     getUserWithID,
@@ -519,5 +538,6 @@ module.exports = (db) => {
     addStaticQuota,
     getTopBlacklistedSites,
     addQuotaWithDate,
+    updateUserOptionQuota,
   };
 };
