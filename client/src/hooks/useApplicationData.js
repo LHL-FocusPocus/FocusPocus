@@ -41,16 +41,18 @@ export default function useApplicationData() {
     });
   };
 
-  const disableBlacklistedSite = (id) => {
-    console.log("ID before axios put=====>", id);
-    axios.put(`/api/user/blacklists/disable/${id}`, id).then((res) => {
-      console.log("res inisde axios =======>", res);
-      console.log("site id inside axios =======>", id);
-      dispatch({
-        type: CHANGE_BLACKLIST,
-        id: res.data.id,
+  const disableBlacklistedSite = (blacklists_id) => {
+    console.log("ID before axios put=====>", blacklists_id);
+    axios
+      .put(`/api/user/blacklists/disable/${blacklists_id}`, blacklists_id)
+      .then((res) => {
+        console.log("res inisde axios =======>", res);
+        // console.log("site id inside axios =======>", id);
+        dispatch({
+          type: CHANGE_BLACKLIST,
+          id: res.data.id,
+        });
       });
-    });
   };
 
   const changeQuota = (quotaInMinutes) => {
@@ -73,13 +75,15 @@ export default function useApplicationData() {
     axios
       .post("/api/user/blacklists/add", { host_name })
       .then((res) => {
-        const { id, hostname, name, category } = res.data;
+        const { id, hostname, name, category, website_id, user_id } = res.data;
         dispatch({
           type: CHANGE_BLACKLIST,
           id,
           hostname,
           name,
           category,
+          user_id,
+          website_id,
         });
       })
       .catch((e) => console.error(e));
