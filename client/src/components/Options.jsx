@@ -11,10 +11,10 @@ import Backend from "react-dnd-html5-backend";
 export const CardContext = createContext({});
 
 const Container = styled(Box)`
-  padding: 4em;
+  padding: 5em;
   height: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-around;
 `;
 
 const Slider = styled(QuotaSlider)`

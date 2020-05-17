@@ -37,7 +37,7 @@ import { useDrop } from "react-dnd";
 
 const Container = styled(Box)`
   min-height: 86vh;
-  padding: 0 10%;
+  padding: 0 5%;
   width: 25%;
   ${"" /* transform: translateX(22%) */}
 `;
