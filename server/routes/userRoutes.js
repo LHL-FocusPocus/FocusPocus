@@ -85,7 +85,7 @@ module.exports = (db) => {
     // User wants a static quota
     if (quotaIncrement === 0) {
       dbHelper
-        .adjustUserQuota(`${quotaStart} minutes`, userId)
+        .addStaticQuota(userId, `${quotaStart} minutes`)
         .then(() => {
           res.status(200).json(quotaStart);
         })
@@ -107,13 +107,14 @@ module.exports = (db) => {
       ) {
         console.log(quota, i);
         dbHelper
-          .addUserQuotaWithDate(userId, `${quota} minutes`, i)
+          .addQuotaWithDate(userId, `${quota} minutes`, i)
           .catch((err) => {
             console.log(err);
             return res.status(500).json(err);
           });
         i++;
       }
+      // Add a final query with infinity datetime_start
       return res.status(201).json("Complete");
     }
   });
