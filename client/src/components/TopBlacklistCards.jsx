@@ -86,7 +86,6 @@ export default function TopBlacklistCards({ hostname, name, id }) {
         alt={name}
       />
       <WebsiteTitle
-        textColor="black"
         className={clsx({
           [classes.dragging]: isDragging
         })}

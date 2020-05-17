@@ -16,8 +16,13 @@ const Container = styled(Box)`
   justify-content: space-around;
 `;
 
-const Slider = styled(QuotaSlider)`
-  ${'' /* transform: translateX(200px); */}
+const SliderDiv = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding-top: 2em;
+  flex-direction: column;
+  flex-wrap: wrap;
 `;
 
 export default function Options({
@@ -29,7 +34,7 @@ export default function Options({
   dashboardData,
   // quota_today,
 }) {
-  const { quota_today, topBlacklisted } = dashboardData;
+  const { quota_today, topBlacklisted, user } = dashboardData;
 
   // if (!dashboardData || !user || quota_today == undefined) {
   //   return null;
@@ -40,18 +45,17 @@ export default function Options({
     addBlacklistedSite(hostname);
   };
 
-  // const quota_today = { setDashboard }
   return (
     <DndProvider backend={Backend}>
       <CardContext.Provider value={{ addTopSiteToUserBlacklist }}>
-        <Navbar
-          user={dashboardData.user}
-          quota={quota_today}
-          // dashboard={setDashboard}
-        />
+        <Navbar user={user} quota={quota_today} />
         <Container bgcolor="background.paper">
           {quota_today && (
-            <Slider quota={quota_today} changeQuota={changeQuota} />
+            <QuotaSlider
+              options={user.options}
+              quota={quota_today}
+              changeQuota={changeQuota}
+            />
           )}
           <Blacklisted
             addBlacklistedSite={addBlacklistedSite}
