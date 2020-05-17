@@ -1,5 +1,4 @@
-DROP TABLE IF EXISTS users
-CASCADE;
+DROP TABLE IF EXISTS friends CASCADE;
 
 CREATE TABLE friends
 (
@@ -8,7 +7,7 @@ CREATE TABLE friends
   user_id   INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   friend_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
 
-  pending   BOOLEAN NOT NULL,
+  pending   BOOLEAN NOT NULL DEFAULT TRUE,
 
   UNIQUE  (user_id, friend_id)
 )
