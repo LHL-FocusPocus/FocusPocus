@@ -68,23 +68,32 @@ module.exports = (db) => {
       .catch((e) => console.error(e));
   });
 
-  router.put("/adjust_quota", (req, res) => {
+  /**
+   * Automatically handles adding appropriate quota entries based on starting
+   * quota, increment, and target quota
+   */
+  router.post("/adjust_quota", (req, res) => {
     const userId = req.session.userId;
     if (!userId) {
       return res.status(403).send("You must be signed in!");
     }
-    console.log("req.body", req.body);
-    const { quotaInMinutes } = req.body;
-    console.log(`${quotaInMinutes} minutes`);
-    dbHelper
-      .adjustUserQuota(`${quotaInMinutes} minutes`, userId)
-      .then(() => {
-        res.status(200).json(quotaInMinutes);
-      })
-      .catch((e) => {
-        console.error(e);
-        return res.status(500).json(e);
-      });
+
+    const { quotaStart, quotaIncrement, quotaTarget } = req.body;
+
+    // User wants a static quota
+    if (quotaIncrement === 0) {
+      dbHelper
+        .adjustUserQuota(`${quotaStart} minutes`, userId)
+        .then(() => {
+          res.status(200).json(quotaStart);
+        })
+        .catch((e) => {
+          console.error(e);
+          return res.status(500).json(e);
+        });
+    } else {
+      // Handle adding multiple quotas
+    }
   });
 
   // Retrieving a user's blacklisted sites
@@ -151,9 +160,7 @@ module.exports = (db) => {
                   return dbHelper
                     .enableBlacklistedSite(websiteScoped.website_id, userId)
                     .then(() => {
-                      return res
-                        .status(201)
-                        .json(website);
+                      return res.status(201).json(website);
                     })
                     .catch((err) => res.status(500).json(err));
                 }
