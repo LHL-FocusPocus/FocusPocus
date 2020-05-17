@@ -9,8 +9,9 @@
    * Replaces src and similar attributes in video elements.
    */
   const replaceVideoTagSrc = function (videoTagElement, newVideo) {
+    videoTagElement.setAttribute("muted", true);
     videoTagElement.setAttribute("src", newVideo);
-    videoTagElement.setAttribute("autoplay", true);
+    videoTagElement.setAttribute("autoplay", true);    
     videoTagElement.setAttribute("poster", newImgGlobal);
     videoTagElement.removeAttribute("focuspocused");
   };
