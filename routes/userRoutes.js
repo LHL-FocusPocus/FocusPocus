@@ -79,7 +79,9 @@ module.exports = (db) => {
     }
 
     const { quotaStart, quotaIncrement, quotaTarget } = req.body;
-    if (!(quotaStart && quotaIncrement && quotaTarget)) {
+    if (
+      !(quotaStart && (quotaIncrement || quotaIncrement === 0) && quotaTarget)
+    ) {
       return res.status(400).json("Invalid request");
     }
     // User wants a static quota
