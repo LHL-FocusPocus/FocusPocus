@@ -84,10 +84,16 @@ module.exports = (db) => {
     ) {
       return res.status(400).json("Invalid request");
     }
+    const optionsObj = { quotaStart, quotaIncrement, quotaTarget };
     // User wants a static quota
     if (quotaIncrement === 0) {
       dbHelper
-        .addStaticQuota(userId, `${quotaStart} minutes`)        
+        .addStaticQuota(userId, `${quotaStart} minutes`)
+        .then(() => {
+          // Update the user's option to reflect their choice
+          return dbHelper.updateUserOptionQuota(userId, optionsObj);
+        })
+        .then((user) => res.status(201).json(user))
         .catch((e) => {
           console.error(e);
           return res.status(500).json(e);
