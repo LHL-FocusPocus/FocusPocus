@@ -215,6 +215,19 @@ module.exports = (db) => {
     });
   });
 
+  router.get("/friends", (req, res) => {
+    const { userId } = req.session;
+    if (!userId) {
+      return res.status(403).json("Please sign in first.");
+    }
+    dbHelper.getAcceptedFriends(userId).then((friendsList) => {
+      // if (!friendsList) {
+      //   return res.status(200).json({ friend_id: null });
+      // }
+      return res.status(200).json(friendsList);
+    });
+  });
+
   //   // Just a test route to test db queries and response
   router.get("/test", (req, res) => {
     // const { host_name } = req.body;
