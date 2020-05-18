@@ -55,7 +55,7 @@ app.use("/", rootRoutes(db));
 app.use("/api", apiRoutes(db));
 app.use("/api/user", userRoutes(db));
 app.use("/api/data", dataRoutes(db));
-app.use("/api/extension", extensionRoutes(db));
+app.use("/api/extension", extensionRoutes(db, sendRefreshRequest));
 
 // to do routes:
 // login
