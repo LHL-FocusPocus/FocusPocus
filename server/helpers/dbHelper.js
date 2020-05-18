@@ -401,7 +401,9 @@ module.exports = (db) => {
     return db
       .query(
         `
-      UPDATE blacklists SET enabled = TRUE WHERE website_id = $1 AND user_id = $2;
+      UPDATE blacklists
+      SET enabled = TRUE
+      WHERE website_id = $1 AND user_id = $2;
       `,
         [website_id, user_id]
       )
@@ -415,7 +417,9 @@ module.exports = (db) => {
     return db
       .query(
         `
-      SELECT * FROM websites JOIN blacklists ON websites.id = website_id WHERE websites.id = $1 AND user_id = $2;
+      SELECT * FROM websites
+      JOIN blacklists ON websites.id = website_id
+      WHERE websites.id = $1 AND user_id = $2;
       `,
         [website_id, user_id]
       )
@@ -430,7 +434,8 @@ module.exports = (db) => {
     return db
       .query(
         `
-      SELECT * FROM blacklists JOIN WHERE website_id = $1 AND user_id = $2
+      SELECT * FROM blacklists
+      JOIN WHERE website_id = $1 AND user_id = $2
       RETURNING *;
       `,
         [website_id, user_id]
@@ -446,7 +451,9 @@ module.exports = (db) => {
     return db
       .query(
         `
-      UPDATE quotas SET time_allotment = $1 WHERE user_id = $2;
+      UPDATE quotas
+      SET time_allotment = $1
+      WHERE user_id = $2;
       `,
         [newQuota, userId]
       )
@@ -461,7 +468,12 @@ module.exports = (db) => {
     return db
       .query(
         `
-      SELECT websites.id, hostname, name, COUNT(website_id) AS number_blocked FROM blacklists JOIN websites ON website_id = websites.id GROUP BY name, websites.id, hostname ORDER BY number_blocked DESC LIMIT 8;
+      SELECT websites.id, hostname, name, COUNT(website_id) AS number_blocked
+      FROM blacklists
+      JOIN websites ON website_id = websites.id
+      GROUP BY name, websites.id, hostname
+      ORDER BY number_blocked
+      DESC LIMIT 8;
       `
       )
       .then((res) => {
@@ -482,7 +494,7 @@ module.exports = (db) => {
         [user_id, friend_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
+        // if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
@@ -499,6 +511,7 @@ module.exports = (db) => {
         [user_id]
       )
       .then((res) => {
+        if (res.rows.length === 0) return { invitations_pending: 0 };
         return res.rows;
       })
       .catch((e) => console.error(e));
@@ -515,6 +528,7 @@ module.exports = (db) => {
         [user_id]
       )
       .then((res) => {
+        if (res.rows.length === 0) return { friends_pending: 0 };
         return res.rows;
       })
       .catch((e) => console.error(e));
@@ -539,7 +553,7 @@ module.exports = (db) => {
         [user_id, friend_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
+        // if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
@@ -556,7 +570,7 @@ module.exports = (db) => {
         [user_id]
       )
       .then((res) => {
-        if (res.rows.length === 0) return null;
+        // if (res.rows.length === 0) return null;
         return res.rows;
       })
       .catch((err) => err);
