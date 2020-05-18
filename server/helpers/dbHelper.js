@@ -110,7 +110,6 @@ module.exports = (db) => {
         INSERT INTO blacklists (user_id, website_id)
         VALUES ($1, $2)
         RETURNING *;
-
         `,
         [user_id, website_id]
       )
@@ -128,7 +127,7 @@ module.exports = (db) => {
         UPDATE blacklists SET enabled = NOT enabled
         WHERE (website_id = $1 AND user_id = $2 AND enabled = TRUE)
         RETURNING *;
-    `,
+        `,
         [websiteId, userId]
       )
       .then((res) => {
@@ -222,13 +221,13 @@ module.exports = (db) => {
     return db
       .query(
         `
-      SELECT SUM(duration)
-      FROM browse_times
-      WHERE user_id = $1
-      AND datetime_start >= CURRENT_DATE
-      AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
-      GROUP BY user_id;
-      `,
+        SELECT SUM(duration)
+        FROM browse_times
+        WHERE user_id = $1
+        AND datetime_start >= CURRENT_DATE
+        AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+        GROUP BY user_id;
+        `,
         [user_id]
       )
       .then((res) => {
@@ -249,7 +248,7 @@ module.exports = (db) => {
        AND datetime_start >= CURRENT_DATE
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
         GROUP BY browse_times.user_id;
-      `,
+        `,
         [user_id]
       )
       .then((res) => {
@@ -268,7 +267,7 @@ module.exports = (db) => {
         AND CURRENT_DATE >= date_valid_from
         AND CURRENT_DATE < date_valid_until
         ORDER BY id DESC;
-    `,
+        `,
         [user_id]
       )
       .then((res) => {
@@ -381,14 +380,14 @@ module.exports = (db) => {
     return db
       .query(
         `
-      SELECT websites.name AS name, COUNT(browse_times.website_id)::integer AS hits
-      FROM websites JOIN blacklists ON websites.id = website_id
-      JOIN browse_times ON browse_times.website_id = websites.id
-      WHERE blacklists.user_id = $1
-      AND datetime_start >= CURRENT_DATE - INTERVAL '7 days'
-      AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
-      GROUP BY name;
-      `,
+        SELECT websites.name AS name, COUNT(browse_times.website_id)::integer AS hits
+        FROM websites JOIN blacklists ON websites.id = website_id
+        JOIN browse_times ON browse_times.website_id = websites.id
+        WHERE blacklists.user_id = $1
+        AND datetime_start >= CURRENT_DATE - INTERVAL '7 days'
+        AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+        GROUP BY name;
+        `,
         [user_id]
       )
       .then((res) => {
@@ -401,10 +400,10 @@ module.exports = (db) => {
     return db
       .query(
         `
-      UPDATE blacklists
-      SET enabled = TRUE
-      WHERE website_id = $1 AND user_id = $2;
-      `,
+        UPDATE blacklists
+        SET enabled = TRUE
+        WHERE website_id = $1 AND user_id = $2;
+        `,
         [website_id, user_id]
       )
       .then((res) => {
@@ -417,10 +416,10 @@ module.exports = (db) => {
     return db
       .query(
         `
-      SELECT * FROM websites
-      JOIN blacklists ON websites.id = website_id
-      WHERE websites.id = $1 AND user_id = $2;
-      `,
+        SELECT * FROM websites
+        JOIN blacklists ON websites.id = website_id
+        WHERE websites.id = $1 AND user_id = $2;
+        `,
         [website_id, user_id]
       )
       .then((res) => {
@@ -434,10 +433,10 @@ module.exports = (db) => {
     return db
       .query(
         `
-      SELECT * FROM blacklists
-      JOIN WHERE website_id = $1 AND user_id = $2
-      RETURNING *;
-      `,
+        SELECT * FROM blacklists
+        JOIN WHERE website_id = $1 AND user_id = $2
+        RETURNING *;
+        `,
         [website_id, user_id]
       )
       .then((res) => {
@@ -451,10 +450,10 @@ module.exports = (db) => {
     return db
       .query(
         `
-      UPDATE quotas
-      SET time_allotment = $1
-      WHERE user_id = $2;
-      `,
+        UPDATE quotas
+        SET time_allotment = $1
+        WHERE user_id = $2;
+        `,
         [newQuota, userId]
       )
       .then((res) => {
@@ -468,13 +467,13 @@ module.exports = (db) => {
     return db
       .query(
         `
-      SELECT websites.id, hostname, name, COUNT(website_id) AS number_blocked
-      FROM blacklists
-      JOIN websites ON website_id = websites.id
-      GROUP BY name, websites.id, hostname
-      ORDER BY number_blocked
-      DESC LIMIT 8;
-      `
+        SELECT websites.id, hostname, name, COUNT(website_id) AS number_blocked
+        FROM blacklists
+        JOIN websites ON website_id = websites.id
+        GROUP BY name, websites.id, hostname
+        ORDER BY number_blocked
+        DESC LIMIT 8;
+        `
       )
       .then((res) => {
         return res.rows;
@@ -487,10 +486,10 @@ module.exports = (db) => {
     return db
       .query(
         `
-      INSERT INTO friends (user_id, friend_id, pending)
-      VALUES ($1, $2, TRUE)
-      RETURNING *;
-      `,
+        INSERT INTO friends (user_id, friend_id, pending)
+        VALUES ($1, $2, TRUE)
+        RETURNING *;
+        `,
         [user_id, friend_id]
       )
       .then((res) => {
@@ -522,9 +521,9 @@ module.exports = (db) => {
     return db
       .query(
         `
-      SELECT * FROM friends WHERE friend_id = $1
-      AND pending = true;
-      `,
+        SELECT * FROM friends WHERE friend_id = $1
+        AND pending = true;
+        `,
         [user_id]
       )
       .then((res) => {
@@ -543,13 +542,13 @@ module.exports = (db) => {
     return db
       .query(
         `
-      INSERT INTO friends (user_id, friend_id, pending)
-      VALUES ($1, $2, FALSE);
-      UPDATE friends
-      SET pending = FALSE
-      WHERE (user_id = $2 AND friend_id = $1)
-      RETURNING *;
-      `,
+        INSERT INTO friends (user_id, friend_id, pending)
+        VALUES ($1, $2, FALSE);
+        UPDATE friends
+        SET pending = FALSE
+        WHERE (user_id = $2 AND friend_id = $1)
+        RETURNING *;
+        `,
         [user_id, friend_id]
       )
       .then((res) => {
@@ -559,14 +558,33 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  // Shows user_id's current friends
+  // Shows user_id's current friends raw
   const getAcceptedFriends = (user_id) => {
     return db
       .query(
         `
-    SELECT * FROM friends WHERE user_id = $1
-    AND pending = false;
-    `,
+        SELECT * FROM friends WHERE user_id = $1
+        AND pending = false;
+        `,
+        [user_id]
+      )
+      .then((res) => {
+        // if (res.rows.length === 0) return null; //this is sending null to front-end
+        return res.rows;
+      })
+      .catch((err) => err);
+  };
+
+  // Shows user_id's friends information (friend_id, name, email, profile pic)
+  const getFriendsInfo = (user_id) => {
+    return db
+      .query(
+        `
+        SELECT friend_id, first_name, last_name, email, picture
+        FROM friends
+        JOIN users ON friend_id = users.id
+        WHERE user_id = $1 AND pending = FALSE;
+        `,
         [user_id]
       )
       .then((res) => {
@@ -608,5 +626,6 @@ module.exports = (db) => {
     getPendingFriendRequests,
     acceptFriendRequest,
     getPendingFriendsSent,
+    getFriendsInfo,
   };
 };
