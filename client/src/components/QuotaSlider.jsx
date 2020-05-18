@@ -11,7 +11,7 @@ import FormControl from "@material-ui/core/FormControl";
 import IconButton from "@material-ui/core/IconButton";
 import InfoIcon from "@material-ui/icons/Info";
 import Popover from "@material-ui/core/Popover";
-import Alert from "@material-ui/lab/Alert";
+import { Alert, AlertTitle } from "@material-ui/lab";
 
 const SliderDiv = styled.div`
   flex: 1;
@@ -73,6 +73,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
   const [dailyQuota, setQuota] = useState(quota.allotment.minutes);
   const [targetQuota, setTargetQuota] = useState(0);
   const [increment, setIncrement] = useState(5);
+  const [error, setError] = useState(false);
   const [targetQuotaShow, setTargetQuotaShow] = useState(
     options.quotaIncrement > 0 || false
   );
@@ -96,12 +97,11 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
   const handleSubmit = event => {
     event.preventDefault();
     if (targetQuota > dailyQuota) {
-      return (
-        <Alert severity="error">This is an error alert — check it out!</Alert>
-      );
+      return setError(true);
     }
     // Increment is initially a string value -> must be converted
     changeQuota(dailyQuota, targetQuota, Number(increment));
+    setError(false);
     setDisabled(true);
   };
 
@@ -243,6 +243,11 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
             </Button>
           )}
         </QuotaButton>
+        {error && (
+          <Alert severity="error">
+            Target quota cannot be higher than daily quota!
+          </Alert>
+        )}
       </SliderComponent>
     </SliderDiv>
   );
