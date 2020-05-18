@@ -325,7 +325,8 @@ module.exports = (db) => {
         WHERE blacklists.user_id = $1 AND browse_times.user_id = $1
         AND datetime_start >= CURRENT_DATE - INTERVAL '30 days'
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
-        GROUP BY date;
+        GROUP BY date
+        ORDER by date;
         `,
         [user_id]
       )
