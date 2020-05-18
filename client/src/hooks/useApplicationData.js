@@ -22,15 +22,23 @@ export default function useApplicationData() {
     quota_today: {},
   });
 
-
   // const [loading, setLoading] = useState(false)
   useEffect(() => {
     // Websocket connection
-    const conn = socketIOClient(ENDPOINT);    
+    const conn = socketIOClient(ENDPOINT);
 
     conn.on("connect", () => {
       console.log("i have connected");
       conn.emit("foo", "bar");
+    });
+
+    conn.on("update browse time", data => {
+      console.log("MESSAGE HAS COME");
+      console.log(data);
+      // dispatch({
+      //   type: SET_DASHBOARD_DATA,
+      //   payload: data,
+      // });
     });
 
     axios
@@ -54,12 +62,9 @@ export default function useApplicationData() {
   };
 
   const disableBlacklistedSite = blacklists_id => {
-    // console.log("ID before axios put=====>", blacklists_id);
     axios
       .put(`/api/user/blacklists/disable/${blacklists_id}`, blacklists_id)
       .then(res => {
-        // console.log("res inisde axios =======>", res);
-        // console.log("site id inside axios =======>", id);
         dispatch({
           type: CHANGE_BLACKLIST,
           id: res.data.id,
