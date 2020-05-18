@@ -66,6 +66,14 @@ app.use("/api/extension", extensionRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-app.listen(PORT, () => {
+// Websocket setup
+const server = require("http").createServer(app);
+const io = require("socket.io")(server);
+
+io.on("connection", (socket) => {
+  console.log("a user connected");
+});
+
+server.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
