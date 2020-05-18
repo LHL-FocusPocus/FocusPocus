@@ -22,17 +22,15 @@ export default function useApplicationData() {
     quota_today: {},
   });
 
-  const [connection, setConnection] = useState({});
 
   // const [loading, setLoading] = useState(false)
   useEffect(() => {
     // Websocket connection
-    const conn = socketIOClient(ENDPOINT);
-    setConnection(conn);
+    const conn = socketIOClient(ENDPOINT);    
 
-    connection.on("connect", () => {
+    conn.on("connect", () => {
       console.log("i have connected");
-      connection.emit("foo", "bar");
+      conn.emit("foo", "bar");
     });
 
     axios
