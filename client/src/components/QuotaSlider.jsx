@@ -17,8 +17,9 @@ const SliderDiv = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding-bottom: 5em;
+  padding-top: 2em;
 `;
 
 const SliderComponent = styled.div`
