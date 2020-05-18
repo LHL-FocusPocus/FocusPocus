@@ -65,8 +65,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function QuotaSlider({ quota, changeQuota, options }) {
-  console.log("options :>> ", options);
-  console.log("quota :>> ", quota);
   // Controlled Component
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(true);
