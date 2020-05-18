@@ -11,7 +11,7 @@ import useFormFields from "../hooks/useFormFields";
 import styled from "styled-components";
 import axios from "axios";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   main: {
     marginLeft: -30,
   },
@@ -41,10 +41,12 @@ const Wrapper = styled(Container)`
   padding: 2em;
   z-index: 5;
   background-color: white;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 `;
 
 const Img = styled.img`
-  width: 100%;
+  width: 65%;
   transform: translateY(-2em);
 `;
 
@@ -56,7 +58,7 @@ export default function Login({ setDashboard, history }) {
     password: "",
   });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
 
     const credentials = {
@@ -71,7 +73,7 @@ export default function Login({ setDashboard, history }) {
           history.push("/dashboard");
         });
       })
-      .catch((e) => {
+      .catch(e => {
         console.error(e);
       });
   };
@@ -84,12 +86,12 @@ export default function Login({ setDashboard, history }) {
     <Wrapper className={classes.main} component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Img src="/imgs/landing.png" alt="landing image"></Img>
+        <Img src="/imgs/magic-trick.png" alt="landing image"></Img>
         <Typography component="h1" variant="h5">
           Log In
         </Typography>
         <form
-          onSubmit={(e) => handleSubmit(e)}
+          onSubmit={e => handleSubmit(e)}
           className={classes.form}
           noValidate
         >
