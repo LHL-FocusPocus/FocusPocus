@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Box from "@material-ui/core/Box"
 
 const Container = styled.div`
   ${"" /* width: 50%; */}
@@ -22,29 +23,43 @@ const Text = styled.div`
 `;
 
 const Logo = styled.span`
-  font-size: 8em;
+  font-size: 10em;
   text-transform: lowercase;
-  font-weight: 700;
+  ${'' /* font-weight: 700; */}
   ${'' /* text-transform: uppercase; */}
-  font-family: 'Aladin', cursive;
-  font-family: 'Alata', sans-serif;
+  ${'' /* font-family: 'Aladin', cursive; */}
+  ${'' /* font-family: 'Alata', sans-serif; */}
   font-family: 'Amatic SC', cursive;
   ${'' /* font-family: 'Raleway', sans-serif; */}
 `;
+
+const LogoContainer = styled(Box)`
+  display: flex;
+
+`
 
 const Tagline = styled.div`
   font-size: 1.7em;
   padding-bottom: 2em;
   text-align: center;
 `;
-const Icon = styled.img`
-  height: 5%;
-  vertical-align: center;
+const Sparkles = styled.img`
+  height: 50%;
+  transform: translateY(30px);
+  ${'' /* vertical-align: center; */}
+  z-index: 5;
+`;
+const Wand = styled.img`
+  height: 8%;
+  ${'' /* margin-right: 3em; */}
+  z-index: -1;
+  transform: translateX(-125px) translateY(50px);
+  ${'' /* vertical-align: center; */}
 `;
 export default function LogoText() {
   return (
     <Container>
-      <Logo>Focus{/* <Icon src="/imgs/wand.png"/> */}Pocus</Logo>
+      <Sparkles src="/imgs/logo3.png"/>
 
       <Tagline>Getting you focused with a little magic.</Tagline>
 

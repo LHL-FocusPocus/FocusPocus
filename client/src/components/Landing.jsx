@@ -7,9 +7,9 @@ import { Route, Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
-  display: flex;
+  ${'' /* display: flex;
   align-items: center;
-  height: 100vh;
+  height: 100vh; */}
 `;
 
 const InnerContainer = styled.div`
@@ -24,9 +24,7 @@ export default function Landing({ setDashboard }) {
 
   return (
     <Container>
-      <InnerContainer>
         <LogoText />
-      </InnerContainer>
       <Route
         exact
         path="/"
