@@ -174,8 +174,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
               //   name: "age",
               //   id: "filled-age-native-simple",
               // }}
-            >
-              <option aria-label="Daily-Change" />
+            >              
               <option value={0}>Static</option>
               <option value={1}>1</option>
               <option value={2}>2</option>
