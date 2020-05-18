@@ -140,7 +140,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
         {targetQuotaShow && (
           <SliderComponent>
             <Typography id="Target-Quota" gutterBottom>
-              Target Quota
+              Target Quota (Minutes)
             </Typography>
             <Slider
               value={targetQuota}
@@ -158,7 +158,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
         <DailyAdjuster>
           <FormControl variant="filled" className={classes.formControl}>
             <InputLabel htmlFor="filled-age-native-simple">
-              Reduction/day
+              Reduction per day
             </InputLabel>
             <Select
               disabled={disabled}
@@ -172,19 +172,18 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
               //   name: "age",
               //   id: "filled-age-native-simple",
               // }}
-            >
-              <option aria-label="Daily-Change" />
+            >              
               <option value={0}>Static</option>
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-              <option value={6}>6</option>
-              <option value={7}>7</option>
-              <option value={8}>8</option>
-              <option value={9}>9</option>
-              <option value={10}>10</option>
+              <option value={1}>1 minute</option>
+              <option value={2}>2 minutes</option>
+              <option value={3}>3 minutes</option>
+              <option value={4}>4 minutes</option>
+              <option value={5}>5 minutes</option>
+              <option value={6}>6 minutes</option>
+              <option value={7}>7 minutes</option>
+              <option value={8}>8 minutes</option>
+              <option value={9}>9 minutes</option>
+              <option value={10}>10 minutes</option>
             </Select>
           </FormControl>
           <Popup>
@@ -220,8 +219,8 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
               disableRestoreFocus
             >
               <Typography>
-                How much your quota will decrease per day (minutes) until target
-                quota reached
+                How much your quota will decrease by per day until your target
+                quota is reached
               </Typography>
             </Popover>
           </Popup>
