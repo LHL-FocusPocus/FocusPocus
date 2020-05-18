@@ -517,18 +517,34 @@ module.exports = (db) => {
     return db
       .query(
         `
-      INSERT INTO friends (user_id, friend_id)
-      VALUES ($1, $2)
+      INSERT INTO friends (user_id, friend_id, pending)
+      VALUES ($1, $2, TRUE), ($2, $1, FALSE)
       RETURNING *;
       `,
         [user_id, friend_id]
       )
       .then((res) => {
         if (res.rows.length === 0) return null;
-        return res.rows[0];
+        return res.rows;
       })
       .catch((err) => err);
   };
+
+  const acceptFriendRequest = (user_id, friend_id) => {
+    // Remember: we want to change the flag for the user who initiliazed the request.
+    // So in this case the user who is accepting will change the flag
+    // in the table where they are the friend.
+    return db.query(
+      `
+      UPDATE friends
+      SET pending = FALSE
+      WHERE (user_id = $2 AND friend_id = $1)
+      RETURNING *;
+      `
+    );
+  };
+
+  const acceptFriendRequest = (user_id, f);
 
   return {
     getUserWithEmail,
