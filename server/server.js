@@ -96,14 +96,13 @@ io.on("connection", (socket) => {
 });
 
 /**
- * Sends dashboard data through socketio to the room named after the userId.
- * To be called at the end of every POST request adding browse time, to update
- * the dashboard charts in realtime.
- * @param {Integer} userId
- * @param {Object}  data The same json sent through /api/user/dashboard
+ * Sends a refresh request through socketio to the room named after the userId.
+ * To be called at the end of every POST request adding browse time, to tell
+ * the client to make a call to /api/user/dashboard to retrieve updated data.
+ * @param {Integer} userId 
  */
-function sendDashboardData(userId, data) {
-  io.to(userId).emit("message", data);
+function sendRefreshRequest(userId) {
+  io.to(userId).emit("refresh");
 }
 
 server.listen(PORT, () => {
