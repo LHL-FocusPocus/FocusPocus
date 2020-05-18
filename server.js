@@ -33,12 +33,11 @@ app.use(function (req, res, next) {
   next();
 });
 app.use(bodyParser.json());
-app.use(
-  cookieSession({
-    name: "session",
-    keys: ["key1"],
-  })
-);
+const session = cookieSession({
+  name: "session",
+  keys: ["key1"],
+});
+app.use(session);
 app.use(methodOverride("_method"));
 app.use(express.static("public"));
 
@@ -72,6 +71,17 @@ const io = require("socket.io")(server);
 
 io.on("connection", (socket) => {
   console.log("a user connected");
+  let cookieString = socket.request.headers.cookie;
+
+  let req = {
+    connection: { encrypted: false },
+    headers: { cookie: cookieString },
+  };
+  let res = { getHeader: () => {}, setHeader: () => {} };
+  
+  session(req, res, () => {
+    console.log("User id is", req.session.userId); 
+  });
 });
 
 server.listen(PORT, () => {
