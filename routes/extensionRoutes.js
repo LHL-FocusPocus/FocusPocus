@@ -31,7 +31,10 @@ module.exports = (db, sendRefreshRequest) => {
                 `${durationInSeconds} seconds`
               );
             })
-            .then((data) => res.status(201).json(data))
+            .then((data) => {
+              sendRefreshRequest(userId);
+              return res.status(201).json(data);
+            })
             .catch((err) => res.status(500).json(err));
         } else {
           // If hostName is not in blacklist, use website_id of 0 (good site)
