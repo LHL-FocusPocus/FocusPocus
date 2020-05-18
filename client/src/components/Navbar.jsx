@@ -42,8 +42,8 @@ const Icon = styled.img`
 
 const ClickableLogo = styled.img`
   width: 25%;
-  transform: translateX(-130%) translateY(-5%);
-  padding: 0.5em
+  transform: translateX(-133%) translateY(-5%);
+  padding: 0.3em
 `;
 
 const Greeting = styled.div`

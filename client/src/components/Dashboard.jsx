@@ -70,7 +70,7 @@ console.log('dashboardData :>> ', dashboardData);
       <Navbar user={user} quota={quota_today} />
       <Container
         // isLoading={loading}
-        bgcolor="background.paper"
+        // bgcolor="background.paper"
         flexWrap="wrap"
         display="flex"
       >
