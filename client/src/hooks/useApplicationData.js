@@ -55,15 +55,20 @@ export default function useApplicationData() {
       });
   };
 
-  const changeQuota = (quotaInMinutes) => {
+  /*     const { quotaStart, quotaIncrement, quotaTarget } = req.body;
+   */
+
+  const changeQuota = (quotaStart, quotaTarget, quotaIncrement) => {
     axios
-      .put("/api/user/adjust_quota", {
-        quotaInMinutes,
+      .post("/api/user/adjust_quota", {
+        quotaStart,
+        quotaTarget,
+        quotaIncrement,
       })
-      .then(() => {
+      .then(res => {
         dispatch({
           type: CHANGE_QUOTA,
-          allotment: quotaInMinutes,
+          allotment: quotaStart,
         });
       })
       .catch((e) => {
