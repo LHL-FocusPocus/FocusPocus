@@ -22,17 +22,30 @@ export default function useApplicationData() {
     quota_today: {},
   });
 
+  const setDashboard = async () => {
+    const userData = await axios.get("/api/data/dashboard");
+    const dashboardData = userData.data;
+    dispatch({
+      type: SET_DASHBOARD_DATA,
+      payload: dashboardData,
+    });
+  };
 
   // const [loading, setLoading] = useState(false)
   useEffect(() => {
     // Websocket connection
-    const conn = socketIOClient(ENDPOINT);    
+    const conn = socketIOClient(ENDPOINT);
 
-    conn.on("connect", () => {
-      console.log("i have connected");
-      conn.emit("foo", "bar");
+    // conn.on("connect", () => {
+    //   console.log("i have connected");
+    //   conn.emit("foo", "bar");
+    // });
+
+    conn.on("refresh", () => {
+      //console.log("I need to refresh");
+      setDashboard();
     });
-
+    
     axios
       .get("/api/data/dashboard")
       .then(dashboard => {
@@ -43,15 +56,6 @@ export default function useApplicationData() {
       })
       .catch(e => console.error(e));
   }, []);
-
-  const setDashboard = async () => {
-    const userData = await axios.get("/api/data/dashboard");
-    const dashboardData = userData.data;
-    dispatch({
-      type: SET_DASHBOARD_DATA,
-      payload: dashboardData,
-    });
-  };
 
   const disableBlacklistedSite = blacklists_id => {
     // console.log("ID before axios put=====>", blacklists_id);
