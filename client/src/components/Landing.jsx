@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 const Container = styled.div`
   display: flex;
   align-items: center;
-  height: 100vh;
+  ${'' /* height: 100vh; */}
 `;
 
 const InnerContainer = styled.div`

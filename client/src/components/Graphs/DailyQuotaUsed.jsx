@@ -36,7 +36,7 @@ const Chart = styled.div`
 export default function DailyQuotaUsed({ quota }) {
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
-
+    
     const chart = am4core.create("dailyQuota", am4charts.GaugeChart);
     chart.hiddenState.properties.opacity = 0;
 
@@ -95,7 +95,7 @@ export default function DailyQuotaUsed({ quota }) {
     }
 
     hand.showValue(percentageQuotaUsed);
-  }, [quota]);
+  }, []);
 
   return (
     <Card component={Wrapper} elevation={24}>

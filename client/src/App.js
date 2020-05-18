@@ -6,6 +6,7 @@ import Dashboard from "./components/Dashboard";
 import Options from "./components/Options";
 import { Route, Link } from "react-router-dom";
 import useApplicationData from "./hooks/useApplicationData";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import axios from "axios";
 import "./App.css";
@@ -24,41 +25,47 @@ function App() {
     changeQuota,
   } = useApplicationData();
 
-  // console.log("====> setDashboard", setDashboard);
-  // console.log("====> quota in App.js", state.quota_today);
-  // console.log("====> Appjs Blacklisted State", state.blacklisted);
+  const theme = createMuiTheme({
+    typography: {
+      fontFamily: "Amatic SC, sans-serif",
+      fontSize: "25",
+      fontWeight: "700",
+    },
+  });
 
   return (
     <div className="App">
-      <Route
-        exact
-        path={["/", "/register"]}
-        render={() => <Landing setDashboard={setDashboard} />}
-      />
-      <Route
-        exact
-        path="/dashboard"
-        render={() =>
-          state.quota_today.allotment && <Dashboard dashboardData={state} />
-        }
-      />
-      <Route
-        exact
-        path="/options"
-        render={() =>
-          state.quota_today.allotment && (
-            <Options
-              changeQuota={changeQuota}
-              addBlacklistedSite={addBlacklistedSite}
-              disableBlacklistedSite={disableBlacklistedSite}
-              dashboardData={state}
-              // user={state.user}
-              blacklisted={state.blacklisted}
-              // quota_today={state.quota_today}
-            />
-          )
-        }
-      />
+      <ThemeProvider theme={theme}>
+        <Route
+          exact
+          path={["/", "/register"]}
+          render={() => <Landing setDashboard={setDashboard} />}
+        />
+        <Route
+          exact
+          path="/dashboard"
+          render={() =>
+            state.quota_today.allotment && <Dashboard dashboardData={state} />
+          }
+        />
+        <Route
+          exact
+          path="/options"
+          render={() =>
+            state.quota_today.allotment && (
+              <Options
+                changeQuota={changeQuota}
+                addBlacklistedSite={addBlacklistedSite}
+                disableBlacklistedSite={disableBlacklistedSite}
+                dashboardData={state}
+                // user={state.user}
+                blacklisted={state.blacklisted}
+                // quota_today={state.quota_today}
+              />
+            )
+          }
+        />
+      </ThemeProvider>
     </div>
   );
 }

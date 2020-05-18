@@ -21,30 +21,19 @@ const Text = styled.div`
   font-size: 1.2em;
 `;
 
-const Logo = styled.span`
-  font-size: 10em;
-  text-transform: lowercase;
-  ${"" /* font-weight: 700; */}
-  ${"" /* text-transform: uppercase; */}
-  ${"" /* font-family: 'Aladin', cursive; */}
-  ${"" /* font-family: 'Alata', sans-serif; */}
-  font-family: 'Amatic SC', cursive;
-  ${"" /* font-family: 'Raleway', sans-serif; */}
-`;
-
 const LogoContainer = styled(Box)`
   display: flex;
 `;
 
 const Tagline = styled.div`
-  font-size: 4em;
+  font-size: 2em;
   padding: 1em 0;
   text-align: center;
   font-family: "Amatic SC", cursive;
   text-shadow: -0.5px 0 black, 0 0.5px black, 0.5px 0 black, 0 -0.5px black;
 `;
 
-const Sparkles = styled.img`
+const Logo = styled.img`
   height: 50%;
   transform: translateY(30px);
   ${"" /* vertical-align: center; */}
@@ -61,7 +50,7 @@ const Wand = styled.img`
 export default function LogoText() {
   return (
     <Container>
-      <Sparkles src="/imgs/logo3.png" />
+      <Logo src="/imgs/logo3.png" />
 
       <Tagline>Get Focused With A Little Magic.</Tagline>
 
