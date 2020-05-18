@@ -82,7 +82,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
   const handlePopoverOpen = event => {
     setAnchorEl(event.currentTarget);
   };
-
+  
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
