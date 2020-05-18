@@ -36,13 +36,23 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Wrapper = styled(Container)`
-  border: 1px solid black;
+  border: 0.5px solid slategrey;
   border-radius: 1em;
   padding: 2em;
   z-index: 5;
-  background-color: white;
+  background: #ece9e6; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #ffffff,
+    #ece9e6
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #ffffff,
+    #ece9e6
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 `;
 
 const Img = styled.img`
