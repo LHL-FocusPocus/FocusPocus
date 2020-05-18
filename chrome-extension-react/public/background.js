@@ -23,6 +23,11 @@ chrome.runtime.onInstalled.addListener(function () {
   });
 });
 
+const imgArray = [
+  "https://memegen.link/bad/browsing_this_site_is_bad/and_you_should_feel_bad.jpg",
+  "https://memegen.link/doge/so_browseful_wow/much_procrastinate.jpg",
+];
+
 let timerInSeconds = 0;
 
 // Increment timer and store current value inside chrome to be used by UI
@@ -51,7 +56,7 @@ function getUserData() {
       parseAndStoreUserData(data);
 
       // Trigger a check for the replacement script here on current tab
-      chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+      chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
         if (tabs[0]) {
           changePictures(tabs[0].id, blacklistDomains);
         }
@@ -82,11 +87,13 @@ function parseAndStoreUserData(userData) {
   } = userData;
   if (used_minutes > quota_allotment_minutes) {
     isOverQuota = true;
+  } else {
+    isOverQuota = false;
   }
   console.log("Over quota?", isOverQuota);
 
   // Map blacklists into array of domain names
-  blacklistDomains = blacklistObj.map((blacklist) => blacklist.hostname);
+  blacklistDomains = blacklistObj.map(blacklist => blacklist.hostname);
   console.log(blacklistDomains);
 }
 
@@ -118,7 +125,7 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
  * @param {Number} tabId
  */
 function handleBrowsing(tabId) {
-  chrome.tabs.get(tabId, (tab) => {
+  chrome.tabs.get(tabId, tab => {
     // tab.url will be undefined on chrome settings page etc.
     const currentDomain = tab.url ? getDomainFromUrl(tab.url) : undefined;
     // console.log(`domain was at ${lastDomain} for ${timerInSeconds} seconds`);
@@ -189,7 +196,7 @@ function changePictures(
     "youtube.com",
   ]
 ) {
-  chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+  chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
     // Will be null on chrome settings page etc
     if (!tabs[0] || !tabs[0].url) {
       return;
@@ -197,14 +204,17 @@ function changePictures(
     const url = new URL(tabs[0].url);
     const domain = url.hostname.split("www.").join("");
 
-    // Add && isOverQuota for correct functionality. Not adding now because
-    // then scripts won't execute until 3 hours on reddit.
-    if (blackList.includes(domain)) {
+    if (blackList.includes(domain) && isOverQuota) {
       chrome.tabs.executeScript(tabId, { file: "helpers.js" });
 
+      // Inject speech tagger files
+      chrome.tabs.executeScript(tabId, { file: "lexicon.js_" });
+      chrome.tabs.executeScript(tabId, { file: "lexer.js" });
+      chrome.tabs.executeScript(tabId, { file: "POSTagger.js" });
       // These can be run conditionally depending on user options
       chrome.tabs.executeScript(tabId, { file: "changePictures.js" });
       chrome.tabs.executeScript(tabId, { file: "changeVideos.js" });
+      chrome.tabs.executeScript(tabId, { file: "changeText.js" });
     }
   });
 }
