@@ -78,9 +78,14 @@ io.on("connection", (socket) => {
     headers: { cookie: cookieString },
   };
   let res = { getHeader: () => {}, setHeader: () => {} };
-  
+
   session(req, res, () => {
-    console.log("User id is", req.session.userId); 
+    console.log("User id is", req.session.userId);
+    socket.userId = req.session.userId;
+  });
+
+  socket.on("disconnect", () => {
+    console.log(socket.userId, "disconnected");
   });
 });
 
