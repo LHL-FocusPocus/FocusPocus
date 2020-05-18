@@ -14,7 +14,10 @@
     return regex.test(noun);
   };
 
-  const replaceTextContent = function (textTagElement, newText) {
+  const replaceNounsInTextContent = function (
+    textTagElement,
+    newWord = "snake"
+  ) {
     // Get text, split into words with lexer, tag with postagger
     const existingText = textTagElement.textContent;
     const existingWords = new Lexer().lex(existingText);
@@ -41,21 +44,35 @@
     // Replace a random word with "snake" every few seconds
     let replacementText = existingText;
     let timer = 0;
+    const newWordUpperCase = newWord[0].toUpperCase() + newWord.slice(1);
+
+    const regexForUpperCase = /^[A-Z]/;
     while (shuffledNounSet.length > thresholdLength) {
       const randomWord = shuffledNounSet.pop();
-      setTimeout(() => {
-        replacementText = replacementText.replace(randomWord, "snake");
-        textTagElement.textContent = replacementText;
-      }, timer);
-      timer += 500;
+      if (regexForUpperCase.test(randomWord)) {
+        setTimeout(() => {
+          replacementText = replacementText.replace(
+            randomWord,
+            newWordUpperCase
+          );
+          textTagElement.textContent = replacementText;
+        }, timer);
+        timer += 500;
+      } else {
+        setTimeout(() => {
+          replacementText = replacementText.replace(randomWord, newWord);
+          textTagElement.textContent = replacementText;
+        }, timer);
+        timer += 500;
+      }
     }
   };
 
   const replaceAllTextOnPage = function () {
     replaceElementsOnPage(
       "p, span, h1, h2, h3, h4, h5, h6",
-      "Get back to work!",
-      replaceTextContent,
+      "snake",
+      replaceNounsInTextContent,
       0
     );
   };
