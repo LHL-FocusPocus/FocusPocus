@@ -18,6 +18,7 @@ import Routes from "../routes";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import humanizeDuration from "humanize-duration";
+import formatNavbarText from "../helpers/formatNavbarText";
 
 // import Logout from "./Logout"
 
@@ -37,6 +38,12 @@ const Icon = styled.img`
   padding: 0em 3.38em;
   margin-top: 1em;
   border-radius: 100%; */}
+`;
+
+const ClickableLogo = styled.img`
+  width: 25%;
+  transform: translateX(-130%) translateY(-5%);
+  padding: 0.5em
 `;
 
 const Greeting = styled.div`
@@ -83,7 +90,7 @@ const Container = styled.div`
 `;
 
 export default function Navbar({ user, quota }) {
-  console.log('quota NAVBAR', quota)
+  console.log("quota NAVBAR", quota);
   // console.log("====> Navbar Props ====>", props);
   const { first_name } = user;
   const humanizeDurationOptions = {
@@ -121,7 +128,6 @@ export default function Navbar({ user, quota }) {
 
   const history = useHistory();
 
-
   const handleLogout = function () {
     axios
       .post("/api/user/logout")
@@ -135,19 +141,6 @@ export default function Navbar({ user, quota }) {
       });
   };
 
-  const text = (used_quota, allotment) => {
-    const remaining = used_quota / allotment;
-    if (remaining < 0.5) {
-      return "You seem to be on track today, keep up the good work!";
-    } else if (remaining < 0.8) {
-      return "Pace yourself, you're getting close to your browsing cap!";
-    } else if (remaining < 1) {
-      return "You're almost at the cap for today!";
-    } else {
-      return "Welp, have fun browsing now!";
-    }
-  };
-
   const list = anchor => (
     <Container
       className={classes.list}
@@ -159,12 +152,9 @@ export default function Navbar({ user, quota }) {
       <List>
         <Icon src="/imgs/multitasking.jpg"></Icon>
       </List>
-      <Greeting>
-        Welcome, {first_name}!
-        {/* TODO: Make this dynamic based on user firstName */}
-      </Greeting>
+      <Greeting>Welcome, {first_name}!</Greeting>
       <Message>
-        {text(quota.used.minutes, quota.allotment.minutes)}
+        {formatNavbarText(quota.used.minutes, quota.allotment.minutes)}
       </Message>
       <QuotaMessage>
         Today's Usage:
@@ -174,7 +164,6 @@ export default function Navbar({ user, quota }) {
       </QuotaMessage>
       <Divider />
       <List>
-        {/* <Routes /> */}
         {["Dashboard", "Options"].map((text, index) => (
           <ListItem
             button
@@ -205,7 +194,9 @@ export default function Navbar({ user, quota }) {
   return (
     <div>
       <>
-        <Button onClick={toggleDrawer("FocusPocus", true)}>FocusPocus</Button>
+        <Button onClick={toggleDrawer("FocusPocus", true)}>
+          <ClickableLogo src="/imgs/logo3.png" alt="Menu Logo" />
+        </Button>
         <Drawer
           open={state["FocusPocus"]}
           onClose={toggleDrawer("FocusPocus", false)}
