@@ -61,13 +61,13 @@ export default function useApplicationData() {
         quotaIncrement,
       })
       .then(res => {
-        console.log("res :>> ", res);
         dispatch({
           type: CHANGE_QUOTA,
           allotment: quotaStart,
         });
       })
       .catch(e => {
+        console.log("ERROR!!")
         console.error(e);
       });
   };
