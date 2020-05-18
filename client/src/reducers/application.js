@@ -2,6 +2,7 @@ export const SET_DASHBOARD_DATA = "SET_DASHBOARD_DATA";
 export const SET_BLACKLIST_DATA = "SET_BLACKLIST_DATA";
 export const CHANGE_BLACKLIST = "CHANGE_BLACKLIST"; //TODO: Should not combine dispatch events, its okay to separate otherwise logic gets convulated
 export const CHANGE_QUOTA = "CHANGE_QUOTA";
+export const SET_WEBSOCKET_GRAPHS = "SET_WEBSOCKET_GRAPHS";
 
 export default function reducer(state, action) {
   switch (action.type) {
@@ -51,7 +52,7 @@ export default function reducer(state, action) {
       } else {
         // Find index where the blacklisted site lives
         const siteIndex = state.blacklisted.indexOf(
-          state.blacklisted.find((site) => site.blacklists_id === id)
+          state.blacklisted.find(site => site.blacklists_id === id)
         );
 
         clonedBlacklist.splice(siteIndex, 1);
@@ -80,6 +81,15 @@ export default function reducer(state, action) {
       return {
         ...state,
         quota_today: quotaData,
+      };
+
+    case SET_WEBSOCKET_GRAPHS:
+      const { quota_today, donutGraph, radialGraph } = action.payload;
+      return {
+        ...state,
+        quota_today,
+        donutGraph,
+        radialGraph,
       };
 
     //todo: have default state /error handling, not required but nice to have

@@ -6,6 +6,7 @@ import reducer, {
   SET_BLACKLIST_DATA,
   CHANGE_BLACKLIST,
   CHANGE_QUOTA,
+  SET_WEBSOCKET_GRAPHS,
 } from "../reducers/application";
 
 const ENDPOINT = "http://localhost:9000";
@@ -31,6 +32,15 @@ export default function useApplicationData() {
     });
   };
 
+  const setWebsocketGraphs = async () => {
+    const userData = await axios.get("/api/data/dashboard");
+    const dashboardData = userData.data;
+    dispatch({
+      type: SET_WEBSOCKET_GRAPHS,
+      payload: dashboardData,
+    });
+  };
+
   // const [loading, setLoading] = useState(false)
   useEffect(() => {
     // Websocket connection
@@ -43,9 +53,9 @@ export default function useApplicationData() {
 
     conn.on("refresh", () => {
       //console.log("I need to refresh");
-      setDashboard();
+      setWebsocketGraphs();
     });
-    
+
     axios
       .get("/api/data/dashboard")
       .then(dashboard => {
