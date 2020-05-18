@@ -73,7 +73,7 @@ export default function SignUp(props) {
     axios
       .post("/api/user/register", credentials)
       .then(res => {
-        console.log(res);
+        // console.log(res);
         console.log("Successful login");
         history.push("/dashboard");
       })

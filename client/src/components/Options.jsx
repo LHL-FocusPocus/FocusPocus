@@ -41,6 +41,9 @@ export default function Options({
   //   // return a spinner component
   // }
 
+  // console.log("====> Options disabled blacklisted site", disableBlacklistedSite);
+
+
   const addTopSiteToUserBlacklist = hostname => {
     addBlacklistedSite(hostname);
   };

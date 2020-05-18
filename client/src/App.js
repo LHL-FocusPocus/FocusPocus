@@ -21,13 +21,12 @@ function App() {
     disableBlacklistedSite,
     addBlacklistedSite,
     setDashboard,
-    changeQuota
+    changeQuota,
   } = useApplicationData();
 
   // console.log("====> setDashboard", setDashboard);
-  // const { quota_today } = setDashboard;
-  console.log("====> quota in App.js", state.quota_today);
-  console.log("====> Appjs State", state);
+  // console.log("====> quota in App.js", state.quota_today);
+  // console.log("====> Appjs Blacklisted State", state.blacklisted);
 
   return (
     <div className="App">
@@ -39,22 +38,26 @@ function App() {
       <Route
         exact
         path="/dashboard"
-        render={() => state.quota_today.allotment && <Dashboard dashboardData={state} />}
+        render={() =>
+          state.quota_today.allotment && <Dashboard dashboardData={state} />
+        }
       />
       <Route
         exact
         path="/options"
-        render={() => (
-          state.quota_today.allotment && <Options
-            changeQuota={changeQuota}
-            addBlacklistedSite={addBlacklistedSite}
-            disableBlacklistedSite={disableBlacklistedSite}
-            dashboardData={state}
-            // user={state.user}
-            blacklisted={state.blacklisted}
-            // quota_today={state.quota_today}
-          />
-        )}
+        render={() =>
+          state.quota_today.allotment && (
+            <Options
+              changeQuota={changeQuota}
+              addBlacklistedSite={addBlacklistedSite}
+              disableBlacklistedSite={disableBlacklistedSite}
+              dashboardData={state}
+              // user={state.user}
+              blacklisted={state.blacklisted}
+              // quota_today={state.quota_today}
+            />
+          )
+        }
       />
     </div>
   );
