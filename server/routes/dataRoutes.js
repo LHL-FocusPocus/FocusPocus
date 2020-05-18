@@ -18,17 +18,30 @@ module.exports = (db) => {
 
     // Promises.all implementation
     Promise.all([
+      // 0
       dbHelper.getUserWithID(userId),
+      // 1
       dbHelper.getQuotaForTodayWithUserID(userId),
+      // 2
       dbHelper.getBlacklistedSitesWithUserID(userId),
+      // 3
       dbHelper.getBrowseInfoTodayForDashboard(userId),
+      // 4
       dbHelper.getTotalTimeForTodayByUserID(userId),
+      // 5
       dbHelper.getTotalBlacklistTimeForTodayByUserID(userId),
+      // 6
       dbHelper.getMonthBlacklistBrowsingInfoForChart(userId),
+      // 7
       dbHelper.getTimeForLeaderboardWeek(),
+      // 8
       dbHelper.getTimeForShameboardWeek(),
+      // 9
       dbHelper.getHitsForBlacklistedSiteForPastWeek(userId),
+      // 10
       dbHelper.getTopBlacklistedSites(),
+      // 11
+      dbHelper.getAcceptedFriends(),
     ])
       .then((all) => {
         // all is now an array of data that each promise returns
@@ -45,7 +58,7 @@ module.exports = (db) => {
         userData["shameboard"] = compileData(all[8], "name", "picture");
         userData["radialGraph"] = all[9];
         userData["topBlacklisted"] = all[10];
-
+        userData["friendsList"] = all[11];
         return res.status(200).json(userData);
       })
       .catch((err) => {
