@@ -219,7 +219,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
               disableRestoreFocus
             >
               <Typography>
-                How much your quota will decrease by per day until your target
+                How much your quota will decrease per day until your target
                 quota is reached
               </Typography>
             </Popover>
