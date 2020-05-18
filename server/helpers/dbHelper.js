@@ -470,55 +470,13 @@ module.exports = (db) => {
       .catch((e) => console.error(e));
   };
 
-  const getUserFriends = (user_id) => {
-    return db
-      .query(
-        `
-        SELECT * FROM friends WHERE user_id = $1;
-        `,
-        [user_id]
-      )
-      .then((res) => {
-        return res.rows;
-      })
-      .catch((e) => console.error(e));
-  };
-
-  const getPendingFriends = (user_id) => {
-    return db
-      .query(
-        `
-      SELECT * FROM friends WHERE user_id = $1 AND pending = true;
-      `,
-        [user_id]
-      )
-      .then((res) => {
-        return res.rows;
-      })
-      .catch((e) => console.error(e));
-  };
-
-  const getAcceptedFriends = (user_id) => {
-    return db
-      .query(
-        `
-      SELECT * FROM friends WHERE user_id = $1 AND pending = false;
-      `,
-        [user_id]
-      )
-      .then((res) => {
-        if (res.rows.length === 0) return null;
-        return res.rows;
-      })
-      .catch((err) => err);
-  };
-
+  // Allows a user to send a friend request
   const sendFriendRequest = (user_id, friend_id) => {
     return db
       .query(
         `
       INSERT INTO friends (user_id, friend_id, pending)
-      VALUES ($1, $2, TRUE), ($2, $1, FALSE)
+      VALUES ($1, $2, TRUE)
       RETURNING *;
       `,
         [user_id, friend_id]
@@ -530,18 +488,78 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
+  // See which friend is pending to be accepted (User1 has sent a request to User2, User1 will see User2 is pending)
+  const getPendingFriendsSent = (user_id) => {
+    return db
+      .query(
+        `
+        SELECT * FROM friends WHERE user_id = $1
+        AND pending = true;
+        `,
+        [user_id]
+      )
+      .then((res) => {
+        return res.rows;
+      })
+      .catch((e) => console.error(e));
+  };
+
+  // Receive a notification when a friend request comes in (User1 has sent a request to User2, User2 will see User1's request)
+  const getPendingFriendRequests = (user_id) => {
+    return db
+      .query(
+        `
+      SELECT * FROM friends WHERE friend_id = $1
+      AND pending = true;
+      `,
+        [user_id]
+      )
+      .then((res) => {
+        return res.rows;
+      })
+      .catch((e) => console.error(e));
+  };
+
+  // Allows a user to accept a friend request
   const acceptFriendRequest = (user_id, friend_id) => {
     // Remember: we want to change the flag for the user who initiliazed the request.
-    // So in this case the user who is accepting will change the flag
-    // in the table where they are the friend.
-    return db.query(
-      `
+    // So in this case the user who is accepting will get entered into the table with a FALSE flag
+    // and they will update the initilizer's request (change their flag to FALSE as well)
+    // in the table they will both be friends now.
+    return db
+      .query(
+        `
+      INSERT INTO friends (user_id, friend_id, pending)
+      VALUES ($1, $2, FALSE);
       UPDATE friends
       SET pending = FALSE
       WHERE (user_id = $2 AND friend_id = $1)
       RETURNING *;
-      `
-    );
+      `,
+        [user_id, friend_id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows;
+      })
+      .catch((err) => err);
+  };
+
+  // Shows who user_id's current friends are
+  const getAcceptedFriends = (user_id) => {
+    return db
+      .query(
+        `
+    SELECT * FROM friends WHERE user_id = $1
+    AND pending = false;
+    `,
+        [user_id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows;
+      })
+      .catch((err) => err);
   };
 
   return {
@@ -572,8 +590,9 @@ module.exports = (db) => {
     adjustUserQuota,
     getTopBlacklistedSites,
     getAcceptedFriends,
-    getPendingFriends,
-    getUserFriends,
     sendFriendRequest,
+    getPendingFriendRequests,
+    acceptFriendRequest,
+    getPendingFriendsSent,
   };
 };
