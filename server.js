@@ -71,23 +71,33 @@ const io = require("socket.io")(server);
 
 io.on("connection", (socket) => {
   console.log("a user connected");
-  let cookieString = socket.request.headers.cookie;
 
+  // Extract client's userId from cookie
+  let userId;
+  let cookieString = socket.request.headers.cookie;
   let req = {
     connection: { encrypted: false },
     headers: { cookie: cookieString },
   };
   let res = { getHeader: () => {}, setHeader: () => {} };
-
   session(req, res, () => {
-    console.log("User id is", req.session.userId);
-    socket.userId = req.session.userId;
+    userId = req.session.userId;
   });
+  console.log("User id is", userId || "unknown");
+
+  // Put client into a room with their userId as the room name
+  if (userId) {
+    socket.join(userId);
+  }
 
   socket.on("disconnect", () => {
-    console.log(socket.userId, "disconnected");
+    console.log(userId, "disconnected");
   });
 });
+
+function sendBrowseTime(userId, data) {
+  // Use io.to() to send data selectively
+}
 
 server.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
