@@ -74,7 +74,9 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
   const [dailyQuota, setQuota] = useState(quota.allotment.minutes);
   const [targetQuota, setTargetQuota] = useState(0);
   const [increment, setIncrement] = useState(5);
-  const [targetQuotaShow, setTargetQuotaShow] = useState(false);
+  const [targetQuotaShow, setTargetQuotaShow] = useState(
+    options.quotaIncrement > 0 || false
+  );
 
   const classes = useStyles();
 
@@ -99,7 +101,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
     setDisabled(true);
   };
 
-  // Use useEffect to update value when quota.allotment.minutes initializes
+  // Use useEffect to update value when quota.allotment.minutes & options initializes
   useEffect(() => {
     setQuota(quota.allotment.minutes);
   }, [quota.allotment.minutes]);

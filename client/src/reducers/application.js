@@ -6,23 +6,25 @@ export const CHANGE_QUOTA = "CHANGE_QUOTA";
 export default function reducer(state, action) {
   switch (action.type) {
     case SET_DASHBOARD_DATA:
-      // If user has not adjusted their increment or target, set default values here
+      // If user has not adjusted their increment or target, set default values here to allow page to load
       if (action.payload.user.options === null) {
         return {
           ...state,
           ...action.payload,
           user: {
             options: {
-              quotaIncrement: 0,
+              quotaIncrement: 5,
               quotaTarget: 0,
             },
           },
         };
+      } else {
+        return {
+          ...state,
+          ...action.payload,
+        };
       }
-      return {
-        ...state,
-        ...action.payload,
-      };
+
     case SET_BLACKLIST_DATA:
       return {
         ...state,
