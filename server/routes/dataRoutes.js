@@ -42,6 +42,8 @@ module.exports = (db) => {
       dbHelper.getTopBlacklistedSites(),
       // 11
       dbHelper.getAcceptedFriends(),
+      // 12
+      dbHelper.getFriendsInfo(),
     ])
       .then((all) => {
         // all is now an array of data that each promise returns
@@ -59,6 +61,7 @@ module.exports = (db) => {
         userData["radialGraph"] = all[9];
         userData["topBlacklisted"] = all[10];
         userData["friendsList"] = all[11];
+        userData["friendsInfo"] = all[12];
         return res.status(200).json(userData);
       })
       .catch((err) => {
