@@ -6,3 +6,9 @@
 
   box-shadow: inset -75px 0 200px 200px rgba(0, 0, 0, 0.03);
 }
+
+@media (max-width: 1100px) {
+  .App {
+    background-position: center;
+  }
+}
