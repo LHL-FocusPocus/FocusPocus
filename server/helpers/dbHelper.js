@@ -474,7 +474,7 @@ module.exports = (db) => {
     return db
       .query(
         `
-        SELECT * FROM friends WHERE user_id = 1;
+        SELECT * FROM friends WHERE user_id = $1;
         `,
         [user_id]
       )
@@ -488,7 +488,7 @@ module.exports = (db) => {
     return db
       .query(
         `
-      SELECT * FROM friends WHERE user_id = 1 AND pending = true;
+      SELECT * FROM friends WHERE user_id = $1 AND pending = true;
       `,
         [user_id]
       )
@@ -499,21 +499,35 @@ module.exports = (db) => {
   };
 
   const getAcceptedFriends = (user_id) => {
-    return db.query(
-      `
-      SELECT * FROM friends WHERE user_id = 1 AND pending = false;
+    return db
+      .query(
+        `
+      SELECT * FROM friends WHERE user_id = $1 AND pending = false;
       `,
-      [user_id]
-    );
+        [user_id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows;
+      })
+      .catch((err) => err);
   };
 
   const sendFriendRequest = (user_id, friend_id) => {
-    return db.query(
-      `
-
+    return db
+      .query(
+        `
+      INSERT INTO friends (user_id, friend_id)
+      VALUES ($1, $2)
+      RETURNING *;
       `,
-      [user_id, friend_id]
-    );
+        [user_id, friend_id]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      })
+      .catch((err) => err);
   };
 
   return {
@@ -543,5 +557,9 @@ module.exports = (db) => {
     isBlacklistedSiteEnabled,
     adjustUserQuota,
     getTopBlacklistedSites,
+    getAcceptedFriends,
+    getPendingFriends,
+    getUserFriends,
+    sendFriendRequest,
   };
 };
