@@ -544,8 +544,6 @@ module.exports = (db) => {
     );
   };
 
-  const acceptFriendRequest = (user_id, f);
-
   return {
     getUserWithEmail,
     getUserWithID,
