@@ -60,12 +60,12 @@ export default function useApplicationData() {
         quotaTarget,
         quotaIncrement,
       })
-      .then((res) => {
-        console.log('res :>> ', res);
-        // dispatch({
-        //   type: CHANGE_QUOTA,
-        //   allotment: quotaStart,
-        // });
+      .then(res => {
+        console.log("res :>> ", res);
+        dispatch({
+          type: CHANGE_QUOTA,
+          allotment: quotaStart,
+        });
       })
       .catch(e => {
         console.error(e);

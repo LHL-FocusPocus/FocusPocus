@@ -6,6 +6,19 @@ export const CHANGE_QUOTA = "CHANGE_QUOTA";
 export default function reducer(state, action) {
   switch (action.type) {
     case SET_DASHBOARD_DATA:
+      // If user has not adjusted their increment or target, set default values here
+      if (action.payload.user.options === null) {
+        return {
+          ...state,
+          ...action.payload,
+          user: {
+            options: {
+              quotaIncrement: 0,
+              quotaTarget: 0,
+            },
+          },
+        };
+      }
       return {
         ...state,
         ...action.payload,
@@ -15,6 +28,7 @@ export default function reducer(state, action) {
         ...state,
         blacklisted: action.blacklisted,
       };
+
     case CHANGE_BLACKLIST:
       const { id } = action;
 
@@ -39,15 +53,10 @@ export default function reducer(state, action) {
       };
 
     case CHANGE_QUOTA:
-      console.log("quotaInMinutes", action.allotment);
-
       const { used, all_browse_time } = state.quota_today;
       const newQuota = {
         minutes: action.allotment,
       };
-
-      console.log("newQuota", newQuota);
-      console.log("all_browse_time", all_browse_time);
 
       const quotaData = {
         allotment: newQuota,
