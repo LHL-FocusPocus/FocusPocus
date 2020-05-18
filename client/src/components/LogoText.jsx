@@ -22,7 +22,14 @@ const Text = styled.div`
 `;
 
 const Logo = styled.span`
-  font-size: 5em;
+  font-size: 8em;
+  text-transform: lowercase;
+  font-weight: 700;
+  ${'' /* text-transform: uppercase; */}
+  font-family: 'Aladin', cursive;
+  font-family: 'Alata', sans-serif;
+  font-family: 'Amatic SC', cursive;
+  ${'' /* font-family: 'Raleway', sans-serif; */}
 `;
 
 const Tagline = styled.div`
