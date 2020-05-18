@@ -26,6 +26,15 @@ export default function useApplicationData() {
 
   // const [loading, setLoading] = useState(false)
   useEffect(() => {
+    // Websocket connection
+    const conn = socketIOClient(ENDPOINT);
+    setConnection(conn);
+
+    connection.on("connect", () => {
+      console.log("i have connected");
+      connection.emit("foo", "bar");
+    });
+
     axios
       .get("/api/data/dashboard")
       .then(dashboard => {
@@ -95,17 +104,6 @@ export default function useApplicationData() {
       })
       .catch(e => console.error(e));
   };
-
-  // Websocket connection
-  useEffect(() => {
-    const conn = socketIOClient(ENDPOINT);
-    setConnection(conn);
-
-    connection.on("connect", () => {
-      console.log("i have connected");
-      connection.emit("foo", "bar");
-    });
-  });
 
   return {
     state,
