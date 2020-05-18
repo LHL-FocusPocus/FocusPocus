@@ -259,15 +259,35 @@ module.exports = (db) => {
       .catch((err) => res.status(400).json(err));
   });
 
-  // When user 1 wants to see their requests that are pending (User 1 wants to see if User 2 has accepted or not)
-  router.get("/friends/requests", (req, res) => {
+  // When user 1 wants to see their notification for a friend add. (User 2 receives a friends request, user 2 can view it here)
+  router.get("/friends/notification", (req, res) => {
     const { userId } = req.session;
     if (!userId) {
       return res.status(403).json("Please sign in first.");
     }
     // View a friend request
     dbHelper
-      .getPendingFriendRequests(userId)
+      .getFriendRequests(userId)
+      .then((request) => {
+        return (
+          res
+            .status(200)
+            // .json(`${userId} has sent a friend's request to ${friendId}`);
+            .json(request)
+        );
+      })
+      .catch((err) => res.status(400).json(err));
+  });
+
+  // Users can view which friends are pending. (User 1 wants to see if User 2 has accepted or not)
+  router.get("/friends/pending", (req, res) => {
+    const { userId } = req.session;
+    if (!userId) {
+      return res.status(403).json("Please sign in first.");
+    }
+    // View a friend request
+    dbHelper
+      .getPendingFriendsSent(userId)
       .then((request) => {
         return (
           res
