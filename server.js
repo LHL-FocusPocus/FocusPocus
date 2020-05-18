@@ -95,8 +95,15 @@ io.on("connection", (socket) => {
   });
 });
 
-function sendBrowseTime(userId, data) {
-  // Use io.to() to send data selectively
+/**
+ * Sends dashboard data through socketio to the room named after the userId.
+ * To be called at the end of every POST request adding browse time, to update
+ * the dashboard charts in realtime.
+ * @param {Integer} userId
+ * @param {Object}  data The same json sent through /api/user/dashboard
+ */
+function sendDashboardData(userId, data) {
+  io.to(userId).emit("message", data);
 }
 
 server.listen(PORT, () => {
