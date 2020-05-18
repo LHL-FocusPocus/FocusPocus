@@ -559,7 +559,7 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  // Shows who user_id's current friends are
+  // Shows user_id's current friends
   const getAcceptedFriends = (user_id) => {
     return db
       .query(
@@ -570,7 +570,7 @@ module.exports = (db) => {
         [user_id]
       )
       .then((res) => {
-        // if (res.rows.length === 0) return null;
+        // if (res.rows.length === 0) return null; //this is sending null to front-end
         return res.rows;
       })
       .catch((err) => err);
