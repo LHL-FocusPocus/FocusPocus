@@ -1,11 +1,14 @@
 import { useReducer, useEffect, useState } from "react";
 import axios from "axios";
+import socketIOClient from "socket.io-client";
 import reducer, {
   SET_DASHBOARD_DATA,
   SET_BLACKLIST_DATA,
   CHANGE_BLACKLIST,
   CHANGE_QUOTA,
 } from "../reducers/application";
+
+const ENDPOINT = "http://localhost:9000";
 
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
@@ -19,17 +22,19 @@ export default function useApplicationData() {
     quota_today: {},
   });
 
+  const [connection, setConnection] = useState({});
+
   // const [loading, setLoading] = useState(false)
   useEffect(() => {
     axios
       .get("/api/data/dashboard")
-      .then((dashboard) => {
+      .then(dashboard => {
         dispatch({
           type: SET_DASHBOARD_DATA,
           payload: dashboard.data,
         });
       })
-      .catch((e) => console.error(e));
+      .catch(e => console.error(e));
   }, []);
 
   const setDashboard = async () => {
@@ -41,11 +46,11 @@ export default function useApplicationData() {
     });
   };
 
-  const disableBlacklistedSite = (blacklists_id) => {
+  const disableBlacklistedSite = blacklists_id => {
     // console.log("ID before axios put=====>", blacklists_id);
     axios
       .put(`/api/user/blacklists/disable/${blacklists_id}`, blacklists_id)
-      .then((res) => {
+      .then(res => {
         // console.log("res inisde axios =======>", res);
         // console.log("site id inside axios =======>", id);
         dispatch({
@@ -54,9 +59,6 @@ export default function useApplicationData() {
         });
       });
   };
-
-  /*     const { quotaStart, quotaIncrement, quotaTarget } = req.body;
-   */
 
   const changeQuota = (quotaStart, quotaTarget, quotaIncrement) => {
     axios
@@ -71,15 +73,15 @@ export default function useApplicationData() {
           allotment: quotaStart,
         });
       })
-      .catch((e) => {
+      .catch(e => {
         console.error(e);
       });
   };
 
-  const addBlacklistedSite = (host_name) => {
+  const addBlacklistedSite = host_name => {
     axios
       .post("/api/user/blacklists/add", { host_name })
-      .then((res) => {
+      .then(res => {
         const { id, hostname, name, category, website_id, user_id } = res.data;
         dispatch({
           type: CHANGE_BLACKLIST,
@@ -91,8 +93,19 @@ export default function useApplicationData() {
           website_id,
         });
       })
-      .catch((e) => console.error(e));
+      .catch(e => console.error(e));
   };
+
+  // Websocket connection
+  useEffect(() => {
+    const conn = socketIOClient(ENDPOINT);
+    setConnection(conn);
+
+    connection.on("connect", () => {
+      console.log("i have connected");
+      connection.emit("foo", "bar");
+    });
+  });
 
   return {
     state,
