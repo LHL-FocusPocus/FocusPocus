@@ -1,4 +1,4 @@
-// Helper function to manage obj:keys data and change all time to minutes
+// Helper function to manage obj:keys data when receiving from PSQL tables
 const compileData = function (data, key, key2) {
   const dataArr = [];
   data.map((obj) => {
@@ -12,6 +12,7 @@ const compileData = function (data, key, key2) {
   return dataArr;
 };
 
+// Change all time to minutes for graphs
 const processTimeToMins = function (obj, dataObj, dataArr) {
   let minutes = 0;
   if (obj.time.days) {
@@ -59,7 +60,6 @@ const extractNameFromURL = function (url) {
   const name = remSuffix.charAt(0).toUpperCase() + remSuffix.slice(1);
   return name;
 };
-
 
 // Helper function to remove "www." if a host_name has it
 const remPrefix = function (host_name) {
