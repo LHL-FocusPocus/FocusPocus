@@ -206,29 +206,96 @@ module.exports = (db) => {
       return res.status(403).json("Please sign in first.");
     }
     // console.log("website ID ====>Before", id);
-    dbHelper.disableWebsiteInBlacklist(id, userId).then((resp) => {
-      // console.log("website ID ====>After", id);
-      if (!id) {
-        return res.status(400).json(err);
-      }
-      return res.status(200).json(resp);
-    });
+    dbHelper
+      .disableWebsiteInBlacklist(id, userId)
+      .then((resp) => {
+        // console.log("website ID ====>After", id);
+        if (!id) {
+          return res.status(400).json(err);
+        }
+        return res.status(200).json(resp);
+      })
+      .catch((err) => res.status(400).json(err));
   });
 
+  // Shows list of friends
   router.get("/friends", (req, res) => {
     const { userId } = req.session;
     if (!userId) {
       return res.status(403).json("Please sign in first.");
     }
-    dbHelper.getAcceptedFriends(userId).then((friendsList) => {
-      // if (!friendsList) {
-      //   return res.status(200).json({ friend_id: null });
-      // }
-      return res.status(200).json(friendsList);
-    });
+    dbHelper
+      // .getAcceptedFriends(userId)
+      .getFriendsInfo(userId)
+      // Need to decide which query we will use. getAcceptedFriends gives id, user_id, friend_id, pending... getFriendsInfo gives names, pictures, etc.
+      .then((friendsList) => {
+        // if (!friendsList) {
+        //   return res.status(200).json({ friend_id: null });
+        // }
+        return res.status(200).json(friendsList);
+      })
+      .catch((err) => res.status(400).json(err));
   });
 
-  //   // Just a test route to test db queries and response
+  // When a user sends a Friend Request (User 1 wants to add User 2)
+  // This needs more logic: will probably be sent to back-end with a friend's email, convert email to a friend_id
+  router.post("/friends/add", (req, res) => {
+    const { userId } = req.session;
+    const { friendId } = req.body;
+    if (!userId) {
+      return res.status(403).json("Please sign in first.");
+    }
+    // Send the friend request
+    dbHelper
+      .sendFriendRequest(userId, friendId)
+      .then((request) => {
+        return (
+          res
+            .status(200)
+            // .json(`${userId} has sent a friend's request to ${friendId}`);
+            .json(request)
+        );
+      })
+      .catch((err) => res.status(400).json(err));
+  });
+
+  // When user 1 wants to see their requests that are pending (User 1 wants to see if User 2 has accepted or not)
+  router.get("/friends/requests", (req, res) => {
+    const { userId } = req.session;
+    if (!userId) {
+      return res.status(403).json("Please sign in first.");
+    }
+    // View a friend request
+    dbHelper
+      .getPendingFriendRequests(userId)
+      .then((request) => {
+        return (
+          res
+            .status(200)
+            // .json(`${userId} has sent a friend's request to ${friendId}`);
+            .json(request)
+        );
+      })
+      .catch((err) => res.status(400).json(err));
+  });
+
+  // When a user sees a friend request, they can accept it (User 2 recieved a friend request from User 1, they can accept it)
+  // This needs more logic: will probably be sent to back-end with a friend's email, convert email to a friend_id
+  router.post("/friends/accept", (req, res) => {
+    const { userId } = req.session;
+    const { friendId } = req.body;
+    if (!userId) {
+      return res.status(403).json("Please sign in first.");
+    }
+    dbHelper
+      .acceptFriendRequest(userId, friendId)
+      .then((request) => {
+        return res.status(200).json(request);
+      })
+      .catch((err) => res.status(400).json(err));
+  });
+
+  // Just a test route to test db queries and response
   router.get("/test", (req, res) => {
     // const { host_name } = req.body;
 
