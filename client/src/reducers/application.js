@@ -14,7 +14,7 @@ export default function reducer(state, action) {
           user: {
             options: {
               quotaIncrement: 5,
-              quotaTarget: 0,
+              quotaTarget: 60,
             },
           },
         };
