@@ -517,7 +517,7 @@ module.exports = (db) => {
   };
 
   // Receive a notification when a friend request comes in (User1 has sent a request to User2, User2 will see User1's request)
-  const getPendingFriendRequests = (user_id) => {
+  const getFriendRequests = (user_id) => {
     return db
       .query(
         `
@@ -623,7 +623,7 @@ module.exports = (db) => {
     getTopBlacklistedSites,
     getAcceptedFriends,
     sendFriendRequest,
-    getPendingFriendRequests,
+    getFriendRequests,
     acceptFriendRequest,
     getPendingFriendsSent,
     getFriendsInfo,
