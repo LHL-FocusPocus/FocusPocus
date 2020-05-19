@@ -22,7 +22,8 @@
     "method-override": "^3.0.0",
     "morgan": "^1.9.1",
     "pg": "^6.4.2",
-    "pg-native": "^3.0.0"
+    "pg-native": "^3.0.0",
+    "socketio": "^1.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.3"
