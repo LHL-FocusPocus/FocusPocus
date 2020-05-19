@@ -45,7 +45,8 @@ export default function Shameboard({ shameboard }) {
     categoryAxis.renderer.minGridDistance = 10;
     categoryAxis.renderer.labels.template.dx = -40;
     categoryAxis.renderer.minWidth = 120;
-    categoryAxis.renderer.tooltip.dx = -40;
+    categoryAxis.tooltip = false;
+    categoryAxis.fontSize = 0;
 
     const valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
     // valueAxis.title.text = "minutes wasted last week";
@@ -59,7 +60,7 @@ export default function Shameboard({ shameboard }) {
     valueAxis.renderer.baseGrid.strokeOpacity = 0;
     valueAxis.renderer.labels.template.dy = -20;
     valueAxis.renderer.opposite = true;
-
+    valueAxis.fontSize = 30;
 
     const series = chart.series.push(new am4charts.ColumnSeries());
     series.dataFields.valueX = "time";
@@ -67,6 +68,7 @@ export default function Shameboard({ shameboard }) {
     series.tooltipText = "{valueX.value}";
     series.tooltip.pointerOrientation = "vertical";
     series.tooltip.dy = -30;
+    series.tooltip.fontSize = 40;
     series.columnsContainer.zIndex = 100;
 
     const columnTemplate = series.columns.template;
@@ -79,13 +81,12 @@ export default function Shameboard({ shameboard }) {
     subtitle.text = "Minutes squandered during past week";
     subtitle.fontSize = 12;
     subtitle.marginBottom = 20;
+    subtitle.fontFamily = "Raleway, sans-serif"
 
     let title = chart.titles.create();
     title.text = "Shameboard";
-    title.fontSize = 28;
+    title.fontSize = 45;
     title.marginBottom = 10;
-    // title.fontFamily = 
-
 
     series.heatRules.push({
       target: columnTemplate,
