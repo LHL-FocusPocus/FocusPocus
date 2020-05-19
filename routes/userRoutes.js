@@ -289,12 +289,11 @@ module.exports = (db) => {
     if (!userId) {
       return res.status(403).json("Please sign in first.");
     }
-    let newOptions;
 
     dbHelper
       .getUserOptions(userId)
       .then((options) => {
-        newOptions = {
+        const newOptions = {
           ...options.options,
           noun: word,
           videoUrl: video,
