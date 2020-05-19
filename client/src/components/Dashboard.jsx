@@ -63,6 +63,7 @@ export default function Dashboard({ dashboardData }) {
 // console.log("In dashboard, quota_today should be =====>", quota_today)
 
 console.log('dashboardData :>> ', dashboardData);
+console.log('user :>> ', user);
 
   
   return (
@@ -70,7 +71,7 @@ console.log('dashboardData :>> ', dashboardData);
       <Navbar user={user} quota={quota_today} />
       <Container
         // isLoading={loading}
-        bgcolor="background.paper"
+        // bgcolor="background.paper"
         flexWrap="wrap"
         display="flex"
       >

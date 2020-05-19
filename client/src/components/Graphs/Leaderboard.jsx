@@ -38,8 +38,7 @@ export default function Leaderboard({ leaderboard }) {
     chart.hiddenState.properties.opacity = 0;
 
     chart.paddingRight = 40;
-    // chart.scale = 0.8;
-        chart.scale = 0.95;
+    chart.scale = 0.95;
 
 
     chart.data = leaderboard;
@@ -49,10 +48,11 @@ export default function Leaderboard({ leaderboard }) {
     categoryAxis.renderer.grid.template.strokeOpacity = 0;
     categoryAxis.renderer.minGridDistance = 10;
     categoryAxis.renderer.labels.template.dx = 40;
-    categoryAxis.renderer.minWidth = 0;
-    categoryAxis.renderer.tooltip.dx = -40;
+    categoryAxis.renderer.minWidth = 120;
     categoryAxis.renderer.opposite = true;
     categoryAxis.renderer.inversed = true;
+    categoryAxis.tooltip = false;
+    categoryAxis.fontSize = 30;
 
     const valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
     // valueAxis.title.text = "minutes wasted last week";
@@ -68,6 +68,8 @@ export default function Leaderboard({ leaderboard }) {
     valueAxis.renderer.inversed = true;
     valueAxis.renderer.opposite = true;
     valueAxis.renderer.labels.template.dx = 0;
+    valueAxis.fontSize = 30;
+    
 
     const series = chart.series.push(new am4charts.ColumnSeries());
     series.dataFields.valueX = "time";
@@ -75,6 +77,7 @@ export default function Leaderboard({ leaderboard }) {
     series.tooltipText = "{valueX.value}";
     series.tooltip.pointerOrientation = "vertical";
     series.tooltip.dy = -30;
+    series.tooltip.fontSize = 40;
     series.columnsContainer.zIndex = 100;
 
     const columnTemplate = series.columns.template;
@@ -101,11 +104,12 @@ export default function Leaderboard({ leaderboard }) {
     let subtitle = chart.titles.create();
     subtitle.text = "Minutes squandered during past week";
     subtitle.fontSize = 12;
+    subtitle.fontFamily = "Raleway, sans-serif"
     subtitle.marginBottom = 20;
 
     let title = chart.titles.create();
     title.text = "Leaderboard";
-    title.fontSize = 28;
+    title.fontSize = 45;
     title.marginBottom = 10;
 
 

@@ -13,6 +13,7 @@ export default function reducer(state, action) {
           ...state,
           ...action.payload,
           user: {
+            ...action.payload.user,
             options: {
               quotaIncrement: 5,
               quotaTarget: 60,

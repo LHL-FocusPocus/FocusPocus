@@ -7,13 +7,13 @@ import QuotaSlider from "./QuotaSlider";
 import TopBlacklisted from "./TopBlacklisted";
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
-import Friends from "./Friends";
-import Customization from "./Customization";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 export const CardContext = createContext({});
 
 const Container = styled(Box)`
   padding: 5em;
+  padding-top: 3em;
   display: flex;
   justify-content: space-around;
 `;
@@ -36,6 +36,13 @@ const SliderDiv = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
 `;
+
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: "Raleway, sans-serif",
+    fontSize: "15",
+  },
+});
 
 export default function Options({
   // user,

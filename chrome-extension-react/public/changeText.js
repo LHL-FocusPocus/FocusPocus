@@ -47,7 +47,7 @@
     const newWordUpperCase = newWord[0].toUpperCase() + newWord.slice(1);
 
     const regexForUpperCase = /^[A-Z]/;
-    while (shuffledNounSet.length > thresholdLength) {
+    do {
       const randomWord = shuffledNounSet.pop();
       if (regexForUpperCase.test(randomWord)) {
         setTimeout(() => {
@@ -65,7 +65,7 @@
         }, timer);
         timer += 500;
       }
-    }
+    } while (shuffledNounSet.length > thresholdLength);
   };
 
   const replaceAllTextOnPage = function () {
@@ -82,11 +82,11 @@
       replaceAllTextOnPage();
 
       // Testing the tagger
-      var lexer = new Lexer();
-      const lexedWords = lexer.lex(
-        "Why ‘Pushing Daisies’ is the perfect quarantine show: it has pies, singalongs, and characters who can’t touch."
-      );
-      console.log(new POSTagger().tag(lexedWords));
+      // var lexer = new Lexer();
+      // const lexedWords = lexer.lex(
+      //   "Why ‘Pushing Daisies’ is the perfect quarantine show: it has pies, singalongs, and characters who can’t touch."
+      // );
+      // console.log(new POSTagger().tag(lexedWords));
 
       // Set up listener for DOM changes (infinite scroll websites) and clicks
       // (instagram like button)

@@ -60,11 +60,15 @@ export default function LineGraph({ lineData }) {
     dateAxis.renderer.minGridDistance = 40;
     dateAxis.tooltipDateFormat = "MMM dd, yyyy";
     dateAxis.dateFormats.setKey("day", "dd");
+    dateAxis.fontSize = 30;
+    dateAxis.tooltip.fontSize = 25;
 
     const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.fontSize = 30;
+    valueAxis.tooltip = false;
 
     const series = chart.series.push(new am4charts.LineSeries());
-    series.tooltipText = "[bold font-size: 17px]Minutes Spent: {valueY}[/]";
+    series.tooltipText = "[bold font-size: 30px]Minutes Spent: {valueY}[/]";
     series.dataFields.valueY = "time";
     series.dataFields.dateX = "date";
     series.strokeDasharray = 3;
@@ -83,8 +87,8 @@ export default function LineGraph({ lineData }) {
     hoverState.properties.scale = 1.7;
 
     let title = chart.titles.create();
-    title.text = "Blacklisted Browsing Time (Last 30 Days)";
-    title.fontSize = 27;
+    title.text = "Blacklisted Browsing Time";
+    title.fontSize = 45;
     title.marginBottom = 15;
     // title.paddingTop =  40;
 
