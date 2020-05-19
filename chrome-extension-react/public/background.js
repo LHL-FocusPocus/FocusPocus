@@ -227,7 +227,10 @@ function changePictures(
         if (videoUrl) {
           chrome.tabs.sendMessage(tabId, { action: "setVideoUrl", videoUrl });
         }
-      }, 1000);
+        if (noun) {
+          chrome.tabs.sendMessage(tabId, { action: "setNoun", noun });
+        }
+      }, 2000);
     }
   });
 }
