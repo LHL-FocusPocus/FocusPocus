@@ -294,15 +294,17 @@ module.exports = (db) => {
     dbHelper
       .getUserOptions(userId)
       .then((options) => {
-        newOptions = { ...options.options };
-
-        if (image) newOptions["imageUrl"] = image;
-        if (video) newOptions["videoUrl"] = video;
-        if (word) newOptions["noun"] = word;
+        newOptions = {
+          ...options.options,
+          noun: word,
+          videoUrl: video,
+          imageUrl: image,
+        };
 
         return dbHelper.updateUserOptions(userId, newOptions);
       })
       .then((newOptions) => {
+        console.log('newOptions :>> ', newOptions);
         return res.status(200).json(newOptions);
       });
   });
@@ -313,9 +315,9 @@ module.exports = (db) => {
       return res.status(403).json("Please sign in first.");
     }
     dbHelper.getUserOptions(userId).then((options) => {
-      if (Object.entries(options).length === 0) {
-        return res.status(200).json({});
-      }
+      // if (options.options.length === 0) {
+      //   return res.status(200).json({});
+      // }
       return res.status(200).json(options);
     });
   });
