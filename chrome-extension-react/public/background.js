@@ -27,7 +27,9 @@ const imgArray = [
   "https://memegen.link/bad/browsing_this_site_is_bad/and_you_should_feel_bad.jpg",
   "https://memegen.link/doge/so_browseful_wow/much_procrastinate.jpg",
 ];
-
+let imageUrl;
+let videoUrl;
+let noun;
 let timerInSeconds = 0;
 
 // Increment timer and store current value inside chrome to be used by UI
@@ -77,6 +79,7 @@ function getUserData() {
  * from server. Sets 2 global variables: blacklistDomains array and isOverQuota
  */
 function parseAndStoreUserData(userData) {
+  console.log(userData);
   // Extract used and allotted quotas to determine if quota is exceeded
   const {
     quota_today: {
@@ -90,17 +93,17 @@ function parseAndStoreUserData(userData) {
   } else {
     isOverQuota = false;
   }
-  console.log("Over quota?", isOverQuota);
+  // Extract customized urls
+  ({ imageUrl, videoUrl, noun } = userData.user.options);
+  console.log(imageUrl, videoUrl, noun);
 
   // Map blacklists into array of domain names
-  blacklistDomains = blacklistObj.map(blacklist => blacklist.hostname);
-  console.log(blacklistDomains);
+  blacklistDomains = blacklistObj.map(blacklist => blacklist.hostname);  
 }
 
 // Listens for message from UI when "add to blacklist" is clicked
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === "recheck") {
-    console.log("rechecking");
+  if (request.action === "recheck") {    
     getUserData();
   }
 });
