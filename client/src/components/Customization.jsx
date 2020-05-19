@@ -123,17 +123,17 @@ export default function Customization({ userOptions }) {
               value={options.word || ""}
               onChange={handleOptionsChange}
             />
-              <TextField
-                label="Image"
-                variant="outlined"
-                helperText="URL"
-                fullWidth={true}
-                id="image"
-                error={error.image}
-                helperText={error.image ? "Must be a valid URL" : "URL"}
-                value={options.image || ""}
-                onChange={handleOptionsChange}
-              />
+            <TextField
+              label="Image"
+              variant="outlined"
+              helperText="URL"
+              fullWidth={true}
+              id="image"
+              error={error.image}
+              helperText={error.image ? "Must be a valid URL" : "URL"}
+              value={options.image || ""}
+              onChange={handleOptionsChange}
+            />
 
             <TextField
               label="Video"
