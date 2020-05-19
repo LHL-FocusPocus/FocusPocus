@@ -7,6 +7,7 @@ import QuotaSlider from "./QuotaSlider";
 import TopBlacklisted from "./TopBlacklisted";
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
+import Friends from "./Friends";
 
 export const CardContext = createContext({});
 
@@ -16,8 +17,15 @@ const Container = styled(Box)`
   justify-content: space-around;
 `;
 
+const QuotaAndFriends = styled(Box)`
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  flex: 1;
+`;
+
 const Slider = styled(QuotaSlider)`
-  ${'' /* transform: translateX(200px); */}
+  ${"" /* transform: translateX(200px); */}
 `;
 
 export default function Options({
@@ -38,7 +46,6 @@ export default function Options({
 
   // console.log("====> Options disabled blacklisted site", disableBlacklistedSite);
 
-
   const addTopSiteToUserBlacklist = hostname => {
     addBlacklistedSite(hostname);
   };
@@ -53,9 +60,13 @@ export default function Options({
           // dashboard={setDashboard}
         />
         <Container bgcolor="background.paper">
-          {quota_today && (
-            <Slider quota={quota_today} changeQuota={changeQuota} />
-          )}
+          <QuotaAndFriends>
+            {quota_today && (
+              <Slider quota={quota_today} changeQuota={changeQuota} />
+            )}
+            <Friends />
+          </QuotaAndFriends>
+
           <Blacklisted
             addBlacklistedSite={addBlacklistedSite}
             disableBlacklistedSite={disableBlacklistedSite}
