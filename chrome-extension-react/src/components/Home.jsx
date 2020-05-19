@@ -33,6 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
   error: {
     color: "red",
+    fontWeight: "bold",
   },
   title: {
     marginBottom: 20,
@@ -143,7 +144,7 @@ export default function Home(props) {
 
   const {
     quota_today: {
-      allotment: { minutes: quota_allotment_minutes },
+      allotment: { minutes: allotment_minutes },
       used: { minutes: used_minutes },
     },
   } = props.userData;
@@ -179,14 +180,16 @@ export default function Home(props) {
           FocusPocus Tracker
         </Typography>
         Today's Quota Usage
-        <Typography component="h2" variant="subtitle1">
+        <Typography
+          component="h2"
+          variant="subtitle1"
+          className={used_minutes > allotment_minutes && classes.error}
+        >
           {shortEnglishHumanizer(used_minutes * 60000)}
         </Typography>
         of
         <Typography component="h2" variant="subtitle1">
-          {shortEnglishHumanizer(
-            quota_allotment_minutes * 60000            
-          )}
+          {shortEnglishHumanizer(allotment_minutes * 60000)}
           <hr />
         </Typography>
         <form
