@@ -11,6 +11,8 @@ import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import useFormFields from "../hooks/useFormFields";
 import axios from "axios";
+import { Input } from "@material-ui/core";
+import isUrl from "../helpers/isUrl";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -58,15 +60,37 @@ export default function Customization({ userOptions }) {
     image: userOptions.imageUrl,
     video: userOptions.videoUrl,
   });
+  const [error, setError] = useState({
+    image: false,
+    video: false,
+  });
 
   const handleSubmit = event => {
     event.preventDefault();
+
+    if (!isUrl(options.image)) {
+      return setError({ image: true });
+    }
+    if (!isUrl(options.video)) {
+      return setError({ video: true });
+    }
+
+    // try {
+
+    //   const url = new URL(options.image);
+    //   console.log('url :>> ', url);
+    // } catch {
+    //   console.log('failed :>> ');
+    //   // Send error message instead
+    // }
 
     const userOptions = {
       word: options.word,
       image: options.image,
       video: options.video,
     };
+
+    setError(false);
 
     axios
       .post("/api/user/options/add", userOptions)
@@ -103,19 +127,22 @@ export default function Customization({ userOptions }) {
               label="Image"
               variant="outlined"
               helperText="URL"
-              type="url"
               fullWidth={true}
               id="image"
+              error={error.image}
+              helperText={error.image ? "Must be a valid URL" : "URL"}
               value={options.image || ""}
               onChange={handleOptionsChange}
             />
+
             <TextField
               label="Video"
               variant="outlined"
-              type="url"
               fullWidth={true}
               helperText="URL"
               id="video"
+              error={error.video}
+              helperText={error.video ? "Must be a valid URL" : "URL"}
               value={options.video || ""}
               onChange={handleOptionsChange}
             />
