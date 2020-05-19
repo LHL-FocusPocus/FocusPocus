@@ -13,8 +13,6 @@ import styled from "styled-components";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 
-// STRETCH: make cards draggable/droppable to delete?
-
 const Logo = styled(Avatar)`
   height: 60px;
   width: 60px;
@@ -36,30 +34,21 @@ const Delete = styled(IconButton)`
 `;
 
 export default function BlacklistedCards({ hostname, name, deleteSite, id }) {
-  
   return (
     <Container>
-      {/* <Background> */}
       <CardHeader
         avatar={
           <Logo aria-label="logo" src={`//logo.clearbit.com/${hostname}`} />
         }
         titleTypographyProps={{ variant: "h5" }}
         title={`${name}`}
+        style={{ paddingRight: "40px" }}
         action={
           <Delete onClick={() => deleteSite(id)} aria-label="Delete">
             <DeleteIcon />
           </Delete>
         }
       />
-
-      {/* <Logo image={`//logo.clearbit.com/${hostname}`} title={`${name}`} />
-        <Website>
-          <Typography gutterBottom variant="h5" component="h2">
-            {name}
-          </Typography>
-        </Website> */}
-      {/* </Background> */}
     </Container>
   );
 }
