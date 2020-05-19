@@ -96,10 +96,9 @@ export default function Home(props) {
   const getBlacklist = () => {
     setLoading(true);
     return axios
-      .get("/api/user/blacklists")
-      .then(blacklistObj => {
-        console.log(blacklistObj);
-        const blacklist = blacklistObj.data.map(obj => obj.hostname);
+      .get("/api/data/dashboard")
+      .then(response => {
+        const blacklist = response.data.blacklisted.map(obj => obj.hostname);
         setBlacklistDomains(blacklist);
         setLoading(false);
       })
