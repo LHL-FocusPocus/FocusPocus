@@ -29,7 +29,7 @@ const Icon = styled(Avatar)`
 
 const ClickableLogo = styled.img`
   width: 25%;
-  transform: translateX(105%) translateY(-5%);
+  transform: translateX(340px) translateY(-5%);
   ${"" /* transform: translateX(133%) translateY(-5%); */}
 
   padding: 0.3em
