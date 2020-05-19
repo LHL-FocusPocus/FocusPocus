@@ -1,4 +1,12 @@
 {
+  const MEDIA_TAGS = [
+    "img",
+    "[style*='background-image']",
+    "video",
+    "iframe.media-element",
+    "iframe[allowfullscreen]",
+  ];
+
   /**
    * Replacement of jQuery's document.ready (from youmightnotneedjquery.com).
    * @param {Function} fn The function to call when document is ready
@@ -33,6 +41,13 @@
     return height;
   }
 
+  /**
+   *
+   * @param {String} elementTag The string to be used in querySelectorAll
+   * @param {String} newUrl The new url to set the replacement image/video to
+   * @param {Function} replacementFn Function to be called to do the replacing
+   * @param {Number} interval Ms to wait between each replacementFn call
+   */
   function replaceElementsOnPage(
     elementTag,
     newUrl,
@@ -42,10 +57,14 @@
     // Replace images specified by tag
     const elements = Array.from(document.querySelectorAll(elementTag));
 
-    // Filter out small-sized elements and already processed elements
-    const elementsToBeReplaced = elements.filter((element) =>
-      shouldBeReplaced(element, newUrl)
-    );
+    const elementsToBeReplaced = elements.filter(element => {
+      if (MEDIA_TAGS.includes(elementTag)) {
+        // Filter out small-sized elements and already processed elements
+        return filterMedia(element, newUrl, 40);
+      } else {
+        return filterText(element);
+      }
+    });
     tagElementsForReplacement(elementsToBeReplaced);
     shuffle(elementsToBeReplaced);
 
@@ -66,13 +85,25 @@
    * @param {Number} minHeight
    * @return Returns true if image fits criteria (needs to be changed)
    */
-  function shouldBeReplaced(element, newUrl, minHeight = 50) {
+  function filterMedia(element, newUrl, minHeight) {
     return (
       !element.getAttribute("focuspocused") &&
       getHeight(element) > minHeight &&
       ((element.getAttribute("src") && element.getAttribute("src") != newUrl) ||
         (element.style.backgroundImage &&
           !element.style.backgroundImage.includes(newUrl)))
+    );
+  }
+
+  /**
+   * Function used to filter for text that need to be replaced.
+   * Excludes elements already replaced, and also very short texts
+   * @param {Object} element
+   * @return Returns true if text element fits criteria
+   */
+  function filterText(element) {
+    return (
+      !element.getAttribute("focuspocused") && element.textContent.length > 40
     );
   }
 

@@ -1,13 +1,17 @@
+/**
+ * This script block is injected into the page to replace videos.
+ */
 {
   let newVideoGlobal = "https://rickrolled.fr/rickroll.mp4";
   let newImgGlobal =
-    "https://memegen.link/bad/get_back_to_work/you_lazy_bum.jpg";
+    "https://memegen.link/bad/browsing_this_site_is_bad/and_you_should_feel_bad.jpg";
   /**
    * Replaces src and similar attributes in video elements.
    */
   const replaceVideoTagSrc = function (videoTagElement, newVideo) {
+    videoTagElement.setAttribute("muted", true);
     videoTagElement.setAttribute("src", newVideo);
-    videoTagElement.setAttribute("autoplay", true);
+    videoTagElement.setAttribute("autoplay", true);    
     videoTagElement.setAttribute("poster", newImgGlobal);
     videoTagElement.removeAttribute("focuspocused");
   };
@@ -19,10 +23,10 @@
   const replaceAllVideosOnPage = function (
     newVideo = newVideoGlobal,
     interval = 0 // Immediately replace videos for now
-  ) {    
+  ) {
     replaceElementsOnPage("video", newVideo, replaceVideoTagSrc, interval);
     replaceElementsOnPage(
-      "iframe.media-element",
+      "iframe[allowfullscreen]",
       newVideo,
       replaceVideoTagSrc,
       interval

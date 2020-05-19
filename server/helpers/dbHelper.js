@@ -324,7 +324,8 @@ module.exports = (db) => {
         WHERE blacklists.user_id = $1 AND browse_times.user_id = $1
         AND datetime_start >= CURRENT_DATE - INTERVAL '30 days'
         AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
-        GROUP BY date;
+        GROUP BY date
+        ORDER by date;
         `,
         [user_id]
       )
@@ -446,21 +447,46 @@ module.exports = (db) => {
       .catch((err) => console.error(err));
   };
 
-  const adjustUserQuota = (newQuota, userId) => {
+  const addStaticQuota = (userId, newQuota) => {
     return db
       .query(
         `
-        UPDATE quotas
-        SET time_allotment = $1
-        WHERE user_id = $2;
+        INSERT INTO quotas
+          (user_id, time_allotment)
+        VALUES
+          ($1, $2)
+        RETURNING *;
         `,
-        [newQuota, userId]
+        [userId, newQuota]
       )
       .then((res) => {
         if (res.rows.length === 0) return null;
         return res.rows[0];
       })
-      .catch((err) => console.error(err));
+      .catch((err) => err);
+  };
+
+  /*         UPDATE quotas
+  SET time_allotment = $1
+  WHERE user_id = $2; */
+
+  const addQuotaWithDate = (userId, newQuota, startDate, endDate) => {
+    return db
+      .query(
+        `
+        INSERT INTO quotas
+          (user_id, time_allotment, date_valid_from, date_valid_until)
+        VALUES
+          ($1, $2, ${startDate}, ${endDate})
+        RETURNING *;
+        `,
+        [userId, newQuota]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      })
+      .catch((err) => err);
   };
 
   const getTopBlacklistedSites = () => {
@@ -594,6 +620,23 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
+  const updateUserOptionQuota = (userId, optionsObject) => {
+    return db
+      .query(
+        `
+      UPDATE users
+      SET options = $2
+      WHERE id = $1
+      RETURNING *;
+      `,
+        [userId, optionsObject]
+      )
+      .then((res) => {
+        if (res.rows.length === 0) return null;
+        return res.rows[0];
+      })
+      .catch((err) => err);
+  };
   return {
     getUserWithEmail,
     getUserWithID,
@@ -619,7 +662,7 @@ module.exports = (db) => {
     enableBlacklistedSite,
     getBlacklistedSiteByWebsiteId,
     isBlacklistedSiteEnabled,
-    adjustUserQuota,
+    addStaticQuota,
     getTopBlacklistedSites,
     getAcceptedFriends,
     sendFriendRequest,
@@ -627,5 +670,7 @@ module.exports = (db) => {
     acceptFriendRequest,
     getPendingFriendsSent,
     getFriendsInfo,
+    addQuotaWithDate,
+    updateUserOptionQuota,
   };
 };

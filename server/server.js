@@ -33,12 +33,11 @@ app.use(function (req, res, next) {
   next();
 });
 app.use(bodyParser.json());
-app.use(
-  cookieSession({
-    name: "session",
-    keys: ["key1"],
-  })
-);
+const session = cookieSession({
+  name: "session",
+  keys: ["key1"],
+});
+app.use(session);
 app.use(methodOverride("_method"));
 app.use(express.static("public"));
 
@@ -56,16 +55,42 @@ app.use("/", rootRoutes(db));
 app.use("/api", apiRoutes(db));
 app.use("/api/user", userRoutes(db));
 app.use("/api/data", dataRoutes(db));
-app.use("/api/extension", extensionRoutes(db));
+app.use("/api/extension", extensionRoutes(db, sendRefreshRequest));
 
-// to do routes:
-// login
-//
-// Note: mount other resources here, using the same pattern above
+// Websocket setup
+const server = require("http").createServer(app);
+const io = require("socket.io")(server);
 
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
+io.on("connection", (socket) => {
+  // Extract client's userId from cookie
+  let userId;
+  let cookieString = socket.request.headers.cookie;
+  let req = {
+    connection: { encrypted: false },
+    headers: { cookie: cookieString },
+  };
+  let res = { getHeader: () => {}, setHeader: () => {} };
+  session(req, res, () => {
+    userId = req.session.userId;
+  });
+  // console.log("User id is", userId || "unknown");
 
-app.listen(PORT, () => {
+  // Put client into a room with their userId as the room name
+  if (userId) {
+    socket.join(userId);
+  }
+});
+
+/**
+ * Sends a refresh request through socketio to the room named after the userId.
+ * To be called at the end of every POST request adding browse time, to tell
+ * the client to make a call to /api/user/dashboard to retrieve updated data.
+ * @param {Integer} userId
+ */
+function sendRefreshRequest(userId) {
+  io.to(userId).emit("refresh");
+}
+
+server.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
