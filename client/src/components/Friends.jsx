@@ -26,7 +26,7 @@ const Container = styled.div`
   display: flex;
 `;
 
-export default function InputWithIcon() {
+export default function Friends({ getPendingFriendRequests }) {
   const classes = useStyles();
   // Controlled Component
 
@@ -36,15 +36,19 @@ export default function InputWithIcon() {
     event.preventDefault();
 
     console.log("fields.friend :>> ", friend);
+    console.log("addFriend :>> ", addFriend);
 
+    addFriend(friend);
+  };
+
+  const addFriend = friendEmail => {
     axios
-      .post("/api/user/login", friend, { withCredentials: true })
+      .post("/api/user/friends/add", friendEmail)
       .then(res => {
         console.log("res :>> ", res);
       })
-
       .catch(e => {
-        console.error(e);
+        console.log("e :>> ", e);
       });
   };
 
@@ -59,6 +63,7 @@ export default function InputWithIcon() {
               </Grid>
               <Grid item>
                 <TextField
+                  type="email"
                   onChange={setFriend}
                   id="friend"
                   label="Add Friend"
@@ -69,7 +74,7 @@ export default function InputWithIcon() {
               </Button>
             </Grid>
           </div>
-          <PendingFriends />
+          <PendingFriends getPendingFriendRequests={getPendingFriendRequests}/>
         </FormControl>
       </form>
     </Container>
