@@ -38,7 +38,7 @@ export default function InputWithIcon() {
     console.log("fields.friend :>> ", friend);
 
     axios
-      .post("/api/user/login", fields.friend, { withCredentials: true })
+      .post("/api/user/login", friend, { withCredentials: true })
       .then(res => {
         console.log("res :>> ", res);
       })

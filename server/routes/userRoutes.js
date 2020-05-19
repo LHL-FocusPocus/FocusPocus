@@ -300,7 +300,10 @@ module.exports = (db) => {
   // This needs more logic: will probably be sent to back-end with a friend's email, convert email to a friend_id
   router.post("/friends/add", (req, res) => {
     const { userId } = req.session;
-    const { friendId } = req.body;
+    // Friend is an email
+    const { friend } = req.body;
+    // Check DB to see if friend even has an account
+    // If they do, get their ID and continue
     if (!userId) {
       return res.status(403).json("Please sign in first.");
     }
