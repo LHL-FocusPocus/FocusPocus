@@ -7,6 +7,7 @@ import reducer, {
   CHANGE_BLACKLIST,
   CHANGE_QUOTA,
   SET_WEBSOCKET_GRAPHS,
+  SET_PENDING_FRIENDS
 } from "../reducers/application";
 
 const ENDPOINT = "http://localhost:9000";
@@ -21,6 +22,7 @@ export default function useApplicationData() {
     shameboard: [],
     user: {},
     quota_today: {},
+    pending_friends: []
   });
 
   const setDashboard = async () => {
@@ -79,10 +81,13 @@ export default function useApplicationData() {
   };
 
   const getPendingFriendRequests = () => {
-    axios.get("/api/user/friends")
-    .then(res => {
-      console.log('res :>> ', res);
-    })
+    // axios.get("/api/user/friends")
+    // .then(res => {
+    //   console.log('res :>> ', res);
+    //   dispatch({
+        
+    //   })
+    // })
   }
 
   const changeQuota = (quotaStart, quotaTarget, quotaIncrement) => {

@@ -26,7 +26,7 @@ const Container = styled.div`
   display: flex;
 `;
 
-export default function Friends() {
+export default function Friends({ getPendingFriendRequests }) {
   const classes = useStyles();
   // Controlled Component
 
@@ -74,7 +74,7 @@ export default function Friends() {
               </Button>
             </Grid>
           </div>
-          <PendingFriends />
+          <PendingFriends getPendingFriendRequests={getPendingFriendRequests}/>
         </FormControl>
       </form>
     </Container>
