@@ -36,8 +36,7 @@ const Chart = styled.div`
   align-self: center;
   width: 90%;
   height: 90%;
-  ${'' /* transform: translateY(18px); */}
-  transform: translateX(-15%);
+  transform: translateY(18px);
   padding-bottom: 5%;
   ${'' /* padding-right: 5%; */}
   ${'' /* padding-bottom: 8%; */}
@@ -74,15 +73,20 @@ export default function Radial({ radialData }) {
     categoryAxis.renderer.inversed = true;
     categoryAxis.renderer.labels.template.location = 0.5;
     categoryAxis.renderer.grid.template.strokeOpacity = 0.08;
+    categoryAxis.fontSize = 25;
+    categoryAxis.tooltip = false;
 
     const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.min = 0;
     valueAxis.extraMax = 0.1;
     valueAxis.renderer.grid.template.strokeOpacity = 0.08;
+    valueAxis.fontSize = 25;
 
     chart.seriesContainer.zIndex = -10;
 
-    chart.scale = 1.3;
+    chart.scale = 1.1;
+    chart.paddingRight = 60;
+
 
     const series = chart.series.push(new am4charts.RadarColumnSeries());
     series.dataFields.categoryX = "name";
@@ -92,6 +96,7 @@ export default function Radial({ radialData }) {
     series.columns.template.radarColumn.cornerRadius = 5;
     series.columns.template.radarColumn.innerCornerRadius = 0;
     series.fontSize = 25;
+    series.tooltip.fontSize = 30;
 
     chart.zoomOutButton.disabled = true;
 
@@ -105,9 +110,10 @@ export default function Radial({ radialData }) {
     subtitle.marginBottom = 20;
     subtitle.fontFamily = "Raleway, sans-serif";
 
+
     let title = chart.titles.create();
     title.text = "Blacklisted Site Visits";
-    title.fontSize = 35;
+    title.fontSize = 40;
     title.marginBottom = 10;
 
     categoryAxis.sortBySeries = series;
