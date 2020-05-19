@@ -57,21 +57,11 @@ app.use("/api/user", userRoutes(db));
 app.use("/api/data", dataRoutes(db));
 app.use("/api/extension", extensionRoutes(db, sendRefreshRequest));
 
-// to do routes:
-// login
-//
-// Note: mount other resources here, using the same pattern above
-
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
-
 // Websocket setup
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
-
   // Extract client's userId from cookie
   let userId;
   let cookieString = socket.request.headers.cookie;
@@ -83,23 +73,19 @@ io.on("connection", (socket) => {
   session(req, res, () => {
     userId = req.session.userId;
   });
-  console.log("User id is", userId || "unknown");
+  // console.log("User id is", userId || "unknown");
 
   // Put client into a room with their userId as the room name
   if (userId) {
     socket.join(userId);
   }
-
-  socket.on("disconnect", () => {
-    console.log(userId, "disconnected");
-  });
 });
 
 /**
  * Sends a refresh request through socketio to the room named after the userId.
  * To be called at the end of every POST request adding browse time, to tell
  * the client to make a call to /api/user/dashboard to retrieve updated data.
- * @param {Integer} userId 
+ * @param {Integer} userId
  */
 function sendRefreshRequest(userId) {
   io.to(userId).emit("refresh");
