@@ -8,6 +8,8 @@ import TopBlacklisted from "./TopBlacklisted";
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import Customization from "./Customization";
+import Friends from "./Friends";
 
 export const CardContext = createContext({});
 
@@ -71,27 +73,29 @@ export default function Options({
   return (
     <DndProvider backend={Backend}>
       <CardContext.Provider value={{ addTopSiteToUserBlacklist }}>
-        <Navbar user={user} quota={quota_today} />
-        <Container bgcolor="background.paper">
-          <QuotaAndFriends>
-            {quota_today && (
-              <Slider
-                quota={quota_today}
-                changeQuota={changeQuota}
-                options={user.options}
-              />
-            )}
-            <Customization />
-            <Friends />
-          </QuotaAndFriends>
+        <ThemeProvider theme={theme}>
+          <Navbar user={user} quota={quota_today} />
+          <Container bgcolor="background.paper">
+            <QuotaAndFriends>
+              {quota_today && (
+                <Slider
+                  quota={quota_today}
+                  changeQuota={changeQuota}
+                  options={user.options}
+                />
+              )}
+              <Customization />
+              <Friends />
+            </QuotaAndFriends>
 
-          <Blacklisted
-            addBlacklistedSite={addBlacklistedSite}
-            disableBlacklistedSite={disableBlacklistedSite}
-            blacklisted={blacklisted}
-          />
-          <TopBlacklisted topBlacklisted={topBlacklisted} />
-        </Container>
+            <Blacklisted
+              addBlacklistedSite={addBlacklistedSite}
+              disableBlacklistedSite={disableBlacklistedSite}
+              blacklisted={blacklisted}
+            />
+            <TopBlacklisted topBlacklisted={topBlacklisted} />
+          </Container>
+        </ThemeProvider>
       </CardContext.Provider>
     </DndProvider>
   );
