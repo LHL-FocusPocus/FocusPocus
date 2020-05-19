@@ -38,8 +38,7 @@ export default function Leaderboard({ leaderboard }) {
     chart.hiddenState.properties.opacity = 0;
 
     chart.paddingRight = 40;
-    // chart.scale = 0.8;
-        chart.scale = 0.95;
+    chart.scale = 0.95;
 
 
     chart.data = leaderboard;

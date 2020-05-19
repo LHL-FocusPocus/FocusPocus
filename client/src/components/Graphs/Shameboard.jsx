@@ -46,7 +46,7 @@ export default function Shameboard({ shameboard }) {
     categoryAxis.renderer.labels.template.dx = -40;
     categoryAxis.renderer.minWidth = 120;
     categoryAxis.tooltip = false;
-    categoryAxis.fontSize = 0;
+    categoryAxis.fontSize = 30;
 
     const valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
     // valueAxis.title.text = "minutes wasted last week";
