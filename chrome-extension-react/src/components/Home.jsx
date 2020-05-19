@@ -121,6 +121,9 @@ export default function Home(props) {
     return blacklistDomains.includes(currentDomain);
   };
 
+  const isOverQuota = () => {
+    return used_minutes > allotment_minutes;
+  };
   const addToBlacklist = () => {
     setLoading(true);
     return axios
@@ -177,15 +180,28 @@ export default function Home(props) {
           FocusPocus Tracker
         </Typography>
         <Typography variant="subtitle1" className={classes.title}>
-          {isDomainBlocked()
-            ? `Don't stay on this page for too long, ${firstName}!`
-            : `Keep up the good work, ${firstName}!`}
+          {isDomainBlocked() &&
+            isOverQuota() &&
+            `Have fun browsing, ${firstName}!`}
+          {isDomainBlocked() &&
+            !isOverQuota() &&
+            `Don't stay on this page too long, ${firstName}!`}
+          {!isDomainBlocked() &&
+            isOverQuota() &&
+            `You're over your quota, ${firstName}!`}
+          {!isDomainBlocked() &&
+            !isOverQuota() &&
+            used_minutes / allotment_minutes >= 0.7 &&
+            `Whoa, slow down there ${firstName}!`}
+          {!isDomainBlocked() &&
+            used_minutes / allotment_minutes < 0.7 &&
+            `Keep up the good work, ${firstName}!`}
         </Typography>
         Today's Quota Usage
         <Typography
           component="h2"
           variant="subtitle1"
-          className={used_minutes > allotment_minutes && classes.error}
+          className={isOverQuota() && classes.error}
         >
           {shortEnglishHumanizer(used_minutes * 60000)}
         </Typography>
