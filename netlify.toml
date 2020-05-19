@@ -14,3 +14,8 @@
 [build.environment]
   REACT_APP_API_BASE_URL = "https://lhl-focuspocus.herokuapp.com/"
   REACT_APP_WEBSOCKET_URL = "wss://lhl-focuspocus.herokuapp.com/"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 300
