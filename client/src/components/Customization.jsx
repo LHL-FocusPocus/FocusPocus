@@ -59,7 +59,6 @@ export default function FormPropsTextFields() {
     video: "",
   });
 
-  console.log('options :>> ', options);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -71,15 +70,15 @@ export default function FormPropsTextFields() {
       video: options.video,
     };
 
-    // axios
-    //   .post("/api/user/login", userOptions)
-    //   .then(() => {
-    //     // setDashboard().then(() => {
-    //     //   history.push("/dashboard");
-    //   })
-    //   .catch(e => {
-    //     console.error(e);
-    //   });
+    axios
+      .post("/api/user/", userOptions)
+      .then(() => {
+        // setDashboard().then(() => {
+        //   history.push("/dashboard");
+      })
+      .catch(e => {
+        console.error(e);
+      });
   };
 
   return (
@@ -93,7 +92,6 @@ export default function FormPropsTextFields() {
         <FormContainer>
           <div>
             <TextField
-              id="outlined-required"
               label="Word"
               variant="outlined"
               helperText="Noun"
@@ -102,7 +100,6 @@ export default function FormPropsTextFields() {
               onChange={handleOptionsChange}
             />
             <TextField
-              id="outlined-read-only-input"
               label="Image"
               variant="outlined"
               helperText="URL"
@@ -112,7 +109,6 @@ export default function FormPropsTextFields() {
               onChange={handleOptionsChange}
             />
             <TextField
-              id="video"
               label="Video"
               variant="outlined"
               helperText="URL"
@@ -142,7 +138,7 @@ export default function FormPropsTextFields() {
             </Select>
             <FormHelperText>Required</FormHelperText>
           </PersonToCustomize> */}
-          <CustomizeButton variant="contained" color="primary">
+          <CustomizeButton type="submit" variant="contained" color="primary">
             Customize
           </CustomizeButton>
         </ButtonContainer>

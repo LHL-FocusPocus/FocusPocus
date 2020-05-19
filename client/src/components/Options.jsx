@@ -41,7 +41,7 @@ const SliderDiv = styled.div`
 const theme = createMuiTheme({
   typography: {
     fontFamily: "Raleway, sans-serif",
-    fontSize: "15",
+    fontSize: 15,
   },
 });
 
@@ -52,7 +52,6 @@ export default function Options({
   disableBlacklistedSite,
   changeQuota,
   dashboardData,
-  getPendingFriendRequests,
 }) {
   const { quota_today, topBlacklisted, user } = dashboardData;
 
