@@ -221,7 +221,9 @@ function changePictures(
       console.log(imageUrl);
       // Send message to above scripts that change their urls
       setTimeout(() => {
-        chrome.tabs.sendMessage(tabId, { action: "setImageUrl", imageUrl });
+        if (imageUrl) {
+          chrome.tabs.sendMessage(tabId, { action: "setImageUrl", imageUrl });
+        }
       }, 1000);
     }
   });
