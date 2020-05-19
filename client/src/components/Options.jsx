@@ -8,6 +8,7 @@ import TopBlacklisted from "./TopBlacklisted";
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
 import Friends from "./Friends";
+import Customization from "./Customization";
 
 export const CardContext = createContext({});
 
@@ -26,7 +27,7 @@ const QuotaAndFriends = styled(Box)`
 
 const Slider = styled(QuotaSlider)`
   ${"" /* transform: translateX(200px); */}
-  `
+`;
 const SliderDiv = styled.div`
   flex: 1;
   display: flex;
@@ -47,7 +48,7 @@ export default function Options({
 }) {
   const { quota_today, topBlacklisted, user } = dashboardData;
 
-  console.log('dashboardData :>> ', dashboardData);
+  console.log("dashboardData :>> ", dashboardData);
 
   // if (!dashboardData || !user || quota_today == undefined) {
   //   return null;
@@ -67,8 +68,13 @@ export default function Options({
         <Container bgcolor="background.paper">
           <QuotaAndFriends>
             {quota_today && (
-              <Slider quota={quota_today} changeQuota={changeQuota} options={user.options} />
+              <Slider
+                quota={quota_today}
+                changeQuota={changeQuota}
+                options={user.options}
+              />
             )}
+            <Customization />
             <Friends />
           </QuotaAndFriends>
 
