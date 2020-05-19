@@ -276,7 +276,8 @@ module.exports = (db) => {
 
   router.post("/options/add", (req, res) => {
     const { userId } = req.session;
-    const { newOptions } = req.body;
+    const { word, image, video } = req.body;
+
     if (!userId) {
       return res.status(403).json("Please sign in first.");
     }
@@ -292,7 +293,7 @@ module.exports = (db) => {
     });
   });
 
-  router.get("options/",  (req, res) => {
+  router.get("/options",  (req, res) => {
     const { userId } = req.session;
     if (!userId) {
       return res.status(403).json("Please sign in first.");
@@ -303,6 +304,7 @@ module.exports = (db) => {
       }
       return res.status(200).json(options);
   } )
+})
 
 
   //   // Just a test route to test db queries and response
