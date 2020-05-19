@@ -36,7 +36,8 @@ const Chart = styled.div`
   align-self: center;
   width: 90%;
   height: 90%;
-  transform: translateY(18px);
+  ${'' /* transform: translateY(18px); */}
+  transform: translateX(-15%);
   padding-bottom: 5%;
   ${'' /* padding-right: 5%; */}
   ${'' /* padding-bottom: 8%; */}
@@ -81,9 +82,7 @@ export default function Radial({ radialData }) {
 
     chart.seriesContainer.zIndex = -10;
 
-    chart.scale = 1.1;
-    chart.paddingRight = 60;
-
+    chart.scale = 1.3;
 
     const series = chart.series.push(new am4charts.RadarColumnSeries());
     series.dataFields.categoryX = "name";
@@ -92,6 +91,7 @@ export default function Radial({ radialData }) {
     series.columns.template.strokeOpacity = 0;
     series.columns.template.radarColumn.cornerRadius = 5;
     series.columns.template.radarColumn.innerCornerRadius = 0;
+    series.fontSize = 25;
 
     chart.zoomOutButton.disabled = true;
 
@@ -99,14 +99,15 @@ export default function Radial({ radialData }) {
       return chart.colors.getIndex(target.dataItem.index);
     });
 
-    let subTitle = chart.titles.create();
-    subTitle.text = "During past week";
-    subTitle.fontSize = 12;
-    subTitle.marginBottom = 20;
+    let subtitle = chart.titles.create();
+    subtitle.text = "During past week";
+    subtitle.fontSize = 12;
+    subtitle.marginBottom = 20;
+    subtitle.fontFamily = "Raleway, sans-serif";
 
     let title = chart.titles.create();
     title.text = "Blacklisted Site Visits";
-    title.fontSize = 25;
+    title.fontSize = 35;
     title.marginBottom = 10;
 
     categoryAxis.sortBySeries = series;

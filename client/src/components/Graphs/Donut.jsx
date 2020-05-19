@@ -37,6 +37,7 @@ const Chart = styled.div`
   align-self: center;
   width: 90%;
   height: 90%;
+  margin-top: 1%;
   ${'' /* transform: translateY(60px); */}
   ${'' /* padding-bottom: 5%; */}
 
@@ -50,7 +51,6 @@ const Card = styled(Paper)`
 
 export default function Donut({ donutData }) {
   useEffect(() => {
-    // console.log('donutData', donutData)
     am4core.useTheme(am4themes_animated);
 
     const chart = am4core.create("donutChart", am4charts.PieChart3D);
@@ -61,17 +61,17 @@ export default function Donut({ donutData }) {
     chart.innerRadius = am4core.percent(40);
     chart.depth = 40;
     chart.scale = 1.1;
-    chart.paddingRight = 60;
-    chart.paddingTop = 15;
+    chart.paddingRight = 45;
 
     let subtitle = chart.titles.create();
     subtitle.text = "Blocked vs. Non-Blocked Sites";
     subtitle.fontSize = 12;
     subtitle.marginBottom = 20;
+    subtitle.fontFamily = "Raleway, sans-serif";
 
     let title = chart.titles.create();
     title.text = "Today's Browsing";
-    title.fontSize = 25;
+    title.fontSize = 40;
     title.marginBottom = 10;
 
 
@@ -81,6 +81,7 @@ export default function Donut({ donutData }) {
     series.dataFields.category = "website";
     series.slices.template.cornerRadius = 5;
     series.colors.step = 3;
+    series.fontSize = 25;
   }, [donutData]);
 
   return (

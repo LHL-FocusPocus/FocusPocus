@@ -56,7 +56,7 @@ const Wrapper = styled(Container)`
 `;
 
 const Img = styled.img`
-  width: 65%;
+  width: 57%;
   transform: translateY(-2em);
 `;
 
