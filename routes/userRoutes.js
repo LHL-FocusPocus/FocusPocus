@@ -274,6 +274,14 @@ module.exports = (db) => {
     });
   });
 
+  /*         // If the options object is empty (it's entries array will also be empty, or have length 0)
+        // NOT SURE IF WE NEED THIS, IF IT IS EMPTY, IT SHOULD STILL UPDATE, BUT NOT OVERWRITE THE OPTIONS KEY
+        // if (Object.entries(options).length === 0) {
+        //   return res.status(200).json({});
+        // }
+        // console.log("options :>> ", options);
+        // return res.status(200).json(options); */
+
   router.post("/options/add", (req, res) => {
     const { userId } = req.session;
     const { word, image, video } = req.body;
@@ -281,19 +289,25 @@ module.exports = (db) => {
     if (!userId) {
       return res.status(403).json("Please sign in first.");
     }
+    let newOptions;
 
-    dbHelper.getUserOptions(userId).then((options) => {
-      // If the options object is empty (it's entries array will also be empty, or have length 0)
-      // NOT SURE IF WE NEED THIS, IF IT IS EMPTY, IT SHOULD STILL UPDATE, BUT NOT OVERWRITE THE OPTIONS KEY
-      if (Object.entries(options).length === 0) {
-        return res.status(200).json({});
-      }
-      dbHelper.updateUserOptions(userId, newOptions);
-      // return res.status(200).json(options);
-    });
+    dbHelper
+      .getUserOptions(userId)
+      .then((options) => {
+        newOptions = { ...options.options };
+
+        if (image) newOptions["imageUrl"] = image;
+        if (video) newOptions["videoUrl"] = video;
+        if (word) newOptions["noun"] = word;
+
+        return dbHelper.updateUserOptions(userId, newOptions);
+      })
+      .then((newOptions) => {
+        return res.status(200).json(newOptions);
+      });
   });
 
-  router.get("/options",  (req, res) => {
+  router.get("/options", (req, res) => {
     const { userId } = req.session;
     if (!userId) {
       return res.status(403).json("Please sign in first.");
@@ -303,9 +317,8 @@ module.exports = (db) => {
         return res.status(200).json({});
       }
       return res.status(200).json(options);
-  } )
-})
-
+    });
+  });
 
   //   // Just a test route to test db queries and response
   router.get("/test", (req, res) => {
