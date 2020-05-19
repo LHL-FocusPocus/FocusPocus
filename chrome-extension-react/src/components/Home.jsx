@@ -165,17 +165,12 @@ export default function Home(props) {
         ms: () => "ms",
       },
     },
-  });
-  const humanizeDurationOptions = {
-    units: ["h", "m"],
-    delimiter: " ",
-    round: true,
-  };
+  });  
 
   return (
     <Wrapper className={classes.main} component="main" maxWidth="xs">
       <div className={classes.paper}>
-        <Typography variant="h5" className={classes.title}>
+        <Typography variant="h6" className={classes.title}>
           FocusPocus Tracker
         </Typography>
         Today's Quota Usage
