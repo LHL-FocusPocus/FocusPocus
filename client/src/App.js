@@ -11,7 +11,11 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import axios from "axios";
 import "./App.css";
 import { quadOut } from "@amcharts/amcharts4/.internal/core/utils/Ease";
-axios.defaults.baseURL = "http://localhost:9000";
+if (process.env.REACT_APP_API_BASE_URL) {
+  axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+} else {
+  axios.defaults.baseURL = "http://localhost:9000";
+}
 axios.defaults.withCredentials = true;
 
 // import Routes from "./routes";
