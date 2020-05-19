@@ -8,6 +8,8 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import styled from "styled-components";
+import Button from "@material-ui/core/Button";
+import PendingFriends from "./PendingFriends";
 
 const useStyles = makeStyles(theme => ({
   margin: {
@@ -34,10 +36,12 @@ export default function InputWithIcon() {
               <AccountCircle />
             </Grid>
             <Grid item>
-              <TextField id="input-with-icon-grid" label="Add Friend" />
+              <TextField id="add-friend" label="Add Friend" />
             </Grid>
+            <Button variant="contained">Submit</Button>
           </Grid>
         </div>
+        <PendingFriends />
       </FormControl>
     </Container>
   );
