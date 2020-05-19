@@ -34,14 +34,14 @@ import styled from "styled-components";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import { useDrop } from "react-dnd";
+import isUrl from "../helpers/isUrl";
 
 const Container = styled(Box)`
   min-height: 86vh;
   padding: 0 5%;
   width: 25%;
   padding-top: 20px;
-  flex: 1
-  ${"" /* transform: translateX(22%) */}
+  flex: 1 ${"" /* transform: translateX(22%) */};
 `;
 
 const AddNew = styled(Card)`
@@ -88,13 +88,11 @@ const useStyles = makeStyles(theme => ({
     boxShadow: "5px 5px 15px black",
     //filter: "blur(5px)",
     transform: "scaleY(1.02) scaleX(1.02)",
-
   },
   regular: {
     border: "3x solid transparent",
     borderImageSlice: 1,
-
-    }
+  },
 }));
 
 export default function Blacklisted({
@@ -105,6 +103,7 @@ export default function Blacklisted({
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const { addTopSiteToUserBlacklist } = useContext(CardContext);
+  const [error, setError] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -117,13 +116,16 @@ export default function Blacklisted({
   const handleSubmit = event => {
     event.preventDefault();
 
+    if (!isUrl(fields.host_name)) return setError(true);
+
+    setError(false);
+
     const withoutProtocol = removeProtocol(fields.host_name);
 
     addBlacklistedSite(withoutProtocol);
   };
 
   // console.log("====> blacklisted disabled blacklisted site", disableBlacklistedSite);
-
 
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.CARD,
@@ -147,10 +149,7 @@ export default function Blacklisted({
   });
 
   return (
-    <Container 
-      ref={drop}
-      style
-    >
+    <Container ref={drop} style>
       <Title>Blacklist</Title>
       <AddNew>
         <Background>
@@ -171,10 +170,11 @@ export default function Blacklisted({
               <Form onSubmit={e => handleSubmit(e)}>
                 <InputLabel htmlFor="New Website" />
                 <Input
+                  error={error}
+                  helperText={error ? "Must be a valid URL" : "URL"}
                   required
                   id="host_name"
                   value={fields.host_name}
-                  // type="url"
                   onChange={handleFieldChange}
                   startAdornment={
                     <InputAdornment position="start">
@@ -195,9 +195,7 @@ export default function Blacklisted({
           </CardContent>
         </Collapse>
       </AddNew>
-      <div className={isOver? classes.border : "regular"}>
-        {blacklistList}
-      </div>
+      <div className={isOver ? classes.border : "regular"}>{blacklistList}</div>
     </Container>
   );
 }
