@@ -7,6 +7,7 @@
     "@amcharts/amcharts4": "^4.9.20",
     "@amcharts/editor4": "^4.0.0-alpha.8",
     "@material-ui/core": "^4.9.13",
+    "@material-ui/lab": "^4.0.0-alpha.53",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -21,6 +22,7 @@
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "socketio": "^1.0.0",
     "styled-components": "^5.1.0"
   },
   "scripts": {

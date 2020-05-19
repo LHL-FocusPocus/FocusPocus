@@ -62,13 +62,16 @@ export default function Dashboard({ dashboardData }) {
   
 console.log("In dashboard, user should be =====>", user)
 
+console.log('dashboardData :>> ', dashboardData);
+console.log('user :>> ', user);
+
   
   return (
     <div>
       <Navbar user={user} quota={quota_today} />
       <Container
         // isLoading={loading}
-        bgcolor="background.paper"
+        // bgcolor="background.paper"
         flexWrap="wrap"
         display="flex"
       >

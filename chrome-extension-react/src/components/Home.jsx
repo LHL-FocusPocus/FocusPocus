@@ -9,10 +9,14 @@ import Container from "@material-ui/core/Container";
 import styled from "styled-components";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { getCurrentTab, getCurrentTimer, recheckTab } from "../helpers/chromeHelpers";
+import {
+  getCurrentTab,
+  getCurrentTimer,
+  recheckTab,
+} from "../helpers/chromeHelpers";
 import humanizeDuration from "humanize-duration";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: 20,
     display: "flex",
@@ -29,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   error: {
     color: "red",
+    fontWeight: "bold",
   },
   title: {
     marginBottom: 20,
@@ -56,6 +61,7 @@ const Wrapper = styled(Container)`
   background-color: white;
   border: 1px solid black;
   border-radius: 1em;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 `;
 
 export default function Home(props) {
@@ -66,9 +72,10 @@ export default function Home(props) {
   const [currentDomain, setCurrentDomain] = useState("");
   const [blacklistDomains, setBlacklistDomains] = useState([]);
   const [timerInSeconds, setTimerInSeconds] = useState(0);
+  const [firstName, setFirstName] = useState("");
 
   const getDomain = () => {
-    getCurrentTab((tab) => {
+    getCurrentTab(tab => {
       try {
         const url = new URL(tab.url);
         const domain = url.hostname.split("www.").join("");
@@ -80,10 +87,10 @@ export default function Home(props) {
   };
 
   const runTimer = () => {
-    getCurrentTimer((time) => {
+    getCurrentTimer(time => {
       setTimerInSeconds(time);
       setInterval(() => {
-        setTimerInSeconds((prev) => prev + 1);
+        setTimerInSeconds(prev => prev + 1);
       }, 1000);
     });
   };
@@ -91,14 +98,14 @@ export default function Home(props) {
   const getBlacklist = () => {
     setLoading(true);
     return axios
-      .get("/api/user/blacklists")
-      .then((blacklistObj) => {
-        console.log(blacklistObj);
-        const blacklist = blacklistObj.data.map((obj) => obj.hostname);
+      .get("/api/data/dashboard")
+      .then(response => {
+        const blacklist = response.data.blacklisted.map(obj => obj.hostname);
         setBlacklistDomains(blacklist);
+        setFirstName(response.data.user.first_name);
         setLoading(false);
       })
-      .catch((err) => {
+      .catch(err => {
         setBlacklistDomains([]);
         setLoading(false);
       });
@@ -114,23 +121,26 @@ export default function Home(props) {
     return blacklistDomains.includes(currentDomain);
   };
 
+  const isOverQuota = () => {
+    return used_minutes > allotment_minutes;
+  };
   const addToBlacklist = () => {
     setLoading(true);
     return axios
       .post("/api/user/blacklists/add", { host_name: currentDomain })
-      .then((res) => {
+      .then(res => {
         props.getUserData();
         setErrorMsg("");
         recheckTab();
         setLoading(false);
       })
-      .catch((err) => {
+      .catch(err => {
         setErrorMsg("Something went wrong!");
         setLoading(false);
       });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     if (currentDomain) {
       addToBlacklist();
@@ -139,48 +149,80 @@ export default function Home(props) {
 
   const {
     quota_today: {
-      allotment: { minutes: quota_allotment_minutes },
+      allotment: { minutes: allotment_minutes },
       used: { minutes: used_minutes },
     },
   } = props.userData;
 
-  const humanizeDurationOptions = {
+  const shortEnglishHumanizer = humanizeDuration.humanizer({
     units: ["h", "m"],
-    delimiter: " and ",
+    delimiter: " ",
     round: true,
-  };
+    language: "shortEn",
+    languages: {
+      shortEn: {
+        y: () => "y",
+        mo: () => "mo",
+        w: () => "w",
+        d: () => "d",
+        h: () => "h",
+        m: () => "m",
+        s: () => "s",
+        ms: () => "ms",
+      },
+    },
+  });
 
   return (
     <Wrapper className={classes.main} component="main" maxWidth="xs">
       <div className={classes.paper}>
-        <Typography variant="h5" className={classes.title}>
+        <Typography variant="h6" className={classes.title}>
           FocusPocus Tracker
         </Typography>
+        <Typography variant="subtitle1" className={classes.title}>
+          {isDomainBlocked() &&
+            isOverQuota() &&
+            `Have fun browsing, ${firstName}!`}
+          {isDomainBlocked() &&
+            !isOverQuota() &&
+            `Don't stay on this page too long, ${firstName}!`}
+          {!isDomainBlocked() &&
+            isOverQuota() &&
+            `You're over your quota, ${firstName}!`}
+          {!isDomainBlocked() &&
+            !isOverQuota() &&
+            used_minutes / allotment_minutes >= 0.7 &&
+            `Whoa, slow down there ${firstName}!`}
+          {!isDomainBlocked() &&
+            used_minutes / allotment_minutes < 0.7 &&
+            `Keep up the good work, ${firstName}!`}
+        </Typography>
         Today's Quota Usage
-        <Typography component="h2" variant="h6">
-          {humanizeDuration(used_minutes * 60000, humanizeDurationOptions)}
+        <Typography
+          component="h2"
+          variant="subtitle1"
+          className={isOverQuota() && classes.error}
+        >
+          {shortEnglishHumanizer(used_minutes * 60000)}
         </Typography>
         of
-        <Typography component="h2" variant="h6">
-          {humanizeDuration(
-            quota_allotment_minutes * 60000,
-            humanizeDurationOptions
-          )}
+        <Typography component="h2" variant="subtitle1">
+          {shortEnglishHumanizer(allotment_minutes * 60000)}
           <hr />
         </Typography>
         <form
-          onSubmit={(e) => handleSubmit(e)}
+          onSubmit={e => handleSubmit(e)}
           className={classes.form}
           noValidate
         >
           Currently Browsing
-          <Typography component="h2" variant="h6">
+          <Typography component="h2" variant="subtitle1">
             {currentDomain}
           </Typography>
           for
-          <Typography component="h2" variant="h6">
-            {humanizeDuration(timerInSeconds * 1000, {
-              ...humanizeDurationOptions,
+          <Typography component="h2" variant="subtitle1">
+            {shortEnglishHumanizer(timerInSeconds * 1000, {
+              language: "en",
               units: ["h", "m", "s"],
             })}
           </Typography>
@@ -210,7 +252,7 @@ export default function Home(props) {
           <Grid container justify="center">
             <Grid item>
               <Link
-                href="http://localhost:3000"
+                href="http://localhost:3000/dashboard"
                 variant="body2"
                 target="_blank"
               >

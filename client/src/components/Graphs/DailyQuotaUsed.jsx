@@ -36,7 +36,7 @@ const Chart = styled.div`
 export default function DailyQuotaUsed({ quota }) {
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
-
+    
     const chart = am4core.create("dailyQuota", am4charts.GaugeChart);
     chart.hiddenState.properties.opacity = 0;
 
@@ -45,6 +45,7 @@ export default function DailyQuotaUsed({ quota }) {
     const axis = chart.xAxes.push(new am4charts.ValueAxis());
     axis.min = 0;
     axis.max = 100;
+    axis.fontSize = 27;
     axis.strictMinMax = true;
     axis.renderer.grid.template.stroke = new am4core.InterfaceColorSet().getFor(
       "background"
@@ -53,12 +54,12 @@ export default function DailyQuotaUsed({ quota }) {
 
     let title = chart.titles.create();
     title.text = "Daily Quota Used";
-    title.fontSize = 25;
+    title.fontSize = 40;
     title.marginBottom = 30;
 
     let label = chart.chartContainer.createChild(am4core.Label);
     label.text = "%";
-    label.fontSize = 20;
+    label.fontSize = 35;
     label.align = "center";
 
     const colorSet = new am4core.ColorSet();
@@ -95,7 +96,7 @@ export default function DailyQuotaUsed({ quota }) {
     }
 
     hand.showValue(percentageQuotaUsed);
-  }, [quota]);
+  }, []);
 
   return (
     <Card component={Wrapper} elevation={24}>

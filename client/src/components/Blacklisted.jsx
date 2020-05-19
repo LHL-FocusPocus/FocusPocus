@@ -66,6 +66,7 @@ const Title = styled.h1`
   text-align: center;
   margin-top: 0;
   transform: translateY(-20%);
+  font-size: 3em;
 `;
 
 const useStyles = makeStyles(theme => ({

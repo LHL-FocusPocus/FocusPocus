@@ -1,11 +1,15 @@
 import { useReducer, useEffect, useState } from "react";
 import axios from "axios";
+import socketIOClient from "socket.io-client";
 import reducer, {
   SET_DASHBOARD_DATA,
   SET_BLACKLIST_DATA,
   CHANGE_BLACKLIST,
   CHANGE_QUOTA,
+  SET_WEBSOCKET_GRAPHS,
 } from "../reducers/application";
+
+const ENDPOINT = "http://localhost:9000";
 
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
@@ -19,19 +23,6 @@ export default function useApplicationData() {
     quota_today: {},
   });
 
-  // const [loading, setLoading] = useState(false)
-  useEffect(() => {
-    axios
-      .get("/api/data/dashboard")
-      .then((dashboard) => {
-        dispatch({
-          type: SET_DASHBOARD_DATA,
-          payload: dashboard.data,
-        });
-      })
-      .catch((e) => console.error(e));
-  }, []);
-
   const setDashboard = async () => {
     const userData = await axios.get("/api/data/dashboard");
     const dashboardData = userData.data;
@@ -41,13 +32,45 @@ export default function useApplicationData() {
     });
   };
 
-  const disableBlacklistedSite = (blacklists_id) => {
-    // console.log("ID before axios put=====>", blacklists_id);
+  const setWebsocketGraphs = async () => {
+    const userData = await axios.get("/api/data/dashboard");
+    const dashboardData = userData.data;
+    dispatch({
+      type: SET_WEBSOCKET_GRAPHS,
+      payload: dashboardData,
+    });
+  };
+
+  // const [loading, setLoading] = useState(false)
+  useEffect(() => {
+    // Websocket connection
+    const conn = socketIOClient(ENDPOINT);
+
+    // conn.on("connect", () => {
+    //   console.log("i have connected");
+    //   conn.emit("foo", "bar");
+    // });
+
+    conn.on("refresh", () => {
+      //console.log("I need to refresh");
+      setWebsocketGraphs();
+    });
+
+    axios
+      .get("/api/data/dashboard")
+      .then(dashboard => {
+        dispatch({
+          type: SET_DASHBOARD_DATA,
+          payload: dashboard.data,
+        });
+      })
+      .catch(e => console.error(e));
+  }, []);
+
+  const disableBlacklistedSite = blacklists_id => {
     axios
       .put(`/api/user/blacklists/disable/${blacklists_id}`, blacklists_id)
-      .then((res) => {
-        // console.log("res inisde axios =======>", res);
-        // console.log("site id inside axios =======>", id);
+      .then(res => {
         dispatch({
           type: CHANGE_BLACKLIST,
           id: res.data.id,
@@ -55,26 +78,28 @@ export default function useApplicationData() {
       });
   };
 
-  const changeQuota = (quotaInMinutes) => {
+  const changeQuota = (quotaStart, quotaTarget, quotaIncrement) => {
     axios
-      .put("/api/user/adjust_quota", {
-        quotaInMinutes,
+      .post("/api/user/adjust_quota", {
+        quotaStart,
+        quotaTarget,
+        quotaIncrement,
       })
-      .then(() => {
+      .then(res => {
         dispatch({
           type: CHANGE_QUOTA,
-          allotment: quotaInMinutes,
+          allotment: quotaStart,
         });
       })
-      .catch((e) => {
+      .catch(e => {
         console.error(e);
       });
   };
 
-  const addBlacklistedSite = (host_name) => {
+  const addBlacklistedSite = host_name => {
     axios
       .post("/api/user/blacklists/add", { host_name })
-      .then((res) => {
+      .then(res => {
         const { id, hostname, name, category, website_id, user_id } = res.data;
         dispatch({
           type: CHANGE_BLACKLIST,
@@ -86,7 +111,7 @@ export default function useApplicationData() {
           website_id,
         });
       })
-      .catch((e) => console.error(e));
+      .catch(e => console.error(e));
   };
 
   return {
