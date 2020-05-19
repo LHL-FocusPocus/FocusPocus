@@ -26,7 +26,7 @@ const Container = styled.div`
   display: flex;
 `;
 
-export default function Friends({addFriend}) {
+export default function Friends() {
   const classes = useStyles();
   // Controlled Component
 
@@ -36,9 +36,20 @@ export default function Friends({addFriend}) {
     event.preventDefault();
 
     console.log("fields.friend :>> ", friend);
-    console.log('addFriend :>> ', addFriend);
+    console.log("addFriend :>> ", addFriend);
 
     addFriend(friend);
+  };
+
+  const addFriend = friendEmail => {
+    axios
+      .post("/api/user/friends/add", friendEmail)
+      .then(res => {
+        console.log("res :>> ", res);
+      })
+      .catch(e => {
+        console.log("e :>> ", e);
+      });
   };
 
   return (
@@ -52,6 +63,7 @@ export default function Friends({addFriend}) {
               </Grid>
               <Grid item>
                 <TextField
+                  type="email"
                   onChange={setFriend}
                   id="friend"
                   label="Add Friend"

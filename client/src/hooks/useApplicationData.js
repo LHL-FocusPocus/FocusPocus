@@ -78,6 +78,13 @@ export default function useApplicationData() {
       });
   };
 
+  const getPendingFriendRequests = () => {
+    axios.get("/api/user/friends")
+    .then(res => {
+      console.log('res :>> ', res);
+    })
+  }
+
   const changeQuota = (quotaStart, quotaTarget, quotaIncrement) => {
     axios
       .post("/api/user/adjust_quota", {
@@ -93,17 +100,6 @@ export default function useApplicationData() {
       })
       .catch(e => {
         console.error(e);
-      });
-  };
-
-  const addFriend = friendEmail => {
-    axios
-      .post("/api/user/friends/add", friendEmail)
-      .then(res => {
-        console.log("res :>> ", res);
-      })
-      .catch(e => {
-        console.log("e :>> ", e);
       });
   };
 
@@ -131,6 +127,6 @@ export default function useApplicationData() {
     addBlacklistedSite,
     setDashboard,
     changeQuota,
-    addFriend,
+    getPendingFriendRequests
   };
 }

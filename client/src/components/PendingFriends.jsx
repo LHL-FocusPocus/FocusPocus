@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function CheckboxListSecondary() {
+export default function PendingFriends() {
   const classes = useStyles();
 
   return (

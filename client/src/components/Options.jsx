@@ -53,7 +53,7 @@ export default function Options({
   disableBlacklistedSite,
   changeQuota,
   dashboardData,
-  addFriend
+  getPendingFriendRequests,
 }) {
   const { quota_today, topBlacklisted, user } = dashboardData;
 
@@ -85,7 +85,7 @@ export default function Options({
                 />
               )}
               <Customization />
-              <Friends addFriend={addFriend} />
+              <Friends getPendingFriendRequests={getPendingFriendRequests} />
             </QuotaAndFriends>
 
             <Blacklisted
