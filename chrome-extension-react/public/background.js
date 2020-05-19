@@ -224,6 +224,9 @@ function changePictures(
         if (imageUrl) {
           chrome.tabs.sendMessage(tabId, { action: "setImageUrl", imageUrl });
         }
+        if (videoUrl) {
+          chrome.tabs.sendMessage(tabId, { action: "setVideoUrl", videoUrl });
+        }
       }, 1000);
     }
   });
