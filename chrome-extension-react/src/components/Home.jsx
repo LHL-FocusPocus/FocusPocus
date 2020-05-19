@@ -72,6 +72,7 @@ export default function Home(props) {
   const [currentDomain, setCurrentDomain] = useState("");
   const [blacklistDomains, setBlacklistDomains] = useState([]);
   const [timerInSeconds, setTimerInSeconds] = useState(0);
+  const [firstName, setFirstName] = useState("");
 
   const getDomain = () => {
     getCurrentTab(tab => {
@@ -101,6 +102,7 @@ export default function Home(props) {
       .then(response => {
         const blacklist = response.data.blacklisted.map(obj => obj.hostname);
         setBlacklistDomains(blacklist);
+        setFirstName(response.data.user.first_name);
         setLoading(false);
       })
       .catch(err => {
@@ -166,13 +168,18 @@ export default function Home(props) {
         ms: () => "ms",
       },
     },
-  });  
+  });
 
   return (
     <Wrapper className={classes.main} component="main" maxWidth="xs">
       <div className={classes.paper}>
         <Typography variant="h6" className={classes.title}>
           FocusPocus Tracker
+        </Typography>
+        <Typography variant="subtitle1" className={classes.title}>
+          {isDomainBlocked()
+            ? `Don't stay on this page for too long, ${firstName}!`
+            : `Keep up the good work, ${firstName}!`}
         </Typography>
         Today's Quota Usage
         <Typography
