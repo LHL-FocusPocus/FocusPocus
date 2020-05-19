@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -10,6 +10,8 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import PendingFriends from "./PendingFriends";
+import useFormFields from "../hooks/useFormFields";
+import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
   margin: {
@@ -26,23 +28,50 @@ const Container = styled.div`
 
 export default function InputWithIcon() {
   const classes = useStyles();
+  // Controlled Component
+
+  const [friend, setFriend] = useFormFields();
+
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    console.log("fields.friend :>> ", friend);
+
+    axios
+      .post("/api/user/login", fields.friend, { withCredentials: true })
+      .then(res => {
+        console.log("res :>> ", res);
+      })
+
+      .catch(e => {
+        console.error(e);
+      });
+  };
 
   return (
     <Container>
-      <FormControl className={classes.margin}>
-        <div className={classes.margin}>
-          <Grid container spacing={1} alignItems="flex-end">
-            <Grid item>
-              <AccountCircle />
+      <form onSubmit={e => handleSubmit(e)}>
+        <FormControl className={classes.margin}>
+          <div className={classes.margin}>
+            <Grid container spacing={1} alignItems="flex-end">
+              <Grid item>
+                <AccountCircle />
+              </Grid>
+              <Grid item>
+                <TextField
+                  onChange={setFriend}
+                  id="friend"
+                  label="Add Friend"
+                />
+              </Grid>
+              <Button type="submit" variant="contained">
+                Submit
+              </Button>
             </Grid>
-            <Grid item>
-              <TextField id="add-friend" label="Add Friend" />
-            </Grid>
-            <Button variant="contained">Submit</Button>
-          </Grid>
-        </div>
-        <PendingFriends />
-      </FormControl>
+          </div>
+          <PendingFriends />
+        </FormControl>
+      </form>
     </Container>
   );
 }
