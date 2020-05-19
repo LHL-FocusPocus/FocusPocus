@@ -12,8 +12,8 @@ const Wrapper = styled(Box)`
   display: flex;
   items-align: center;
   justify-content: center;
-  ${'' /* height: 600px; */}
-  ${'' /* padding-right: 4em; */}
+  ${"" /* height: 600px; */}
+  ${"" /* padding-right: 4em; */}
 
   @media (max-width: 1300px) {
     flex: 1 100%;
@@ -24,8 +24,7 @@ const Wrapper = styled(Box)`
 const Card = styled(Paper)`
   width: 100%;
   height: 50vh;
-
-`
+`;
 
 const Chart = styled.div`
   align-self: center;
@@ -35,8 +34,21 @@ const Chart = styled.div`
 
 export default function DailyQuotaUsed({ quota }) {
   useEffect(() => {
+    let percentageQuotaUsed;
+    if (quota.used) {
+      percentageQuotaUsed =
+        (toMinutes(quota.used) / toMinutes(quota.allotment)) * 100;
+    } else {
+      percentageQuotaUsed = 0;
+    }
+
+    const displayText = () => {
+      if (percentageQuotaUsed > 100) return `${(percentageQuotaUsed - 100).toFixed(0)}% over quota!`;
+      return "%";
+    };
+
     am4core.useTheme(am4themes_animated);
-    
+
     const chart = am4core.create("dailyQuota", am4charts.GaugeChart);
     chart.hiddenState.properties.opacity = 0;
 
@@ -58,7 +70,7 @@ export default function DailyQuotaUsed({ quota }) {
     title.marginBottom = 30;
 
     let label = chart.chartContainer.createChild(am4core.Label);
-    label.text = "%";
+    label.text = displayText();
     label.fontSize = 35;
     label.align = "center";
 
@@ -86,14 +98,6 @@ export default function DailyQuotaUsed({ quota }) {
     range2.axisFill.zIndex = -1;
 
     const hand = chart.hands.push(new am4charts.ClockHand());
-
-    let percentageQuotaUsed;
-    if (quota.used) {
-      percentageQuotaUsed =
-        (toMinutes(quota.used) / toMinutes(quota.allotment)) * 100;
-    } else {
-      percentageQuotaUsed = 0;
-    }
 
     hand.showValue(percentageQuotaUsed);
   }, []);
