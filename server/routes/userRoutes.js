@@ -80,7 +80,7 @@ module.exports = (db) => {
     if (!userId) {
       return res.status(403).send("You must be signed in!");
     }
-    const { quotaStart, quotaIncrement, quotaTarget } = req.body;    
+    const { quotaStart, quotaIncrement, quotaTarget } = req.body;
     if (
       !(
         (quotaStart || quotaStart === 0) &&
@@ -301,7 +301,7 @@ module.exports = (db) => {
   router.post("/friends/add", (req, res) => {
     const { userId } = req.session;
     // Friend is an email
-    const { friend } = req.body;
+    const { friendEmail } = req.body;
     // Check DB to see if friend even has an account
     // If they do, get their ID and continue
     if (!userId) {
@@ -309,14 +309,21 @@ module.exports = (db) => {
     }
     // Send the friend request
     dbHelper
-      .sendFriendRequest(userId, friendId)
-      .then((request) => {
-        return (
-          res
-            .status(200)
-            // .json(`${userId} has sent a friend's request to ${friendId}`);
-            .json(request)
-        );
+      .getUserWithEmail(friendEmail)
+      .then((friend) => {
+        if (!friend) {
+          return res
+            .status(403)
+            .json("Sorry, could not find this friend's email in the system.");
+        }
+        dbHelper.sendFriendRequest(userId, friend.id).then((request) => {
+          return (
+            res
+              .status(200)
+              // .json(`${userId} has sent a friend's request to ${friendId}`);
+              .json(request)
+          );
+        });
       })
       .catch((err) => res.status(400).json(err));
   });
