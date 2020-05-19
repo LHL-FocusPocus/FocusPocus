@@ -63,6 +63,7 @@ export default function Dashboard({ dashboardData }) {
 // console.log("In dashboard, quota_today should be =====>", quota_today)
 
 console.log('dashboardData :>> ', dashboardData);
+console.log('user :>> ', user);
 
   
   return (

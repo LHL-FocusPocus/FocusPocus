@@ -193,7 +193,8 @@ export default function Navbar({ user, quota }) {
   return (
     <div>
       <>
-        <Button onClick={toggleDrawer("FocusPocus", true)}>
+        <Button style={{ backgroundColor: 'transparent' }}onClick={toggleDrawer("FocusPocus", true)}>
+        
           <ClickableLogo src="/imgs/logo3.png" alt="Menu Logo" />
         </Button>
         <Drawer

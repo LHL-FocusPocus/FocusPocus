@@ -12,6 +12,7 @@ export default function reducer(state, action) {
           ...state,
           ...action.payload,
           user: {
+            ...action.payload.user,
             options: {
               quotaIncrement: 5,
               quotaTarget: 60,
@@ -51,7 +52,7 @@ export default function reducer(state, action) {
       } else {
         // Find index where the blacklisted site lives
         const siteIndex = state.blacklisted.indexOf(
-          state.blacklisted.find((site) => site.blacklists_id === id)
+          state.blacklisted.find(site => site.blacklists_id === id)
         );
 
         clonedBlacklist.splice(siteIndex, 1);
