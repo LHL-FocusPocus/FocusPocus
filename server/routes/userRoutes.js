@@ -302,6 +302,7 @@ module.exports = (db) => {
     const { userId } = req.session;
     // Friend is an email
     const { friend } = req.body;
+    console.log('friend :>> ', friend);
     // Check DB to see if friend even has an account
     // If they do, get their ID and continue
     if (!userId) {

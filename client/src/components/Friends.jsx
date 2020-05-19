@@ -26,7 +26,7 @@ const Container = styled.div`
   display: flex;
 `;
 
-export default function InputWithIcon() {
+export default function Friends({addFriend}) {
   const classes = useStyles();
   // Controlled Component
 
@@ -36,16 +36,9 @@ export default function InputWithIcon() {
     event.preventDefault();
 
     console.log("fields.friend :>> ", friend);
+    console.log('addFriend :>> ', addFriend);
 
-    axios
-      .post("/api/user/login", friend, { withCredentials: true })
-      .then(res => {
-        console.log("res :>> ", res);
-      })
-
-      .catch(e => {
-        console.error(e);
-      });
+    addFriend(friend);
   };
 
   return (

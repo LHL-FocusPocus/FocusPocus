@@ -96,6 +96,17 @@ export default function useApplicationData() {
       });
   };
 
+  const addFriend = friendEmail => {
+    axios
+      .post("/api/user/friends/add", friendEmail)
+      .then(res => {
+        console.log("res :>> ", res);
+      })
+      .catch(e => {
+        console.log("e :>> ", e);
+      });
+  };
+
   const addBlacklistedSite = host_name => {
     axios
       .post("/api/user/blacklists/add", { host_name })
@@ -120,5 +131,6 @@ export default function useApplicationData() {
     addBlacklistedSite,
     setDashboard,
     changeQuota,
+    addFriend,
   };
 }

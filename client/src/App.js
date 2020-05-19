@@ -23,6 +23,7 @@ function App() {
     addBlacklistedSite,
     setDashboard,
     changeQuota,
+    addFriend
   } = useApplicationData();
 
   const theme = createMuiTheme({
@@ -54,6 +55,7 @@ function App() {
           render={() =>
             state.quota_today.allotment && (
               <Options
+                addFriend={addFriend}
                 changeQuota={changeQuota}
                 addBlacklistedSite={addBlacklistedSite}
                 disableBlacklistedSite={disableBlacklistedSite}
