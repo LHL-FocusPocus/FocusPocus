@@ -230,7 +230,7 @@ function changePictures(
         if (noun) {
           chrome.tabs.sendMessage(tabId, { action: "setNoun", noun });
         }
-      }, 2000);
+      }, 500);
     }
   });
 }

@@ -98,6 +98,6 @@
       addListeners("body", () => {
         replaceAllTextOnPage();
       });
-    }, 0);
+    }, 1000);
   });
 }
