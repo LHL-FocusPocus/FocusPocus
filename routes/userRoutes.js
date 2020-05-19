@@ -76,14 +76,17 @@ module.exports = (db) => {
    */
   router.post("/adjust_quota", (req, res) => {
     const userId = req.session.userId;
-    
+
     if (!userId) {
       return res.status(403).send("You must be signed in!");
     }
-    const { quotaStart, quotaIncrement, quotaTarget } = req.body;
-    console.log('req.body :>> ', req.body);
+    const { quotaStart, quotaIncrement, quotaTarget } = req.body;    
     if (
-      !(quotaStart && (quotaIncrement || quotaIncrement === 0) && quotaTarget)
+      !(
+        (quotaStart || quotaStart === 0) &&
+        (quotaIncrement || quotaIncrement === 0) &&
+        (quotaTarget || quotaTarget === 0)
+      )
     ) {
       return res.status(400).json("Invalid request");
     }
@@ -142,7 +145,7 @@ module.exports = (db) => {
         .catch((err) => {
           console.log(err);
           return res.status(500).json(err);
-        });      
+        });
     }
   });
 
