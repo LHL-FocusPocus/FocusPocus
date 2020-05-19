@@ -68,10 +68,11 @@ export default function Donut({ donutData }) {
     subtitle.text = "Blocked vs. Non-Blocked Sites";
     subtitle.fontSize = 12;
     subtitle.marginBottom = 20;
+    subtitle.fontFamily = "Raleway, sans-serif";
 
     let title = chart.titles.create();
     title.text = "Today's Browsing";
-    title.fontSize = 25;
+    title.fontSize = 40;
     title.marginBottom = 10;
 
 
@@ -81,6 +82,8 @@ export default function Donut({ donutData }) {
     series.dataFields.category = "website";
     series.slices.template.cornerRadius = 5;
     series.colors.step = 3;
+    series.fontSize = 25;
+    series.tooltip.fontSize = 30;
   }, [donutData]);
 
   return (

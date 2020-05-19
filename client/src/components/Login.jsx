@@ -11,7 +11,7 @@ import useFormFields from "../hooks/useFormFields";
 import styled from "styled-components";
 import axios from "axios";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   main: {
     marginLeft: -30,
   },
@@ -36,15 +36,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Wrapper = styled(Container)`
-  border: 1px solid black;
+  border: 0.5px solid slategrey;
   border-radius: 1em;
   padding: 2em;
   z-index: 5;
-  background-color: white;
+  background: #ece9e6; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #ffffff,
+    #ece9e6
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #ffffff,
+    #ece9e6
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 `;
 
 const Img = styled.img`
-  width: 100%;
+  width: 57%;
   transform: translateY(-2em);
 `;
 
@@ -56,7 +68,7 @@ export default function Login({ setDashboard, history }) {
     password: "",
   });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
 
     const credentials = {
@@ -71,7 +83,7 @@ export default function Login({ setDashboard, history }) {
           history.push("/dashboard");
         });
       })
-      .catch((e) => {
+      .catch(e => {
         console.error(e);
       });
   };
@@ -84,12 +96,12 @@ export default function Login({ setDashboard, history }) {
     <Wrapper className={classes.main} component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Img src="/imgs/landing.png" alt="landing image"></Img>
+        <Img src="/imgs/magic-trick.png" alt="landing image"></Img>
         <Typography component="h1" variant="h5">
           Log In
         </Typography>
         <form
-          onSubmit={(e) => handleSubmit(e)}
+          onSubmit={e => handleSubmit(e)}
           className={classes.form}
           noValidate
         >

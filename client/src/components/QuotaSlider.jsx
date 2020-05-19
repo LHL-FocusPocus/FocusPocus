@@ -82,7 +82,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
   const handlePopoverOpen = event => {
     setAnchorEl(event.currentTarget);
   };
-  
+
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
@@ -157,7 +157,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
         )}
         <DailyAdjuster>
           <FormControl variant="filled" className={classes.formControl}>
-            <InputLabel htmlFor="filled-age-native-simple">
+            <InputLabel>
               Reduction per day
             </InputLabel>
             <Select
@@ -168,11 +168,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
                 setIncrement(e.target.value);
                 handleShowTargetQuota(e.target.value);
               }}
-              // inputProps={{
-              //   name: "age",
-              //   id: "filled-age-native-simple",
-              // }}
-            >              
+            >
               <option value={0}>Static</option>
               <option value={1}>1 minute</option>
               <option value={2}>2 minutes</option>
@@ -212,8 +208,6 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
               transformOrigin={{
                 vertical: "top",
                 horizontal: "left",
-                // vert: bot cen top
-                // hor:  left right center
               }}
               onClose={handlePopoverClose}
               disableRestoreFocus

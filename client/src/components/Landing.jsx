@@ -24,9 +24,7 @@ export default function Landing({ setDashboard }) {
 
   return (
     <Container>
-      <InnerContainer>
         <LogoText />
-      </InnerContainer>
       <Route
         exact
         path="/"

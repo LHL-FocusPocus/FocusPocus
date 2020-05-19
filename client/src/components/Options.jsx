@@ -7,11 +7,13 @@ import QuotaSlider from "./QuotaSlider";
 import TopBlacklisted from "./TopBlacklisted";
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 export const CardContext = createContext({});
 
 const Container = styled(Box)`
   padding: 5em;
+  padding-top: 3em;
   display: flex;
   justify-content: space-around;
 `;
@@ -25,6 +27,13 @@ const SliderDiv = styled.div`
   flex-wrap: wrap;
 `;
 
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: "Raleway, sans-serif",
+    fontSize: "15",
+  },
+});
+
 export default function Options({
   // user,
   blacklisted,
@@ -36,14 +45,6 @@ export default function Options({
 }) {
   const { quota_today, topBlacklisted, user } = dashboardData;
 
-  // if (!dashboardData || !user || quota_today == undefined) {
-  //   return null;
-  //   // return a spinner component
-  // }
-
-  // console.log("====> Options disabled blacklisted site", disableBlacklistedSite);
-
-
   const addTopSiteToUserBlacklist = hostname => {
     addBlacklistedSite(hostname);
   };
@@ -52,21 +53,23 @@ export default function Options({
     <DndProvider backend={Backend}>
       <CardContext.Provider value={{ addTopSiteToUserBlacklist }}>
         <Navbar user={user} quota={quota_today} />
-        <Container bgcolor="background.paper">
-          {quota_today && (
-            <QuotaSlider
-              options={user.options}
-              quota={quota_today}
-              changeQuota={changeQuota}
+        <ThemeProvider theme={theme}>
+          <Container bgcolor="background.paper">
+            {quota_today && (
+              <QuotaSlider
+                options={user.options}
+                quota={quota_today}
+                changeQuota={changeQuota}
+              />
+            )}
+            <Blacklisted
+              addBlacklistedSite={addBlacklistedSite}
+              disableBlacklistedSite={disableBlacklistedSite}
+              blacklisted={blacklisted}
             />
-          )}
-          <Blacklisted
-            addBlacklistedSite={addBlacklistedSite}
-            disableBlacklistedSite={disableBlacklistedSite}
-            blacklisted={blacklisted}
-          />
-          <TopBlacklisted topBlacklisted={topBlacklisted} />
-        </Container>
+            <TopBlacklisted topBlacklisted={topBlacklisted} />
+          </Container>
+        </ThemeProvider>
       </CardContext.Provider>
     </DndProvider>
   );
