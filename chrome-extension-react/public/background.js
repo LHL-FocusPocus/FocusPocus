@@ -79,7 +79,6 @@ function getUserData() {
  * from server. Sets 2 global variables: blacklistDomains array and isOverQuota
  */
 function parseAndStoreUserData(userData) {
-  console.log(userData);
   // Extract used and allotted quotas to determine if quota is exceeded
   const {
     quota_today: {
@@ -98,12 +97,12 @@ function parseAndStoreUserData(userData) {
   console.log(imageUrl, videoUrl, noun);
 
   // Map blacklists into array of domain names
-  blacklistDomains = blacklistObj.map(blacklist => blacklist.hostname);  
+  blacklistDomains = blacklistObj.map(blacklist => blacklist.hostname);
 }
 
 // Listens for message from UI when "add to blacklist" is clicked
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === "recheck") {    
+  if (request.action === "recheck") {
     getUserData();
   }
 });
@@ -218,6 +217,12 @@ function changePictures(
       chrome.tabs.executeScript(tabId, { file: "changePictures.js" });
       chrome.tabs.executeScript(tabId, { file: "changeVideos.js" });
       chrome.tabs.executeScript(tabId, { file: "changeText.js" });
+
+      console.log(imageUrl);
+      // Send message to above scripts that change their urls
+      setTimeout(() => {
+        chrome.tabs.sendMessage(tabId, { action: "setImageUrl", imageUrl });
+      }, 1000);
     }
   });
 }
