@@ -80,7 +80,7 @@ module.exports = (db) => {
     if (!userId) {
       return res.status(403).send("You must be signed in!");
     }
-    const { quotaStart, quotaIncrement, quotaTarget } = req.body;    
+    const { quotaStart, quotaIncrement, quotaTarget } = req.body;
     if (
       !(
         (quotaStart || quotaStart === 0) &&
@@ -97,7 +97,7 @@ module.exports = (db) => {
         .addStaticQuota(userId, `${quotaStart} minutes`)
         .then(() => {
           // Update the user's option to reflect their choice
-          return dbHelper.updateUserOptionQuota(userId, optionsObj);
+          return dbHelper.updateUserOptions(userId, optionsObj);
         })
         .then((user) => res.status(201).json(user))
         .catch((e) => {
@@ -139,7 +139,7 @@ module.exports = (db) => {
         )
         .then(() => {
           // Update the user's option to reflect their choice
-          return dbHelper.updateUserOptionQuota(userId, optionsObj);
+          return dbHelper.updateUserOptions(userId, optionsObj);
         })
         .then((user) => res.status(201).json(user))
         .catch((err) => {
@@ -273,6 +273,37 @@ module.exports = (db) => {
       return res.status(200).json(resp);
     });
   });
+
+  router.post("/options/add", (req, res) => {
+    const { userId } = req.session;
+    const { newOptions } = req.body;
+    if (!userId) {
+      return res.status(403).json("Please sign in first.");
+    }
+
+    dbHelper.getUserOptions(userId).then((options) => {
+      // If the options object is empty (it's entries array will also be empty, or have length 0)
+      // NOT SURE IF WE NEED THIS, IF IT IS EMPTY, IT SHOULD STILL UPDATE, BUT NOT OVERWRITE THE OPTIONS KEY
+      if (Object.entries(options).length === 0) {
+        return res.status(200).json({});
+      }
+      dbHelper.updateUserOptions(userId, newOptions);
+      // return res.status(200).json(options);
+    });
+  });
+
+  router.get("options/",  (req, res) => {
+    const { userId } = req.session;
+    if (!userId) {
+      return res.status(403).json("Please sign in first.");
+    }
+    dbHelper.getUserOptions(userId).then((options) => {
+      if (Object.entries(options).length === 0) {
+        return res.status(200).json({});
+      }
+      return res.status(200).json(options);
+  } )
+
 
   //   // Just a test route to test db queries and response
   router.get("/test", (req, res) => {
