@@ -19,30 +19,19 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import humanizeDuration from "humanize-duration";
 import formatNavbarText from "../helpers/formatNavbarText";
+import Avatar from "@material-ui/core/Avatar";
 
-// import Logout from "./Logout"
-
-const useStyles = makeStyles({
-  list: {
-    width: 310,
-  },
-  fullList: {
-    width: "auto",
-  },
-});
-
-const Icon = styled.img`
-  width: 100%;
-  ${"" /* height: 200px;
-  object-fit: cover;
-  padding: 0em 3.38em;
-  margin-top: 1em;
-  border-radius: 100%; */}
+const Icon = styled(Avatar)`
+  width: 50%;
+  height: auto;
+  margin: auto;
 `;
 
 const ClickableLogo = styled.img`
   width: 25%;
-  transform: translateX(-133%) translateY(-5%);
+  transform: translateX(105%) translateY(-5%);
+  ${"" /* transform: translateX(133%) translateY(-5%); */}
+
   padding: 0.3em
 `;
 
@@ -52,10 +41,9 @@ const Greeting = styled.div`
   font-size: 1.2em;
 `;
 
-const Logo = styled.div`
-  text-align: center;
-  font-size: 2em;
-  padding: 0.6em;
+const Logo = styled.img`
+  width: 70%;
+  margin: auto;
 `;
 
 const Message = styled.div`
@@ -79,38 +67,50 @@ const QuotaTime = styled.div`
 // TODO: Push logout button to bottom of drawer -> can't get it to work without forcing it with margin (but irrelevant on full screen mode)
 const Logout = styled(List)`
   ${"" /* margin-top: auto; */}
-  margin-top: 35%;
 `;
 
 const Container = styled.div`
   display: flex;
   flex-flow: column nowrap;
-  background-color: rgba(72, 80, 87, 0.294);
+  background: #ece9e6; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #ffffff,
+    #ece9e6
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #ffffff,
+    #ece9e6
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  font-family: "Raleway", sans-serif;
   height: 100%;
+  width: 350px;
 `;
 
 export default function Navbar({ user, quota }) {
-  console.log("quota NAVBAR", quota);
-  // console.log("====> Navbar Props ====>", props);
-  const { first_name } = user;
+  const { first_name, picture } = user;
   const humanizeDurationOptions = {
     units: ["h", "m"],
     delimiter: " and ",
     round: true,
   };
+
   const used_quota = humanizeDuration(
     quota.used.minutes * 60000,
     humanizeDurationOptions
   );
+
   const allotment = humanizeDuration(
     quota.allotment.minutes * 60000,
     humanizeDurationOptions
   );
+
   const total_browsing = humanizeDuration(
     quota.all_browse_time.minutes * 60000,
     humanizeDurationOptions
   );
-  const classes = useStyles();
+
   const [state, setState] = useState({
     left: false,
   });
@@ -143,14 +143,13 @@ export default function Navbar({ user, quota }) {
 
   const list = anchor => (
     <Container
-      className={classes.list}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <Logo>FocusPocus</Logo>
+      <Logo src="imgs/logo3.png" />
       <List>
-        <Icon src="/imgs/multitasking.jpg"></Icon>
+        <Icon src={picture} />
       </List>
       <Greeting>Welcome, {first_name}!</Greeting>
       <Message>
