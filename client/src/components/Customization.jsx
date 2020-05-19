@@ -59,10 +59,9 @@ export default function FormPropsTextFields() {
     video: "",
   });
 
-
   const handleSubmit = event => {
     event.preventDefault();
-    console.log("options :>> ", options);
+    console.log("options :>> ", options.word);
 
     const userOptions = {
       word: options.word,
@@ -71,8 +70,9 @@ export default function FormPropsTextFields() {
     };
 
     axios
-      .post("/api/user/", userOptions)
-      .then(() => {
+      .post("/api/user/options/add", userOptions)
+      .then(el => {
+        console.log("el :>> ", el);
         // setDashboard().then(() => {
         //   history.push("/dashboard");
       })
