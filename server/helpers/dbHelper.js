@@ -530,7 +530,10 @@ module.exports = (db) => {
     return db
       .query(
         `
-        SELECT * FROM friends WHERE user_id = $1
+        SELECT friends.id, user_id, friend_id, pending, first_name as friends_first_name, last_name as friends_last_name
+        FROM friends
+        JOIN users on friend_id = users.id
+        WHERE user_id = $1
         AND pending = true;
         `,
         [user_id]
