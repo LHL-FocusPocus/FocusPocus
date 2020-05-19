@@ -51,17 +51,16 @@ const CustomizeButton = styled(Button)`
   width: 100%;
 `;
 
-export default function FormPropsTextFields() {
+export default function Customization({ userOptions }) {
   const classes = useStyles();
   const [options, handleOptionsChange] = useFormFields({
-    word: "",
-    image: "",
-    video: "",
+    word: userOptions.noun,
+    image: userOptions.imageUrl,
+    video: userOptions.videoUrl,
   });
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log("options :>> ", options.word);
 
     const userOptions = {
       word: options.word,
@@ -96,24 +95,28 @@ export default function FormPropsTextFields() {
               variant="outlined"
               helperText="Noun"
               id="word"
-              value={options.word}
+              fullWidth={true}
+              value={options.word || ""}
               onChange={handleOptionsChange}
             />
             <TextField
               label="Image"
               variant="outlined"
               helperText="URL"
-              type="URL"
+              type="url"
+              fullWidth={true}
               id="image"
-              value={options.image}
+              value={options.image || ""}
               onChange={handleOptionsChange}
             />
             <TextField
               label="Video"
               variant="outlined"
+              type="url"
+              fullWidth={true}
               helperText="URL"
               id="video"
-              value={options.video}
+              value={options.video || ""}
               onChange={handleOptionsChange}
             />
           </div>

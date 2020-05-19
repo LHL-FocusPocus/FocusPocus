@@ -82,7 +82,7 @@ export default function Options({
                   options={user.options}
                 />
               )}
-              <Customization />
+              <Customization userOptions={user.options} />
             </QuotaAndFriends>
             <Blacklisted
               addBlacklistedSite={addBlacklistedSite}
