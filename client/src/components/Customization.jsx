@@ -9,6 +9,8 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
+import useFormFields from "../hooks/useFormFields";
+import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,58 +40,85 @@ const Wrapper = styled(Box)`
 
 const ButtonContainer = styled(Box)`
   flex: 1;
-  flex-wrap: wrap;
-  ${"" /* align-items: center; */}
-  flex-direction: columm;
-  justify-content: center;
+  align-items: center;
+  ${"" /* flex-direction: columm; */}
+  justify-content: flex-end;
 `;
 
 const CustomizeButton = styled(Button)`
-  align-item: center;
-  flex: 1;
+  ${"" /* align-self: center; */}
+  ${"" /* flex: 1; */}
   width: 100%;
 `;
 
 export default function FormPropsTextFields() {
   const classes = useStyles();
-  const [state, setState] = useState({
-    age: "",
-    name: "hai",
+  const [options, handleOptionsChange] = useFormFields({
+    word: "",
+    image: "",
+    video: "",
   });
-  const handleChange = event => {
-    const name = event.target.name;
-    setState({
-      ...state,
-      [name]: event.target.value,
-    });
+
+  console.log('options :>> ', options);
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    console.log("options :>> ", options);
+
+    const userOptions = {
+      word: options.word,
+      image: options.image,
+      video: options.video,
+    };
+
+    // axios
+    //   .post("/api/user/login", userOptions)
+    //   .then(() => {
+    //     // setDashboard().then(() => {
+    //     //   history.push("/dashboard");
+    //   })
+    //   .catch(e => {
+    //     console.error(e);
+    //   });
   };
 
   return (
-    <form className={classes.root} noValidate autoComplete="off">
+    <form
+      onSubmit={handleSubmit}
+      className={classes.root}
+      noValidate
+      autoComplete="off"
+    >
       <Wrapper>
         <FormContainer>
           <div>
             <TextField
               id="outlined-required"
               label="Word"
-              // defaultValue="SNAKE"
               variant="outlined"
               helperText="Noun"
-
+              id="word"
+              value={options.word}
+              onChange={handleOptionsChange}
             />
-
             <TextField
               id="outlined-read-only-input"
               label="Image"
-              // defaultValue="Hello World"
               variant="outlined"
               helperText="URL"
+              type="URL"
+              id="image"
+              value={options.image}
+              onChange={handleOptionsChange}
             />
             <TextField
               id="video"
               label="Video"
               variant="outlined"
               helperText="URL"
+              id="video"
+              value={options.video}
+              onChange={handleOptionsChange}
             />
           </div>
         </FormContainer>
