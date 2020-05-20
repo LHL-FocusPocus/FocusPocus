@@ -42,8 +42,12 @@ export default function DailyQuotaUsed({ quota }) {
       percentageQuotaUsed = 0;
     }
 
+    console.log("percentageQuotaUsed", percentageQuotaUsed);
+
     const displayText = () => {
-      if (percentageQuotaUsed > 100) return `${(percentageQuotaUsed - 100).toFixed(0)}% over quota!`;
+      if (percentageQuotaUsed > 100) {
+        return `${(percentageQuotaUsed - 100).toFixed(0)}% over quota!`;
+      }
       return "%";
     };
 
@@ -99,7 +103,7 @@ export default function DailyQuotaUsed({ quota }) {
 
     const hand = chart.hands.push(new am4charts.ClockHand());
 
-    hand.showValue(percentageQuotaUsed);
+    hand.showValue(percentageQuotaUsed > 100 ? 100 : percentageQuotaUsed);
   }, []);
 
   return (
