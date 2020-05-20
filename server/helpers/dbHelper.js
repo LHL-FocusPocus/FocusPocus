@@ -533,7 +533,6 @@ module.exports = (db) => {
         [userId]
       )
       .then((res) => {
-        // if (res.rows.length === 0) return null;
         return res.rows[0];
       })
       .catch((err) => err);

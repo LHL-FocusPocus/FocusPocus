@@ -7,6 +7,6 @@ export default function formatNavbarText(used_quota, allotment) {
   } else if (remaining < 1) {
     return "You're almost at the cap for today!";
   } else {
-    return "Welp, have fun browsing now!";
+    return "You're over cap! Have fun browsing now...";
   }
 }
