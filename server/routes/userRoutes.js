@@ -93,9 +93,9 @@ module.exports = (db) => {
 
     dbHelper
       .getUserOptions(userId)
-      .then((options) => {
+      .then((userData) => {
         const optionsObj = {
-          ...options.options,
+          ...userData.options,
           quotaStart,
           quotaIncrement,
           quotaTarget,
