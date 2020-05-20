@@ -39,17 +39,6 @@ const Wrapper = styled(Container)`
   z-index: 5;
   background-color: white;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
-  background: #ece9e6; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #ffffff,
-    #ece9e6
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #ffffff,
-    #ece9e6
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 `;
 
 const Img = styled.img`
@@ -61,6 +50,7 @@ const LoginWrapper = styled.div`
   flex: 1;
   margin-right: 7%;
   display: flex;
+  margin-top: 1%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
