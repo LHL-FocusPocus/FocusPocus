@@ -30,15 +30,20 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const Title = styled.h1`
+  font-size: 2em;
+  text-align: center;
+`;
+
 const FormContainer = styled(Box)`
   display: flex;
   flex-direction: column;
-  width: 50%;  
+  width: 50%;
   margin: auto;
 `;
 
 const Wrapper = styled(Box)`
-  display: flex;  
+  display: flex;
 `;
 const PaddedTextField = styled(TextField)`
   margin: 0.5em;
@@ -47,7 +52,7 @@ const ButtonContainer = styled(Box)`
   flex: 1;
   align-items: center;
   ${"" /* flex-direction: columm; */}
-  justify-content: flex-end;  
+  justify-content: flex-end;
 `;
 
 const CustomizeButton = styled(Button)`
@@ -123,6 +128,7 @@ export default function Customization({ userOptions }) {
       noValidate
       autoComplete="off"
     >
+      <Title>Customize Your Replacements</Title>
       <Wrapper>
         <FormContainer>
           <div>

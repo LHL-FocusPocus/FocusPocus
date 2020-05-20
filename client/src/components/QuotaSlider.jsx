@@ -13,10 +13,15 @@ import InfoIcon from "@material-ui/icons/Info";
 import Popover from "@material-ui/core/Popover";
 import { Alert, AlertTitle } from "@material-ui/lab";
 
-const SliderDiv = styled.div`  
+const Title = styled.h1`
+  font-size: 2em;
+  text-align: center;
+`;
+
+const SliderDiv = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 2.5em;
+  margin-top: 0.5em;
   margin-bottom: 2em;
 `;
 
@@ -121,126 +126,131 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
     /* {!quota.allotment && <Spinner size={24} />} */
   }
   return (
-    <SliderDiv>
-      <SliderComponent>
-        <Typography id="Daily-Quota" gutterBottom>
-          Daily Quota (Minutes)
-        </Typography>
-        <Slider
-          value={dailyQuota}
-          aria-labelledby="Daily-Quota"
-          valueLabelDisplay="auto"
-          step={10}
-          marks
-          min={0}
-          max={180}
-          disabled={disabled}
-          onChange={(e, dailyQuota) => setQuota(dailyQuota)}
-        />
-        {targetQuotaShow && (
-          <SliderComponent>
-            <Typography id="Target-Quota" gutterBottom>
-              Target Quota (Minutes)
-            </Typography>
-            <Slider
-              value={targetQuota}
-              aria-labelledby="Target-Quota"
-              valueLabelDisplay="auto"
-              step={10}
-              marks
-              min={0}
-              max={180}
-              disabled={disabled}
-              onChange={(e, targetQuota) => setTargetQuota(targetQuota)}
-            />
-          </SliderComponent>
-        )}
-        <DailyAdjuster>
-          <FormControl variant="filled" className={classes.formControl}>
-            <InputLabel>
-              Reduction per day
-            </InputLabel>
-            <Select
-              disabled={disabled}
-              native
-              value={increment}
-              onChange={e => {
-                setIncrement(e.target.value);
-                handleShowTargetQuota(e.target.value);
-              }}
-            >
-              <option value={0}>Static</option>
-              <option value={1}>1 minute</option>
-              <option value={2}>2 minutes</option>
-              <option value={3}>3 minutes</option>
-              <option value={4}>4 minutes</option>
-              <option value={5}>5 minutes</option>
-              <option value={6}>6 minutes</option>
-              <option value={7}>7 minutes</option>
-              <option value={8}>8 minutes</option>
-              <option value={9}>9 minutes</option>
-              <option value={10}>10 minutes</option>
-            </Select>
-          </FormControl>
-          <Popup>
-            <IconButton
-              aria-owns={open ? "mouse-over-popover" : undefined}
-              aria-haspopup="true"
-              onMouseEnter={handlePopoverOpen}
-              onMouseLeave={handlePopoverClose}
-              aria-label={`test`}
-            >
-              <InfoIcon />
-            </IconButton>
-
-            <Popover
-              id="mouse-over-popover"
-              className={classes.popover}
-              classes={{
-                paper: classes.paper,
-              }}
-              open={open}
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: "center",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              onClose={handlePopoverClose}
-              disableRestoreFocus
-            >
-              <Typography>
-                How much your quota will decrease per day until your target
-                quota is reached
+    <>
+      <Title>Adjust Your Quota</Title>
+      <SliderDiv>
+        <SliderComponent>
+          <Typography id="Daily-Quota" gutterBottom>
+            Daily Quota (Minutes)
+          </Typography>
+          <Slider
+            value={dailyQuota}
+            aria-labelledby="Daily-Quota"
+            valueLabelDisplay="auto"
+            step={10}
+            marks
+            min={0}
+            max={180}
+            disabled={disabled}
+            onChange={(e, dailyQuota) => setQuota(dailyQuota)}
+          />
+          {targetQuotaShow && (
+            <SliderComponent>
+              <Typography id="Target-Quota" gutterBottom>
+                Target Quota (Minutes)
               </Typography>
-            </Popover>
-          </Popup>
-        </DailyAdjuster>
-        <QuotaButton>
-          {disabled && (
-            <Button
-              fullWidth={true}
-              onClick={() => setDisabled(!disabled)}
-              variant="contained"
-            >
-              Change Quota
-            </Button>
+              <Slider
+                value={targetQuota}
+                aria-labelledby="Target-Quota"
+                valueLabelDisplay="auto"
+                step={10}
+                marks
+                min={0}
+                max={180}
+                disabled={disabled}
+                onChange={(e, targetQuota) => setTargetQuota(targetQuota)}
+              />
+            </SliderComponent>
           )}
-          {!disabled && (
-            <Button fullWidth={true} onClick={handleSubmit} variant="contained">
-              Set New Quota
-            </Button>
+          <DailyAdjuster>
+            <FormControl variant="filled" className={classes.formControl}>
+              <InputLabel>Reduction per day</InputLabel>
+              <Select
+                disabled={disabled}
+                native
+                value={increment}
+                onChange={e => {
+                  setIncrement(e.target.value);
+                  handleShowTargetQuota(e.target.value);
+                }}
+              >
+                <option value={0}>Static</option>
+                <option value={1}>1 minute</option>
+                <option value={2}>2 minutes</option>
+                <option value={3}>3 minutes</option>
+                <option value={4}>4 minutes</option>
+                <option value={5}>5 minutes</option>
+                <option value={6}>6 minutes</option>
+                <option value={7}>7 minutes</option>
+                <option value={8}>8 minutes</option>
+                <option value={9}>9 minutes</option>
+                <option value={10}>10 minutes</option>
+              </Select>
+            </FormControl>
+            <Popup>
+              <IconButton
+                aria-owns={open ? "mouse-over-popover" : undefined}
+                aria-haspopup="true"
+                onMouseEnter={handlePopoverOpen}
+                onMouseLeave={handlePopoverClose}
+                aria-label={`test`}
+              >
+                <InfoIcon />
+              </IconButton>
+
+              <Popover
+                id="mouse-over-popover"
+                className={classes.popover}
+                classes={{
+                  paper: classes.paper,
+                }}
+                open={open}
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "center",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                onClose={handlePopoverClose}
+                disableRestoreFocus
+              >
+                <Typography>
+                  How much your quota will decrease per day until your target
+                  quota is reached
+                </Typography>
+              </Popover>
+            </Popup>
+          </DailyAdjuster>
+          <QuotaButton>
+            {disabled && (
+              <Button
+                fullWidth={true}
+                onClick={() => setDisabled(!disabled)}
+                variant="contained"
+              >
+                Change Quota
+              </Button>
+            )}
+            {!disabled && (
+              <Button
+                fullWidth={true}
+                onClick={handleSubmit}
+                variant="contained"
+              >
+                Set New Quota
+              </Button>
+            )}
+          </QuotaButton>
+          {error && (
+            <Alert severity="error">
+              Target quota cannot be higher than daily quota!
+            </Alert>
           )}
-        </QuotaButton>
-        {error && (
-          <Alert severity="error">
-            Target quota cannot be higher than daily quota!
-          </Alert>
-        )}
-      </SliderComponent>
-    </SliderDiv>
+        </SliderComponent>
+      </SliderDiv>
+    </>
   );
 }
