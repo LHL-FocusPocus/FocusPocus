@@ -145,7 +145,7 @@ module.exports = (db) => {
     date_valid_until
   ) {
     const queryParams = [user_id, time_allotment];
-    const queryString = `INSERT INTO quotas `;
+    let queryString = `INSERT INTO quotas `;
 
     if (!date_valid_from && !date_valid_until) {
       queryString += `(user_id, time_allotment) VALUES ($1, $2) RETURNING *;`;
