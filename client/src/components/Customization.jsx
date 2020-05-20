@@ -105,8 +105,6 @@ export default function Customization({ userOptions }) {
       .post("/api/user/options/add", userOptions)
       .then(el => {
         console.log("el :>> ", el);
-        // setDashboard().then(() => {
-        //   history.push("/dashboard");
       })
       .catch(e => {
         console.error(e);

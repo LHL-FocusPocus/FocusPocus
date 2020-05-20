@@ -26,7 +26,7 @@ import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 const useStyles = makeStyles(theme => ({
   button: {
     minWidth: "400",
-    transform: "translateY(-50%) translateX(73%)",
+    transform: "translateY(-65%) translateX(73%)",
     borderRadius: "100%"
   },
 }));
@@ -41,8 +41,8 @@ const Icon = styled(Avatar)`
 `;
 
 const DrawerIcon = styled(MenuOpenIcon)`
-  width: 40px;
-  height: 50px;
+  width: 35px;
+  height: 40px;
 `;
 
 const NavbarLogo = styled.img`
