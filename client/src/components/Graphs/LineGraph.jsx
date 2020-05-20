@@ -27,12 +27,10 @@ const Card = styled(Paper)`
 const Chart = styled.div`
   width: 100%;
   height: 80%;
-  ${"" /*   border: 1px solid black;
   border-radius: 0.9em; */}
   margin-left: 3.5em;
   margin-top: 2.5em;
   transform: translateY(5px);
-  ${"" /* padding: 1.7em; */}
 `;
 
 export default function LineGraph({ lineData }) {
@@ -86,7 +84,6 @@ export default function LineGraph({ lineData }) {
     title.text = "Blacklisted Browsing Time";
     title.fontSize = 45;
     title.marginBottom = 15;
-    // title.paddingTop =  40;
 
     // Initial zoom once chart is ready
     chart.events.once("datavalidated", function () {

@@ -25,7 +25,6 @@ import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 
 const useStyles = makeStyles(theme => ({
   button: {
-    minWidth: "400",
     transform: "translateY(-65%) translateX(73%)",
     borderRadius: "100%",
   },

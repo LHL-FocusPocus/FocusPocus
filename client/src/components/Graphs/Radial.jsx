@@ -7,12 +7,10 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4themes_material from "@amcharts/amcharts4/themes/material";
 
 const Wrapper = styled(Box)`
-  ${"" /* border: solid 3px black; */}
   flex: 1 45%;
   display: flex;
   items-align: center;
   justify-content: center;
-  ${"" /* padding: 3em; */}
   height: 400px;
   padding-bottom: 6em;
   padding-top: 2em;
