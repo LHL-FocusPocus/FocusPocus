@@ -12,7 +12,6 @@ import NativeSelect from "@material-ui/core/NativeSelect";
 import useFormFields from "../hooks/useFormFields";
 import axios from "axios";
 import { Input } from "@material-ui/core";
-import isUrl from "../helpers/isUrl";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -77,14 +76,7 @@ export default function Customization({ userOptions }) {
   const handleSubmit = event => {
     event.preventDefault();
 
-    // if (!isUrl(options.image)) {
-    // }
-    // if (!isUrl(options.video)) {
-    //   return setError({ video: true });
-    // }
-
-    // Extension needs urls that start with http, so cannot use isUrl because
-    // it accepts urls without http. People will be pasting in urls anyway.
+    // Extension needs urls that start with http, so make sure that they're included with URL constructor
     if (options.image) {
       try {
         new URL(options.image);
@@ -169,27 +161,6 @@ export default function Customization({ userOptions }) {
             Set Customization
           </CustomizeButton>
         </FormContainer>
-        {/*<ButtonContainer>
-           <PersonToCustomize required className={classes.formControl}>
-            <InputLabel htmlFor="age-native-required">Age</InputLabel>
-            <Select
-              native
-              defaultValue="You"
-              value={state.age}
-              onChange={handleChange}
-              name="Person"
-              inputProps={{
-                id: "person-to-customize",
-              }}
-            >
-              <option aria-label="None" value="" />
-              <option value={10}>Ten</option>
-              <option value={20}>Twenty</option>
-              <option value={30}>Thirty</option>
-            </Select>
-            <FormHelperText>Required</FormHelperText>
-          </PersonToCustomize> 
-        </ButtonContainer>*/}
       </Wrapper>
     </form>
   );

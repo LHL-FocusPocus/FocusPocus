@@ -94,7 +94,8 @@ const useStyles = makeStyles(theme => ({
     borderImageSlice: 1,
   },
   fullwidth: { width: "100%" },
-  inputwidth: { width: "80%" },
+  inputwidth: { width: "55%", fontSize: 25 },
+
 }));
 
 export default function Blacklisted({
@@ -117,8 +118,6 @@ export default function Blacklisted({
 
   const handleSubmit = event => {
     event.preventDefault();
-
-    if (!isUrl(fields.host_name)) return setError(true);
 
     try {
       new URL(fields.host_name);
