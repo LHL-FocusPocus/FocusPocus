@@ -38,7 +38,7 @@ import isUrl from "../helpers/isUrl";
 
 const Container = styled(Box)`
   min-height: 86vh;
-  padding: 0 5%;
+  padding: 0 2%;
   width: 25%;
   padding-top: 20px;
   flex: 1 ${"" /* transform: translateX(22%) */};

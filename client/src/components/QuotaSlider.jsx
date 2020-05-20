@@ -23,6 +23,7 @@ const SliderDiv = styled.div`
   justify-content: center;
   margin-top: 0.5em;
   margin-bottom: 2em;
+  width: 70%;
 `;
 
 const SliderComponent = styled.div`
