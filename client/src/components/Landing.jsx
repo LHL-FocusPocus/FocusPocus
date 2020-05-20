@@ -5,7 +5,8 @@ import LogoText from "./LogoText";
 import styled from "styled-components";
 import { Route, Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import GitHubIcon from '@material-ui/icons/GitHub';
+
+
 
 const Container = styled.div`
   display: flex;
@@ -36,6 +37,7 @@ export default function Landing({ setDashboard }) {
         path="/register"
         render={() => <SignUp history={history} />}
       />
+ 
     </Container>
   );
 }
