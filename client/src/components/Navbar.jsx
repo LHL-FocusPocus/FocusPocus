@@ -66,6 +66,7 @@ const LogoContainer = styled(Box)`
   background-image: url("imgs/landing-bg.png");
   background-size: cover;
   text-align: center;
+  box-shadow: 0 8px 20px -6px slategrey;
 `;
 
 const Message = styled.div`
@@ -169,7 +170,6 @@ export default function Navbar({ user, quota }) {
       <LogoContainer>
         <Logo src="imgs/logo3.png" />
       </LogoContainer>
-      <Divider />
       <List>
         <Icon src={picture} />
       </List>
