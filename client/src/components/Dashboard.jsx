@@ -43,7 +43,7 @@ const Wrapper = styled(Box)`
   } */}
 `;
 
-export default function Dashboard({ dashboardData }) {
+export default function Dashboard({ dashboardData, setDashboard }) {
   const {
     donutGraph,
     lineGraph,
@@ -68,7 +68,7 @@ console.log('user :>> ', user);
   
   return (
     <div>
-      <Navbar user={user} quota={quota_today} />
+      <Navbar user={user} quota={quota_today} setDashboard={setDashboard}/>
       <Container
         // isLoading={loading}
         // bgcolor="background.paper"

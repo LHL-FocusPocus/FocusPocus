@@ -11,6 +11,7 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import axios from "axios";
 import "./App.css";
 import { quadOut } from "@amcharts/amcharts4/.internal/core/utils/Ease";
+import { useHistory } from "react-router-dom";
 if (process.env.REACT_APP_API_BASE_URL) {
   axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 } else {
@@ -36,20 +37,42 @@ function App() {
       fontWeight: "700",
     },
   });
-
+  const history = useHistory();
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
         <Route
           exact
-          path={["/", "/register"]}
+          path={["/"]}
+          render={() =>
+            !state.quota_today.allotment
+              ? history.push("/login")
+              : history.push("/dashboard")
+          }
+        />
+        <Route
+          exact
+          path={["/login", "/register"]}
+          render={() =>
+            !state.quota_today.allotment ? (
+              <Landing setDashboard={setDashboard} />
+            ) : (
+              history.push("/dashboard")
+            )
+          }
+        />
+        <Route
+          exact
+          path={["/logout"]}
           render={() => <Landing setDashboard={setDashboard} />}
         />
         <Route
           exact
           path="/dashboard"
           render={() =>
-            state.quota_today.allotment && <Dashboard dashboardData={state} />
+            state.quota_today.allotment && (
+              <Dashboard dashboardData={state} setDashboard={setDashboard} />
+            )
           }
         />
         <Route
