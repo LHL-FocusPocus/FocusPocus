@@ -151,6 +151,7 @@ export default function SignUp({ history, setDashboard }) {
                   required
                   fullWidth
                   id="email"
+                  type="email"
                   label="Email Address"
                   value={fields.email}
                   autoComplete="email"
