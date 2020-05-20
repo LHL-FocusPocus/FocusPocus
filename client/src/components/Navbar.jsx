@@ -26,27 +26,28 @@ import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 const useStyles = makeStyles(theme => ({
   button: {
     minWidth: "400",
-    transform: "translateY(-50%) translateX(50%)",
+    transform: "translateY(-50%) translateX(73%)",
     borderRadius: "100%"
   },
 }));
 
 const Icon = styled(Avatar)`
-  width: 50%;
+  width: 35%;
   height: auto;
   margin: auto;
-  margin-top: 0.8em;
+  margin-top: 1.5em;
+  margin-bottom: 0.6em;
   box-shadow: 5px 19px 38px rgba(0, 0, 0, 0.3), 0 15px 38px rgba(0, 0, 0, 0.22);
 `;
 
 const DrawerIcon = styled(MenuOpenIcon)`
-  min-width: 50px;
-  min-height: 50px;
+  width: 40px;
+  height: 50px;
 `;
 
 const NavbarLogo = styled.img`
   width: 260px;
-  margin-left: 39.8%;
+  margin-left: 40%;
   margin-top: 1%;
 `;
 
