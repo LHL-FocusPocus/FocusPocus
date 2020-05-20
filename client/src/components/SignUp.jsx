@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -11,6 +11,7 @@ import {
   Container,
 } from "@material-ui/core";
 import useFormFields from "../hooks/useFormFields";
+import validateEmail from "../helpers/validateEmail";
 import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
@@ -74,9 +75,16 @@ export default function SignUp({ history, setDashboard }) {
     firstName: "",
     lastName: "",
   });
+  const [error, setError] = useState(false);
 
   const handleSubmit = event => {
     event.preventDefault();
+
+    if (!validateEmail(fields.email)) {
+      return setError(true);
+    }
+
+    setError(false);
 
     const credentials = {
       email: fields.email,
@@ -85,6 +93,7 @@ export default function SignUp({ history, setDashboard }) {
       lastName: fields.lastName,
     };
 
+    console.log('credentials', credentials)
     axios
       .post("/api/user/register", credentials)
       .then(() => {
@@ -92,12 +101,13 @@ export default function SignUp({ history, setDashboard }) {
           .then(() => {
             history.push("/dashboard");
           })
-          .catch(e => {
-            console.error(e);
+          .catch(error => {
+            console.log("HERE")
+                        console.error(error.response);
           });
       })
-      .catch(e => {
-        console.error(e);
+      .catch(error => {
+        console.error(error.response);
       });
   };
 
@@ -151,8 +161,9 @@ export default function SignUp({ history, setDashboard }) {
                   required
                   fullWidth
                   id="email"
-                  type="email"
-                  label="Email Address"
+                  label="Email"
+                  error={error}
+                  helperText={error ? "Not a valid email" : ""}
                   value={fields.email}
                   autoComplete="email"
                   onChange={handleFieldChange}

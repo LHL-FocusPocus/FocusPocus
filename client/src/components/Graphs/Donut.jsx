@@ -34,7 +34,7 @@ const Card = styled(Paper)`
 `;
 
 export default function Donut({ donutData }) {
-  const [error, setError] = useState(false);
+  // const [error, setError] = useState(false);
 
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
@@ -50,7 +50,6 @@ export default function Donut({ donutData }) {
     chart.paddingRight = 60;
     chart.paddingTop = 15;
     chart.numberFormatter.numberFormat = "#. mins";
-
 
     let subtitle = chart.titles.create();
     subtitle.text = "Blocked vs. Non-Blocked Sites";
@@ -75,26 +74,26 @@ export default function Donut({ donutData }) {
   
 console.log('donutData :>> ', donutData);  
  
-const checkData = () => {
-  if (donutData.length === 0) {
-    setError(true);
-  } else {
-    setError(false);
-  }
-  console.log("hi")
-};
-// checkData();
+// const checkData = () => {
+//   if (donutData.length === 0) {
+//     setError(true);
+//   } else {
+//     setError(false);
+//   }
+//   console.log("hi")
+// };
+// // checkData();
 
 
   return (
     <Card elevation={24} component={Wrapper} >
       <Chart id="donutChart">
-      {error && (
+      {/* {error && (
           <Alert severity="error">
             You do not have any site visits recorded. Please browse with the
             extension.
           </Alert>
-        )}
+        )} */}
       </Chart>
     </Card>
   );
