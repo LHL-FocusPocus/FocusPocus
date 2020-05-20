@@ -6,6 +6,8 @@ import styled from "styled-components";
 import { Route, Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
+
+
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -35,6 +37,7 @@ export default function Landing({ setDashboard }) {
         path="/register"
         render={() => <SignUp history={history} />}
       />
+ 
     </Container>
   );
 }
