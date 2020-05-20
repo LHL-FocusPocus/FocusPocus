@@ -46,6 +46,7 @@ const Img = styled.img`
   transform: translateY(-2em);
 `;
 
+  
 const LoginWrapper = styled.div`
   flex: 1;
   margin-right: 7%;
@@ -63,9 +64,9 @@ const PrivacyPolicy = styled.a`
   margin-top: 2%;
 `;
 
-export default function SignUp(props) {
+export default function SignUp({ history, setDashboard }) {
+
   const classes = useStyles();
-  const { history } = props;
 
   const [fields, handleFieldChange] = useFormFields({
     email: "",
@@ -86,10 +87,14 @@ export default function SignUp(props) {
 
     axios
       .post("/api/user/register", credentials)
-      .then(res => {
+      .then(() => {
+        setDashboard().then(() => {
+          console.log("Successful Registration");
+          history.push("/dashboard");
+        });
+        // res => {
         // console.log(res);
-        console.log("Successful login");
-        history.push("/dashboard");
+        // history.push("/dashboard");
       })
       .catch(e => {
         console.error(e);

@@ -60,7 +60,6 @@ const extractNameFromURL = function (url) {
   return name;
 };
 
-
 // Helper function to remove "www." if a host_name has it
 const remPrefix = function (host_name) {
   return host_name.split("www.").join("");

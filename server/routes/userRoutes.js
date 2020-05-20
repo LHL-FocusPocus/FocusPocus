@@ -21,14 +21,14 @@ module.exports = (db) => {
       .getUserWithEmail(email)
       .then((user) => {
         if (!user) {
-          return res.status(401).send("Login failed!");
+          return res.status(401).json("Login failed!");
         }
         if (bcrypt.compareSync(password, user.password)) {
           req.session.userId = user.id;
           console.log("req.session.userId", req.session.userId);
-          return res.status(200).send("Authenticated!");
+          return res.status(200).json("Authenticated!");
         } else {
-          return res.status(401).send("Login failed!");
+          return res.status(401).json("Login failed!");
         }
       })
       .catch((e) => res.json(e));
@@ -38,12 +38,12 @@ module.exports = (db) => {
     const userId = req.session.userId;
     if (userId) {
       req.session = null;
-      return res.status(200).send("Logout Successful");
+      return res.status(200).json("Logout Successful");
       // This return was giving a console error when trying to logout because the res.status was a 400 code
     } else {
       return res
         .status(409)
-        .send("Cannot logout a user that is not signed in.");
+        .json("Cannot logout a user that is not signed in.");
     }
   });
 
@@ -51,23 +51,27 @@ module.exports = (db) => {
     const { firstName, lastName, email, password } = req.body;
 
     if (!(firstName && lastName && email && password)) {
-      return res.status(400).send("You must fill in all the fields.");
+      return res.status(400).json("You must fill in all the fields.");
     }
     const encryptedPassword = bcrypt.hashSync(password, 12);
     dbHelper
       .addUser(firstName, lastName, email, encryptedPassword)
       .then((user) => {
         if (!user) {
-          return res.status(400).send("There was an issue registering.");
+          return res.status(400).json("There was an issue registering.");
         }
-        console.log("successful registration");
         req.session.userId = user.id;
-        res.status(200).send("User created!");
+        return user.id;
       })
-      .then((user) => {
-        dbHelper.getUserWithID(req.session.userId).then((user) => {});
+      .then((userId) => {
+        dbHelper
+          // console.log("successful user set");
+          .addQuotaForUser(userId, "1.5 hours")
+          .then(() => res.status(200).json("User created!"))
+          .catch((err) => res.status(500).json("Invalid Request", err));
+        // console.log("successful quota set");
       })
-      .catch((e) => console.error(e));
+      .catch((err) => res.status(500).json("Invalid Request", err));
   });
 
   /**
@@ -78,7 +82,7 @@ module.exports = (db) => {
     const userId = req.session.userId;
 
     if (!userId) {
-      return res.status(403).send("You must be signed in!");
+      return res.status(403).json("You must be signed in!");
     }
     const { quotaStart, quotaIncrement, quotaTarget } = req.body;
     if (
@@ -164,7 +168,7 @@ module.exports = (db) => {
   router.get("/blacklists", (req, res) => {
     const userId = req.session.userId;
     if (!userId) {
-      return res.status(403).send("A user must be signed in!");
+      return res.status(403).json("A user must be signed in!");
     }
     dbHelper
       .getBlacklistedSitesWithUserID(userId)
@@ -177,7 +181,7 @@ module.exports = (db) => {
     const userId = req.session.userId;
 
     if (!userId) {
-      return res.status(403).send("A user must be signed in!");
+      return res.status(403).json("A user must be signed in!");
     }
 
     const { host_name } = req.body;
