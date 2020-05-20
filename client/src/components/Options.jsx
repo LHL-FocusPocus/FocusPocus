@@ -22,7 +22,7 @@ const Container = styled(Box)`
 const QuotaAndFriends = styled(Box)`
   display: flex;
   justify-content: flex-start;
-  flex-direction: column;  
+  flex-direction: column;
   align-items: center;
   flex: 1;
 `;
@@ -72,8 +72,8 @@ export default function Options({
   return (
     <DndProvider backend={Backend}>
       <CardContext.Provider value={{ addTopSiteToUserBlacklist }}>
+        <Navbar user={user} quota={quota_today} />
         <ThemeProvider theme={theme}>
-          <Navbar user={user} quota={quota_today} />
           <Container bgcolor="background.paper">
             <QuotaAndFriends>
               {quota_today && (

@@ -34,7 +34,6 @@ import styled from "styled-components";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import { useDrop } from "react-dnd";
-import isUrl from "../helpers/isUrl";
 
 const Container = styled(Box)`
   min-height: 86vh;
@@ -45,16 +44,17 @@ const Container = styled(Box)`
 `;
 
 const AddNew = styled(Card)`
-  max-width: 345;
   text-align: center;
+  width: 100%;
 `;
 
 const Background = styled(CardActionArea)`
   background-color: rgba(71, 65, 87, 0.055);
+  width: 100%;
 `;
 
 const Add = styled(Fab)`
-  margin: 5% 44%;
+  margin: 5% 20%;
 `;
 
 const Form = styled.form`
@@ -93,6 +93,9 @@ const useStyles = makeStyles(theme => ({
     border: "3x solid transparent",
     borderImageSlice: 1,
   },
+  fullwidth: { width: "100%" },
+  inputwidth: { width: "55%", fontSize: 25 },
+
 }));
 
 export default function Blacklisted({
@@ -116,7 +119,11 @@ export default function Blacklisted({
   const handleSubmit = event => {
     event.preventDefault();
 
-    if (!isUrl(fields.host_name)) return setError(true);
+    try {
+      new URL(fields.host_name);
+    } catch {
+      return setError(true);
+    }
 
     setError(false);
 
@@ -124,8 +131,6 @@ export default function Blacklisted({
 
     addBlacklistedSite(withoutProtocol);
   };
-
-  // console.log("====> blacklisted disabled blacklisted site", disableBlacklistedSite);
 
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.CARD,
@@ -166,10 +171,14 @@ export default function Blacklisted({
         </Background>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <FormControl>
-              <Form onSubmit={e => handleSubmit(e)}>
+            <FormControl className={classes.fullwidth}>
+              <Form
+                className={classes.fullwidth}
+                onSubmit={e => handleSubmit(e)}
+              >
                 <InputLabel htmlFor="New Website" />
                 <Input
+                  className={classes.inputwidth}
                   error={error}
                   helperText={error ? "Must be a valid URL" : "URL"}
                   required
