@@ -22,8 +22,8 @@ const Container = styled(Box)`
 const QuotaAndFriends = styled(Box)`
   display: flex;
   justify-content: flex-start;
-  flex-direction: column;
-  flex: 1;
+  flex-direction: column;  
+  align-items: center;
 `;
 
 const Slider = styled(QuotaSlider)`

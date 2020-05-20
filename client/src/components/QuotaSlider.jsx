@@ -13,11 +13,11 @@ import InfoIcon from "@material-ui/icons/Info";
 import Popover from "@material-ui/core/Popover";
 import { Alert, AlertTitle } from "@material-ui/lab";
 
-const SliderDiv = styled.div`
-  flex: 1;
+const SliderDiv = styled.div`  
   display: flex;
   justify-content: center;
   margin-top: 2.5em;
+  margin-bottom: 2em;
 `;
 
 const SliderComponent = styled.div`

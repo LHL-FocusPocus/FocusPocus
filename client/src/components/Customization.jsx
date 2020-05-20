@@ -33,7 +33,8 @@ const useStyles = makeStyles(theme => ({
 const FormContainer = styled(Box)`
   display: flex;
   flex-direction: column;
-  flex: 1;
+  width: 50%;  
+  margin: auto;
 `;
 
 const Wrapper = styled(Box)`
@@ -162,8 +163,8 @@ export default function Customization({ userOptions }) {
             Set Custom URLs
           </CustomizeButton>
         </FormContainer>
-        <ButtonContainer>
-          {/* <PersonToCustomize required className={classes.formControl}>
+        {/*<ButtonContainer>
+           <PersonToCustomize required className={classes.formControl}>
             <InputLabel htmlFor="age-native-required">Age</InputLabel>
             <Select
               native
@@ -181,8 +182,8 @@ export default function Customization({ userOptions }) {
               <option value={30}>Thirty</option>
             </Select>
             <FormHelperText>Required</FormHelperText>
-          </PersonToCustomize> */}
-        </ButtonContainer>
+          </PersonToCustomize> 
+        </ButtonContainer>*/}
       </Wrapper>
     </form>
   );
