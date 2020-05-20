@@ -1,12 +1,9 @@
 import React from "react";
+import styled from "styled-components";
+import { useHistory, Route } from "react-router-dom";
 import SignUp from "./SignUp";
 import Login from "./Login";
 import LogoText from "./LogoText";
-import styled from "styled-components";
-import { Route, Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-
-
 
 const Container = styled.div`
   display: flex;
@@ -26,7 +23,7 @@ export default function Landing({ setDashboard }) {
 
   return (
     <Container>
-        <LogoText />
+      <LogoText />
       <Route
         exact
         path={["/login", "/logout"]}
@@ -37,7 +34,6 @@ export default function Landing({ setDashboard }) {
         path="/register"
         render={() => <SignUp setDashboard={setDashboard} history={history} />}
       />
- 
     </Container>
   );
 }

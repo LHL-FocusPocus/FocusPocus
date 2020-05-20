@@ -1,27 +1,26 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
-import List from "@material-ui/core/List";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import { Route, Link } from "react-router-dom";
-import { Divider, IconButton } from "@material-ui/core";
-
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import {
+  Divider,
+  Drawer,
+  Button,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Avatar,
+  Box,
+} from "@material-ui/core";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
-import styled from "styled-components";
-import Routes from "../routes";
-import axios from "axios";
+import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 import { useHistory } from "react-router-dom";
 import humanizeDuration from "humanize-duration";
 import formatNavbarText from "../helpers/formatNavbarText";
-import Avatar from "@material-ui/core/Avatar";
-import Box from "@material-ui/core/Box";
-import MenuOpenIcon from "@material-ui/icons/MenuOpen";
+import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -151,8 +150,6 @@ export default function Navbar({ user, quota, setDashboard }) {
     axios
       .post("/api/user/logout")
       .then(res => {
-        // console.log(res);
-        console.log("Successful Logout");
         setDashboard();
         history.push("/logout");
       })
@@ -215,23 +212,21 @@ export default function Navbar({ user, quota, setDashboard }) {
 
   return (
     <div>
-      <>
-        <div>
-          <Button
-            className={classes.button}
-            onClick={toggleDrawer("FocusPocus", true)}
-          >
-            <DrawerIcon />
-          </Button>
-          <NavbarLogo src="/imgs/logo3.png" alt="Menu Logo" />
-        </div>
-        <Drawer
-          open={state["FocusPocus"]}
-          onClose={toggleDrawer("FocusPocus", false)}
+      <div>
+        <Button
+          className={classes.button}
+          onClick={toggleDrawer("FocusPocus", true)}
         >
-          {list("FocusPocus")}
-        </Drawer>
-      </>
+          <DrawerIcon />
+        </Button>
+        <NavbarLogo src="/imgs/logo3.png" alt="Menu Logo" />
+      </div>
+      <Drawer
+        open={state["FocusPocus"]}
+        onClose={toggleDrawer("FocusPocus", false)}
+      >
+        {list("FocusPocus")}
+      </Drawer>
     </div>
   );
 }

@@ -1,12 +1,14 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
+import {
+  Container,
+  Typography,
+  TextField,
+  Link,
+  CssBaseline,
+  Button,
+  Grid,
+} from "@material-ui/core";
 import useFormFields from "../hooks/useFormFields";
 import styled from "styled-components";
 import axios from "axios";
@@ -119,7 +121,6 @@ export default function Login({ setDashboard, history }) {
                   id="email"
                   value={fields.email}
                   label="Email Address"
-                  // name="email"
                   autoComplete="email"
                   onChange={handleFieldChange}
                 />
@@ -129,7 +130,6 @@ export default function Login({ setDashboard, history }) {
                   variant="outlined"
                   required
                   fullWidth
-                  // name="password"
                   label="Password"
                   value={fields.password}
                   type="password"

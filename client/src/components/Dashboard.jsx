@@ -1,15 +1,13 @@
 import React from "react";
-import Navbar from "./Navbar";
 import styled from "styled-components";
-import DailyQuotaUsed from "./Graphs/DailyQuotaUsed";
 import { Paper, Box } from "@material-ui/core";
 import LineGraph from "./Graphs/LineGraph";
+import DailyQuotaUsed from "./Graphs/DailyQuotaUsed";
+import Navbar from "./Navbar";
 import Donut from "./Graphs/Donut";
 import Radial from "./Graphs/Radial";
 import Leaderboard from "./Graphs/Leaderboard";
 import Shameboard from "./Graphs/Shameboard";
-import loading from "../helpers/loading";
-import { useHistory } from "react-router-dom";
 
 const Container = styled(Box)`
   padding: 5em;
@@ -37,26 +35,18 @@ export default function Dashboard({ dashboardData, setDashboard }) {
     quota_today,
   } = dashboardData;
 
-  // if (!dashboardData || quota_today == undefined) {
-  //   return null;
-  //   // return a spinner component
-  // }
-
   return (
     <div>
       <Navbar user={user} quota={quota_today} setDashboard={setDashboard} />
       <Container flexWrap="wrap" display="flex">
-        {quota_today && <DailyQuotaUsed quota={quota_today} />}
-        {lineGraph && <LineGraph lineData={lineGraph} />}
+        <DailyQuotaUsed quota={quota_today} />
+        <LineGraph lineData={lineGraph} />
         <Paper component={Wrapper} elevation={24}>
-          {leaderboard && <Leaderboard leaderboard={leaderboard} />}
-          {shameboard && <Shameboard shameboard={shameboard} />}
+          <Leaderboard leaderboard={leaderboard} />
+          <Shameboard shameboard={shameboard} />
         </Paper>
-
-        {donutGraph && <Donut donutData={donutGraph} />}
-        {radialGraph && <Radial radialData={radialGraph} />}
-
-        {!quota_today && <h1>loading... (will be replaced by spinner)</h1>}
+        <Donut donutData={donutGraph} />
+        <Radial radialData={radialGraph} />
       </Container>
     </div>
   );

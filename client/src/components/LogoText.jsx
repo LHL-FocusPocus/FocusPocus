@@ -27,7 +27,6 @@ const Tagline = styled.div`
 const Logo = styled.img`
   height: 50%;
   transform: translateY(30px);
-  ${"" /* vertical-align: center; */}
   z-index: 5;
 `;
 
