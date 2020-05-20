@@ -2,9 +2,16 @@
  * This script block is injected into the page to replace images.
  */
 {
-  let newImgGlobal =
+  let newImageGlobal =
     "https://memegen.link/bad/browsing_this_site_is_bad/and_you_should_feel_bad.jpg";
 
+  // Listen for message from background.js to set the img url
+  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "setImageUrl") {
+      console.log("Got message from background");
+      newImageGlobal = request.imageUrl;
+    }
+  });
   /**
    * Replaces src and similar attributes in img elements.
    */
@@ -29,17 +36,14 @@
    * @param {String} newImg An image url to be used as the replacement
    * @param {Number} interval Milliseconds between each image getting replaced
    */
-  const replaceAllImagesOnPage = function (
-    newImg = newImgGlobal,
-    interval = 300
-  ) {
+  const replaceAllImagesOnPage = function (interval = 300) {
     // Replace images specified by img tags
-    replaceElementsOnPage("img", newImg, replaceImgTagSrc, interval);
+    replaceElementsOnPage("img", newImageGlobal, replaceImgTagSrc, interval);
 
     // Replace images specified by background-image css
     replaceElementsOnPage(
       '[style*="background-image"]',
-      newImg,
+      newImageGlobal,
       replaceBgImgStyleUrl,
       interval
     );

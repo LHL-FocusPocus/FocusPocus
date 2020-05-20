@@ -10,10 +10,8 @@ const Wrapper = styled(Box)`
   display: flex;
   items-align: center;
   justify-content: center;
-  margin-bottom: 3em;  
-  margin-left: 3em;  
-
-
+  margin-bottom: 3em;
+  margin-left: 3em;
 
   @media (max-width: 1300px) {
     flex: 1 100%;
@@ -21,22 +19,20 @@ const Wrapper = styled(Box)`
   }
 `;
 
-
 const Card = styled(Paper)`
   width: 20vw;
   height: 50vh;
-
-`
+`;
 
 const Chart = styled.div`
   width: 100%;
   height: 80%;
-${'' /*   border: 1px solid black;
+  ${"" /*   border: 1px solid black;
   border-radius: 0.9em; */}
   margin-left: 3.5em;
   margin-top: 2.5em;
   transform: translateY(5px);
-  ${'' /* padding: 1.7em; */}
+  ${"" /* padding: 1.7em; */}
 `;
 
 export default function LineGraph({ lineData }) {

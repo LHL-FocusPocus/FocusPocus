@@ -3,10 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
-
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Route, Link } from "react-router-dom";
+import { Divider, IconButton } from "@material-ui/core";
 
-import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -20,30 +20,53 @@ import { useHistory } from "react-router-dom";
 import humanizeDuration from "humanize-duration";
 import formatNavbarText from "../helpers/formatNavbarText";
 import Avatar from "@material-ui/core/Avatar";
+import Box from "@material-ui/core/Box";
+import MenuOpenIcon from "@material-ui/icons/MenuOpen";
+
+const useStyles = makeStyles(theme => ({
+  button: {
+    minWidth: "400",
+    transform: "translateY(-65%) translateX(73%)",
+    borderRadius: "100%"
+  },
+}));
 
 const Icon = styled(Avatar)`
-  width: 50%;
+  width: 35%;
   height: auto;
   margin: auto;
+  margin-top: 1.5em;
+  margin-bottom: 0.6em;
+  box-shadow: 5px 19px 38px rgba(0, 0, 0, 0.3), 0 15px 38px rgba(0, 0, 0, 0.22);
 `;
 
-const ClickableLogo = styled.img`
-  width: 25%;
-  transform: translateX(340px) translateY(-5%);
-  ${"" /* transform: translateX(133%) translateY(-5%); */}
+const DrawerIcon = styled(MenuOpenIcon)`
+  width: 35px;
+  height: 40px;
+`;
 
-  padding: 0.3em
+const NavbarLogo = styled.img`
+  width: 260px;
+  margin-left: 40%;
+  margin-top: 1%;
 `;
 
 const Greeting = styled.div`
   text-align: center;
-  padding: 2em;
-  font-size: 1.2em;
+  padding: 1.5em;
+  font-size: 1.5em;
 `;
 
 const Logo = styled.img`
   width: 70%;
-  margin: auto;
+  margin: 2em auto;
+`;
+
+const LogoContainer = styled(Box)`
+  background-image: url("imgs/landing-bg.png");
+  background-size: cover;
+  text-align: center;
+  box-shadow: 0 8px 20px -6px slategrey;
 `;
 
 const Message = styled.div`
@@ -62,11 +85,6 @@ const QuotaMessage = styled.div`
 const QuotaTime = styled.div`
   font-size: 1.1em;
   padding: 0.5em;
-`;
-
-// TODO: Push logout button to bottom of drawer -> can't get it to work without forcing it with margin (but irrelevant on full screen mode)
-const Logout = styled(List)`
-  ${"" /* margin-top: auto; */}
 `;
 
 const Container = styled.div`
@@ -89,6 +107,8 @@ const Container = styled.div`
 `;
 
 export default function Navbar({ user, quota }) {
+  const classes = useStyles();
+
   const { first_name, picture } = user;
   const humanizeDurationOptions = {
     units: ["h", "m"],
@@ -147,16 +167,20 @@ export default function Navbar({ user, quota }) {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <Logo src="imgs/logo3.png" />
+      <LogoContainer>
+        <Logo src="imgs/logo3.png" />
+      </LogoContainer>
       <List>
         <Icon src={picture} />
       </List>
-      <Greeting>Welcome, {first_name}!</Greeting>
+      <Greeting>
+        Welcome, <strong>{first_name}</strong>!
+      </Greeting>
       <Message>
         {formatNavbarText(quota.used.minutes, quota.allotment.minutes)}
       </Message>
       <QuotaMessage>
-        Today's Usage:
+        <strong>Today's Usage</strong>
         <QuotaTime>{used_quota}</QuotaTime>
         of
         <QuotaTime>{allotment}</QuotaTime>
@@ -178,25 +202,29 @@ export default function Navbar({ user, quota }) {
         ))}
       </List>
       <Divider />
-      {/* <Logout/> */}
-      <Logout onClick={handleLogout}>
+      <List onClick={handleLogout}>
         <ListItem button id="logout">
           <ListItemIcon>
             <PowerSettingsNewIcon />
           </ListItemIcon>
           <ListItemText primary="Log Out" />
         </ListItem>
-      </Logout>
+      </List>
     </Container>
   );
 
   return (
     <div>
       <>
-        <Button style={{ backgroundColor: 'transparent' }}onClick={toggleDrawer("FocusPocus", true)}>
-        
-          <ClickableLogo src="/imgs/logo3.png" alt="Menu Logo" />
-        </Button>
+        <div>
+          <Button
+            className={classes.button}
+            onClick={toggleDrawer("FocusPocus", true)}
+          >
+            <DrawerIcon />
+          </Button>
+          <NavbarLogo src="/imgs/logo3.png" alt="Menu Logo" />
+        </div>
         <Drawer
           open={state["FocusPocus"]}
           onClose={toggleDrawer("FocusPocus", false)}

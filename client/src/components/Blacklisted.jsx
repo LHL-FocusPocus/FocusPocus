@@ -37,24 +37,24 @@ import { useDrop } from "react-dnd";
 
 const Container = styled(Box)`
   min-height: 86vh;
-  padding: 0 5%;
+  padding: 0 1% 0 2%;
   width: 25%;
   padding-top: 20px;
-  flex: 1
-  ${"" /* transform: translateX(22%) */}
+  flex: 1 ${"" /* transform: translateX(22%) */};
 `;
 
 const AddNew = styled(Card)`
-  max-width: 345;
   text-align: center;
+  width: 100%;
 `;
 
 const Background = styled(CardActionArea)`
   background-color: rgba(71, 65, 87, 0.055);
+  width: 100%;
 `;
 
 const Add = styled(Fab)`
-  margin: 5% 44%;
+  margin: 5% 20%;
 `;
 
 const Form = styled.form`
@@ -88,13 +88,14 @@ const useStyles = makeStyles(theme => ({
     boxShadow: "5px 5px 15px black",
     //filter: "blur(5px)",
     transform: "scaleY(1.02) scaleX(1.02)",
-
   },
   regular: {
     border: "3x solid transparent",
     borderImageSlice: 1,
+  },
+  fullwidth: { width: "100%" },
+  inputwidth: { width: "55%", fontSize: 25 },
 
-    }
 }));
 
 export default function Blacklisted({
@@ -105,6 +106,7 @@ export default function Blacklisted({
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const { addTopSiteToUserBlacklist } = useContext(CardContext);
+  const [error, setError] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -117,13 +119,18 @@ export default function Blacklisted({
   const handleSubmit = event => {
     event.preventDefault();
 
+    try {
+      new URL(fields.host_name);
+    } catch {
+      return setError(true);
+    }
+
+    setError(false);
+
     const withoutProtocol = removeProtocol(fields.host_name);
 
     addBlacklistedSite(withoutProtocol);
   };
-
-  // console.log("====> blacklisted disabled blacklisted site", disableBlacklistedSite);
-
 
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.CARD,
@@ -147,10 +154,7 @@ export default function Blacklisted({
   });
 
   return (
-    <Container 
-      ref={drop}
-      style
-    >
+    <Container ref={drop} style>
       <Title>Blacklist</Title>
       <AddNew>
         <Background>
@@ -167,14 +171,19 @@ export default function Blacklisted({
         </Background>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <FormControl>
-              <Form onSubmit={e => handleSubmit(e)}>
+            <FormControl className={classes.fullwidth}>
+              <Form
+                className={classes.fullwidth}
+                onSubmit={e => handleSubmit(e)}
+              >
                 <InputLabel htmlFor="New Website" />
                 <Input
+                  className={classes.inputwidth}
+                  error={error}
+                  helperText={error ? "Must be a valid URL" : "URL"}
                   required
                   id="host_name"
                   value={fields.host_name}
-                  // type="url"
                   onChange={handleFieldChange}
                   startAdornment={
                     <InputAdornment position="start">
@@ -195,9 +204,7 @@ export default function Blacklisted({
           </CardContent>
         </Collapse>
       </AddNew>
-      <div className={isOver? classes.border : "regular"}>
-        {blacklistList}
-      </div>
+      <div className={isOver ? classes.border : "regular"}>{blacklistList}</div>
     </Container>
   );
 }
