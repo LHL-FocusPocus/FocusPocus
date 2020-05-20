@@ -27,7 +27,9 @@ const imgArray = [
   "https://memegen.link/bad/browsing_this_site_is_bad/and_you_should_feel_bad.jpg",
   "https://memegen.link/doge/so_browseful_wow/much_procrastinate.jpg",
 ];
-
+let imageUrl;
+let videoUrl;
+let noun;
 let timerInSeconds = 0;
 
 // Increment timer and store current value inside chrome to be used by UI
@@ -90,17 +92,19 @@ function parseAndStoreUserData(userData) {
   } else {
     isOverQuota = false;
   }
-  console.log("Over quota?", isOverQuota);
+  // Extract customized urls
+  if (userData.user.options) {
+    ({ imageUrl, videoUrl, noun } = userData.user.options);
+  }
+  console.log(imageUrl, videoUrl, noun);
 
   // Map blacklists into array of domain names
   blacklistDomains = blacklistObj.map(blacklist => blacklist.hostname);
-  console.log(blacklistDomains);
 }
 
 // Listens for message from UI when "add to blacklist" is clicked
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "recheck") {
-    console.log("rechecking");
     getUserData();
   }
 });
@@ -215,6 +219,20 @@ function changePictures(
       chrome.tabs.executeScript(tabId, { file: "changePictures.js" });
       chrome.tabs.executeScript(tabId, { file: "changeVideos.js" });
       chrome.tabs.executeScript(tabId, { file: "changeText.js" });
+
+      console.log(imageUrl);
+      // Send message to above scripts that change their urls
+      setTimeout(() => {
+        if (imageUrl) {
+          chrome.tabs.sendMessage(tabId, { action: "setImageUrl", imageUrl });
+        }
+        if (videoUrl) {
+          chrome.tabs.sendMessage(tabId, { action: "setVideoUrl", videoUrl });
+        }
+        if (noun) {
+          chrome.tabs.sendMessage(tabId, { action: "setNoun", noun });
+        }
+      }, 500);
     }
   });
 }

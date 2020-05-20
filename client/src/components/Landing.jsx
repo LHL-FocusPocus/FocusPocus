@@ -27,7 +27,7 @@ export default function Landing({ setDashboard }) {
         <LogoText />
       <Route
         exact
-        path="/"
+        path={["/login", "/logout"]}
         render={() => <Login setDashboard={setDashboard} history={history} />}
       />
       <Route
