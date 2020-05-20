@@ -32,7 +32,7 @@ function App() {
   const theme = createMuiTheme({
     typography: {
       fontFamily: "Amatic SC, sans-serif",
-      fontSize: "25",
+      fontSize: 25,
       fontWeight: "700",
     },
   });

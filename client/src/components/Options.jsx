@@ -8,16 +8,28 @@ import TopBlacklisted from "./TopBlacklisted";
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import Customization from "./Customization";
 
 export const CardContext = createContext({});
 
 const Container = styled(Box)`
-  padding: 5em;
+  padding: 2em;
   padding-top: 3em;
   display: flex;
   justify-content: space-around;
 `;
 
+const QuotaAndFriends = styled(Box)`
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;  
+  align-items: center;
+  flex: 1;
+`;
+
+const Slider = styled(QuotaSlider)`
+  ${"" /* transform: translateX(200px); */}
+`;
 const SliderDiv = styled.div`
   flex: 1;
   display: flex;
@@ -30,7 +42,7 @@ const SliderDiv = styled.div`
 const theme = createMuiTheme({
   typography: {
     fontFamily: "Raleway, sans-serif",
-    fontSize: "15",
+    fontSize: 15,
   },
 });
 
@@ -41,9 +53,17 @@ export default function Options({
   disableBlacklistedSite,
   changeQuota,
   dashboardData,
-  // quota_today,
 }) {
   const { quota_today, topBlacklisted, user } = dashboardData;
+
+  console.log("dashboardData :>> ", dashboardData);
+
+  // if (!dashboardData || !user || quota_today == undefined) {
+  //   return null;
+  //   // return a spinner component
+  // }
+
+  // console.log("====> Options disabled blacklisted site", disableBlacklistedSite);
 
   const addTopSiteToUserBlacklist = hostname => {
     addBlacklistedSite(hostname);
@@ -52,16 +72,19 @@ export default function Options({
   return (
     <DndProvider backend={Backend}>
       <CardContext.Provider value={{ addTopSiteToUserBlacklist }}>
-        <Navbar user={user} quota={quota_today} />
         <ThemeProvider theme={theme}>
+          <Navbar user={user} quota={quota_today} />
           <Container bgcolor="background.paper">
-            {quota_today && (
-              <QuotaSlider
-                options={user.options}
-                quota={quota_today}
-                changeQuota={changeQuota}
-              />
-            )}
+            <QuotaAndFriends>
+              {quota_today && (
+                <Slider
+                  quota={quota_today}
+                  changeQuota={changeQuota}
+                  options={user.options}
+                />
+              )}
+              <Customization userOptions={user.options} />
+            </QuotaAndFriends>
             <Blacklisted
               addBlacklistedSite={addBlacklistedSite}
               disableBlacklistedSite={disableBlacklistedSite}
