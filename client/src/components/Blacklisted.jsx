@@ -40,21 +40,21 @@ const Container = styled(Box)`
   padding: 0 5%;
   width: 25%;
   padding-top: 20px;
-  flex: 1
-  ${"" /* transform: translateX(22%) */}
+  flex: 1 ${"" /* transform: translateX(22%) */};
 `;
 
 const AddNew = styled(Card)`
-  max-width: 345;
   text-align: center;
+  width: 100%;
 `;
 
 const Background = styled(CardActionArea)`
   background-color: rgba(71, 65, 87, 0.055);
+  width: 100%;
 `;
 
 const Add = styled(Fab)`
-  margin: 5% 44%;
+  margin: 5% 20%;
 `;
 
 const Form = styled.form`
@@ -88,13 +88,13 @@ const useStyles = makeStyles(theme => ({
     boxShadow: "5px 5px 15px black",
     //filter: "blur(5px)",
     transform: "scaleY(1.02) scaleX(1.02)",
-
   },
   regular: {
     border: "3x solid transparent",
     borderImageSlice: 1,
-
-    }
+  },
+  fullwidth: { width: "100%" },
+  inputwidth: { width: "80%" },
 }));
 
 export default function Blacklisted({
@@ -124,7 +124,6 @@ export default function Blacklisted({
 
   // console.log("====> blacklisted disabled blacklisted site", disableBlacklistedSite);
 
-
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.CARD,
     drop: (item, monitor) => addTopSiteToUserBlacklist(item.hostname),
@@ -147,10 +146,7 @@ export default function Blacklisted({
   });
 
   return (
-    <Container 
-      ref={drop}
-      style
-    >
+    <Container ref={drop} style>
       <Title>Blacklist</Title>
       <AddNew>
         <Background>
@@ -167,10 +163,14 @@ export default function Blacklisted({
         </Background>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <FormControl>
-              <Form onSubmit={e => handleSubmit(e)}>
+            <FormControl className={classes.fullwidth}>
+              <Form
+                className={classes.fullwidth}
+                onSubmit={e => handleSubmit(e)}
+              >
                 <InputLabel htmlFor="New Website" />
                 <Input
+                  className={classes.inputwidth}
                   required
                   id="host_name"
                   value={fields.host_name}
@@ -195,9 +195,7 @@ export default function Blacklisted({
           </CardContent>
         </Collapse>
       </AddNew>
-      <div className={isOver? classes.border : "regular"}>
-        {blacklistList}
-      </div>
+      <div className={isOver ? classes.border : "regular"}>{blacklistList}</div>
     </Container>
   );
 }
