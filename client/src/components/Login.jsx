@@ -13,9 +13,6 @@ import axios from "axios";
 
 
 const useStyles = makeStyles(theme => ({
-  main: {
-    // margin: 0,
-  },
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
