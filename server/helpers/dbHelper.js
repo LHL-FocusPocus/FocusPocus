@@ -145,7 +145,7 @@ module.exports = (db) => {
     date_valid_until
   ) {
     const queryParams = [user_id, time_allotment];
-    let queryString = `INSERT INTO quotas `;
+    const queryString = `INSERT INTO quotas `;
 
     if (!date_valid_from && !date_valid_until) {
       queryString += `(user_id, time_allotment) VALUES ($1, $2) RETURNING *;`;
@@ -382,13 +382,14 @@ module.exports = (db) => {
     return db
       .query(
         `
-      SELECT websites.name AS name, COUNT(browse_times.website_id)::integer AS hits
-      FROM websites JOIN blacklists ON websites.id = website_id
-      JOIN browse_times ON browse_times.website_id = websites.id
-      WHERE blacklists.user_id = $1
-      AND datetime_start >= CURRENT_DATE - INTERVAL '7 days'
-      AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
-      GROUP BY name;
+        SELECT websites.name AS name, COUNT(browse_times.website_id)::integer AS hits
+        FROM websites
+        JOIN blacklists ON websites.id = website_id
+        JOIN browse_times ON browse_times.website_id = websites.id AND blacklists.website_id = browse_times.website_id
+        WHERE blacklists.user_id = $1
+        AND datetime_start >= CURRENT_DATE - INTERVAL '7 days'
+        AND datetime_start < CURRENT_DATE + INTERVAL '1 day'
+        GROUP BY name;
       `,
         [user_id]
       )
