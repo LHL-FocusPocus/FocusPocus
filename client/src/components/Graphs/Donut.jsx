@@ -45,6 +45,8 @@ export default function Donut({ donutData }) {
     chart.scale = 1.1;
     chart.paddingRight = 60;
     chart.paddingTop = 15;
+    chart.numberFormatter.numberFormat = "#.";
+
 
     let subtitle = chart.titles.create();
     subtitle.text = "Blocked vs. Non-Blocked Sites";
