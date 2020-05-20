@@ -90,63 +90,74 @@ module.exports = (db) => {
     ) {
       return res.status(400).json("Invalid request");
     }
-    const optionsObj = { quotaStart, quotaIncrement, quotaTarget };
-    // User wants a static quota
-    if (quotaIncrement === 0) {
-      dbHelper
-        .addStaticQuota(userId, `${quotaStart} minutes`)
-        .then(() => {
-          // Update the user's option to reflect their choice
-          return dbHelper.updateUserOptions(userId, optionsObj);
-        })
-        .then((user) => res.status(201).json(user))
-        .catch((e) => {
-          console.error(e);
-          return res.status(500).json(e);
-        });
-    } else if (quotaTarget >= quotaStart) {
-      return res
-        .status(400)
-        .json("Target quota must be lower than starting quota!");
-    } else {
-      // Handle adding multiple quotas
-      let i = 0;
-      for (
-        let quota = quotaStart;
-        quota > quotaTarget;
-        quota -= quotaIncrement
-      ) {
-        dbHelper
-          .addQuotaWithDate(
-            userId,
-            `${quota} minutes`,
-            `CURRENT_DATE + INTERVAL '${i} day'`,
-            `CURRENT_DATE + INTERVAL '${i + 1} day'`
-          )
-          .catch((err) => {
-            console.log(err);
-            return res.status(500).json(err);
-          });
-        i++;
-      }
-      // Add a final query with infinity datetime_start
-      dbHelper
-        .addQuotaWithDate(
-          userId,
-          `${quotaTarget} minutes`,
-          `CURRENT_DATE + INTERVAL '${i} day'`,
-          `'INFINITY'`
-        )
-        .then(() => {
-          // Update the user's option to reflect their choice
-          return dbHelper.updateUserOptions(userId, optionsObj);
-        })
-        .then((user) => res.status(201).json(user))
-        .catch((err) => {
-          console.log(err);
-          return res.status(500).json(err);
-        });
-    }
+
+    dbHelper
+      .getUserOptions(userId)
+      .then((options) => {
+        const optionsObj = {
+          ...options.options,
+          quotaStart,
+          quotaIncrement,
+          quotaTarget,
+        };
+        // User wants a static quota
+        if (quotaIncrement === 0) {
+          dbHelper
+            .addStaticQuota(userId, `${quotaStart} minutes`)
+            .then(() => {
+              // Update the user's option to reflect their choice
+              return dbHelper.updateUserOptions(userId, optionsObj);
+            })
+            .then((user) => res.status(201).json(user))
+            .catch((e) => {
+              console.error(e);
+              return res.status(500).json(e);
+            });
+        } else if (quotaTarget >= quotaStart) {
+          return res
+            .status(400)
+            .json("Target quota must be lower than starting quota!");
+        } else {
+          // Handle adding multiple quotas
+          let i = 0;
+          for (
+            let quota = quotaStart;
+            quota > quotaTarget;
+            quota -= quotaIncrement
+          ) {
+            dbHelper
+              .addQuotaWithDate(
+                userId,
+                `${quota} minutes`,
+                `CURRENT_DATE + INTERVAL '${i} day'`,
+                `CURRENT_DATE + INTERVAL '${i + 1} day'`
+              )
+              .catch((err) => {
+                console.log(err);
+                return res.status(500).json(err);
+              });
+            i++;
+          }
+          // Add a final query with infinity datetime_start
+          dbHelper
+            .addQuotaWithDate(
+              userId,
+              `${quotaTarget} minutes`,
+              `CURRENT_DATE + INTERVAL '${i} day'`,
+              `'INFINITY'`
+            )
+            .then(() => {
+              // Update the user's option to reflect their choice
+              return dbHelper.updateUserOptions(userId, optionsObj);
+            })
+            .then((user) => res.status(201).json(user))
+            .catch((err) => {
+              console.log(err);
+              return res.status(500).json(err);
+            });
+        }
+      })
+      .catch((err) => res.status(500).json(err));
   });
 
   // Retrieving a user's blacklisted sites
@@ -303,7 +314,7 @@ module.exports = (db) => {
         return dbHelper.updateUserOptions(userId, newOptions);
       })
       .then((newOptions) => {
-        console.log('newOptions :>> ', newOptions);
+        console.log("newOptions :>> ", newOptions);
         return res.status(200).json(newOptions);
       });
   });
