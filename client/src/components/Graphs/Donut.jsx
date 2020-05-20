@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
@@ -32,6 +32,8 @@ const Card = styled(Paper)`
 `;
 
 export default function Donut({ donutData }) {
+  // const [error, setError] = useState(false);
+
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
 
@@ -45,7 +47,7 @@ export default function Donut({ donutData }) {
     chart.scale = 1.1;
     chart.paddingRight = 60;
     chart.paddingTop = 15;
-    chart.numberFormatter.numberFormat = "#.";
+    chart.numberFormatter.numberFormat = "#. mins";
 
 
     let subtitle = chart.titles.create();
@@ -67,10 +69,20 @@ export default function Donut({ donutData }) {
     series.fontSize = 25;
     series.tooltip.fontSize = 30;
   }, [donutData]);
+  
+  
+console.log('donutData :>> ', donutData);  
+ 
+    // if (donutData.length === 0) {
+    //   return setError(true)
+    // }
+    
+    // setError(false)
+
 
   return (
-    <Card elevation={24} component={Wrapper}>
-      <Chart id="donutChart"></Chart>
+    <Card elevation={24} component={Wrapper} >
+      <Chart id="donutChart" ></Chart>
     </Card>
   );
 }
