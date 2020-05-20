@@ -93,7 +93,9 @@ function parseAndStoreUserData(userData) {
     isOverQuota = false;
   }
   // Extract customized urls
-  ({ imageUrl, videoUrl, noun } = userData.user.options);
+  if (userData.user.options) {
+    ({ imageUrl, videoUrl, noun } = userData.user.options);
+  }
   console.log(imageUrl, videoUrl, noun);
 
   // Map blacklists into array of domain names
