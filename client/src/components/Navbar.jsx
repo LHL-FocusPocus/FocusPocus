@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
-
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { Route, Link } from "react-router-dom";
 import { Divider, IconButton } from "@material-ui/core";
 
@@ -21,7 +21,15 @@ import humanizeDuration from "humanize-duration";
 import formatNavbarText from "../helpers/formatNavbarText";
 import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import MenuOpenIcon from "@material-ui/icons/MenuOpen";
+
+const useStyles = makeStyles(theme => ({
+  button: {
+    minWidth: "400",
+    transform: "translateY(-50%) translateX(50%)",
+    borderRadius: "100%"
+  },
+}));
 
 const Icon = styled(Avatar)`
   width: 50%;
@@ -31,14 +39,16 @@ const Icon = styled(Avatar)`
   box-shadow: 5px 19px 38px rgba(0, 0, 0, 0.3), 0 15px 38px rgba(0, 0, 0, 0.22);
 `;
 
-const OpenDrawer = styled(IconButton)`
-  width: 120px;
-  height: 100px;
+const DrawerIcon = styled(MenuOpenIcon)`
+  min-width: 50px;
+  min-height: 50px;
 `;
 
-{
-  /* <ClickableLogo src="/imgs/logo3.png" alt="Menu Logo" /> */
-}
+const NavbarLogo = styled.img`
+  width: 260px;
+  margin-left: 39.8%;
+  margin-top: 1%;
+`;
 
 const Greeting = styled.div`
   text-align: center;
@@ -95,6 +105,8 @@ const Container = styled.div`
 `;
 
 export default function Navbar({ user, quota }) {
+  const classes = useStyles();
+
   const { first_name, picture } = user;
   const humanizeDurationOptions = {
     units: ["h", "m"],
@@ -203,12 +215,15 @@ export default function Navbar({ user, quota }) {
   return (
     <div>
       <>
-        <OpenDrawer
-          style={{ backgroundColor: "transparent" }}
-          onClick={toggleDrawer("FocusPocus", true)}
-        >
-          <ChevronLeftIcon />
-        </OpenDrawer>
+        <div>
+          <Button
+            className={classes.button}
+            onClick={toggleDrawer("FocusPocus", true)}
+          >
+            <DrawerIcon />
+          </Button>
+          <NavbarLogo src="/imgs/logo3.png" alt="Menu Logo" />
+        </div>
         <Drawer
           open={state["FocusPocus"]}
           onClose={toggleDrawer("FocusPocus", false)}
