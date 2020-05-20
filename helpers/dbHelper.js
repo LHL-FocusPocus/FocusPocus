@@ -402,7 +402,9 @@ module.exports = (db) => {
     return db
       .query(
         `
-      UPDATE blacklists SET enabled = TRUE WHERE website_id = $1 AND user_id = $2;
+      UPDATE blacklists
+      SET enabled = TRUE
+      WHERE website_id = $1 AND user_id = $2;
     `,
         [website_id, user_id]
       )
@@ -416,7 +418,9 @@ module.exports = (db) => {
     return db
       .query(
         `
-      SELECT * FROM websites JOIN blacklists ON websites.id = website_id WHERE websites.id = $1 AND user_id = $2;
+      SELECT * FROM websites
+      JOIN blacklists ON websites.id = website_id
+      WHERE websites.id = $1 AND user_id = $2;
     `,
         [website_id, user_id]
       )
@@ -431,7 +435,8 @@ module.exports = (db) => {
     return db
       .query(
         `
-      SELECT * FROM blacklists JOIN WHERE website_id = $1 AND user_id = $2
+      SELECT * FROM blacklists
+      JOIN WHERE website_id = $1 AND user_id = $2
       RETURNING *;
     `,
         [website_id, user_id]
@@ -485,7 +490,12 @@ module.exports = (db) => {
     return db
       .query(
         `
-      SELECT websites.id, hostname, name, COUNT(website_id) AS number_blocked FROM blacklists JOIN websites ON website_id = websites.id GROUP BY name, websites.id, hostname ORDER BY number_blocked DESC LIMIT 8;
+      SELECT websites.id, hostname, name, COUNT(website_id) AS number_blocked
+      FROM blacklists
+      JOIN websites ON website_id = websites.id
+      GROUP BY name, websites.id, hostname
+      ORDER BY number_blocked
+      DESC LIMIT 8;
     `
       )
       .then((res) => {
@@ -494,7 +504,7 @@ module.exports = (db) => {
       .catch((e) => console.error(e));
   };
 
-  const updateUserOptionQuota = (userId, optionsObject) => {
+  const updateUserOptions = (userId, optionsObject) => {
     return db
       .query(
         `
@@ -511,6 +521,24 @@ module.exports = (db) => {
       })
       .catch((err) => err);
   };
+
+  const getUserOptions = (userId) => {
+    return db
+      .query(
+        `
+      SELECT options
+      FROM users
+      WHERE id = $1;
+      `,
+        [userId]
+      )
+      .then((res) => {
+        // if (res.rows.length === 0) return null;
+        return res.rows[0];
+      })
+      .catch((err) => err);
+  };
+
   return {
     getUserWithEmail,
     getUserWithID,
@@ -539,6 +567,7 @@ module.exports = (db) => {
     addStaticQuota,
     getTopBlacklistedSites,
     addQuotaWithDate,
-    updateUserOptionQuota,
+    updateUserOptions,
+    getUserOptions,
   };
 };
