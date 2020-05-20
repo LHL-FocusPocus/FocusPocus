@@ -5,8 +5,8 @@ import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 
 import { Route, Link } from "react-router-dom";
+import { Divider } from "@material-ui/core";
 
-import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -20,11 +20,13 @@ import { useHistory } from "react-router-dom";
 import humanizeDuration from "humanize-duration";
 import formatNavbarText from "../helpers/formatNavbarText";
 import Avatar from "@material-ui/core/Avatar";
+import Box from "@material-ui/core/Box";
 
 const Icon = styled(Avatar)`
   width: 50%;
   height: auto;
   margin: auto;
+  margin-top: 0.8em;
 `;
 
 const ClickableLogo = styled.img`
@@ -37,13 +39,19 @@ const ClickableLogo = styled.img`
 
 const Greeting = styled.div`
   text-align: center;
-  padding: 2em;
-  font-size: 1.2em;
+  padding: 1.5em;
+  font-size: 1.5em;
 `;
 
 const Logo = styled.img`
   width: 70%;
-  margin: auto;
+  margin: 2em auto;
+`;
+
+const LogoContainer = styled(Box)`
+  background-image: url("imgs/landing-bg.png");
+  background-size: cover;
+  text-align: center;
 `;
 
 const Message = styled.div`
@@ -62,11 +70,6 @@ const QuotaMessage = styled.div`
 const QuotaTime = styled.div`
   font-size: 1.1em;
   padding: 0.5em;
-`;
-
-// TODO: Push logout button to bottom of drawer -> can't get it to work without forcing it with margin (but irrelevant on full screen mode)
-const Logout = styled(List)`
-  ${"" /* margin-top: auto; */}
 `;
 
 const Container = styled.div`
@@ -147,16 +150,21 @@ export default function Navbar({ user, quota }) {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <Logo src="imgs/logo3.png" />
+      <LogoContainer>
+        <Logo src="imgs/logo3.png" />
+      </LogoContainer>
+      <Divider />
       <List>
         <Icon src={picture} />
       </List>
-      <Greeting>Welcome, {first_name}!</Greeting>
+      <Greeting>
+        Welcome, <strong>{first_name}</strong>!
+      </Greeting>
       <Message>
         {formatNavbarText(quota.used.minutes, quota.allotment.minutes)}
       </Message>
       <QuotaMessage>
-        Today's Usage:
+        <strong>Today's Usage:</strong>
         <QuotaTime>{used_quota}</QuotaTime>
         of
         <QuotaTime>{allotment}</QuotaTime>
@@ -178,23 +186,24 @@ export default function Navbar({ user, quota }) {
         ))}
       </List>
       <Divider />
-      {/* <Logout/> */}
-      <Logout onClick={handleLogout}>
+      <List onClick={handleLogout}>
         <ListItem button id="logout">
           <ListItemIcon>
             <PowerSettingsNewIcon />
           </ListItemIcon>
           <ListItemText primary="Log Out" />
         </ListItem>
-      </Logout>
+      </List>
     </Container>
   );
 
   return (
     <div>
       <>
-        <Button style={{ backgroundColor: 'transparent' }}onClick={toggleDrawer("FocusPocus", true)}>
-        
+        <Button
+          style={{ backgroundColor: "transparent" }}
+          onClick={toggleDrawer("FocusPocus", true)}
+        >
           <ClickableLogo src="/imgs/logo3.png" alt="Menu Logo" />
         </Button>
         <Drawer
