@@ -38,7 +38,7 @@ const Title = styled.h1`
 const FormContainer = styled(Box)`
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 65%;
   margin: auto;
 `;
 
