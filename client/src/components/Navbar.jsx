@@ -27,6 +27,7 @@ const Icon = styled(Avatar)`
   height: auto;
   margin: auto;
   margin-top: 0.8em;
+  box-shadow: 5px 19px 38px rgba(0, 0, 0, 0.3), 0 15px 38px rgba(0, 0, 0, 0.22);
 `;
 
 const ClickableLogo = styled.img`
@@ -164,7 +165,7 @@ export default function Navbar({ user, quota }) {
         {formatNavbarText(quota.used.minutes, quota.allotment.minutes)}
       </Message>
       <QuotaMessage>
-        <strong>Today's Usage:</strong>
+        <strong>Today's Usage</strong>
         <QuotaTime>{used_quota}</QuotaTime>
         of
         <QuotaTime>{allotment}</QuotaTime>
