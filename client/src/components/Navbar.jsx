@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 
 import { Route, Link } from "react-router-dom";
-import { Divider } from "@material-ui/core";
+import { Divider, IconButton } from "@material-ui/core";
 
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -21,6 +21,7 @@ import humanizeDuration from "humanize-duration";
 import formatNavbarText from "../helpers/formatNavbarText";
 import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
 const Icon = styled(Avatar)`
   width: 50%;
@@ -30,13 +31,14 @@ const Icon = styled(Avatar)`
   box-shadow: 5px 19px 38px rgba(0, 0, 0, 0.3), 0 15px 38px rgba(0, 0, 0, 0.22);
 `;
 
-const ClickableLogo = styled.img`
-  width: 25%;
-  transform: translateX(340px) translateY(-5%);
-  ${"" /* transform: translateX(133%) translateY(-5%); */}
-
-  padding: 0.3em
+const OpenDrawer = styled(IconButton)`
+  width: 120px;
+  height: 100px;
 `;
+
+{
+  /* <ClickableLogo src="/imgs/logo3.png" alt="Menu Logo" /> */
+}
 
 const Greeting = styled.div`
   text-align: center;
@@ -201,12 +203,12 @@ export default function Navbar({ user, quota }) {
   return (
     <div>
       <>
-        <Button
+        <OpenDrawer
           style={{ backgroundColor: "transparent" }}
           onClick={toggleDrawer("FocusPocus", true)}
         >
-          <ClickableLogo src="/imgs/logo3.png" alt="Menu Logo" />
-        </Button>
+          <ChevronLeftIcon />
+        </OpenDrawer>
         <Drawer
           open={state["FocusPocus"]}
           onClose={toggleDrawer("FocusPocus", false)}
