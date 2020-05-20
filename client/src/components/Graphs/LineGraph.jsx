@@ -46,6 +46,8 @@ export default function LineGraph({ lineData }) {
     chart.scrollbarX = new am4core.Scrollbar();
     chart.data = lineData;
     chart.scale = 0.93;
+    chart.numberFormatter.numberFormat = "#.";
+
 
     // Create axes
     const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
