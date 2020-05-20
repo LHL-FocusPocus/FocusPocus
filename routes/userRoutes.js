@@ -60,13 +60,13 @@ module.exports = (db) => {
         if (!user) {
           return res.status(400).send("There was an issue registering.");
         }
-        console.log("successful registration");
         req.session.userId = user.id;
+        // console.log("successful user set");
+        dbHelper.addQuotaForUser(user.id, "3 hours");
+        // console.log("successful quota set");
         return res.status(200).send("User created!");
       })
-      // .then((user) => {
-      //   dbHelper.getUserWithID(req.session.userId).then((user) => {});
-      // })
+
       .catch((e) => console.error(e));
   });
 
