@@ -19,7 +19,7 @@ const Container = styled(Box)`
   justify-content: space-around;
 `;
 
-const QuotaAndFriends = styled(Box)`
+const QuotaAndCustomization = styled(Box)`
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
@@ -75,7 +75,7 @@ export default function Options({
         <Navbar user={user} quota={quota_today} />
         <ThemeProvider theme={theme}>
           <Container bgcolor="background.paper">
-            <QuotaAndFriends>
+            <QuotaAndCustomization>
               {quota_today && (
                 <Slider
                   quota={quota_today}
@@ -84,7 +84,7 @@ export default function Options({
                 />
               )}
               <Customization userOptions={user.options} />
-            </QuotaAndFriends>
+            </QuotaAndCustomization>
             <Blacklisted
               addBlacklistedSite={addBlacklistedSite}
               disableBlacklistedSite={disableBlacklistedSite}

@@ -1,17 +1,9 @@
 import React, { useState } from "react";
-import TextField from "@material-ui/core/TextField";
+import { Box, Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import { Box } from "@material-ui/core";
 import styled from "styled-components";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import NativeSelect from "@material-ui/core/NativeSelect";
 import useFormFields from "../hooks/useFormFields";
 import axios from "axios";
-import { Input } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,20 +35,13 @@ const FormContainer = styled(Box)`
 
 const Wrapper = styled(Box)`
   display: flex;
+  padding-right: 0.7em;
 `;
 const PaddedTextField = styled(TextField)`
   margin: 0.5em;
 `;
-const ButtonContainer = styled(Box)`
-  flex: 1;
-  align-items: center;
-  ${"" /* flex-direction: columm; */}
-  justify-content: flex-end;
-`;
 
 const CustomizeButton = styled(Button)`
-  ${"" /* align-self: center; */}
-  ${"" /* flex: 1; */}
   width: 100%;
   margin: 0.5em;
 `;
