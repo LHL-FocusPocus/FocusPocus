@@ -45,9 +45,8 @@ app.use(methodOverride("_method"));
 app.use(express.static("public"));
 
 // Separated Routes for each Resource
-const rootRoutes = require("./routes/rootRoutes");
+// const rootRoutes = require("./routes/rootRoutes");
 const userRoutes = require("./routes/userRoutes");
-const apiRoutes = require("./routes/apiRoutes");
 const dataRoutes = require("./routes/dataRoutes");
 const extensionRoutes = require("./routes/extensionRoutes");
 
