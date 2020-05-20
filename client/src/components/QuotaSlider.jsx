@@ -101,7 +101,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    if (targetQuota > dailyQuota) {
+    if (targetQuota > dailyQuota && Number(increment) !== 0) {
       return setError(true);
     }
     // Increment is initially a string value -> must be converted
