@@ -13,7 +13,7 @@ import Customization from "./Customization";
 export const CardContext = createContext({});
 
 const Container = styled(Box)`
-  padding: 5em;
+  padding: 2em;
   padding-top: 3em;
   display: flex;
   justify-content: space-around;

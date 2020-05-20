@@ -166,7 +166,7 @@ export default function Customization({ userOptions }) {
             />
           </div>
           <CustomizeButton type="submit" variant="contained" color="primary">
-            Set Custom URLs
+            Set Customization
           </CustomizeButton>
         </FormContainer>
         {/*<ButtonContainer>
