@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   button: {
     minWidth: "400",
     transform: "translateY(-65%) translateX(73%)",
-    borderRadius: "100%"
+    borderRadius: "100%",
   },
 }));
 
@@ -106,7 +106,7 @@ const Container = styled.div`
   width: 350px;
 `;
 
-export default function Navbar({ user, quota }) {
+export default function Navbar({ user, quota, setDashboard }) {
   const classes = useStyles();
 
   const { first_name, picture } = user;
@@ -154,7 +154,8 @@ export default function Navbar({ user, quota }) {
       .then(res => {
         // console.log(res);
         console.log("Successful Logout");
-        history.push("/");
+        setDashboard();
+        history.push("/logout");
       })
       .catch(e => {
         console.error(e);
