@@ -2,6 +2,14 @@
  * This script block is injected into the page to replace text.
  */
 {
+  let newNounGlobal = "snake";
+  // Listen for message from background.js to set the img url
+  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "setNoun") {
+      console.log("Got message from background to set noun");
+      newNounGlobal = request.noun;
+    }
+  });
   /**
    * Further filtering for the nouns that postagger gives
    * @param {String} noun The word that postagger thinks is a noun
@@ -14,10 +22,7 @@
     return regex.test(noun);
   };
 
-  const replaceNounsInTextContent = function (
-    textTagElement,
-    newWord = "snake"
-  ) {
+  const replaceNounsInTextContent = function (textTagElement, newWord) {
     // Get text, split into words with lexer, tag with postagger
     const existingText = textTagElement.textContent;
     const existingWords = new Lexer().lex(existingText);
@@ -71,7 +76,7 @@
   const replaceAllTextOnPage = function () {
     replaceElementsOnPage(
       "p, span, h1, h2, h3, h4, h5, h6",
-      "snake",
+      newNounGlobal,
       replaceNounsInTextContent,
       0
     );
@@ -93,6 +98,6 @@
       addListeners("body", () => {
         replaceAllTextOnPage();
       });
-    }, 0);
+    }, 1000);
   });
 }

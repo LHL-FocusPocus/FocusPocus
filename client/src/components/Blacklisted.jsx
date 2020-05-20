@@ -37,7 +37,7 @@ import { useDrop } from "react-dnd";
 
 const Container = styled(Box)`
   min-height: 86vh;
-  padding: 0 5%;
+  padding: 0 1% 0 2%;
   width: 25%;
   padding-top: 20px;
   flex: 1 ${"" /* transform: translateX(22%) */};
@@ -105,6 +105,7 @@ export default function Blacklisted({
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const { addTopSiteToUserBlacklist } = useContext(CardContext);
+  const [error, setError] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -117,12 +118,20 @@ export default function Blacklisted({
   const handleSubmit = event => {
     event.preventDefault();
 
+    if (!isUrl(fields.host_name)) return setError(true);
+
+    try {
+      new URL(fields.host_name);
+    } catch {
+      return setError(true);
+    }
+
+    setError(false);
+
     const withoutProtocol = removeProtocol(fields.host_name);
 
     addBlacklistedSite(withoutProtocol);
   };
-
-  // console.log("====> blacklisted disabled blacklisted site", disableBlacklistedSite);
 
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.CARD,
@@ -171,10 +180,11 @@ export default function Blacklisted({
                 <InputLabel htmlFor="New Website" />
                 <Input
                   className={classes.inputwidth}
+                  error={error}
+                  helperText={error ? "Must be a valid URL" : "URL"}
                   required
                   id="host_name"
                   value={fields.host_name}
-                  // type="url"
                   onChange={handleFieldChange}
                   startAdornment={
                     <InputAdornment position="start">
