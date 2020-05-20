@@ -11,9 +11,10 @@ import useFormFields from "../hooks/useFormFields";
 import styled from "styled-components";
 import axios from "axios";
 
+
 const useStyles = makeStyles(theme => ({
   main: {
-    marginLeft: -30,
+    // margin: 0,
   },
   paper: {
     marginTop: theme.spacing(8),
@@ -60,6 +61,22 @@ const Img = styled.img`
   transform: translateY(-2em);
 `;
 
+const LoginWrapper = styled.div`
+flex: 1;
+margin-right: 7%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+`
+
+const PrivacyPolicy = styled.a`
+font-size: 1.5em;
+color: white;
+text-decoration: none;
+margin-top: 2%;
+`
+
 export default function Login({ setDashboard, history }) {
   const classes = useStyles();
 
@@ -93,66 +110,68 @@ export default function Login({ setDashboard, history }) {
   }
 
   return (
-    <Wrapper className={classes.main} component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Img src="/imgs/magic-trick.png" alt="landing image"></Img>
-        <Typography component="h1" variant="h5">
-          Log In
-        </Typography>
-        <form
-          onSubmit={e => handleSubmit(e)}
-          className={classes.form}
-          noValidate
-        >
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                value={fields.email}
-                label="Email Address"
-                // name="email"
-                autoComplete="email"
-                onChange={handleFieldChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                // name="password"
-                label="Password"
-                value={fields.password}
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                onChange={handleFieldChange}
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            disabled={!validateForm()}
-          >
+    <LoginWrapper>
+      <Wrapper className={classes.main} component="main" maxWidth="xs">
+        <div className={classes.paper}>
+          <Img src="/imgs/magic-trick.png" alt="landing image"></Img>
+          <Typography component="h1" variant="h5">
             Log In
-          </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link href="/register" variant="body2">
-                Don't have an account? Sign up
-              </Link>
+          </Typography>
+          <form
+            onSubmit={e => handleSubmit(e)}
+            className={classes.form}
+            noValidate
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  value={fields.email}
+                  label="Email Address"
+                  // name="email"
+                  autoComplete="email"
+                  onChange={handleFieldChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  // name="password"
+                  label="Password"
+                  value={fields.password}
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  onChange={handleFieldChange}
+                />
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Wrapper>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              disabled={!validateForm()}
+            >
+              Log In
+            </Button>
+            <Grid container justify="flex-end">
+              <Grid item>
+                <Link href="/register" variant="body2">
+                  Don't have an account? Sign up
+                </Link>
+              </Grid>
+            </Grid>
+          </form>
+        </div>
+      </Wrapper>
+      <PrivacyPolicy href="https://www.termsfeed.com/live/8d4503cc-2341-4052-8309-1dddf62a5750">Privacy Policy</PrivacyPolicy>
+    </LoginWrapper>
   );
 }

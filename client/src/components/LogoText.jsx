@@ -2,11 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  height: 50vh;
+  height: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: auto;
+  flex: 2;
+  transform: translateX(2%) translateY(5%)
 `;
 
 const Tagline = styled.div`
