@@ -41,23 +41,13 @@ const Wrapper = styled(Container)`
   border-radius: 1em;
   padding: 2em;
   z-index: 5;
-  background: #ece9e6; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #ffffff,
-    #ece9e6
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #ffffff,
-    #ece9e6
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-color: white;
 
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 `;
 
 const Img = styled.img`
-  width: 57%;
+  width: 90%;
   transform: translateY(-2em);
 `;
 
@@ -113,7 +103,7 @@ export default function Login({ setDashboard, history }) {
     <LoginWrapper>
       <Wrapper className={classes.main} component="main" maxWidth="xs">
         <div className={classes.paper}>
-          <Img src="/imgs/magic-trick.png" alt="landing image"></Img>
+          <Img src="/imgs/landing.png" alt="landing image"></Img>
           <Typography component="h1" variant="h5">
             Log In
           </Typography>
