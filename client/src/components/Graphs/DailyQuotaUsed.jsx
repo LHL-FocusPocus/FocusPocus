@@ -42,8 +42,6 @@ export default function DailyQuotaUsed({ quota }) {
       percentageQuotaUsed = 0;
     }
 
-    console.log("percentageQuotaUsed", percentageQuotaUsed);
-
     const displayText = () => {
       if (percentageQuotaUsed > 100) {
         return `${(percentageQuotaUsed - 100).toFixed(0)}% over quota!`;

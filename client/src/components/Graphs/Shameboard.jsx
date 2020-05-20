@@ -79,14 +79,13 @@ export default function Shameboard({ shameboard }) {
 
     let subtitle = chart.titles.create();
     subtitle.text = "Minutes squandered during past week";
-    subtitle.fontSize = 12;
+    subtitle.fontSize = 17;
     subtitle.marginBottom = 20;
     subtitle.fontFamily = "Raleway, sans-serif"
 
     let title = chart.titles.create();
     title.text = "Shameboard";
     title.fontSize = 45;
-    title.marginBottom = 10;
 
     series.heatRules.push({
       target: columnTemplate,

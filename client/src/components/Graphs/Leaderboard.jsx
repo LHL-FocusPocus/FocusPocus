@@ -55,9 +55,6 @@ export default function Leaderboard({ leaderboard }) {
     categoryAxis.fontSize = 30;
 
     const valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
-    // valueAxis.title.text = "minutes wasted last week";
-    // valueAxis.title.marginBottom = 20;
-    // valueAxis.title.fontSize = 15;
     valueAxis.renderer.inside = true;
     valueAxis.renderer.labels.template.fillOpacity = 0.3;
     valueAxis.renderer.grid.template.strokeOpacity = 0;
@@ -103,14 +100,13 @@ export default function Leaderboard({ leaderboard }) {
 
     let subtitle = chart.titles.create();
     subtitle.text = "Minutes squandered during past week";
-    subtitle.fontSize = 12;
+    subtitle.fontSize = 17;
     subtitle.fontFamily = "Raleway, sans-serif"
     subtitle.marginBottom = 20;
 
     let title = chart.titles.create();
     title.text = "Leaderboard";
     title.fontSize = 45;
-    title.marginBottom = 10;
 
 
     const bullet = columnTemplate.createChild(am4charts.CircleBullet);

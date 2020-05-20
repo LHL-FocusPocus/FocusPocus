@@ -16,7 +16,7 @@ const Wrapper = styled(Box)`
   height: 400px;
   padding-bottom: 6em;
   padding-top: 2em;
-  margin-left: 1.5em;  
+  margin-left: 1.5em;
   @media (max-width: 1300px) {
     order: 2;
     flex: 1 100%;
@@ -25,30 +25,14 @@ const Wrapper = styled(Box)`
 
 const Card = styled(Paper)`
   height: 400px;
-`
+`;
 
 const Chart = styled.div`
-  ${'' /* align-self: center;
-  height: 100%;
-  width: 100%; */}
-  
-
   align-self: center;
   width: 90%;
   height: 90%;
   transform: translateY(18px);
   padding-bottom: 5%;
-  ${'' /* padding-right: 5%; */}
-  ${'' /* padding-bottom: 8%; */}
-  &:after {
-    ${'' /* height: 120%; */}
-    ${'' /* content: "";
-    position: absolute;
-    transform: translateX(105px) translateY(-24px);
-    height: 475px;
-    width: 775px;
-    border: 1px solid green;
-    border-radius: 1em; */}
 
   @media (max-width: 1300px) {
     padding-right: 0;
@@ -87,7 +71,6 @@ export default function Radial({ radialData }) {
     chart.scale = 1.1;
     chart.paddingRight = 60;
 
-
     const series = chart.series.push(new am4charts.RadarColumnSeries());
     series.dataFields.categoryX = "name";
     series.dataFields.valueY = "hits";
@@ -106,15 +89,13 @@ export default function Radial({ radialData }) {
 
     let subtitle = chart.titles.create();
     subtitle.text = "During past week";
-    subtitle.fontSize = 12;
+    subtitle.fontSize = 17;
     subtitle.marginBottom = 20;
     subtitle.fontFamily = "Raleway, sans-serif";
-
 
     let title = chart.titles.create();
     title.text = "Blacklisted Site Visits";
     title.fontSize = 40;
-    title.marginBottom = 10;
 
     categoryAxis.sortBySeries = series;
 
