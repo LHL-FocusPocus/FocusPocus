@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import {
@@ -11,6 +11,7 @@ import {
   Grid,
 } from "@material-ui/core";
 import useFormFields from "../hooks/useFormFields";
+import validateEmail from "../helpers/validateEmail";
 import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
@@ -71,9 +72,17 @@ export default function Login({ setDashboard, history }) {
     email: "",
     password: "",
   });
+  const [error, setError] = useState({
+    email: false,
+    password: false,
+  });
 
   const handleSubmit = event => {
     event.preventDefault();
+
+    if (!validateEmail(fields.email)) {
+      return setError({ email: true });
+    }
 
     const credentials = {
       email: fields.email,
@@ -83,12 +92,15 @@ export default function Login({ setDashboard, history }) {
     axios
       .post("/api/user/login", credentials, { withCredentials: true })
       .then(() => {
+        setError({ email: false, password: false });
         setDashboard().then(() => {
           history.push("/dashboard");
         });
       })
-      .catch(e => {
-        console.error(e);
+      .catch(error => {
+        if (error.response.status === 401) {
+          return setError({ password: true });
+        }
       });
   };
 
@@ -117,6 +129,9 @@ export default function Login({ setDashboard, history }) {
                   required
                   fullWidth
                   id="email"
+                  type="email"
+                  error={error.email}
+                  helperText={error.email ? "Must be a valid email" : ""}
                   value={fields.email}
                   label="Email Address"
                   autoComplete="email"
@@ -128,6 +143,8 @@ export default function Login({ setDashboard, history }) {
                   variant="outlined"
                   required
                   fullWidth
+                  error={error.password}
+                  helperText={error.password ? "Incorrect Password" : ""}
                   label="Password"
                   value={fields.password}
                   type="password"

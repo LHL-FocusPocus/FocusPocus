@@ -34,7 +34,7 @@ const Icon = styled(Avatar)`
   height: auto;
   margin: auto;
   margin-top: 1.5em;
-  margin-bottom: 0.6em;
+  margin-bottom: 0.2em;
   box-shadow: 5px 19px 38px rgba(0, 0, 0, 0.3), 0 15px 38px rgba(0, 0, 0, 0.22);
 `;
 

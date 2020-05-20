@@ -32,8 +32,6 @@ const Card = styled(Paper)`
 `;
 
 export default function Donut({ donutData }) {
-  // const [error, setError] = useState(false);
-
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
 
@@ -48,7 +46,6 @@ export default function Donut({ donutData }) {
     chart.paddingRight = 60;
     chart.paddingTop = 15;
     chart.numberFormatter.numberFormat = "#. mins";
-
 
     let subtitle = chart.titles.create();
     subtitle.text = "Blocked vs. Non-Blocked Sites";
@@ -69,20 +66,10 @@ export default function Donut({ donutData }) {
     series.fontSize = 25;
     series.tooltip.fontSize = 30;
   }, [donutData]);
-  
-  
-console.log('donutData :>> ', donutData);  
- 
-    // if (donutData.length === 0) {
-    //   return setError(true)
-    // }
-    
-    // setError(false)
-
 
   return (
-    <Card elevation={24} component={Wrapper} >
-      <Chart id="donutChart" ></Chart>
+    <Card elevation={24} component={Wrapper}>
+      <Chart id="donutChart"></Chart>
     </Card>
   );
 }
