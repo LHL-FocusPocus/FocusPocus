@@ -11,7 +11,6 @@ import useFormFields from "../hooks/useFormFields";
 import styled from "styled-components";
 import axios from "axios";
 
-
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -49,20 +48,20 @@ const Img = styled.img`
 `;
 
 const LoginWrapper = styled.div`
-flex: 1;
-margin-right: 7%;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-`
+  flex: 1;
+  margin-right: 7%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 const PrivacyPolicy = styled.a`
-font-size: 1.5em;
-color: white;
-text-decoration: none;
-margin-top: 2%;
-`
+  font-size: 0.9em;
+  color: white;
+  text-decoration: none;
+  margin-top: 2%;
+`;
 
 export default function Login({ setDashboard, history }) {
   const classes = useStyles();
@@ -99,6 +98,8 @@ export default function Login({ setDashboard, history }) {
   return (
     <LoginWrapper>
       <Wrapper className={classes.main} component="main" maxWidth="xs">
+        <CssBaseline />
+
         <div className={classes.paper}>
           <Img src="/imgs/landing.png" alt="landing image"></Img>
           <Typography component="h1" variant="h5">
@@ -158,7 +159,9 @@ export default function Login({ setDashboard, history }) {
           </form>
         </div>
       </Wrapper>
-      <PrivacyPolicy href="https://www.termsfeed.com/live/8d4503cc-2341-4052-8309-1dddf62a5750">Privacy Policy</PrivacyPolicy>
+      <PrivacyPolicy href="https://www.termsfeed.com/live/8d4503cc-2341-4052-8309-1dddf62a5750">
+        Privacy Policy
+      </PrivacyPolicy>
     </LoginWrapper>
   );
 }
