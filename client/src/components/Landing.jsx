@@ -11,13 +11,6 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-const InnerContainer = styled.div`
-  display: flex;
-  align-items: center;
-  height: 100vh;
-  width: 66vw;
-`;
-
 export default function Landing({ setDashboard }) {
   const history = useHistory();
 

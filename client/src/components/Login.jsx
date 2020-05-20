@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import styled from "styled-components";
 import {
   Container,
   Typography,
@@ -10,7 +11,6 @@ import {
   Grid,
 } from "@material-ui/core";
 import useFormFields from "../hooks/useFormFields";
-import styled from "styled-components";
 import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
@@ -40,7 +40,6 @@ const Wrapper = styled(Container)`
   padding: 2em;
   z-index: 5;
   background-color: white;
-
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 `;
 
@@ -101,7 +100,6 @@ export default function Login({ setDashboard, history }) {
     <LoginWrapper>
       <Wrapper className={classes.main} component="main" maxWidth="xs">
         <CssBaseline />
-
         <div className={classes.paper}>
           <Img src="/imgs/landing.png" alt="landing image"></Img>
           <Typography component="h1" variant="h5">

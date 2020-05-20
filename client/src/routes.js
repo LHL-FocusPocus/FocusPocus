@@ -13,12 +13,3 @@ export default function Routes() {
     </Switch>
   );
 }
-
-/* const Routes = [
-  {
-    path: "/options",
-    name: "Options",
-    icon: SettingsIcon,
-    component: Options
-  }
-] */

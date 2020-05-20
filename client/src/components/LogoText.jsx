@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import GitHubIcon from "@material-ui/icons/GitHub";
-import { IconButton } from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton";
 
 const Container = styled.div`
   height: 50%;
@@ -15,6 +15,7 @@ const Container = styled.div`
 const GitHub = styled(IconButton)`
   transform: translateY(-193px) translateX(-575px);
 `;
+
 const Tagline = styled.div`
   font-size: 2em;
   padding: 1em 0;

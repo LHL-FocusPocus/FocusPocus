@@ -1,25 +1,20 @@
+import "./App.css";
 import React from "react";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Landing from "./components/Landing";
-import LogoText from "./components/LogoText";
-import styled from "styled-components";
 import Dashboard from "./components/Dashboard";
 import Options from "./components/Options";
-import { Route, Link } from "react-router-dom";
+import { Route, useHistory } from "react-router-dom";
 import useApplicationData from "./hooks/useApplicationData";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-
 import axios from "axios";
-import "./App.css";
-import { quadOut } from "@amcharts/amcharts4/.internal/core/utils/Ease";
-import { useHistory } from "react-router-dom";
+
 if (process.env.REACT_APP_API_BASE_URL) {
   axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 } else {
   axios.defaults.baseURL = "http://localhost:9000";
 }
-axios.defaults.withCredentials = true;
 
-// import Routes from "./routes";
+axios.defaults.withCredentials = true;
 
 function App() {
   const {
@@ -85,9 +80,7 @@ function App() {
                 addBlacklistedSite={addBlacklistedSite}
                 disableBlacklistedSite={disableBlacklistedSite}
                 dashboardData={state}
-                // user={state.user}
                 blacklisted={state.blacklisted}
-                // quota_today={state.quota_today}
               />
             )
           }

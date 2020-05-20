@@ -3,7 +3,6 @@ import axios from "axios";
 import socketIOClient from "socket.io-client";
 import reducer, {
   SET_DASHBOARD_DATA,
-  SET_BLACKLIST_DATA,
   CHANGE_BLACKLIST,
   CHANGE_QUOTA,
   SET_WEBSOCKET_GRAPHS,
@@ -41,18 +40,11 @@ export default function useApplicationData() {
     });
   };
 
-  // const [loading, setLoading] = useState(false)
   useEffect(() => {
     // Websocket connection
     const conn = socketIOClient(ENDPOINT);
 
-    // conn.on("connect", () => {
-    //   console.log("i have connected");
-    //   conn.emit("foo", "bar");
-    // });
-
     conn.on("refresh", () => {
-      //console.log("I need to refresh");
       setWebsocketGraphs();
     });
 

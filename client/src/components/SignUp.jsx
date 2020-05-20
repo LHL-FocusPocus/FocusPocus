@@ -1,14 +1,16 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import useFormFields from "../hooks/useFormFields";
 import styled from "styled-components";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Typography,
+  Grid,
+  Link,
+  TextField,
+  CssBaseline,
+  Button,
+  Container,
+} from "@material-ui/core";
+import useFormFields from "../hooks/useFormFields";
 import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
@@ -23,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -46,7 +48,6 @@ const Img = styled.img`
   transform: translateY(-2em);
 `;
 
-  
 const LoginWrapper = styled.div`
   flex: 1;
   margin-right: 7%;
@@ -65,7 +66,6 @@ const PrivacyPolicy = styled.a`
 `;
 
 export default function SignUp({ history, setDashboard }) {
-
   const classes = useStyles();
 
   const [fields, handleFieldChange] = useFormFields({
@@ -88,13 +88,13 @@ export default function SignUp({ history, setDashboard }) {
     axios
       .post("/api/user/register", credentials)
       .then(() => {
-        setDashboard().then(() => {
-          console.log("Successful Registration");
-          history.push("/dashboard");
-        });
-        // res => {
-        // console.log(res);
-        // history.push("/dashboard");
+        setDashboard()
+          .then(() => {
+            history.push("/dashboard");
+          })
+          .catch(e => {
+            console.error(e);
+          });
       })
       .catch(e => {
         console.error(e);
@@ -123,7 +123,6 @@ export default function SignUp({ history, setDashboard }) {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="fname"
-                  // name="firstName"
                   variant="outlined"
                   required
                   fullWidth
@@ -141,7 +140,6 @@ export default function SignUp({ history, setDashboard }) {
                   fullWidth
                   id="lastName"
                   label="Last Name"
-                  // name="lastName"
                   value={fields.lastName}
                   autoComplete="lname"
                   onChange={handleFieldChange}
@@ -154,7 +152,6 @@ export default function SignUp({ history, setDashboard }) {
                   fullWidth
                   id="email"
                   label="Email Address"
-                  // name="email"
                   value={fields.email}
                   autoComplete="email"
                   onChange={handleFieldChange}
@@ -165,7 +162,6 @@ export default function SignUp({ history, setDashboard }) {
                   variant="outlined"
                   required
                   fullWidth
-                  // name="password"
                   label="Password"
                   type="password"
                   id="password"
