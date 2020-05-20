@@ -50,6 +50,7 @@ module.exports = (db) => {
   router.post("/register", (req, res) => {
     const { firstName, lastName, email, password } = req.body;
 
+    // If some fields are not filled in -> return error
     if (!(firstName && lastName && email && password)) {
       return res.status(400).json("You must fill in all the fields.");
     }
@@ -65,11 +66,9 @@ module.exports = (db) => {
       })
       .then((userId) => {
         dbHelper
-          // console.log("successful user set");
           .addQuotaForUser(userId, "1.5 hours")
           .then(() => res.status(200).json("User created!"))
           .catch((err) => res.status(500).json("Invalid Request", err));
-        // console.log("successful quota set");
       })
       .catch((err) => res.status(500).json("Invalid Request", err));
   });
