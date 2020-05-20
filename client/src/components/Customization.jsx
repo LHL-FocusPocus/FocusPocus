@@ -37,20 +37,23 @@ const FormContainer = styled(Box)`
 `;
 
 const Wrapper = styled(Box)`
-  display: flex;
+  display: flex;  
 `;
-
+const PaddedTextField = styled(TextField)`
+  margin: 0.5em;
+`;
 const ButtonContainer = styled(Box)`
   flex: 1;
   align-items: center;
   ${"" /* flex-direction: columm; */}
-  justify-content: flex-end;
+  justify-content: flex-end;  
 `;
 
 const CustomizeButton = styled(Button)`
   ${"" /* align-self: center; */}
   ${"" /* flex: 1; */}
   width: 100%;
+  margin: 0.5em;
 `;
 
 export default function Customization({ userOptions }) {
@@ -122,39 +125,42 @@ export default function Customization({ userOptions }) {
       <Wrapper>
         <FormContainer>
           <div>
-            <TextField
+            <PaddedTextField
               label="Word"
               variant="outlined"
-              helperText="Noun"
+              helperText="New Noun"
               id="word"
               fullWidth={true}
               value={options.word || ""}
               onChange={handleOptionsChange}
             />
-            <TextField
+            <PaddedTextField
               label="Image"
               variant="outlined"
-              helperText="URL"
+              helperText="Image URL"
               fullWidth={true}
               id="image"
               error={error.image}
-              helperText={error.image ? "Must be a valid URL" : "URL"}
+              helperText={error.image ? "Must be a valid URL" : "Image URL"}
               value={options.image || ""}
               onChange={handleOptionsChange}
             />
 
-            <TextField
+            <PaddedTextField
               label="Video"
               variant="outlined"
               fullWidth={true}
-              helperText="URL"
+              helperText="Video URL"
               id="video"
               error={error.video}
-              helperText={error.video ? "Must be a valid URL" : "URL"}
+              helperText={error.video ? "Must be a valid URL" : "Video URL"}
               value={options.video || ""}
               onChange={handleOptionsChange}
             />
           </div>
+          <CustomizeButton type="submit" variant="contained" color="primary">
+            Set Custom URLs
+          </CustomizeButton>
         </FormContainer>
         <ButtonContainer>
           {/* <PersonToCustomize required className={classes.formControl}>
@@ -176,9 +182,6 @@ export default function Customization({ userOptions }) {
             </Select>
             <FormHelperText>Required</FormHelperText>
           </PersonToCustomize> */}
-          <CustomizeButton type="submit" variant="contained" color="primary">
-            Customize
-          </CustomizeButton>
         </ButtonContainer>
       </Wrapper>
     </form>
