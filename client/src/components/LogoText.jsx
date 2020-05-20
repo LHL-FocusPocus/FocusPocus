@@ -13,11 +13,12 @@ const Container = styled.div`
 `;
 
 const GitHub = styled(IconButton)`
-  transform: translateY(-210px) translateX(-575px);
+  transform: translateY(-193px) translateX(-575px);
 `;
 const Tagline = styled.div`
   font-size: 2em;
   padding: 1em 0;
+  padding-top: 0.5em;
   text-align: center;
   font-family: "Amatic SC", cursive;
   text-shadow: -0.5px 0 black, 0 0.5px black, 0.5px 0 black, 0 -0.5px black;
