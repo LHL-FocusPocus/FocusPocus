@@ -35,7 +35,7 @@ export default function Landing({ setDashboard }) {
       <Route
         exact
         path="/register"
-        render={() => <SignUp history={history} />}
+        render={() => <SignUp setDashboard={setDashboard} history={history} />}
       />
  
     </Container>
