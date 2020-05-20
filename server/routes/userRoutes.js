@@ -292,9 +292,9 @@ module.exports = (db) => {
 
     dbHelper
       .getUserOptions(userId)
-      .then((options) => {
+      .then((userData) => {
         const newOptions = {
-          ...options.options,
+          ...userData.options,
           noun: word,
           videoUrl: video,
           imageUrl: image,
