@@ -64,10 +64,12 @@ module.exports = (db) => {
         return user.id;
       })
       .then((userId) => {
-        // console.log("successful user set");
-        dbHelper.addQuotaForUser(userId, "1.5 hours");
+        dbHelper
+          // console.log("successful user set");
+          .addQuotaForUser(userId, "1.5 hours")
+          .then(() => res.status(200).json("User created!"))
+          .catch((err) => res.status(500).json("Invalid Request", err));
         // console.log("successful quota set");
-        return res.status(200).json("User created!");
       })
       .catch((err) => res.status(500).json("Invalid Request", err));
   });
