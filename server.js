@@ -24,7 +24,10 @@ db.connect();
 app.use(morgan("dev"));
 app.use(cors({ credentials: true, preflightContinue: true }));
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", process.env.CLIENT || "http://localhost:3000");
+  res.header(
+    "Access-Control-Allow-Origin",
+    process.env.CLIENT || "http://localhost:3000"
+  );
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
@@ -42,7 +45,6 @@ app.use(methodOverride("_method"));
 app.use(express.static("public"));
 
 // Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
 const rootRoutes = require("./routes/rootRoutes");
 const userRoutes = require("./routes/userRoutes");
 const apiRoutes = require("./routes/apiRoutes");
@@ -50,9 +52,6 @@ const dataRoutes = require("./routes/dataRoutes");
 const extensionRoutes = require("./routes/extensionRoutes");
 
 // Mount all resource routes
-// Note: Feel free to replace the example routes below with your own
-app.use("/", rootRoutes(db));
-app.use("/api", apiRoutes(db));
 app.use("/api/user", userRoutes(db));
 app.use("/api/data", dataRoutes(db));
 app.use("/api/extension", extensionRoutes(db, sendRefreshRequest));
@@ -73,8 +72,6 @@ io.on("connection", (socket) => {
   session(req, res, () => {
     userId = req.session.userId;
   });
-  // console.log("User id is", userId || "unknown");
-
   // Put client into a room with their userId as the room name
   if (userId) {
     socket.join(userId);
