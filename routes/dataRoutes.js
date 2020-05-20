@@ -50,7 +50,7 @@ module.exports = (db) => {
       })
       .catch((err) => {
         console.log(err);
-        return res.status(500).json(err);
+        return res.status(505).json(err);
       });
   });
   return router;

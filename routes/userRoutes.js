@@ -62,11 +62,11 @@ module.exports = (db) => {
         }
         console.log("successful registration");
         req.session.userId = user.id;
-        res.status(200).send("User created!");
+        return res.status(200).send("User created!");
       })
-      .then((user) => {
-        dbHelper.getUserWithID(req.session.userId).then((user) => {});
-      })
+      // .then((user) => {
+      //   dbHelper.getUserWithID(req.session.userId).then((user) => {});
+      // })
       .catch((e) => console.error(e));
   });
 
@@ -80,7 +80,7 @@ module.exports = (db) => {
     if (!userId) {
       return res.status(403).send("You must be signed in!");
     }
-    const { quotaStart, quotaIncrement, quotaTarget } = req.body;    
+    const { quotaStart, quotaIncrement, quotaTarget } = req.body;
     if (
       !(
         (quotaStart || quotaStart === 0) &&
