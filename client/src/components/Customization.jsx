@@ -68,21 +68,29 @@ export default function Customization({ userOptions }) {
   const handleSubmit = event => {
     event.preventDefault();
 
-    if (!isUrl(options.image)) {
-      return setError({ image: true });
-    }
-    if (!isUrl(options.video)) {
-      return setError({ video: true });
-    }
-
-    // try {
-
-    //   const url = new URL(options.image);
-    //   console.log('url :>> ', url);
-    // } catch {
-    //   console.log('failed :>> ');
-    //   // Send error message instead
+    // if (!isUrl(options.image)) {
     // }
+    // if (!isUrl(options.video)) {
+    //   return setError({ video: true });
+    // }
+
+    // Extension needs urls that start with http, so cannot use isUrl because
+    // it accepts urls without http. People will be pasting in urls anyway.
+    if (options.image) {
+      try {
+        new URL(options.image);
+      } catch {
+        return setError({ image: true });
+      }
+    }
+
+    if (options.video) {
+      try {
+        new URL(options.video);
+      } catch {
+        return setError({ video: true });
+      }
+    }
 
     const userOptions = {
       word: options.word,
@@ -90,7 +98,7 @@ export default function Customization({ userOptions }) {
       video: options.video,
     };
 
-    setError(false);
+    setError({ image: false, video: false });
 
     axios
       .post("/api/user/options/add", userOptions)
