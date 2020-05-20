@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Paper, Box } from "@material-ui/core";
 import LineGraph from "./Graphs/LineGraph";
@@ -25,6 +25,8 @@ const Wrapper = styled(Box)`
 `;
 
 export default function Dashboard({ dashboardData, setDashboard }) {
+  // const [error, setError] = useState(null);
+
   const {
     donutGraph,
     lineGraph,
@@ -34,6 +36,24 @@ export default function Dashboard({ dashboardData, setDashboard }) {
     user,
     quota_today,
   } = dashboardData;
+
+  // console.log("donutData Dashboard :>> ", donutGraph);
+  // console.log("radialGraph Dashboard :>> ", radialGraph);
+  // console.log("lineGraph Dashboard :>> ", lineGraph);
+
+  // const checkData = () => {
+  //   if (
+  //     radialGraph.length === 0 ||
+  //     donutGraph.length === 0 ||
+  //     lineGraph.length === 0
+  //   ) {
+  //     setError("Something went wrong");
+  //   } else {
+  //     setError(null);
+  //   }
+  // };
+
+  // console.log('error :>> ', error);
 
   return (
     <div>
@@ -46,7 +66,9 @@ export default function Dashboard({ dashboardData, setDashboard }) {
           <Shameboard shameboard={shameboard} />
         </Paper>
         <Donut donutData={donutGraph} />
-        <Radial radialData={radialGraph} />
+        <Radial radialData={radialGraph}
+        //  error={error}
+          />
       </Container>
     </div>
   );

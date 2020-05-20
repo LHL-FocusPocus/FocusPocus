@@ -3,7 +3,9 @@ import styled from "styled-components";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import { Paper, Box } from "@material-ui/core";
+import { Paper, Box } from "@material-ui/core"
+import { Alert } from "@material-ui/lab";
+;
 
 const Wrapper = styled(Box)`
   flex: 1 45%;
@@ -32,7 +34,7 @@ const Card = styled(Paper)`
 `;
 
 export default function Donut({ donutData }) {
-  // const [error, setError] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
@@ -73,16 +75,27 @@ export default function Donut({ donutData }) {
   
 console.log('donutData :>> ', donutData);  
  
-    // if (donutData.length === 0) {
-    //   return setError(true)
-    // }
-    
-    // setError(false)
+const checkData = () => {
+  if (donutData.length === 0) {
+    setError(true);
+  } else {
+    setError(false);
+  }
+  console.log("hi")
+};
+// checkData();
 
 
   return (
     <Card elevation={24} component={Wrapper} >
-      <Chart id="donutChart" ></Chart>
+      <Chart id="donutChart">
+      {error && (
+          <Alert severity="error">
+            You do not have any site visits recorded. Please browse with the
+            extension.
+          </Alert>
+        )}
+      </Chart>
     </Card>
   );
 }

@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Paper, Box } from "@material-ui/core";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4themes_material from "@amcharts/amcharts4/themes/material";
+import { Alert } from "@material-ui/lab";
 
 const Wrapper = styled(Box)`
   flex: 1 45%;
@@ -38,6 +39,8 @@ const Chart = styled.div`
 `;
 
 export default function Radial({ radialData }) {
+  const [error, setError] = useState(false);
+
   useEffect(() => {
     am4core.useTheme(am4themes_material);
     am4core.useTheme(am4themes_animated);
@@ -103,9 +106,28 @@ export default function Radial({ radialData }) {
     chart.cursor.lineY.disabled = true;
   }, [radialData]);
 
+  console.log("radialData :>> ", radialData);
+
+  const checkData = () => {
+    if (radialData.length === 0) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+    console.log("hi")
+  };
+  // checkData();
+
   return (
     <Card elevation={24} component={Wrapper}>
-      <Chart id="radial-chart"></Chart>
+      <Chart id="radial-chart">
+        {error && (
+          <Alert severity="error">
+            You do not have any site visits recorded. Please browse with the
+            extension.
+          </Alert>
+        )}
+      </Chart>
     </Card>
   );
 }
