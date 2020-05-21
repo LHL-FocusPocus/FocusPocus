@@ -5,8 +5,8 @@ import LogoText from "./LogoText";
 import styled from "styled-components";
 import { Route, Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-
-
+import GitHubIcon from "@material-ui/icons/GitHub";
+import { IconButton } from "@material-ui/core";
 
 const Container = styled.div`
   display: flex;
@@ -21,12 +21,20 @@ const InnerContainer = styled.div`
   width: 66vw;
 `;
 
+const GitHub = styled(IconButton)`
+  position: fixed !important;
+  left: 1em !important;
+  top: 1em !important;
+`;
 export default function Landing({ setDashboard }) {
   const history = useHistory();
 
   return (
     <Container>
-        <LogoText />
+      <GitHub href="https://github.com/LHL-FocusPocus/FocusPocus">
+        <GitHubIcon style={{ maxWidth: 35 }} />
+      </GitHub>
+      <LogoText />
       <Route
         exact
         path={["/login", "/logout"]}
@@ -37,7 +45,6 @@ export default function Landing({ setDashboard }) {
         path="/register"
         render={() => <SignUp setDashboard={setDashboard} history={history} />}
       />
- 
     </Container>
   );
 }

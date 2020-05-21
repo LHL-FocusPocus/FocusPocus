@@ -9,7 +9,8 @@ import reducer, {
   SET_WEBSOCKET_GRAPHS,
 } from "../reducers/application";
 
-const ENDPOINT = "http://localhost:9000";
+const WEBSOCKET_URL =
+  process.env.REACT_APP_WEBSOCKET_URL || "http://localhost:9000";
 
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
@@ -44,7 +45,7 @@ export default function useApplicationData() {
   // const [loading, setLoading] = useState(false)
   useEffect(() => {
     // Websocket connection
-    const conn = socketIOClient(ENDPOINT);
+    const conn = socketIOClient(WEBSOCKET_URL);
 
     // conn.on("connect", () => {
     //   console.log("i have connected");
