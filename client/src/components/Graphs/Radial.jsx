@@ -88,12 +88,14 @@ export default function Radial({ radialData }) {
       return chart.colors.getIndex(target.dataItem.index);
     });
 
+    // Radial subtitle
     let subtitle = chart.titles.create();
     subtitle.text = "During past week";
     subtitle.fontSize = 17;
     subtitle.marginBottom = 20;
     subtitle.fontFamily = "Raleway, sans-serif";
 
+    // Radial title
     let title = chart.titles.create();
     title.text = "Blacklisted Site Visits";
     title.fontSize = 40;

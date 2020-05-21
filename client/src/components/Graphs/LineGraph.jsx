@@ -81,6 +81,7 @@ export default function LineGraph({ lineData }) {
     const hoverState = bullet.states.create("hover");
     hoverState.properties.scale = 1.7;
 
+    // Line Graph title
     let title = chart.titles.create();
     title.text = "Blacklisted Browsing Time";
     title.fontSize = 45;

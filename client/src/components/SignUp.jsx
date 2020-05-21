@@ -11,7 +11,7 @@ import {
   Container,
 } from "@material-ui/core";
 import useFormFields from "../hooks/useFormFields";
-import validateEmail from "../helpers/validateEmail";
+import validEmail from "../helpers/validEmail";
 import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
@@ -80,7 +80,7 @@ export default function SignUp({ history, setDashboard }) {
   const handleSubmit = event => {
     event.preventDefault();
 
-    if (!validateEmail(fields.email)) {
+    if (!validEmail(fields.email)) {
       return setError(true);
     }
 
@@ -93,7 +93,6 @@ export default function SignUp({ history, setDashboard }) {
       lastName: fields.lastName,
     };
 
-    console.log('credentials', credentials)
     axios
       .post("/api/user/register", credentials)
       .then(() => {

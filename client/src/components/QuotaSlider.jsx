@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import {
-  CircularProgress,
   Select,
   InputLabel,
   FormControl,
@@ -72,12 +71,14 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
   const [targetQuota, setTargetQuota] = useState(0);
   const [increment, setIncrement] = useState(5);
   const [error, setError] = useState(false);
+  // Show Target Quota if increment is higher than static, otherwise hide Target Quota
   const [targetQuotaShow, setTargetQuotaShow] = useState(
     options.quotaIncrement > 0 || false
   );
 
   const classes = useStyles();
 
+  // Handle mouse over popovers
   const handlePopoverOpen = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -86,6 +87,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
     setAnchorEl(null);
   };
 
+  // Only show Target Quota slider when increment value is higher than "static"
   const handleShowTargetQuota = value => {
     value > 0 ? setTargetQuotaShow(true) : setTargetQuotaShow(false);
   };
@@ -94,6 +96,8 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
 
   const handleSubmit = event => {
     event.preventDefault();
+    // Target Quota cannot be higher than daily quota
+    // Number(increment) !== 0 is necessary because this target CAN be higher than daily if the increment is static
     if (targetQuota > dailyQuota && Number(increment) !== 0) {
       return setError(true);
     }
@@ -103,7 +107,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
     setDisabled(true);
   };
 
-  // Use useEffect to update value when quota.allotment.minutes & options initializes
+  // Use useEffect to update value when quota & options initialize
   useEffect(() => {
     setQuota(quota.allotment.minutes);
   }, [quota.allotment.minutes]);

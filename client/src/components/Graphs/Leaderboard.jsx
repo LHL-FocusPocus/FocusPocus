@@ -92,12 +92,14 @@ export default function Leaderboard({ leaderboard }) {
     cursor.lineY.disabled = true;
     cursor.behavior = "none";
 
+    // Leaderboard subtitle
     let subtitle = chart.titles.create();
     subtitle.text = "Minutes squandered during past week";
     subtitle.fontSize = 17;
     subtitle.fontFamily = "Raleway, sans-serif";
     subtitle.marginBottom = 20;
 
+    // Leaderboard title
     let title = chart.titles.create();
     title.text = "Leaderboard";
     title.fontSize = 45;

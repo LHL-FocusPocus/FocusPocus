@@ -11,7 +11,7 @@ import {
   Grid,
 } from "@material-ui/core";
 import useFormFields from "../hooks/useFormFields";
-import validateEmail from "../helpers/validateEmail";
+import validEmail from "../helpers/validEmail";
 import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
@@ -80,7 +80,7 @@ export default function Login({ setDashboard, history }) {
   const handleSubmit = event => {
     event.preventDefault();
 
-    if (!validateEmail(fields.email)) {
+    if (!validEmail(fields.email)) {
       return setError({ email: true });
     }
 

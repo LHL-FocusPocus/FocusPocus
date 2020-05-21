@@ -61,7 +61,7 @@ export default function Customization({ userOptions }) {
   const handleSubmit = event => {
     event.preventDefault();
 
-    // Extension needs urls that start with http, so make sure that they're included with URL constructor
+    // Check if input can be constructed into URL -> if not, setError (not in correct URL format that the extension requires)
     if (options.image) {
       try {
         new URL(options.image);
@@ -88,8 +88,13 @@ export default function Customization({ userOptions }) {
 
     axios
       .post("/api/user/options/add", userOptions)
-      .then(el => {
-        console.log("el :>> ", el);
+      .then(response => {
+        const { imageUrl, videoUrl, noun } = response.data.options;
+        handleOptionsChange({
+          word: noun,
+          video: videoUrl,
+          image: imageUrl,
+        });
       })
       .catch(e => {
         console.error(e);

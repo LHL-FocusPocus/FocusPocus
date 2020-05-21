@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import { Paper, Box } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
+
 const Wrapper = styled(Box)`
   flex: 1 45%;
   display: flex;
@@ -32,8 +32,6 @@ const Card = styled(Paper)`
 `;
 
 export default function Donut({ donutData }) {
-  // const [error, setError] = useState(false);
-
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
 
@@ -49,12 +47,14 @@ export default function Donut({ donutData }) {
     chart.paddingTop = 15;
     chart.numberFormatter.numberFormat = "#.  mins";
 
+    // Donut subtitle
     let subtitle = chart.titles.create();
     subtitle.text = "Blocked vs. Non-Blocked Sites";
     subtitle.fontSize = 17;
     subtitle.marginBottom = 30;
     subtitle.fontFamily = "Raleway, sans-serif";
 
+    // Donut title
     let title = chart.titles.create();
     title.text = "Today's Browsing";
     title.fontSize = 40;
@@ -69,28 +69,9 @@ export default function Donut({ donutData }) {
     series.tooltip.fontSize = 30;
   }, [donutData]);
 
-  // console.log('donutData :>> ', donutData);
-
-  // const checkData = () => {
-  //   if (donutData.length === 0) {
-  //     setError(true);
-  //   } else {
-  //     setError(false);
-  //   }
-  //   console.log("hi")
-  // };
-  // // checkData();
-
   return (
-    // donutData.length !== 0 ?  (
     <Card elevation={24} component={Wrapper}>
       <Chart id="donutChart"></Chart>
     </Card>
-    // ) : (
-    //   <Alert severity="error">
-    //     You do not have any site visits recorded. Please browse with the
-    //     extension.
-    //   </Alert>
-    // );
   );
 }

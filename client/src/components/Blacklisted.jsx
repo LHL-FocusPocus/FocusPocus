@@ -87,6 +87,7 @@ export default function Blacklisted({
   const { addTopSiteToUserBlacklist } = useContext(CardContext);
   const [error, setError] = useState(false);
 
+  // To expand blacklist Add Site button
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -98,6 +99,7 @@ export default function Blacklisted({
   const handleSubmit = event => {
     event.preventDefault();
 
+    // Check if input can be constructed into URL -> if not, setError (not in correct format)
     try {
       new URL(fields.host_name);
     } catch {
@@ -106,20 +108,26 @@ export default function Blacklisted({
 
     setError(false);
 
+    // Remove "http://" & "https://"
     const withoutProtocol = removeProtocol(fields.host_name);
 
+    // Add blacklisted site to user db
     addBlacklistedSite(withoutProtocol);
   };
 
+  // React Drag and Drop
+  // isOver -> if dragged element is over the droppable element
   const [{ isOver }, drop] = useDrop({
+    // Drop accepts only type CARD
     accept: ItemTypes.CARD,
+    // On drop, add site to user blacklist
     drop: (item, monitor) => addTopSiteToUserBlacklist(item.hostname),
     collect: monitor => ({
       isOver: !!monitor.isOver(),
     }),
   });
 
-  // Prevents app from crashing when user has no blacklisted sites
+  // List of user's blacklisted sites
   const blacklistList = blacklisted.map(website => {
     return (
       <BlacklistedCards

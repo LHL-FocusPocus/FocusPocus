@@ -106,6 +106,7 @@ const Container = styled.div`
 
 export default function Navbar({ user, quota, setDashboard }) {
   const classes = useStyles();
+  const history = useHistory();
 
   const { first_name, picture } = user;
   const humanizeDurationOptions = {
@@ -114,6 +115,7 @@ export default function Navbar({ user, quota, setDashboard }) {
     round: true,
   };
 
+  // Humanize time in more readable format given by quota data
   const used_quota = humanizeDuration(
     quota.used.minutes * 60000,
     humanizeDurationOptions
@@ -143,8 +145,6 @@ export default function Navbar({ user, quota, setDashboard }) {
 
     setState({ ...state, [anchor]: open });
   };
-
-  const history = useHistory();
 
   const handleLogout = function () {
     axios

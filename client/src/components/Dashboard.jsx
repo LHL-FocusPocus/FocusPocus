@@ -40,8 +40,8 @@ export default function Dashboard({ dashboardData, setDashboard }) {
   const isOverQuota = () => {
     return quota_today.used.minutes > quota_today.allotment.minutes;
   };
-  console.log("isOverQuota :>> ", isOverQuota());
 
+  // Create popup error if user is over quota for today
   toast("🦄 You are over your quota!", {
     containerId: "quota",
   });

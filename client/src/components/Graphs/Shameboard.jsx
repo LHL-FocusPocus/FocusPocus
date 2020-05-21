@@ -71,12 +71,14 @@ export default function Shameboard({ shameboard }) {
     columnTemplate.column.cornerRadius(60, 10, 60, 10);
     columnTemplate.strokeOpacity = 0;
 
+    // Shameboard subtitle
     let subtitle = chart.titles.create();
     subtitle.text = "Minutes squandered during past week";
     subtitle.fontSize = 17;
     subtitle.marginBottom = 20;
     subtitle.fontFamily = "Raleway, sans-serif";
 
+    // Shameboard title
     let title = chart.titles.create();
     title.text = "Shameboard";
     title.fontSize = 45;

@@ -1,14 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
-import {
-  Typography,
-  IconButton,
-  ListSubheader,
-  GridListTileBar,
-  GridListTile,
-  GridList,
-} from "@material-ui/core";
+import { GridListTileBar, GridListTile } from "@material-ui/core";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../utils/constants";
 import clsx from "clsx";

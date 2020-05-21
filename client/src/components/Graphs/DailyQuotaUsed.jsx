@@ -31,6 +31,7 @@ const Chart = styled.div`
 
 export default function DailyQuotaUsed({ quota }) {
   useEffect(() => {
+    // Convert quota used/allotment to percentage
     let percentageQuotaUsed;
     if (quota.used) {
       percentageQuotaUsed =
@@ -39,6 +40,7 @@ export default function DailyQuotaUsed({ quota }) {
       percentageQuotaUsed = 0;
     }
 
+    // If user is over quota, replace "%" label with text showing much over they are
     const displayText = () => {
       if (percentageQuotaUsed > 100) {
         return `${(percentageQuotaUsed - 100).toFixed(0)}% over quota!`;
@@ -63,11 +65,13 @@ export default function DailyQuotaUsed({ quota }) {
     );
     axis.renderer.grid.template.strokeOpacity = 0.3;
 
+    // Chart titles
     let title = chart.titles.create();
     title.text = "Daily Quota Used";
     title.fontSize = 40;
     title.marginBottom = 30;
 
+    // Chart labels
     let label = chart.chartContainer.createChild(am4core.Label);
     label.text = displayText();
     label.fontSize = 35;
