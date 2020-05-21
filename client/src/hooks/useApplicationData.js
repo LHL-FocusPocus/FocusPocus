@@ -8,6 +8,8 @@ import reducer, {
   SET_WEBSOCKET_GRAPHS,
   SET_CUSTOMIZATIONS,
 } from "../reducers/application";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ENDPOINT = "http://localhost:9000";
 
@@ -51,19 +53,19 @@ export default function useApplicationData() {
 
     axios
       .get("/api/data/dashboard")
-      .then(dashboard => {
+      .then((dashboard) => {
         dispatch({
           type: SET_DASHBOARD_DATA,
           payload: dashboard.data,
         });
       })
-      .catch(e => console.error(e));
+      .catch((e) => console.error(e));
   }, []);
 
-  const disableBlacklistedSite = blacklists_id => {
+  const disableBlacklistedSite = (blacklists_id) => {
     axios
       .put(`/api/user/blacklists/disable/${blacklists_id}`, blacklists_id)
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: CHANGE_BLACKLIST,
           id: res.data.id,
@@ -78,21 +80,30 @@ export default function useApplicationData() {
         quotaTarget,
         quotaIncrement,
       })
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: CHANGE_QUOTA,
           allotment: quotaStart,
         });
+        toast("✔️ Customizations Set!", {
+          position: "bottom-left",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e);
       });
   };
 
-  const addBlacklistedSite = host_name => {
+  const addBlacklistedSite = (host_name) => {
     axios
       .post("/api/user/blacklists/add", { host_name })
-      .then(res => {
+      .then((res) => {
         const { id, hostname, name, category, website_id, user_id } = res.data;
         dispatch({
           type: CHANGE_BLACKLIST,
@@ -104,7 +115,7 @@ export default function useApplicationData() {
           website_id,
         });
       })
-      .catch(e => console.error(e));
+      .catch((e) => console.error(e));
   };
 
   return {
