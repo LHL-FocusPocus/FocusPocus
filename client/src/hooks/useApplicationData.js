@@ -6,6 +6,7 @@ import reducer, {
   CHANGE_BLACKLIST,
   CHANGE_QUOTA,
   SET_WEBSOCKET_GRAPHS,
+  SET_CUSTOMIZATIONS,
 } from "../reducers/application";
 
 const ENDPOINT = "http://localhost:9000";

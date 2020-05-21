@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Box, Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import useFormFields from "../hooks/useFormFields";
 import axios from "axios";
 
@@ -46,7 +48,7 @@ const CustomizeButton = styled(Button)`
   margin: 0.5em;
 `;
 
-export default function Customization({ userOptions }) {
+export default function Customization({ userOptions, addCustomizations }) {
   const classes = useStyles();
   const [options, handleOptionsChange] = useFormFields({
     word: userOptions.noun,
@@ -88,12 +90,15 @@ export default function Customization({ userOptions }) {
 
     axios
       .post("/api/user/options/add", userOptions)
-      .then(response => {
-        const { imageUrl, videoUrl, noun } = response.data.options;
-        handleOptionsChange({
-          word: noun,
-          video: videoUrl,
-          image: imageUrl,
+      .then(() => {
+        toast("🦄 Customizations Set!", {
+          position: "bottom-left",
+          autoClose: 7000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
         });
       })
       .catch(e => {
@@ -150,6 +155,7 @@ export default function Customization({ userOptions }) {
           </CustomizeButton>
         </FormContainer>
       </Wrapper>
+      <ToastContainer style={{marginLeft: "8.2%"}}/>
     </form>
   );
 }
