@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Paper, Box } from "@material-ui/core";
 import { ToastContainer, toast } from "react-toastify";
@@ -42,17 +42,19 @@ export default function Dashboard({ dashboardData, setDashboard }) {
   };
 
   // Create popup error if user is over quota for today
-  toast("⚠️ You are over your quota! ⚠️", {
-    containerId: "quota",
-  });
-
+  useEffect(() => {
+    toast("⚠️ You are over your quota! ⚠️", {
+      containerId: "quota",
+    });
+  }, []);
+  
   return (
     <div>
       {isOverQuota() && (
         <ToastContainer
           style={{ marginTop: "5%" }}
           position="top-center"
-          autoClose={7000}
+          autoClose={5000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick
@@ -72,8 +74,7 @@ export default function Dashboard({ dashboardData, setDashboard }) {
           <Shameboard shameboard={shameboard} />
         </Paper>
         <Donut donutData={donutGraph} />
-        <Radial radialData={radialGraph}
-          />
+        <Radial radialData={radialGraph} />
       </Container>
     </div>
   );

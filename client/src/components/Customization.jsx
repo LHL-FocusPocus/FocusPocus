@@ -105,7 +105,7 @@ export default function Customization({ userOptions, addCustomizations }) {
         console.error(e);
         toast.error("⚠️ Customzations NOT set! Please try again. ⚠️", {
           position: "bottom-left",
-          autoClose: 7000,
+          autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
