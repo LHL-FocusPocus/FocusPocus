@@ -47,21 +47,25 @@ export default function Dashboard({ dashboardData, setDashboard }) {
       containerId: "quota",
     });
   }, []);
-  
+
   return (
     <div>
       {isOverQuota() && (
         <ToastContainer
-          style={{ marginTop: "5%" }}
+          style={{
+            marginTop: "5%",
+            width: "500px",            
+            fontSize: "30px",            
+            textAlign: "center",
+            display: "inline-block",
+          }}
           position="top-center"
           autoClose={5000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick
           rtl={false}
-          pauseOnFocusLoss
           draggable
-          pauseOnHover
           containerId="quota"
         />
       )}
