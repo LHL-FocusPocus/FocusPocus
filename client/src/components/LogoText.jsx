@@ -10,7 +10,6 @@ const Container = styled.div`
   transform: translateX(3%) translateY(5%);
 `;
 
-
 const Tagline = styled.div`
   font-size: 2em;
   padding: 1em 0;
@@ -26,11 +25,26 @@ const Logo = styled.img`
   z-index: 5;
 `;
 
+const ExtensionLink = styled.a`
+  color: white;
+  text-decoration: none;
+  -webkit-text-stroke: none;
+  text-shadow: none;
+`;
+
 export default function LogoText() {
   return (
     <Container>
       <Logo src="/imgs/logo3.png" />
-      <Tagline>Get Focused With <a href="https://chrome.google.com/webstore/detail/focus-pocus-extension/ognhkeempdpgnfkliplegljejeakonlg/" target="_blank">A Little Magic.</a></Tagline>
+      <Tagline>
+        Get Focused With{" "}
+        <ExtensionLink
+          href="https://chrome.google.com/webstore/detail/focus-pocus-extension/ognhkeempdpgnfkliplegljejeakonlg/"
+          target="_blank"
+        >
+          A Little Magic.
+        </ExtensionLink>
+      </Tagline>
     </Container>
   );
 }
