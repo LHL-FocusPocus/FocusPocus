@@ -91,19 +91,19 @@ export default function Customization({ userOptions, addCustomizations }) {
     axios
       .post("/api/user/options/add", userOptions)
       .then(() => {
-        toast("🦄 Customizations Set!", {
+        toast("✔️ Customizations Set!", {
           position: "bottom-left",
-          autoClose: 7000,
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
         });
       })
       .catch(e => {
         console.error(e);
-        toast.error("Customzations NOT set! Please try again.", {
+        toast.error("⚠️ Customzations NOT set! Please try again. ⚠️", {
           position: "bottom-left",
           autoClose: 7000,
           hideProgressBar: false,
