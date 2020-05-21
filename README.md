@@ -24,11 +24,11 @@ Created by:
 Front-end: React, Material-UI Back-end: Express, Node.JS, Postgres, Socket.IO
 
 ## Screenshots
-!["Index"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/client/public/imgs/FocusPocus-Landing.png)
-!["Dashboard"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/client/public/imgs/FocusPocus.gif)
-!["Add To Blacklist"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/client/public/imgs/FocusPocus-navbar-add-site.gif)
-!["Customize your settings"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/client/public/imgs/FocusPocus-replacements.gif)
-!["Extension"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/client/public/imgs/FocusPocus-extension.gif)
+!["Index"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/screenshots/FocusPocus-Landing.png)
+!["Dashboard"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/screenshots/FocusPocus.gif)
+!["Add To Blacklist"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/screenshots/FocusPocus-navbar-add-site.gif)
+!["Customize your settings"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/screenshots/FocusPocus-replacements.gif)
+!["Extension"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/screenshots/FocusPocus-extension.gif)
 
 =========
 
