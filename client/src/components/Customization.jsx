@@ -94,7 +94,7 @@ export default function Customization({ userOptions, addCustomizations }) {
       .then(() => {
         toast("✔️ Customizations Set!", {
           position: "bottom-left",
-          autoClose: 2000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
