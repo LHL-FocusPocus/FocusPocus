@@ -49,7 +49,7 @@ getUserData();
  */
 function getUserData() {
   const request = new XMLHttpRequest();
-  request.open("GET", "http://localhost:9000/api/data/dashboard", true);
+  request.open("GET", "https://lhl-focuspocus.herokuapp.com/api/data/dashboard", true);
 
   request.onload = function () {
     if (this.status >= 200 && this.status < 400) {
@@ -138,8 +138,7 @@ function handleBrowsing(tabId) {
     }
     lastDomain = currentDomain;
     timerInSeconds = 0;
-    chrome.storage.local.set({ timerInSeconds });
-    //login(); // uncomment if you want to login
+    chrome.storage.local.set({ timerInSeconds });    
   });
 }
 
@@ -150,7 +149,7 @@ function postBrowseTime(hostName, durationInSeconds) {
   const request = new XMLHttpRequest();
   request.open(
     "POST",
-    "http://localhost:9000/api/extension/add_browse_time",
+    "https://lhl-focuspocus.herokuapp.com/api/extension/add_browse_time",
     true
   );
   request.onload = function () {
@@ -165,16 +164,6 @@ function postBrowseTime(hostName, durationInSeconds) {
   };
   request.setRequestHeader("Content-Type", "application/json");
   request.send(JSON.stringify({ hostName, durationInSeconds }));
-}
-
-/**
- * Logs into the server
- */
-function login() {
-  const request = new XMLHttpRequest();
-  request.open("POST", "http://localhost:9000/api/user/login", true);
-  request.setRequestHeader("Content-Type", "application/json");
-  request.send(JSON.stringify({ email: "a@a.com", password: "password" }));
 }
 
 function getDomainFromUrl(url) {
