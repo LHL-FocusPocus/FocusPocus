@@ -42,7 +42,7 @@ export default function Dashboard({ dashboardData, setDashboard }) {
   };
 
   // Create popup error if user is over quota for today
-  toast("🦄 You are over your quota!", {
+  toast("⚠️ You are over your quota! ⚠️", {
     containerId: "quota",
   });
 
