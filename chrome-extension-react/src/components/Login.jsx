@@ -163,7 +163,7 @@ export default function Login(props) {
           </Grid>
           <Grid container justify="center">
             <Grid item>
-              <Link href="/register" variant="body2">
+              <Link href="http://focuspocus.netlify.app/register" variant="body2">
                 Don't have an account? Visit our website!
               </Link>
             </Grid>
