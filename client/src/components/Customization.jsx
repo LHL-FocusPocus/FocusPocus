@@ -103,6 +103,15 @@ export default function Customization({ userOptions, addCustomizations }) {
       })
       .catch(e => {
         console.error(e);
+        toast.error("Customzations NOT set! Please try again.", {
+          position: "bottom-left",
+          autoClose: 7000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
   };
 
@@ -155,7 +164,7 @@ export default function Customization({ userOptions, addCustomizations }) {
           </CustomizeButton>
         </FormContainer>
       </Wrapper>
-      <ToastContainer style={{marginLeft: "8.2%"}}/>
+      <ToastContainer style={{ marginLeft: "8.2%" }} />
     </form>
   );
 }
