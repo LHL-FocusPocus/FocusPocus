@@ -52,7 +52,7 @@ export default function Dashboard({ dashboardData, setDashboard }) {
         <ToastContainer
           style={{ marginTop: "5%" }}
           position="top-center"
-          autoClose={7000}
+          autoClose={5000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick
