@@ -12,6 +12,7 @@ const compileData = function (data, key, key2) {
   return dataArr;
 };
 
+// Process time given from database into only minutes
 const processTimeToMins = function (obj, dataObj, dataArr) {
   let minutes = 0;
   if (obj.time.days) {
