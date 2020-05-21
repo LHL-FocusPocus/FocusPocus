@@ -1,12 +1,12 @@
 {
   "name": "Focus Pocus Extension",
-  "version": "0.1",
+  "version": "0.3",
   "description": "Magically changing the page to keep you focused!",
   "permissions": [
     "activeTab",
     "declarativeContent",
     "storage",
-    "*://*/*"
+    "https://lhl-focuspocus.herokuapp.com/"
   ],
   "options_page": "options.html",
   "background": {

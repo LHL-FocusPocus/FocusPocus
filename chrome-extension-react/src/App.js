@@ -10,7 +10,7 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 
 
-axios.defaults.baseURL = "http://localhost:9000";
+axios.defaults.baseURL = "https://lhl-focuspocus.herokuapp.com";
 axios.defaults.withCredentials = true;
 
 const useStyles = makeStyles((theme) => ({
