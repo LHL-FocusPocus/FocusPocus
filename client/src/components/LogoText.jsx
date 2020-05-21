@@ -35,6 +35,8 @@ const Logo = styled.img`
       target="_blank"
     > */
 
+const EXTENSION_URL = "https://github.com/LHL-FocusPocus/FocusPocus/releases"
+// const EXTENSION_URL = "https://chrome.google.com/webstore/detail/focus-pocus-extension/ognhkeempdpgnfkliplegljejeakonlg/"
 
 export default function LogoText() {
 
@@ -45,7 +47,7 @@ const imageClick = () => {
   return (
     <Container>
     <ClickableLink 
-      href="https://chrome.google.com/webstore/detail/focus-pocus-extension/ognhkeempdpgnfkliplegljejeakonlg/"
+      href={EXTENSION_URL}
       target="_blank"
     > 
       <Logo src="/imgs/logo3.png" />
