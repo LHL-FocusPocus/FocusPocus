@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import useFormFields from "../hooks/useFormFields";
 import axios from "axios";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
       marginTop: theme.spacing(2),
     },
   },
+  toast: { fontSize: 25 },
 }));
 
 const Title = styled.h1`
@@ -60,7 +61,7 @@ export default function Customization({ userOptions, addCustomizations }) {
     video: false,
   });
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     // Check if input can be constructed into URL -> if not, setError (not in correct URL format that the extension requires)
@@ -99,9 +100,10 @@ export default function Customization({ userOptions, addCustomizations }) {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
+          className: classes.toast
         });
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e);
         toast.error("⚠️ Customzations NOT set! Please try again. ⚠️", {
           position: "bottom-left",
