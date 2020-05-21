@@ -20,3 +20,8 @@ body {
   font-family: "Amatic SC", sans-serif;
   font-size: 1em;
 }
+
+.Toastify__toast-body {
+  font-family: "Amatic SC", sans-serif;
+  color: black;
+}

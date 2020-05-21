@@ -54,8 +54,8 @@ export default function Dashboard({ dashboardData, setDashboard }) {
         <ToastContainer
           style={{
             marginTop: "5%",
-            width: "500px",            
-            fontSize: "30px",            
+            width: "400px",
+            fontSize: "30px",
             textAlign: "center",
             display: "inline-block",
           }}
