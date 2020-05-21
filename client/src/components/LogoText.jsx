@@ -12,6 +12,7 @@ const Container = styled.div`
 
 const ClickableLink = styled.a`
   text-decoration: none;
+  color: purple;
 `
 
 const Tagline = styled.div`
