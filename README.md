@@ -16,12 +16,15 @@ Please note that the app is still in alpha build.
 
 # About the Project
 
-Created by:
+# Created by:
 - Matt Taylor - https://github.com/xynyx
 - Taha Rizvi - https://github.com/riztaha
 - Jimmy Peng - https://github.com/jpqy
 
-Front-end: React, Material-UI Back-end: Express, Node.JS, Postgres, Socket.IO
+## Stack
+Front-end: React.js, Material-UI, amCharts, React DnD
+Back-end: Express, Node.js, Postgres, Socket.IO
+Chrome Extension: React.js, Chrome Extension API
 
 ## Screenshots
 !["Index"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/screenshots/FocusPocus-Landing.png)
