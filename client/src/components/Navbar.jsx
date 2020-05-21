@@ -15,6 +15,7 @@ import {
 } from "@material-ui/core";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AssessmentIcon from "@material-ui/icons/Assessment";
+import ExtensionIcon from "@material-ui/icons/Extension";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 import { useHistory } from "react-router-dom";
@@ -27,15 +28,14 @@ const useStyles = makeStyles(theme => ({
     transform: "translateY(-60%) translateX(73%)",
     borderRadius: "100%",
   },
-  navbarBgGradient:{}
+  anchor: { textDecoration: "none", color: "inherit" },
 }));
 
 const Icon = styled(Avatar)`
   width: 35%;
   height: auto;
   margin: auto;
-  margin-top: 1.5em;
-  margin-bottom: 0.2em;
+  margin-top: 1em;
   box-shadow: 5px 19px 38px rgba(0, 0, 0, 0.3), 0 15px 38px rgba(0, 0, 0, 0.22);
 `;
 
@@ -44,16 +44,16 @@ const DrawerIcon = styled(MenuOpenIcon)`
   height: 40px;
 `;
 
-const NavbarLogo = styled.img`  
+const NavbarLogo = styled.img`
   width: 260px;
-  margin-left: 50%;
-  margin-top: 1%;  
+  margin-left: 49.8%;
+  margin-top: 1%;
   transform: translateX(-180px);
 `;
 
 const Greeting = styled.div`
   text-align: center;
-  padding: 1.5em;
+  padding: 1em;
   font-size: 1.5em;
 `;
 
@@ -71,7 +71,7 @@ const LogoContainer = styled(Box)`
 
 const Message = styled.div`
   text-align: center;
-  padding: 1.5em;
+  margin: 2em;
   font-size: 1.1em;
 `;
 
@@ -79,7 +79,6 @@ const QuotaMessage = styled.div`
   text-align: center;
   padding: 1.5em;
   font-size: 0.9em;
-  padding-bottom: 4em;
 `;
 
 const QuotaTime = styled.div`
@@ -199,6 +198,25 @@ export default function Navbar({ user, quota, setDashboard }) {
             <ListItemText primary={text} />
           </ListItem>
         ))}
+        <a
+          href="http://chrome.google.com/webstore/detail/focus-pocus-extension/ognhkeempdpgnfkliplegljejeakonlg/"
+          target="_blank"
+          className={classes.anchor}
+        >
+          <ListItem
+            button
+            key="extension"
+            // component={Link}
+            // linkButton={true}
+            // target="_blank"
+            // to="http://chrome.google.com/webstore/detail/focus-pocus-extension/ognhkeempdpgnfkliplegljejeakonlg/"
+          >
+            <ListItemIcon>
+              <ExtensionIcon />
+            </ListItemIcon>
+            <ListItemText primary="Get Extension" />
+          </ListItem>
+        </a>
       </List>
       <Divider />
       <List onClick={handleLogout}>

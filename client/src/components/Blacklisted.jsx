@@ -22,6 +22,7 @@ import removeProtocol from "../helpers/removeProtocol";
 import { ItemTypes } from "../utils/constants";
 import { CardContext } from "./Options";
 import { useDrop } from "react-dnd";
+import isUrl from "../helpers/isUrl";
 
 const Container = styled(Box)`
   min-height: 86vh;
@@ -99,9 +100,19 @@ export default function Blacklisted({
   const handleSubmit = event => {
     event.preventDefault();
 
+    // Do initial check using regex
+    if (!isUrl(fields.host_name)) {
+      return setError(true);
+    }
+    let inputUrl;
     // Check if input can be constructed into URL -> if not, setError (not in correct format)
     try {
-      new URL(fields.host_name);
+      inputUrl = fields.host_name;
+      if (!inputUrl.startsWith("http")) {
+        // isUrl will say true if people forget to add http, but new URL needs http
+        inputUrl = "http://" + inputUrl;
+      }
+      new URL(inputUrl);
     } catch {
       return setError(true);
     }
@@ -109,7 +120,7 @@ export default function Blacklisted({
     setError(false);
 
     // Remove "http://" & "https://"
-    const withoutProtocol = removeProtocol(fields.host_name);
+    const withoutProtocol = removeProtocol(inputUrl);
 
     // Add blacklisted site to user db
     addBlacklistedSite(withoutProtocol);
