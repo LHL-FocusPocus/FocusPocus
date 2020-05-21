@@ -9,7 +9,8 @@ import reducer, {
   SET_CUSTOMIZATIONS,
 } from "../reducers/application";
 
-const ENDPOINT = "http://localhost:9000";
+const WEBSOCKET_URL =
+  process.env.REACT_APP_WEBSOCKET_URL || "http://localhost:9000";
 
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
@@ -43,7 +44,7 @@ export default function useApplicationData() {
 
   useEffect(() => {
     // Websocket connection
-    const conn = socketIOClient(ENDPOINT);
+    const conn = socketIOClient(WEBSOCKET_URL);
 
     conn.on("refresh", () => {
       setWebsocketGraphs();

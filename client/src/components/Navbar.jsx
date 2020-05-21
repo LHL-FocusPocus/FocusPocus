@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
     transform: "translateY(-65%) translateX(73%)",
     borderRadius: "100%",
   },
+  navbarBgGradient:{}
 }));
 
 const Icon = styled(Avatar)`
@@ -43,10 +44,11 @@ const DrawerIcon = styled(MenuOpenIcon)`
   height: 40px;
 `;
 
-const NavbarLogo = styled.img`
+const NavbarLogo = styled.img`  
   width: 260px;
-  margin-left: 40%;
-  margin-top: 0.7%;
+  margin-left: 50%;
+  margin-top: 1%;  
+  transform: translateX(-180px);
 `;
 
 const Greeting = styled.div`
