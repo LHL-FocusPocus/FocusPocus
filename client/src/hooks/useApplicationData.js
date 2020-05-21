@@ -8,8 +8,6 @@ import reducer, {
   SET_WEBSOCKET_GRAPHS,
   SET_CUSTOMIZATIONS,
 } from "../reducers/application";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const ENDPOINT = "http://localhost:9000";
 
@@ -74,7 +72,7 @@ export default function useApplicationData() {
   };
 
   const changeQuota = (quotaStart, quotaTarget, quotaIncrement) => {
-    axios
+    return axios
       .post("/api/user/adjust_quota", {
         quotaStart,
         quotaTarget,
@@ -84,16 +82,7 @@ export default function useApplicationData() {
         dispatch({
           type: CHANGE_QUOTA,
           allotment: quotaStart,
-        });
-        toast("✔️ Customizations Set!", {
-          position: "bottom-left",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-        });
+        });        
       })
       .catch((e) => {
         console.error(e);
