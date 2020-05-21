@@ -74,7 +74,7 @@ export default function Donut({ donutData }) {
   }, [donutData]);
   
   
-  console.log('donutData :>> ', donutData);  
+  // console.log('donutData :>> ', donutData);  
   
   // const checkData = () => {
   //   if (donutData.length === 0) {

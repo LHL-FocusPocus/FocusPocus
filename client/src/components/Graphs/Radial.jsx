@@ -115,7 +115,7 @@ export default function Radial({ radialData }) {
     // };
   }, [radialData]);
 
-  console.log("radialData :>> ", radialData.length);
+  // console.log("radialData :>> ", radialData.length);
 
   // checkData();
 
