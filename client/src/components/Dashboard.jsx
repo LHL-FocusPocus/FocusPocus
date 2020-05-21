@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Paper, Box } from "@material-ui/core";
 import { ToastContainer, toast } from "react-toastify";

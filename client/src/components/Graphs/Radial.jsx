@@ -39,7 +39,7 @@ const Chart = styled.div`
 `;
 
 export default function Radial({ radialData }) {
-  const [error, setError] = useState(false);
+  // const [error, setError] = useState(false);
 
   useEffect(() => {
     am4core.useTheme(am4themes_material);
@@ -104,30 +104,38 @@ export default function Radial({ radialData }) {
     chart.cursor.behavior = "none";
     chart.cursor.lineX.disabled = true;
     chart.cursor.lineY.disabled = true;
+
+    // const checkData = () => {
+    //   if (radialData.length === 0) {
+    //     setError(true);
+    //   } else {
+    //     setError(false);
+    //   }
+    //   console.log("hi")
+    // };
   }, [radialData]);
 
-  console.log("radialData :>> ", radialData);
+  // console.log("radialData :>> ", radialData.length);
 
-  const checkData = () => {
-    if (radialData.length === 0) {
-      setError(true);
-    } else {
-      setError(false);
-    }
-    console.log("hi")
-  };
   // checkData();
 
   return (
+    // radialData.length !== 0 ? (
     <Card elevation={24} component={Wrapper}>
       <Chart id="radial-chart">
-        {error && (
+        {/* {error && (
           <Alert severity="error">
             You do not have any site visits recorded. Please browse with the
             extension.
           </Alert>
-        )}
+        )} */}
       </Chart>
     </Card>
+    // ) : (
+    //   <Alert severity="error">
+    //     You do not have any site visits recorded. Please browse with the
+    //     extension.
+    //   </Alert>
+    // );
   );
 }

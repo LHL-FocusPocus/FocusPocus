@@ -3,10 +3,8 @@ import styled from "styled-components";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import { Paper, Box } from "@material-ui/core"
+import { Paper, Box } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-;
-
 const Wrapper = styled(Box)`
   flex: 1 45%;
   display: flex;
@@ -70,31 +68,29 @@ export default function Donut({ donutData }) {
     series.fontSize = 25;
     series.tooltip.fontSize = 30;
   }, [donutData]);
-  
-  
-console.log('donutData :>> ', donutData);  
- 
-// const checkData = () => {
-//   if (donutData.length === 0) {
-//     setError(true);
-//   } else {
-//     setError(false);
-//   }
-//   console.log("hi")
-// };
-// // checkData();
 
+  // console.log('donutData :>> ', donutData);
+
+  // const checkData = () => {
+  //   if (donutData.length === 0) {
+  //     setError(true);
+  //   } else {
+  //     setError(false);
+  //   }
+  //   console.log("hi")
+  // };
+  // // checkData();
 
   return (
-    <Card elevation={24} component={Wrapper} >
-      <Chart id="donutChart">
-      {/* {error && (
-          <Alert severity="error">
-            You do not have any site visits recorded. Please browse with the
-            extension.
-          </Alert>
-        )} */}
-      </Chart>
+    // donutData.length !== 0 ?  (
+    <Card elevation={24} component={Wrapper}>
+      <Chart id="donutChart"></Chart>
     </Card>
+    // ) : (
+    //   <Alert severity="error">
+    //     You do not have any site visits recorded. Please browse with the
+    //     extension.
+    //   </Alert>
+    // );
   );
 }
