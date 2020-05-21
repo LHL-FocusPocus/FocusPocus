@@ -35,8 +35,7 @@ const Icon = styled(Avatar)`
   width: 35%;
   height: auto;
   margin: auto;
-  margin-top: 1.5em;
-  margin-bottom: 0.2em;
+  margin-top: 1em;
   box-shadow: 5px 19px 38px rgba(0, 0, 0, 0.3), 0 15px 38px rgba(0, 0, 0, 0.22);
 `;
 
@@ -47,14 +46,14 @@ const DrawerIcon = styled(MenuOpenIcon)`
 
 const NavbarLogo = styled.img`
   width: 260px;
-  margin-left: 50%;
+  margin-left: 49.8%;
   margin-top: 1%;
   transform: translateX(-180px);
 `;
 
 const Greeting = styled.div`
   text-align: center;
-  padding: 1.5em;
+  padding: 1em;
   font-size: 1.5em;
 `;
 
@@ -72,7 +71,7 @@ const LogoContainer = styled(Box)`
 
 const Message = styled.div`
   text-align: center;
-  padding: 1.5em;
+  margin: 2em;
   font-size: 1.1em;
 `;
 
@@ -80,7 +79,6 @@ const QuotaMessage = styled.div`
   text-align: center;
   padding: 1.5em;
   font-size: 0.9em;
-  padding-bottom: 4em;
 `;
 
 const QuotaTime = styled.div`
