@@ -8,7 +8,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   flex: 2;
-  transform: translateX(2%) translateY(-8%);
+  transform: translateX(3%) translateY(5%);
 `;
 
 

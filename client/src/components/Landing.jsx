@@ -23,8 +23,8 @@ const InnerContainer = styled.div`
 
 const GitHub = styled(IconButton)`
   position: fixed !important;
-  left: 1em !important;
-  top: 1em !important;
+  left: 0.7em !important;
+  top: 0.7em !important;
 `;
 export default function Landing({ setDashboard }) {
   const history = useHistory();
