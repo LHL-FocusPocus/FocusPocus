@@ -6,7 +6,7 @@
     "activeTab",
     "declarativeContent",
     "storage",
-    "https://lhl-focuspocus.herokuapp.com/"
+    "*://*/*"
   ],
   "options_page": "options.html",
   "background": {
