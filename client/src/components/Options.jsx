@@ -40,6 +40,7 @@ export default function Options({
   disableBlacklistedSite,
   changeQuota,
   dashboardData,
+  setDashboard,
 }) {
   const { quota_today, topBlacklisted, user } = dashboardData;
 
@@ -50,7 +51,7 @@ export default function Options({
   return (
     <DndProvider backend={Backend}>
       <CardContext.Provider value={{ addTopSiteToUserBlacklist }}>
-        <Navbar user={user} quota={quota_today} />
+        <Navbar user={user} quota={quota_today} setDashboard={setDashboard} />
         <ThemeProvider theme={theme}>
           <Container bgcolor="background.paper">
             <QuotaAndCustomization>

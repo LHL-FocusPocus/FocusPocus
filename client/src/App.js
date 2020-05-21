@@ -81,6 +81,7 @@ function App() {
                 disableBlacklistedSite={disableBlacklistedSite}
                 dashboardData={state}
                 blacklisted={state.blacklisted}
+                setDashboard={setDashboard}
               />
             )
           }
