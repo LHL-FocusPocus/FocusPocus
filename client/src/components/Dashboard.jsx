@@ -66,9 +66,10 @@ export default function Dashboard({ dashboardData, setDashboard }) {
           <Shameboard shameboard={shameboard} />
         </Paper>
         <Donut donutData={donutGraph} />
-        <Radial radialData={radialGraph}
-        //  error={error}
-          />
+        <Radial
+          radialData={radialGraph}
+          //  error={error}
+        />
       </Container>
     </div>
   );

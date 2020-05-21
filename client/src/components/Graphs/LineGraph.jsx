@@ -48,7 +48,6 @@ export default function LineGraph({ lineData }) {
     chart.scale = 0.93;
     chart.numberFormatter.numberFormat = "#.";
 
-
     // Create axes
     const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.grid.template.location = 0.5;
