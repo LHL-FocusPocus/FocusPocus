@@ -24,7 +24,7 @@ import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
   button: {
-    transform: "translateY(-65%) translateX(73%)",
+    transform: "translateY(-60%) translateX(73%)",
     borderRadius: "100%",
   },
   navbarBgGradient:{}
@@ -40,7 +40,7 @@ const Icon = styled(Avatar)`
 `;
 
 const DrawerIcon = styled(MenuOpenIcon)`
-  width: 35px;
+  width: auto;
   height: 40px;
 `;
 
