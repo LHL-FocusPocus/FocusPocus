@@ -46,7 +46,7 @@ const DrawerIcon = styled(MenuOpenIcon)`
 const NavbarLogo = styled.img`
   width: 260px;
   margin-left: 40%;
-  margin-top: 1%;
+  margin-top: 0.7%;
 `;
 
 const Greeting = styled.div`
