@@ -7,7 +7,7 @@ FocusPocus makes website blocking fun! All original content is fully loaded befo
 
 Hosted at http://focuspocus.netlify.app
 
-Chrome extension is currently unlisted but can be installed from the Chrome Web Store [here](https://chrome.google.com/webstore/detail/focus-pocus-extension/ognhkeempdpgnfkliplegljejeakonlg).
+Chrome extension is currently undergoing review but can be manually installed [here](https://github.com/LHL-FocusPocus/FocusPocus/releases).
 
 This app was completed as the Final Project for Lighthouse Lab's Full-Stack Web Development Bootcamp. 
 
