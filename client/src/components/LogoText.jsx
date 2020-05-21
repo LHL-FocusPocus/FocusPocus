@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -10,6 +10,9 @@ const Container = styled.div`
   transform: translateX(3%) translateY(5%);
 `;
 
+const ClickableLink = styled.a`
+  text-decoration: none;
+`
 
 const Tagline = styled.div`
   font-size: 2em;
@@ -22,15 +25,31 @@ const Tagline = styled.div`
 
 const Logo = styled.img`
   height: 50%;
-  transform: translateY(30px);
+  transform: translateY(30px) translateX(175px);
   z-index: 5;
 `;
 
+/*     <a style={{width: "60%", height: "0%"}}
+      href="https://chrome.google.com/webstore/detail/focus-pocus-extension/ognhkeempdpgnfkliplegljejeakonlg/"
+      target="_blank"
+    > */
+
+
 export default function LogoText() {
+
+const imageClick = () => {
+  console.log("TEST")
+}
+
   return (
     <Container>
+    <ClickableLink 
+      href="https://chrome.google.com/webstore/detail/focus-pocus-extension/ognhkeempdpgnfkliplegljejeakonlg/"
+      target="_blank"
+    > 
       <Logo src="/imgs/logo3.png" />
-      <Tagline>Get Focused With <a href="https://chrome.google.com/webstore/detail/focus-pocus-extension/ognhkeempdpgnfkliplegljejeakonlg/" target="_blank">A Little Magic.</a></Tagline>
+      <Tagline>Get Focused With A Little Magic.</Tagline>
+      </ClickableLink>
     </Container>
   );
 }
