@@ -30,7 +30,7 @@ export default function LogoText() {
   return (
     <Container>
       <Logo src="/imgs/logo3.png" />
-      <Tagline>Get Focused With A Little Magic.</Tagline>
+      <Tagline>Get Focused With <a href="https://chrome.google.com/webstore/detail/focus-pocus-extension/ognhkeempdpgnfkliplegljejeakonlg/" target="_blank">A Little Magic.</a></Tagline>
     </Container>
   );
 }
