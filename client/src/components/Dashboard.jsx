@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Paper, Box } from "@material-ui/core";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import LineGraph from "./Graphs/LineGraph";
 import DailyQuotaUsed from "./Graphs/DailyQuotaUsed";
 import Navbar from "./Navbar";
@@ -35,8 +37,32 @@ export default function Dashboard({ dashboardData, setDashboard }) {
     quota_today,
   } = dashboardData;
 
+  const isOverQuota = () => {
+    return quota_today.used.minutes > quota_today.allotment.minutes;
+  };
+  console.log("isOverQuota :>> ", isOverQuota());
+
+  toast("🦄 You are over your quota!", {
+    containerId: "quota",
+  });
+
   return (
     <div>
+      {isOverQuota() && (
+        <ToastContainer
+          style={{ marginTop: "5%" }}
+          position="top-center"
+          autoClose={7000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          containerId="quota"
+        />
+      )}
       <Navbar user={user} quota={quota_today} setDashboard={setDashboard} />
       <Container flexWrap="wrap" display="flex">
         <DailyQuotaUsed quota={quota_today} />
