@@ -15,6 +15,7 @@ import {
 } from "@material-ui/core";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AssessmentIcon from "@material-ui/icons/Assessment";
+import ExtensionIcon from "@material-ui/icons/Extension";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 import { useHistory } from "react-router-dom";
@@ -27,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     transform: "translateY(-60%) translateX(73%)",
     borderRadius: "100%",
   },
-  navbarBgGradient:{}
+  anchor: { textDecoration: "none", color: "inherit" },
 }));
 
 const Icon = styled(Avatar)`
@@ -44,10 +45,10 @@ const DrawerIcon = styled(MenuOpenIcon)`
   height: 40px;
 `;
 
-const NavbarLogo = styled.img`  
+const NavbarLogo = styled.img`
   width: 260px;
   margin-left: 50%;
-  margin-top: 1%;  
+  margin-top: 1%;
   transform: translateX(-180px);
 `;
 
@@ -199,6 +200,25 @@ export default function Navbar({ user, quota, setDashboard }) {
             <ListItemText primary={text} />
           </ListItem>
         ))}
+        <a
+          href="http://chrome.google.com/webstore/detail/focus-pocus-extension/ognhkeempdpgnfkliplegljejeakonlg/"
+          target="_blank"
+          className={classes.anchor}
+        >
+          <ListItem
+            button
+            key="extension"
+            // component={Link}
+            // linkButton={true}
+            // target="_blank"
+            // to="http://chrome.google.com/webstore/detail/focus-pocus-extension/ognhkeempdpgnfkliplegljejeakonlg/"
+          >
+            <ListItemIcon>
+              <ExtensionIcon />
+            </ListItemIcon>
+            <ListItemText primary="Get Extension" />
+          </ListItem>
+        </a>
       </List>
       <Divider />
       <List onClick={handleLogout}>
