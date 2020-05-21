@@ -69,32 +69,38 @@ export default function Donut({ donutData }) {
     series.colors.step = 3;
     series.fontSize = 25;
     series.tooltip.fontSize = 30;
+    
+    
   }, [donutData]);
   
   
-console.log('donutData :>> ', donutData);  
- 
-// const checkData = () => {
-//   if (donutData.length === 0) {
-//     setError(true);
-//   } else {
-//     setError(false);
-//   }
-//   console.log("hi")
-// };
+  console.log('donutData :>> ', donutData);  
+  
+  // const checkData = () => {
+  //   if (donutData.length === 0) {
+  //     setError(true);
+  //   } else {
+  //     setError(false);
+  //   }
+  //   console.log("hi")
+  // };
 // // checkData();
 
 
   return (
+
+    // donutData.length !== 0 ?  (
     <Card elevation={24} component={Wrapper} >
       <Chart id="donutChart">
-      {/* {error && (
-          <Alert severity="error">
-            You do not have any site visits recorded. Please browse with the
-            extension.
-          </Alert>
-        )} */}
       </Chart>
     </Card>
+ // ) : (
+    //   <Alert severity="error">
+    //     You do not have any site visits recorded. Please browse with the
+    //     extension.
+    //   </Alert>
+    // );
+
+    
   );
 }
