@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Paper, Box } from "@material-ui/core";
 import { ToastContainer, toast } from "react-toastify";
@@ -72,7 +72,8 @@ export default function Dashboard({ dashboardData, setDashboard }) {
           <Shameboard shameboard={shameboard} />
         </Paper>
         <Donut donutData={donutGraph} />
-        <Radial radialData={radialGraph} />
+        <Radial radialData={radialGraph}
+          />
       </Container>
     </div>
   );
