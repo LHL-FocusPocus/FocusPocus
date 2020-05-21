@@ -50,6 +50,7 @@ module.exports = (db) => {
   router.post("/register", (req, res) => {
     const { firstName, lastName, email, password } = req.body;
 
+    // If some fields are not filled in -> return error
     if (!(firstName && lastName && email && password)) {
       return res.status(400).json("You must fill in all the fields.");
     }
@@ -65,11 +66,9 @@ module.exports = (db) => {
       })
       .then((userId) => {
         dbHelper
-          // console.log("successful user set");
           .addQuotaForUser(userId, "1.5 hours")
           .then(() => res.status(200).json("User created!"))
           .catch((err) => res.status(500).json("Invalid Request", err));
-        // console.log("successful quota set");
       })
       .catch((err) => res.status(500).json("Invalid Request", err));
   });
@@ -199,21 +198,13 @@ module.exports = (db) => {
           dbHelper
             .addWebsite(URL, name, category)
             .then((site) => {
-              // console.log("Adding website to blacklist=====>", userId, site.id);
               return dbHelper.addWebsiteToBlacklist(userId, site.id);
             })
             .then((blacklistedSite) => {
-              // console.log(
-              //   "Getting blacklisted site by website ID ======>",
-              //   userId,
-              //   blacklistedSite.website_id
-              // );
-
               return dbHelper.getBlacklistedSiteByWebsiteId(
                 blacklistedSite.website_id,
                 userId
               );
-              // return dbHelper.getBlacklistedSitesWithUserID(userId);
             })
             .then((website) => {
               return res.status(201).json(website);
@@ -225,7 +216,6 @@ module.exports = (db) => {
           // to enabled
           dbHelper
             .getBlacklistedSiteByWebsiteId(site.id, userId)
-            // .getBlacklistedSitesWithUserID(userId)
             .then((websiteScoped) => {
               // If website already in user's blacklist, set its flag to enabled
               if (websiteScoped) {
@@ -274,28 +264,16 @@ module.exports = (db) => {
   router.put("/blacklists/disable/:id", (req, res) => {
     const { userId } = req.session;
     const { id } = req.params;
-    // console.log("Req Params =======>", req.params);
-    // console.log("Req Body ======>", req.body);
     if (!userId) {
       return res.status(403).json("Please sign in first.");
     }
-    // console.log("website ID ====>Before", id);
     dbHelper.disableWebsiteInBlacklist(id, userId).then((resp) => {
-      // console.log("website ID ====>After", id);
       if (!id) {
         return res.status(400).json(err);
       }
       return res.status(200).json(resp);
     });
   });
-
-  /*         // If the options object is empty (it's entries array will also be empty, or have length 0)
-        // NOT SURE IF WE NEED THIS, IF IT IS EMPTY, IT SHOULD STILL UPDATE, BUT NOT OVERWRITE THE OPTIONS KEY
-        // if (Object.entries(options).length === 0) {
-        //   return res.status(200).json({});
-        // }
-        // console.log("options :>> ", options);
-        // return res.status(200).json(options); */
 
   router.post("/options/add", (req, res) => {
     const { userId } = req.session;
@@ -329,40 +307,8 @@ module.exports = (db) => {
       return res.status(403).json("Please sign in first.");
     }
     dbHelper.getUserOptions(userId).then((options) => {
-      // if (options.options.length === 0) {
-      //   return res.status(200).json({});
-      // }
       return res.status(200).json(options);
     });
-  });
-
-  //   // Just a test route to test db queries and response
-  router.get("/test", (req, res) => {
-    // const { host_name } = req.body;
-
-    const host_name = "www.google.com";
-    const URL = remPrefix(host_name);
-    const userId = 1;
-    dbHelper
-      .getWebsiteIDByHostname(URL)
-      .then((site) => {
-        if (!site) {
-          // console.log("=====> Website does not exist yet DB, adding to db");
-          const name = extractNameFromURL(URL);
-          const category = null;
-          dbHelper.addWebsite(URL, name, category).then((site) => {
-            // console.log("=====> Adding a new site to blacklist");
-            console.log(site);
-            return dbHelper.addWebsiteToBlacklist(userId, site.id);
-          });
-        } else {
-          // console.log("=====> Website exists in database");
-          // console.log("=====> Adding an old site to this user's blacklist");
-          return dbHelper.addWebsiteToBlacklist(userId, site.id);
-        }
-      })
-      .then(() => res.json(`${URL} added to blacklist`))
-      .catch((err) => res.status(400).json(err));
   });
 
   return router;

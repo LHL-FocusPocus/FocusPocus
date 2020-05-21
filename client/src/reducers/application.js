@@ -1,6 +1,5 @@
 export const SET_DASHBOARD_DATA = "SET_DASHBOARD_DATA";
-export const SET_BLACKLIST_DATA = "SET_BLACKLIST_DATA";
-export const CHANGE_BLACKLIST = "CHANGE_BLACKLIST"; //TODO: Should not combine dispatch events, its okay to separate otherwise logic gets convulated
+export const CHANGE_BLACKLIST = "CHANGE_BLACKLIST";
 export const CHANGE_QUOTA = "CHANGE_QUOTA";
 export const SET_WEBSOCKET_GRAPHS = "SET_WEBSOCKET_GRAPHS";
 
@@ -26,12 +25,6 @@ export default function reducer(state, action) {
           ...action.payload,
         };
       }
-
-    case SET_BLACKLIST_DATA:
-      return {
-        ...state,
-        blacklisted: action.blacklisted,
-      };
 
     case CHANGE_BLACKLIST:
       const { id } = action;
@@ -92,7 +85,5 @@ export default function reducer(state, action) {
         donutGraph,
         radialGraph,
       };
-
-    //todo: have default state /error handling, not required but nice to have
   }
 }

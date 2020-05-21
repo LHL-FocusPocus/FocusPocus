@@ -6,7 +6,6 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 const Wrapper = styled(Box)`
-  ${"" /* border: solid 3px black; */}
   flex: 1 50%;
   display: flex;
   items-align: center;
@@ -23,8 +22,6 @@ const Chart = styled.div`
   align-self: center;
   width: 70%;
   height: 85%;
-  ${'' /* margin: 2em 0em; */}
-  ${"" /* margin-left: 400px; */}
 `;
 
 export default function Shameboard({ shameboard }) {
@@ -49,9 +46,6 @@ export default function Shameboard({ shameboard }) {
     categoryAxis.fontSize = 30;
 
     const valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
-    // valueAxis.title.text = "minutes wasted last week";
-    // valueAxis.title.marginBottom = 20;
-    // valueAxis.title.fontSize = 15;
     valueAxis.renderer.inside = true;
     valueAxis.renderer.labels.template.fillOpacity = 0.3;
     valueAxis.renderer.grid.template.strokeOpacity = 0;
@@ -77,12 +71,14 @@ export default function Shameboard({ shameboard }) {
     columnTemplate.column.cornerRadius(60, 10, 60, 10);
     columnTemplate.strokeOpacity = 0;
 
+    // Shameboard subtitle
     let subtitle = chart.titles.create();
     subtitle.text = "Minutes squandered during past week";
     subtitle.fontSize = 17;
     subtitle.marginBottom = 20;
-    subtitle.fontFamily = "Raleway, sans-serif"
+    subtitle.fontFamily = "Raleway, sans-serif";
 
+    // Shameboard title
     let title = chart.titles.create();
     title.text = "Shameboard";
     title.fontSize = 45;
@@ -129,27 +125,6 @@ export default function Shameboard({ shameboard }) {
       const circleBullet = target.parent;
       return circleBullet.circle;
     });
-
-    // let previousBullet;
-    // chart.cursor.events.on("cursorpositionchanged", function (event) {
-    //   const dataItem = series.tooltipDataItem;
-
-    //   if (dataItem.column) {
-    //     const bullet = dataItem.column.children.getIndex(1);
-
-    //     if (previousBullet && previousBullet != bullet) {
-    //       previousBullet.isHover = false;
-    //     }
-
-    //     if (previousBullet != bullet) {
-    //       const hs = bullet.states.getKey("hover");
-    //       hs.properties.dx = -dataItem.column.pixelWidth;
-    //       bullet.isHover = true;
-
-    //       previousBullet = bullet;
-    //     }
-    //   }
-    // });
   }, [shameboard]);
 
   return <Chart id="shameboard"></Chart>;

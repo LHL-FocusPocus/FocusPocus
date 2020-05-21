@@ -1,14 +1,14 @@
 import React, { createContext } from "react";
-import Navbar from "./Navbar";
-import Blacklisted from "./Blacklisted";
-import Box from "@material-ui/core/Box";
 import styled from "styled-components";
-import QuotaSlider from "./QuotaSlider";
+import Box from "@material-ui/core/Box";
 import TopBlacklisted from "./TopBlacklisted";
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Customization from "./Customization";
+import Blacklisted from "./Blacklisted";
+import QuotaSlider from "./QuotaSlider";
+import Navbar from "./Navbar";
 
 export const CardContext = createContext({});
 
@@ -19,24 +19,12 @@ const Container = styled(Box)`
   justify-content: space-around;
 `;
 
-const QuotaAndFriends = styled(Box)`
+const QuotaAndCustomization = styled(Box)`
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
   align-items: center;
   flex: 1;
-`;
-
-const Slider = styled(QuotaSlider)`
-  ${"" /* transform: translateX(200px); */}
-`;
-const SliderDiv = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  padding-top: 2em;
-  flex-direction: column;
-  flex-wrap: wrap;
 `;
 
 const theme = createMuiTheme({
@@ -47,23 +35,14 @@ const theme = createMuiTheme({
 });
 
 export default function Options({
-  // user,
   blacklisted,
   addBlacklistedSite,
   disableBlacklistedSite,
   changeQuota,
   dashboardData,
+  setDashboard,
 }) {
   const { quota_today, topBlacklisted, user } = dashboardData;
-
-  console.log("dashboardData :>> ", dashboardData);
-
-  // if (!dashboardData || !user || quota_today == undefined) {
-  //   return null;
-  //   // return a spinner component
-  // }
-
-  // console.log("====> Options disabled blacklisted site", disableBlacklistedSite);
 
   const addTopSiteToUserBlacklist = hostname => {
     addBlacklistedSite(hostname);
@@ -72,19 +51,21 @@ export default function Options({
   return (
     <DndProvider backend={Backend}>
       <CardContext.Provider value={{ addTopSiteToUserBlacklist }}>
-        <Navbar user={user} quota={quota_today} />
+        <Navbar user={user} quota={quota_today} setDashboard={setDashboard} />
         <ThemeProvider theme={theme}>
           <Container bgcolor="background.paper">
-            <QuotaAndFriends>
+            <QuotaAndCustomization>
               {quota_today && (
-                <Slider
+                <QuotaSlider
                   quota={quota_today}
                   changeQuota={changeQuota}
                   options={user.options}
                 />
               )}
-              <Customization userOptions={user.options} />
-            </QuotaAndFriends>
+              <Customization
+                userOptions={user.options}
+              />
+            </QuotaAndCustomization>
             <Blacklisted
               addBlacklistedSite={addBlacklistedSite}
               disableBlacklistedSite={disableBlacklistedSite}

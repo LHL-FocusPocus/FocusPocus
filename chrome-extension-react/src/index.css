@@ -13,9 +13,9 @@ code {
 }
 
 body {
-  min-height: 500px;
-  min-width: 500px;
-  background-color: #d9d9ed;
+  /* min-height: 500px;
+  min-width: 400px; */
+  background-color: #69628121;
 }
 
 body,

@@ -23,6 +23,7 @@
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "react-toastify": "^6.0.5",
     "socketio": "^1.0.0",
     "styled-components": "^5.1.0"
   },

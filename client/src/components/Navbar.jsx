@@ -1,32 +1,30 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
-import List from "@material-ui/core/List";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import { Route, Link } from "react-router-dom";
-import { Divider, IconButton } from "@material-ui/core";
-
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import {
+  Divider,
+  Drawer,
+  Button,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Avatar,
+  Box,
+} from "@material-ui/core";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
-import styled from "styled-components";
-import Routes from "../routes";
-import axios from "axios";
+import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 import { useHistory } from "react-router-dom";
 import humanizeDuration from "humanize-duration";
 import formatNavbarText from "../helpers/formatNavbarText";
-import Avatar from "@material-ui/core/Avatar";
-import Box from "@material-ui/core/Box";
-import MenuOpenIcon from "@material-ui/icons/MenuOpen";
+import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
   button: {
-    minWidth: "400",
-    transform: "translateY(-65%) translateX(73%)",
+    transform: "translateY(-60%) translateX(73%)",
     borderRadius: "100%",
   },
   navbarBgGradient:{}
@@ -37,12 +35,12 @@ const Icon = styled(Avatar)`
   height: auto;
   margin: auto;
   margin-top: 1.5em;
-  margin-bottom: 0.6em;
+  margin-bottom: 0.2em;
   box-shadow: 5px 19px 38px rgba(0, 0, 0, 0.3), 0 15px 38px rgba(0, 0, 0, 0.22);
 `;
 
 const DrawerIcon = styled(MenuOpenIcon)`
-  width: 35px;
+  width: auto;
   height: 40px;
 `;
 
@@ -110,6 +108,7 @@ const Container = styled.div`
 
 export default function Navbar({ user, quota, setDashboard }) {
   const classes = useStyles();
+  const history = useHistory();
 
   const { first_name, picture } = user;
   const humanizeDurationOptions = {
@@ -118,6 +117,7 @@ export default function Navbar({ user, quota, setDashboard }) {
     round: true,
   };
 
+  // Humanize time in more readable format given by quota data
   const used_quota = humanizeDuration(
     quota.used.minutes * 60000,
     humanizeDurationOptions
@@ -148,14 +148,10 @@ export default function Navbar({ user, quota, setDashboard }) {
     setState({ ...state, [anchor]: open });
   };
 
-  const history = useHistory();
-
   const handleLogout = function () {
     axios
       .post("/api/user/logout")
       .then(res => {
-        // console.log(res);
-        console.log("Successful Logout");
         setDashboard();
         history.push("/logout");
       })
@@ -218,23 +214,21 @@ export default function Navbar({ user, quota, setDashboard }) {
 
   return (
     <div>
-      <>
-        <div>
-          <Button
-            className={classes.button}
-            onClick={toggleDrawer("FocusPocus", true)}
-          >
-            <DrawerIcon />
-          </Button>
-          <NavbarLogo src="/imgs/logo3.png" alt="Menu Logo" />
-        </div>
-        <Drawer
-          open={state["FocusPocus"]}
-          onClose={toggleDrawer("FocusPocus", false)}
+      <div>
+        <Button
+          className={classes.button}
+          onClick={toggleDrawer("FocusPocus", true)}
         >
-          {list("FocusPocus")}
-        </Drawer>
-      </>
+          <DrawerIcon />
+        </Button>
+        <NavbarLogo src="/imgs/logo3.png" alt="Menu Logo" />
+      </div>
+      <Drawer
+        open={state["FocusPocus"]}
+        onClose={toggleDrawer("FocusPocus", false)}
+      >
+        {list("FocusPocus")}
+      </Drawer>
     </div>
   );
 }

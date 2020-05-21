@@ -1,14 +1,17 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import useFormFields from "../hooks/useFormFields";
 import styled from "styled-components";
+import {
+  Container,
+  Typography,
+  TextField,
+  Link,
+  CssBaseline,
+  Button,
+  Grid,
+} from "@material-ui/core";
+import useFormFields from "../hooks/useFormFields";
+import validEmail from "../helpers/validEmail";
 import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
@@ -38,7 +41,6 @@ const Wrapper = styled(Container)`
   padding: 2em;
   z-index: 5;
   background-color: white;
-
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 `;
 
@@ -70,9 +72,17 @@ export default function Login({ setDashboard, history }) {
     email: "",
     password: "",
   });
+  const [error, setError] = useState({
+    email: false,
+    password: false,
+  });
 
   const handleSubmit = event => {
     event.preventDefault();
+
+    if (!validEmail(fields.email)) {
+      return setError({ email: true });
+    }
 
     const credentials = {
       email: fields.email,
@@ -82,12 +92,15 @@ export default function Login({ setDashboard, history }) {
     axios
       .post("/api/user/login", credentials, { withCredentials: true })
       .then(() => {
+        setError({ email: false, password: false });
         setDashboard().then(() => {
           history.push("/dashboard");
         });
       })
-      .catch(e => {
-        console.error(e);
+      .catch(error => {
+        if (error.response.status === 401) {
+          return setError({ password: true });
+        }
       });
   };
 
@@ -99,7 +112,6 @@ export default function Login({ setDashboard, history }) {
     <LoginWrapper>
       <Wrapper className={classes.main} component="main" maxWidth="xs">
         <CssBaseline />
-
         <div className={classes.paper}>
           <Img src="/imgs/landing.png" alt="landing image"></Img>
           <Typography component="h1" variant="h5">
@@ -117,9 +129,11 @@ export default function Login({ setDashboard, history }) {
                   required
                   fullWidth
                   id="email"
+                  type="email"
+                  error={error.email}
+                  helperText={error.email ? "Must be a valid email" : ""}
                   value={fields.email}
                   label="Email Address"
-                  // name="email"
                   autoComplete="email"
                   onChange={handleFieldChange}
                 />
@@ -129,7 +143,8 @@ export default function Login({ setDashboard, history }) {
                   variant="outlined"
                   required
                   fullWidth
-                  // name="password"
+                  error={error.password}
+                  helperText={error.password ? "Incorrect Password" : ""}
                   label="Password"
                   value={fields.password}
                   type="password"

@@ -1,19 +1,13 @@
 import React, { useState } from "react";
-import TextField from "@material-ui/core/TextField";
+import { Box, Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import { Box } from "@material-ui/core";
 import styled from "styled-components";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import NativeSelect from "@material-ui/core/NativeSelect";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import useFormFields from "../hooks/useFormFields";
 import axios from "axios";
-import { Input } from "@material-ui/core";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
@@ -27,6 +21,7 @@ const useStyles = makeStyles(theme => ({
       marginTop: theme.spacing(2),
     },
   },
+  toast: { fontSize: 25 },
 }));
 
 const Title = styled.h1`
@@ -43,25 +38,18 @@ const FormContainer = styled(Box)`
 
 const Wrapper = styled(Box)`
   display: flex;
+  padding-right: 0.7em;
 `;
 const PaddedTextField = styled(TextField)`
   margin: 0.5em;
 `;
-const ButtonContainer = styled(Box)`
-  flex: 1;
-  align-items: center;
-  ${"" /* flex-direction: columm; */}
-  justify-content: flex-end;
-`;
 
 const CustomizeButton = styled(Button)`
-  ${"" /* align-self: center; */}
-  ${"" /* flex: 1; */}
   width: 100%;
   margin: 0.5em;
 `;
 
-export default function Customization({ userOptions }) {
+export default function Customization({ userOptions, addCustomizations }) {
   const classes = useStyles();
   const [options, handleOptionsChange] = useFormFields({
     word: userOptions.noun,
@@ -73,10 +61,10 @@ export default function Customization({ userOptions }) {
     video: false,
   });
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Extension needs urls that start with http, so make sure that they're included with URL constructor
+    // Check if input can be constructed into URL -> if not, setError (not in correct URL format that the extension requires)
     if (options.image) {
       try {
         new URL(options.image);
@@ -103,11 +91,29 @@ export default function Customization({ userOptions }) {
 
     axios
       .post("/api/user/options/add", userOptions)
-      .then(el => {
-        console.log("el :>> ", el);
+      .then(() => {
+        toast("✔️ Customizations Set!", {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          className: classes.toast
+        });
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e);
+        toast.error("⚠️ Customzations NOT set! Please try again. ⚠️", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
   };
 
@@ -160,6 +166,7 @@ export default function Customization({ userOptions }) {
           </CustomizeButton>
         </FormContainer>
       </Wrapper>
+      <ToastContainer style={{ marginLeft: "8.2%" }} />
     </form>
   );
 }

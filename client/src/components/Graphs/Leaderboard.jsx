@@ -6,7 +6,6 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 const Wrapper = styled(Box)`
-  ${"" /* border: solid 3px black; */}
   flex: 1 50%;
   display: flex;
   items-align: center;
@@ -21,9 +20,6 @@ const Wrapper = styled(Box)`
 
 const Chart = styled.div`
   align-self: center;
-  ${'' /* width: 100%;
-  height: 100%; */}
-  ${'' /* margin: 2em 0em; */}
   width: 70%;
   height: 85%;
   padding-left: 6%;
@@ -31,7 +27,6 @@ const Chart = styled.div`
 
 export default function Leaderboard({ leaderboard }) {
   useEffect(() => {
-    console.log("leaderboard", leaderboard);
     am4core.useTheme(am4themes_animated);
 
     const chart = am4core.create("leaderboard", am4charts.XYChart);
@@ -39,7 +34,6 @@ export default function Leaderboard({ leaderboard }) {
 
     chart.paddingRight = 40;
     chart.scale = 0.95;
-
 
     chart.data = leaderboard;
 
@@ -66,7 +60,6 @@ export default function Leaderboard({ leaderboard }) {
     valueAxis.renderer.opposite = true;
     valueAxis.renderer.labels.template.dx = 0;
     valueAxis.fontSize = 30;
-    
 
     const series = chart.series.push(new am4charts.ColumnSeries());
     series.dataFields.valueX = "time";
@@ -90,6 +83,7 @@ export default function Leaderboard({ leaderboard }) {
       max: am4core.color("#e5dc36"),
       min: am4core.color("#5faa46"),
     });
+
     series.mainContainer.mask = undefined;
 
     const cursor = new am4charts.XYCursor();
@@ -98,16 +92,17 @@ export default function Leaderboard({ leaderboard }) {
     cursor.lineY.disabled = true;
     cursor.behavior = "none";
 
+    // Leaderboard subtitle
     let subtitle = chart.titles.create();
     subtitle.text = "Minutes squandered during past week";
     subtitle.fontSize = 17;
-    subtitle.fontFamily = "Raleway, sans-serif"
+    subtitle.fontFamily = "Raleway, sans-serif";
     subtitle.marginBottom = 20;
 
+    // Leaderboard title
     let title = chart.titles.create();
     title.text = "Leaderboard";
     title.fontSize = 45;
-
 
     const bullet = columnTemplate.createChild(am4charts.CircleBullet);
     bullet.circle.radius = 25;
@@ -136,26 +131,6 @@ export default function Leaderboard({ leaderboard }) {
       const circleBullet = target.parent;
       return circleBullet.circle;
     });
-
-    // let previousBullet;
-    // chart.cursor.events.on("cursorpositionchanged", function (event) {
-    //   const dataItem = series.tooltipDataItem;
-
-    //   if (dataItem.column) {
-    //     const bullet = dataItem.column.children.getIndex(1);
-
-    //     if (previousBullet && previousBullet != bullet) {
-    //       previousBullet.isHover = false;
-    //     }
-
-    //     if (previousBullet != bullet) {
-    //       const hs = bullet.states.getKey("hover");
-    //       hs.properties.dx = dataItem.column.pixelWidth;
-    //       bullet.isHover = true;
-    //       previousBullet = bullet;
-    //     }
-    //   }
-    // });
   }, [leaderboard]);
 
   return <Chart id="leaderboard"></Chart>;

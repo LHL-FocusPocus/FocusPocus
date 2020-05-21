@@ -16,7 +16,6 @@ module.exports = (db) => {
     }
     let userData = {};
 
-    // Promises.all implementation
     Promise.all([
       dbHelper.getUserWithID(userId),
       dbHelper.getQuotaForTodayWithUserID(userId),

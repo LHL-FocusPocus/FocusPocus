@@ -3,7 +3,6 @@ INSERT INTO users
 VALUES
   ('Dwight', 'Schrute', 'a@a.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', 'https://pbs.twimg.com/profile_images/1212841876895813632/4mzarqqS_400x400.jpg'),
   ('Phyllis', 'Vance', 'Phyllis@test.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', 'https://i.pinimg.com/originals/82/bf/fa/82bffa5496990acdec075f5a3305f6e1.jpg'),
-
   ('Angela', 'Martin', 'Angela@test.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', 'https://img.nbc.com/sites/nbcunbc/files/images/2013/11/12/angela-500x500.jpg'),
   ('Creed', 'Bratton', 'Creed@test.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', 'https://i.redd.it/9g5r2dowi7c21.png'),
   ('Jim', 'Halpert', 'Jim@test.com', '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.', 'https://pbs.twimg.com/profile_images/838818903933386752/rVy94Uu6_400x400.jpg'),

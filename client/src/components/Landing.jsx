@@ -1,10 +1,9 @@
 import React from "react";
+import styled from "styled-components";
+import { useHistory, Route } from "react-router-dom";
 import SignUp from "./SignUp";
 import Login from "./Login";
 import LogoText from "./LogoText";
-import styled from "styled-components";
-import { Route, Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import { IconButton } from "@material-ui/core";
 
@@ -23,9 +22,10 @@ const InnerContainer = styled.div`
 
 const GitHub = styled(IconButton)`
   position: fixed !important;
-  left: 1em !important;
-  top: 1em !important;
+  left: 0.8em !important;
+  top: 0.6em !important;
 `;
+
 export default function Landing({ setDashboard }) {
   const history = useHistory();
 

@@ -5,7 +5,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgba(143, 144, 204, 0.336);
 }
 
 code {
@@ -18,8 +17,11 @@ html {
 }
 body {
   min-height: 100%;
-  /* font-family: 'Jost', sans-serif; */
-  /* font-family: 'Roboto', sans-serif; */
   font-family: "Amatic SC", sans-serif;
   font-size: 1em;
+}
+
+.Toastify__toast-body {
+  font-family: "Amatic SC", sans-serif;
+  color: black;
 }

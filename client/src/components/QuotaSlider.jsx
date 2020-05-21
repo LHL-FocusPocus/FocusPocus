@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Slider from "@material-ui/core/Slider";
 import styled from "styled-components";
-import Button from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import IconButton from "@material-ui/core/IconButton";
+import {
+  Select,
+  InputLabel,
+  FormControl,
+  IconButton,
+  Popover,
+  Typography,
+  Slider,
+  Button,
+} from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
-import Popover from "@material-ui/core/Popover";
-import { Alert, AlertTitle } from "@material-ui/lab";
+import { Alert } from "@material-ui/lab";
 
 const Title = styled.h1`
   font-size: 2em;
@@ -29,14 +30,6 @@ const SliderDiv = styled.div`
 const SliderComponent = styled.div`
   max-width: 400px;
   flex: 1;
-`;
-
-const Spinner = styled(CircularProgress)`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -10;
-  margin-left: -12;
 `;
 
 const DailyAdjuster = styled.div`
@@ -73,18 +66,19 @@ const useStyles = makeStyles(theme => ({
 export default function QuotaSlider({ quota, changeQuota, options }) {
   // Controlled Component
   const [disabled, setDisabled] = useState(true);
-  const [loading, setLoading] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [dailyQuota, setQuota] = useState(quota.allotment.minutes);
   const [targetQuota, setTargetQuota] = useState(0);
   const [increment, setIncrement] = useState(5);
   const [error, setError] = useState(false);
+  // Show Target Quota if increment is higher than static, otherwise hide Target Quota
   const [targetQuotaShow, setTargetQuotaShow] = useState(
     options.quotaIncrement > 0 || false
   );
 
   const classes = useStyles();
 
+  // Handle mouse over popovers
   const handlePopoverOpen = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -93,6 +87,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
     setAnchorEl(null);
   };
 
+  // Only show Target Quota slider when increment value is higher than "static"
   const handleShowTargetQuota = value => {
     value > 0 ? setTargetQuotaShow(true) : setTargetQuotaShow(false);
   };
@@ -101,6 +96,8 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
 
   const handleSubmit = event => {
     event.preventDefault();
+    // Target Quota cannot be higher than daily quota
+    // Number(increment) !== 0 is necessary because this target CAN be higher than daily if the increment is static
     if (targetQuota > dailyQuota && Number(increment) !== 0) {
       return setError(true);
     }
@@ -110,7 +107,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
     setDisabled(true);
   };
 
-  // Use useEffect to update value when quota.allotment.minutes & options initializes
+  // Use useEffect to update value when quota & options initialize
   useEffect(() => {
     setQuota(quota.allotment.minutes);
   }, [quota.allotment.minutes]);
@@ -123,9 +120,6 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
     setIncrement(options.quotaIncrement);
   }, [options.quotaIncrement]);
 
-  {
-    /* {!quota.allotment && <Spinner size={24} />} */
-  }
   return (
     <>
       <Title>Adjust Your Quota</Title>

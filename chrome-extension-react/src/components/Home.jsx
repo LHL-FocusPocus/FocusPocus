@@ -28,8 +28,9 @@ const useStyles = makeStyles(theme => ({
     marginTop: 10,
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
     backgroundColor: "#6C63FF",
+    margin: "auto",
+    marginTop: "5%"
   },
   error: {
     color: "red",
@@ -37,6 +38,8 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     marginBottom: 20,
+    width: "200px",
+    height: "auto",
   },
   buttonProgress: {
     position: "absolute",
@@ -53,10 +56,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Wrapper = styled(Container)`
-  margin: auto;
+  ${'' /* margin: auto; */}
   z-index: 5;
   width: 350px;
-  padding: 3em;
+  padding: 1.5em;
   text-align: center;
   background-color: white;
   border: 1px solid black;
@@ -176,9 +179,10 @@ export default function Home(props) {
   return (
     <Wrapper className={classes.main} component="main" maxWidth="xs">
       <div className={classes.paper}>
-        <Typography variant="h6" className={classes.title}>
+        {/* <Typography variant="h6" className={classes.title}>
           FocusPocus Tracker
-        </Typography>
+        </Typography> */}
+        <img src="/images/logo3.png" className={classes.title} alt="FocusPocus-logo"/>
         <Typography variant="subtitle1" className={classes.title}>
           {isDomainBlocked() &&
             isOverQuota() &&
@@ -230,7 +234,6 @@ export default function Home(props) {
           <Grid className={classes.buttonGroup}>
             <Button
               type="submit"
-              fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
