@@ -16,7 +16,10 @@ Please note that the app is still in alpha build.
 
 # About the Project
 
-# Created by:
+## Demo
+https://youtu.be/8zMjdD9YEPw - Presented to the general audience as part of Lighthouse Lab's demo day for the Full-Stack Web Development bootcamp.
+
+## Created by
 - Matt Taylor - https://github.com/xynyx
 - Taha Rizvi - https://github.com/riztaha
 - Jimmy Peng - https://github.com/jpqy
