@@ -26,7 +26,7 @@ https://youtu.be/8zMjdD9YEPw - Presented to the general audience as part of Ligh
 
 ## Stack
 Front-end: React.js, Material-UI, amCharts, React DnD
-
+s
 Back-end: Express, Node.js, Postgres, Socket.IO
 
 Chrome Extension: React.js, Chrome Extension API
