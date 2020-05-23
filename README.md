@@ -37,7 +37,7 @@ Chrome Extension: React.js, Chrome Extension API
 !["CNN"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/screenshots/FocusPocus-CNN.gif)
 !["Youtube"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/screenshots/FocusPocus-Youtube.gif)
 !["Dashboard"](https://github.com/LHL-FocusPocus/FocusPocus/blob/new-gifs/screenshots/dashboard.gif)
-!["Options"](https://github.com/LHL-FocusPocus/FocusPocus/blob/new-gifs/screenshots/options.gif)
+!["Options"](https://github.com/LHL-FocusPocus/FocusPocus/blob/new-gifs/screenshots/options-page.gif)
 !["Extension"](https://github.com/LHL-FocusPocus/FocusPocus/blob/new-gifs/screenshots/extension%26logo.png)
 
 =========
