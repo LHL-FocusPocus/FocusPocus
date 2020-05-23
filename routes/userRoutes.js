@@ -25,7 +25,6 @@ module.exports = (db) => {
         }
         if (bcrypt.compareSync(password, user.password)) {
           req.session.userId = user.id;
-          console.log("req.session.userId", req.session.userId);
           return res.status(200).json("Authenticated!");
         } else {
           return res.status(401).json("Login failed!");
