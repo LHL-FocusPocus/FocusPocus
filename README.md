@@ -33,12 +33,12 @@ Chrome Extension: React.js, Chrome Extension API
 
 ## Screenshots
 
-!["Landing"](https://github.com/LHL-FocusPocus/FocusPocus/blob/new-gifs/screenshots/landing.png)
+!["Landing"](https://github.com/LHL-FocusPocus/FocusPocus/blob/new-gifs/screenshots/FocusPocus.png)
 !["CNN"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/screenshots/FocusPocus-CNN.gif)
 !["Youtube"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/screenshots/FocusPocus-Youtube.gif)
 !["Dashboard"](https://github.com/LHL-FocusPocus/FocusPocus/blob/new-gifs/screenshots/dashboard.gif)
 !["Options"](https://github.com/LHL-FocusPocus/FocusPocus/blob/new-gifs/screenshots/options.gif)
-!["Extension"](https://github.com/LHL-FocusPocus/FocusPocus/blob/new-gifs/screenshots/extension.png)
+!["Extension"](https://github.com/LHL-FocusPocus/FocusPocus/blob/new-gifs/screenshots/extension%26logo.png)
 
 =========
 
