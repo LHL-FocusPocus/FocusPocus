@@ -32,12 +32,13 @@ Back-end: Express, Node.js, Postgres, Socket.IO
 Chrome Extension: React.js, Chrome Extension API
 
 ## Screenshots
+
+!["Landing"](https://github.com/LHL-FocusPocus/FocusPocus/blob/new-gifs/screenshots/landing.png)
 !["CNN"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/screenshots/FocusPocus-CNN.gif)
 !["Youtube"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/screenshots/FocusPocus-Youtube.gif)
-!["Index"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/screenshots/FocusPocus-Landing.png)
-!["Dashboard"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/screenshots/FocusPocus.gif)
-!["Add To Blacklist"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/screenshots/FocusPocus-navbar-add-site.gif)
-!["Extension"](https://github.com/LHL-FocusPocus/FocusPocus/blob/master/screenshots/FocusPocus-extension.gif)
+!["Dashboard"](https://github.com/LHL-FocusPocus/FocusPocus/blob/new-gifs/screenshots/dashboard.gif)
+!["Options"](https://github.com/LHL-FocusPocus/FocusPocus/blob/new-gifs/screenshots/options.gif)
+!["Extension"](https://github.com/LHL-FocusPocus/FocusPocus/blob/new-gifs/screenshots/extension.png)
 
 =========
 
