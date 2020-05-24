@@ -41,8 +41,8 @@ const ExtensionLink = styled.a`
       target="_blank"
     > */
 
-const EXTENSION_URL = "https://github.com/LHL-FocusPocus/FocusPocus/releases"
-// const EXTENSION_URL = "https://chrome.google.com/webstore/detail/focus-pocus-extension/ognhkeempdpgnfkliplegljejeakonlg/"
+// const EXTENSION_URL = "https://github.com/LHL-FocusPocus/FocusPocus/releases"
+const EXTENSION_URL = "https://chrome.google.com/webstore/detail/focus-pocus-extension/ognhkeempdpgnfkliplegljejeakonlg/"
 
 export default function LogoText() {
 
