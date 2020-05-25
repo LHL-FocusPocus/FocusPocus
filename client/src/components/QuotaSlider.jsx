@@ -188,7 +188,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
                 aria-haspopup="true"
                 onMouseEnter={handlePopoverOpen}
                 onMouseLeave={handlePopoverClose}
-                aria-label={`test`}
+                aria-label={`Increment Info`}
               >
                 <InfoIcon />
               </IconButton>

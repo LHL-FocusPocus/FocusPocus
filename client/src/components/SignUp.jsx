@@ -57,6 +57,11 @@ const LoginWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 1300px) {
+    margin: auto;
+    margin-bottom: 2em;
+  }
 `;
 
 const PrivacyPolicy = styled.a`

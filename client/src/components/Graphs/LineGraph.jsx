@@ -15,7 +15,8 @@ const Wrapper = styled(Box)`
 
   @media (max-width: 1300px) {
     flex: 1 100%;
-    order: 5;
+    order: 2;
+    margin-left: 0;
   }
 `;
 
