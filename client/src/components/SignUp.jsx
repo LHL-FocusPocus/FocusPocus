@@ -57,6 +57,10 @@ const LoginWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
+  @media (max-width: 1300px) {
+    margin: auto;
+  }
 `;
 
 const PrivacyPolicy = styled.a`
@@ -101,8 +105,8 @@ export default function SignUp({ history, setDashboard }) {
             history.push("/dashboard");
           })
           .catch(error => {
-            console.log("HERE")
-                        console.error(error.response);
+            console.log("HERE");
+            console.error(error.response);
           });
       })
       .catch(error => {

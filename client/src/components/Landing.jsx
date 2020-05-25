@@ -11,13 +11,11 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   height: 100vh;
-`;
 
-const InnerContainer = styled.div`
-  display: flex;
-  align-items: center;
-  height: 100vh;
-  width: 66vw;
+  @media (max-width: 1300px) {
+    flex-direction: column;
+    height: auto;
+  }
 `;
 
 const GitHub = styled(IconButton)`
