@@ -71,7 +71,7 @@ const LogoContainer = styled(Box)`
 
 const Message = styled.div`
   text-align: center;
-  margin: 2em;
+  margin: 1.5em;
   font-size: 1.1em;
 `;
 
@@ -104,8 +104,8 @@ const Container = styled.div`
   height: 100%;
   width: 350px;
 `;
-const EXTENSION_URL = "https://github.com/LHL-FocusPocus/FocusPocus/releases"
-// const EXTENSION_URL = "https://chrome.google.com/webstore/detail/focus-pocus-extension/ognhkeempdpgnfkliplegljejeakonlg/"
+// const EXTENSION_URL = "https://github.com/LHL-FocusPocus/FocusPocus/releases"
+const EXTENSION_URL = "https://chrome.google.com/webstore/detail/focus-pocus-extension/ognhkeempdpgnfkliplegljejeakonlg/"
 export default function Navbar({ user, quota, setDashboard }) {
   const classes = useStyles();
   const history = useHistory();

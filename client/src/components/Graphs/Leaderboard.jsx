@@ -11,11 +11,6 @@ const Wrapper = styled(Box)`
   items-align: center;
   justify-content: center;
   height: 400px;
-
-  @media (max-width: 1300px) {
-    order: 3;
-    flex: 1 49%;
-  }
 `;
 
 const Chart = styled.div`

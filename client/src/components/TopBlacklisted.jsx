@@ -12,7 +12,6 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
     overflow: "hidden",
     backgroundColor: theme.palette.background.paper,
-    flex: 1,
   },
   gridList: {
     height: 600,
@@ -37,6 +36,19 @@ const Popup = styled.div`
   margin-bottom: 1em;
 `;
 
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  overflow: hidden;
+  flex: 1;
+
+  @media (max-width: 1300px) {
+    order: 2;
+    margin-bottom: 3em;
+  }
+`;
+
 export default function TopBlacklisted({ topBlacklisted }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -53,7 +65,7 @@ export default function TopBlacklisted({ topBlacklisted }) {
   const open = Boolean(anchorEl);
 
   return (
-    <div className={classes.root}>
+    <Container className={classes.root}>
       <Title>Top Blacklisted Sites</Title>
       <Popup>
         <IconButton
@@ -99,6 +111,6 @@ export default function TopBlacklisted({ topBlacklisted }) {
           />
         ))}
       </GridList>
-    </div>
+    </Container>
   );
 }
