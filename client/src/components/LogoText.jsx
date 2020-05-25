@@ -40,7 +40,8 @@ const Logo = styled.img`
   }
 `;
 
-const EXTENSION_URL = "https://github.com/LHL-FocusPocus/FocusPocus/releases";
+// const EXTENSION_URL = "https://github.com/LHL-FocusPocus/FocusPocus/releases";
+const EXTENSION_URL = "https://chrome.google.com/webstore/detail/focus-pocus-extension/ognhkeempdpgnfkliplegljejeakonlg/"
 
 export default function LogoText() {
   return (
