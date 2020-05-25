@@ -27,6 +27,7 @@ const Wrapper = styled(Box)`
   @media (max-width: 1300px) {
     flex: 1 100%;
     order: 5;
+    padding-right: 0
   }
 `;
 
