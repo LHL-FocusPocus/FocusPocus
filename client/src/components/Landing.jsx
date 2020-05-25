@@ -22,6 +22,11 @@ const GitHub = styled(IconButton)`
   position: fixed !important;
   left: 0.8em !important;
   top: 0.6em !important;
+
+  @media (max-width: 1300px) {
+    left: 0.2em !important;
+  top: 0.2em !important;
+  }
 `;
 
 export default function Landing({ setDashboard }) {

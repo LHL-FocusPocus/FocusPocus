@@ -8,7 +8,9 @@
 
 @media (max-width: 1300px) {
   .App {
-    background-size: 100%;
+    background-size: cover;
+    background-position: 0 0px;
+
     /* background-repeat: repeat; */
     /* background-position: center; */
   }
