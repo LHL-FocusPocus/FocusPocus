@@ -17,6 +17,9 @@ const Container = styled(Box)`
   padding-top: 3em;
   display: flex;
   justify-content: space-around;
+  @media (max-width: 1300px) {
+    flex-direction: column;
+  }
 `;
 
 const QuotaAndCustomization = styled(Box)`
@@ -25,6 +28,11 @@ const QuotaAndCustomization = styled(Box)`
   flex-direction: column;
   align-items: center;
   flex: 1;
+
+  @media (max-width: 1300px) {
+    order: 3;
+  }
+  
 `;
 
 const theme = createMuiTheme({
