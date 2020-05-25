@@ -106,7 +106,6 @@ export default function SignUp({ history, setDashboard }) {
             history.push("/dashboard");
           })
           .catch(error => {
-            console.log("HERE");
             console.error(error.response);
           });
       })

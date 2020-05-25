@@ -25,7 +25,6 @@ module.exports = (db) => {
         }
         if (bcrypt.compareSync(password, user.password)) {
           req.session.userId = user.id;
-          console.log("req.session.userId", req.session.userId);
           return res.status(200).json("Authenticated!");
         } else {
           return res.status(401).json("Login failed!");
@@ -155,7 +154,7 @@ module.exports = (db) => {
             })
             .then((user) => res.status(201).json(user))
             .catch((err) => {
-              console.log(err);
+              console.error(err);
               return res.status(500).json(err);
             });
         }
@@ -227,12 +226,6 @@ module.exports = (db) => {
                   return dbHelper
                     .enableBlacklistedSite(websiteScoped.website_id, userId)
                     .then(() => {
-                      console.log(
-                        "Enabling blacklisted site",
-                        userId,
-                        websiteScoped.website_id
-                      );
-
                       return res.status(201).json(website);
                     })
                     .catch((err) => res.status(500).json(err));
@@ -296,7 +289,6 @@ module.exports = (db) => {
         return dbHelper.updateUserOptions(userId, newOptions);
       })
       .then((newOptions) => {
-        console.log("newOptions :>> ", newOptions);
         return res.status(200).json(newOptions);
       });
   });
