@@ -24,6 +24,10 @@ const Wrapper = styled(Box)`
   height: 500px;
   padding-right: 3%;
   margin-bottom: 3em;
+  @media (max-width: 1300px) {
+    flex: 1 100%;
+    order: 5;
+  }
 `;
 
 export default function Dashboard({ dashboardData, setDashboard }) {

@@ -16,7 +16,9 @@ const Wrapper = styled(Box)`
   margin-right: 1.5em;
 
   @media (max-width: 1300px) {
-    flex: 1 40%;
+    margin-right: 0;
+    flex: 1 100%;
+    margin-bottom: 3em;
   }
 `;
 
