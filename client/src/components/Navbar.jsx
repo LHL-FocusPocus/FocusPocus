@@ -71,7 +71,7 @@ const LogoContainer = styled(Box)`
 
 const Message = styled.div`
   text-align: center;
-  margin: 2em;
+  margin: 1.5em;
   font-size: 1.1em;
 `;
 
