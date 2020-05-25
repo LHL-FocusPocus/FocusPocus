@@ -32,7 +32,6 @@ const QuotaAndCustomization = styled(Box)`
   @media (max-width: 1300px) {
     order: 3;
   }
-  
 `;
 
 const theme = createMuiTheme({
@@ -70,9 +69,7 @@ export default function Options({
                   options={user.options}
                 />
               )}
-              <Customization
-                userOptions={user.options}
-              />
+              <Customization userOptions={user.options} />
             </QuotaAndCustomization>
             <Blacklisted
               addBlacklistedSite={addBlacklistedSite}

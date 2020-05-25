@@ -11,6 +11,7 @@ const Container = styled.div`
 
   @media (max-width: 1300px) {
     transform: none;
+    margin: 2em;
   }
 `;
 

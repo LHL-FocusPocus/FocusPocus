@@ -59,6 +59,7 @@ const LoginWrapper = styled.div`
 
   @media (max-width: 1300px) {
     margin: auto;
+    margin-bottom: 2em;
   }
 `;
 
