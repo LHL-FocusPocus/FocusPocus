@@ -16,8 +16,9 @@ const Wrapper = styled(Box)`
   padding-top: 2em;
   margin-left: 1.5em;
   @media (max-width: 1300px) {
-    order: 2;
     flex: 1 100%;
+    margin-left: 0;
+    margin-bottom: 3em;
   }
 `;
 

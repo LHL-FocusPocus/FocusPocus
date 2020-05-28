@@ -30,6 +30,15 @@ const Container = styled(Box)`
   width: 25%;
   padding-top: 20px;
   flex: 1;
+
+  @media (max-width: 1300px) {
+    flex: 1 100%;
+    order: -1;
+    width: 80%;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 3em;
+  }
 `;
 
 const AddNew = styled(Card)`
