@@ -27,7 +27,7 @@ const Wrapper = styled(Box)`
   @media (max-width: 1300px) {
     flex: 1 100%;
     order: 5;
-    padding-right: 0
+    padding-right: 0;
   }
 `;
 
@@ -48,9 +48,11 @@ export default function Dashboard({ dashboardData, setDashboard }) {
 
   // Create popup error if user is over quota for today
   useEffect(() => {
-    toast("⚠️ You are over your quota! ⚠️", {
-      containerId: "quota",
-    });
+    if (isOverQuota()) {
+      toast("⚠️ You are over your quota! ⚠️", {
+        containerId: "quota",
+      });
+    }
   }, []);
 
   return (
