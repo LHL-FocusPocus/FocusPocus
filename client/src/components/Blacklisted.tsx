@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState, useContext } from "react";
 import BlacklistedCards from "./BlacklistedCards";
 import { makeStyles } from "@material-ui/core/styles";
-import * as styled from "styled-components";
+import styled from "styled-components";
 import {
   FormControl,
   Collapse,
@@ -24,6 +24,7 @@ import { ItemTypes } from "../utils/constants";
 import { CardContext } from "./Options";
 import { useDrop } from "react-dnd";
 import isUrl from "../helpers/isUrl";
+import {} from 'styled-components/cssprop';
 
 const Container = styled(Box)`
   min-height: 86vh;
