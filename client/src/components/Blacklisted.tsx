@@ -100,7 +100,6 @@ export default function Blacklisted({
   disableBlacklistedSite,
   addBlacklistedSite,
 }: Props) {
-  console.log("blacklisted :>> ", blacklisted);
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const { addTopSiteToUserBlacklist } = useContext(CardContext);
@@ -150,14 +149,14 @@ export default function Blacklisted({
     // Drop accepts only type CARD
     accept: ItemTypes.CARD,
     // On drop, add site to user blacklist
-    drop: (item, monitor) => addTopSiteToUserBlacklist(item.hostname),
+    drop: (item: any, monitor) => addTopSiteToUserBlacklist(item.hostname),
     collect: monitor => ({
       isOver: !!monitor.isOver(),
     }),
   });
 
   // List of user's blacklisted sites
-  const blacklistList = blacklisted.map(website => {
+  const blacklistList = blacklisted.map((website: any) => {
     return (
       <BlacklistedCards
         deleteSite={disableBlacklistedSite}
@@ -170,7 +169,7 @@ export default function Blacklisted({
   });
 
   return (
-    <Container ref={drop} style>
+    <Container ref={drop}>
       <Title>Blacklist</Title>
       <AddNew>
         <Background>
