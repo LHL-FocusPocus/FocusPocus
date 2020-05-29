@@ -24,7 +24,7 @@ import { ItemTypes } from "../utils/constants";
 import { CardContext } from "./Options";
 import { useDrop } from "react-dnd";
 import isUrl from "../helpers/isUrl";
-import {} from 'styled-components/cssprop';
+// import {} from 'styled-components/cssprop';
 
 const Container = styled(Box)`
   min-height: 86vh;
