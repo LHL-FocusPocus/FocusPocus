@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useContext } from "react";
+import { useState, useContext, createRef, useRef } from "react";
 import BlacklistedCards from "./BlacklistedCards";
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
@@ -102,7 +102,7 @@ export default function Blacklisted({
 }: Props) {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
-  const { addTopSiteToUserBlacklist } = useContext(CardContext);
+  const { addTopSiteToUserBlacklist } = useContext(CardContext as any);
   const [error, setError] = useState(false);
 
   // To expand blacklist Add Site button
@@ -114,7 +114,7 @@ export default function Blacklisted({
     host_name: "",
   });
 
-  const handleSubmit = event => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
 
     // Do initial check using regex
@@ -155,6 +155,9 @@ export default function Blacklisted({
     }),
   });
 
+  // TODO - Fix DnD with typescript
+  // const dropRef = createRef<HTMLDivElement>();
+
   // List of user's blacklisted sites
   const blacklistList = blacklisted.map((website: any) => {
     return (
@@ -169,7 +172,8 @@ export default function Blacklisted({
   });
 
   return (
-    <Container ref={drop}>
+    <Container>
+    {/* <Container ref={drop}> */}
       <Title>Blacklist</Title>
       <AddNew>
         <Background>
@@ -192,7 +196,8 @@ export default function Blacklisted({
                 <Input
                   className={classes.inputwidth}
                   error={error}
-                  helperText={error ? "Must be a valid URL" : "URL"}
+                  // TODO  - helper text not working now..?
+                  // helperText={error ? "Must be a valid URL" : "URL"}
                   required
                   id="host_name"
                   value={fields.host_name}
