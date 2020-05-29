@@ -5,10 +5,17 @@
       "strictNullChecks": true,   // enable strict null checks as a best practice
       "module": "es6",            // specify module code generation
       "jsx": "react",             // use typescript to transpile jsx to js
-      // "target": "es5",            // specify ECMAScript target version
-      "allowJs": true             // allow a partial TypeScript and JavaScript codebase
+      "target": "es5",            // specify ECMAScript target version
+      "allowJs": true,             // allow a partial TypeScript and JavaScript codebase
+      // Required for material-ui
+      "noImplicitThis": true,
+      "noImplicitAny": true,
+      "lib": ["es6", "dom"],
+      "types": ["material-ui"],
+      "moduleResolution": "node",
   },
   "include": [
-      "./src/"
+      "./src/",
+      "src/**/*"
   ]
 }

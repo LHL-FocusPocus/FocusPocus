@@ -1,7 +1,8 @@
-import React, { useState, useContext } from "react";
+import * as React from "react";
+import { useState, useContext } from "react";
 import BlacklistedCards from "./BlacklistedCards";
 import { makeStyles } from "@material-ui/core/styles";
-import styled from "styled-components";
+import * as styled from "styled-components";
 import {
   FormControl,
   Collapse,
