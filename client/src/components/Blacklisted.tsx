@@ -20,11 +20,17 @@ import AddIcon from "@material-ui/icons/Add";
 import LanguageIcon from "@material-ui/icons/Language";
 import useFormFields from "../hooks/useFormFields";
 import removeProtocol from "../helpers/removeProtocol";
+import isUrl from "../helpers/isUrl";
 import { ItemTypes } from "../utils/constants";
 import { CardContext } from "./Options";
 import { useDrop } from "react-dnd";
-import isUrl from "../helpers/isUrl";
 // import {} from 'styled-components/cssprop';
+
+interface Props {
+  blacklisted: object[];
+  disableBlacklistedSite: any;
+  addBlacklistedSite: any;
+}
 
 const Container = styled(Box)`
   min-height: 86vh;
@@ -93,7 +99,8 @@ export default function Blacklisted({
   blacklisted,
   disableBlacklistedSite,
   addBlacklistedSite,
-}) {
+}: Props) {
+  console.log("blacklisted :>> ", blacklisted);
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const { addTopSiteToUserBlacklist } = useContext(CardContext);
