@@ -1,17 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import Box from "@material-ui/core/Box";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-
-const Wrapper = styled(Box)`
-  flex: 1 50%;
-  display: flex;
-  items-align: center;
-  justify-content: center;
-  height: 400px;
-`;
 
 const Chart = styled.div`
   align-self: center;
@@ -107,8 +98,7 @@ export default function Leaderboard({ leaderboard }) {
     bullet.interactionsEnabled = false;
     bullet.horizontalCenter = "right";
     bullet.interactionsEnabled = false;
-
-    const hoverState = bullet.states.create("hover");
+    
     const outlineCircle = bullet.createChild(am4core.Circle);
     outlineCircle.adapter.add("radius", function (radius, target) {
       const circleBullet = target.parent;

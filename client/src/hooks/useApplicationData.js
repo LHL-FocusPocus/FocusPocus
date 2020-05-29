@@ -1,4 +1,4 @@
-import { useReducer, useEffect, useState } from "react";
+import { useReducer, useEffect } from "react";
 import axios from "axios";
 import socketIOClient from "socket.io-client";
 import reducer, {
@@ -6,7 +6,6 @@ import reducer, {
   CHANGE_BLACKLIST,
   CHANGE_QUOTA,
   SET_WEBSOCKET_GRAPHS,
-  SET_CUSTOMIZATIONS,
 } from "../reducers/application";
 
 const WEBSOCKET_URL =

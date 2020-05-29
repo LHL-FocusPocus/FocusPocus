@@ -85,5 +85,10 @@ export default function reducer(state, action) {
         donutGraph,
         radialGraph,
       };
+
+    default:
+      throw new Error(
+        `Tried to reduce with unsupported action type: ${action.type}`
+      );
   }
 }
