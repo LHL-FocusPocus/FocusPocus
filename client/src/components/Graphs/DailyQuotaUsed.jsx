@@ -103,7 +103,7 @@ export default function DailyQuotaUsed({ quota }) {
     const hand = chart.hands.push(new am4charts.ClockHand());
 
     hand.showValue(percentageQuotaUsed > 100 ? 100 : percentageQuotaUsed);
-  }, [quota.allotment, quota.used]);
+  }, []);
 
   return (
     <Card component={Wrapper} elevation={24}>

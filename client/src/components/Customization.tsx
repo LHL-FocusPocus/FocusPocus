@@ -7,7 +7,20 @@ import "react-toastify/dist/ReactToastify.css";
 import useFormFields from "../hooks/useFormFields";
 import axios from "axios";
 
-const useStyles = makeStyles((theme) => ({
+interface Props {
+  userOptions: {
+    noun: string;
+    imageUrl: string;
+    videoUrl: string;
+  };
+}
+
+interface ErrorState {
+  image?: boolean;
+  video?: boolean;
+}
+
+const useStyles = makeStyles(theme => ({
   root: {
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
@@ -49,19 +62,20 @@ const CustomizeButton = styled(Button)`
   margin: 0.5em;
 `;
 
-export default function Customization({ userOptions, addCustomizations }) {
+export default function Customization({ userOptions }: Props) {
   const classes = useStyles();
   const [options, handleOptionsChange] = useFormFields({
     word: userOptions.noun,
     image: userOptions.imageUrl,
     video: userOptions.videoUrl,
   });
+  
   const [error, setError] = useState({
     image: false,
     video: false,
-  });
+  } as ErrorState);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
 
     // Check if input can be constructed into URL -> if not, setError (not in correct URL format that the extension requires)
@@ -100,10 +114,10 @@ export default function Customization({ userOptions, addCustomizations }) {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          className: classes.toast
+          className: classes.toast,
         });
       })
-      .catch((e) => {
+      .catch(e => {
         console.error(e);
         toast.error("⚠️ Customzations NOT set! Please try again. ⚠️", {
           position: "bottom-left",
@@ -140,7 +154,6 @@ export default function Customization({ userOptions, addCustomizations }) {
             <PaddedTextField
               label="Image"
               variant="outlined"
-              helperText="Image URL"
               fullWidth={true}
               id="image"
               error={error.image}
@@ -153,7 +166,6 @@ export default function Customization({ userOptions, addCustomizations }) {
               label="Video"
               variant="outlined"
               fullWidth={true}
-              helperText="Video URL"
               id="video"
               error={error.video}
               helperText={error.video ? "Must be a valid URL" : "Video URL"}

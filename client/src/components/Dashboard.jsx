@@ -65,7 +65,7 @@ export default function Dashboard({ dashboardData, setDashboard }) {
             display: "inline-block",
           }}
           position="top-center"
-          autoClose={5000}
+          autoClose={15000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick
