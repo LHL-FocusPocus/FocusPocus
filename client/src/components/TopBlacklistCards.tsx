@@ -39,7 +39,7 @@ const Card = styled(GridListTile)`
   flex-grow: 1;
 `;
 
-export default function TopBlacklistCards({ hostname, name, id }) {
+export default function TopBlacklistCards({ hostname, name }) {
   const classes = useStyles();
 
   const [{ isDragging }, drag] = useDrag({
