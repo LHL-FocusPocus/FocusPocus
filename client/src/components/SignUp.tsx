@@ -14,6 +14,23 @@ import useFormFields from "../hooks/useFormFields";
 import validEmail from "../helpers/validEmail";
 import axios from "axios";
 
+interface Props {
+  setDashboard: any;
+  history: any;
+}
+
+interface ErrorState {
+  email?: boolean;
+  password?: boolean;
+}
+
+interface Credentials {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+}
+
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -71,7 +88,7 @@ const PrivacyPolicy = styled.a`
   margin-top: 2%;
 `;
 
-export default function SignUp({ history, setDashboard }) {
+export default function SignUp({ history, setDashboard }: Props) {
   const classes = useStyles();
 
   const [fields, handleFieldChange] = useFormFields({
@@ -79,10 +96,11 @@ export default function SignUp({ history, setDashboard }) {
     password: "",
     firstName: "",
     lastName: "",
-  });
+  } as Credentials);
+  
   const [error, setError] = useState(false);
 
-  const handleSubmit = event => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
 
     if (!validEmail(fields.email)) {
@@ -105,7 +123,7 @@ export default function SignUp({ history, setDashboard }) {
           .then(() => {
             history.push("/dashboard");
           })
-          .catch(error => {
+          .catch((error: any) => {
             console.error(error.response);
           });
       })
@@ -120,7 +138,7 @@ export default function SignUp({ history, setDashboard }) {
 
   return (
     <LoginWrapper>
-      <Wrapper className={classes.main} component="main" maxWidth="xs">
+      <Wrapper maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
           <Img src="/imgs/magic-trick.png" alt="landing image"></Img>

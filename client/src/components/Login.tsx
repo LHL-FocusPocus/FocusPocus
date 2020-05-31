@@ -92,6 +92,7 @@ export default function Login({ setDashboard, history }: Props) {
     email: "",
     password: "",
   } as Credentials);
+  
   const [error, setError] = useState({
     email: false,
     password: false,
