@@ -10,6 +10,7 @@ import Donut from "./Graphs/Donut";
 import Radial from "./Graphs/Radial";
 import Leaderboard from "./Graphs/Leaderboard";
 import Shameboard from "./Graphs/Shameboard";
+import { QuotaData } from "../helpers/interfaces";
 
 interface Props {
   dashboardData: {
@@ -19,17 +20,7 @@ interface Props {
     leaderboard: object[];
     shameboard: object[];
     user: any;
-    quota_today: {
-      used: {
-        minutes: number;
-      };
-      allotment: {
-        minutes: number;
-      };
-      all_browse_time: {
-        minutes: number;
-      }
-    }
+    quota_today: QuotaData;
   };
   setDashboard: any;
 }
@@ -66,7 +57,7 @@ export default function Dashboard({ dashboardData, setDashboard }: Props) {
   } = dashboardData;
 
   const isOverQuota = () => {
-    return (quota_today.used.minutes) > quota_today.allotment.minutes;
+    return quota_today.used.minutes > quota_today.allotment.minutes;
   };
 
   // Create popup error if user is over quota for today

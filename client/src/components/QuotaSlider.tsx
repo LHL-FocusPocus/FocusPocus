@@ -13,6 +13,13 @@ import {
 } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
 import { Alert } from "@material-ui/lab";
+import { QuotaData, OptionsData } from "../helpers/interfaces";
+
+interface Props {
+  options: OptionsData;
+  changeQuota: any;
+  quota: QuotaData;
+}
 
 const Title = styled.h1`
   font-size: 2em;
@@ -63,7 +70,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function QuotaSlider({ quota, changeQuota, options }) {
+export default function QuotaSlider({ quota, changeQuota, options }: Props) {
   // Controlled Component
   const [disabled, setDisabled] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -79,7 +86,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
   const classes = useStyles();
 
   // Handle mouse over popovers
-  const handlePopoverOpen = event => {
+  const handlePopoverOpen = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -88,13 +95,13 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
   };
 
   // Only show Target Quota slider when increment value is higher than "static"
-  const handleShowTargetQuota = value => {
+  const handleShowTargetQuota = (value: number) => {
     value > 0 ? setTargetQuotaShow(true) : setTargetQuotaShow(false);
   };
 
   const open = Boolean(anchorEl);
 
-  const handleSubmit = event => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
     // Target Quota cannot be higher than daily quota
     // Number(increment) !== 0 is necessary because this target CAN be higher than daily if the increment is static
@@ -137,7 +144,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
             min={0}
             max={180}
             disabled={disabled}
-            onChange={(e, dailyQuota) => setQuota(dailyQuota)}
+            onChange={(e, dailyQuota) => setQuota(dailyQuota as number)}
           />
           {targetQuotaShow && (
             <SliderComponent>
@@ -153,7 +160,7 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
                 min={0}
                 max={180}
                 disabled={disabled}
-                onChange={(e, targetQuota) => setTargetQuota(targetQuota)}
+                onChange={(e, targetQuota) => setTargetQuota(targetQuota as number)}
               />
             </SliderComponent>
           )}
@@ -165,8 +172,8 @@ export default function QuotaSlider({ quota, changeQuota, options }) {
                 native
                 value={increment}
                 onChange={e => {
-                  setIncrement(e.target.value);
-                  handleShowTargetQuota(e.target.value);
+                  setIncrement(e.target.value as number);
+                  handleShowTargetQuota(e.target.value as number);
                 }}
               >
                 <option value={0}>Static</option>

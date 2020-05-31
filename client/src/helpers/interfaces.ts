@@ -9,3 +9,8 @@ export interface QuotaData {
     minutes: number;
   }
 }
+
+export interface OptionsData {
+  quotaTarget: number;
+  quotaIncrement: number;
+}
