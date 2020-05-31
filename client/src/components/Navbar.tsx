@@ -131,24 +131,24 @@ export default function Navbar({ user, quota, setDashboard }: Props) {
   // Humanize time in more readable format given by quota data
   const used_quota = humanizeDuration(
     quota.used.minutes * 60000,
-    humanizeDurationOptions
+    humanizeDurationOptions as any
   );
 
   const allotment = humanizeDuration(
     quota.allotment.minutes * 60000,
-    humanizeDurationOptions
+    humanizeDurationOptions as any
   );
 
   const total_browsing = humanizeDuration(
     quota.all_browse_time.minutes * 60000,
-    humanizeDurationOptions
+    humanizeDurationOptions as any
   );
 
   const [state, setState] = useState({
-    left: false,
+    FocusPocus: false
   });
 
-  const toggleDrawer = (anchor, open) => event => {
+  const toggleDrawer = (anchor: string, open: boolean) => (event: any) => {
     if (
       event.type === "keydown" &&
       (event.key === "Tab" || event.key === "Shift")
@@ -171,7 +171,7 @@ export default function Navbar({ user, quota, setDashboard }: Props) {
       });
   };
 
-  const list = anchor => (
+  const list = (anchor: string) => (
     <Container
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
