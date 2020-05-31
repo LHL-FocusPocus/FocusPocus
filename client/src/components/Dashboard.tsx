@@ -18,7 +18,7 @@ interface Props {
     radialGraph: object[];
     leaderboard: object[];
     shameboard: object[];
-    user: object;
+    user: any;
     quota_today: {
       used: {
         minutes: number;
@@ -26,6 +26,9 @@ interface Props {
       allotment: {
         minutes: number;
       };
+      all_browse_time: {
+        minutes: number;
+      }
     }
   };
   setDashboard: any;
