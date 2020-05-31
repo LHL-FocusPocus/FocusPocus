@@ -7,6 +7,10 @@ import LogoText from "./LogoText";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import { IconButton } from "@material-ui/core";
 
+interface Props {
+  setDashboard: any;
+}
+
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -25,17 +29,24 @@ const GitHub = styled(IconButton)`
 
   @media (max-width: 1300px) {
     left: 0.2em !important;
-  top: 0.2em !important;
+    top: 0.2em !important;
   }
 `;
 
-export default function Landing({ setDashboard }) {
+const ClickableGithubLink = styled.a`
+  text-decoration: none;
+  color: black;
+`;
+
+export default function Landing({ setDashboard }: Props) {
   const history = useHistory();
 
   return (
     <Container>
-      <GitHub href="https://github.com/LHL-FocusPocus/FocusPocus">
-        <GitHubIcon style={{ maxWidth: 35 }} />
+      <GitHub>
+        <ClickableGithubLink href="https://github.com/LHL-FocusPocus/FocusPocus">
+          <GitHubIcon style={{ maxWidth: 35 }} />
+        </ClickableGithubLink>
       </GitHub>
       <LogoText />
       <Route

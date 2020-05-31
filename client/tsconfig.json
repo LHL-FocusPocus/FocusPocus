@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "sourceMap": true,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
     "module": "esnext",
     "jsx": "react",
     "target": "es5",
