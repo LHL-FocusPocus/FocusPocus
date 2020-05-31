@@ -14,6 +14,21 @@ import useFormFields from "../hooks/useFormFields";
 import validEmail from "../helpers/validEmail";
 import axios from "axios";
 
+interface Props {
+  setDashboard: any;
+  history: any;
+}
+
+interface ErrorState {
+  email?: boolean;
+  password?: boolean;
+}
+
+interface Credentials {
+  email: string;
+  password: string;
+}
+
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -70,19 +85,19 @@ const PrivacyPolicy = styled.a`
   margin-top: 2%;
 `;
 
-export default function Login({ setDashboard, history }) {
+export default function Login({ setDashboard, history }: Props) {
   const classes = useStyles();
 
   const [fields, handleFieldChange] = useFormFields({
     email: "",
     password: "",
-  });
+  } as Credentials);
   const [error, setError] = useState({
     email: false,
     password: false,
-  });
+  } as ErrorState);
 
-  const handleSubmit = event => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
 
     if (!validEmail(fields.email)) {
@@ -115,7 +130,7 @@ export default function Login({ setDashboard, history }) {
 
   return (
     <LoginWrapper>
-      <Wrapper className={classes.main} component="main" maxWidth="xs">
+      <Wrapper maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
           <Img src="/imgs/landing.png" alt="landing image"></Img>

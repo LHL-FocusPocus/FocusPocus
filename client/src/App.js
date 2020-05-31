@@ -32,7 +32,9 @@ function App() {
       fontWeight: "700",
     },
   });
+
   const history = useHistory();
+  
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
