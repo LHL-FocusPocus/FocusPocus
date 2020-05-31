@@ -34,7 +34,7 @@ function App() {
   });
 
   const history = useHistory();
-  
+
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
@@ -82,7 +82,6 @@ function App() {
                 addBlacklistedSite={addBlacklistedSite}
                 disableBlacklistedSite={disableBlacklistedSite}
                 dashboardData={state}
-                blacklisted={state.blacklisted}
                 setDashboard={setDashboard}
               />
             )

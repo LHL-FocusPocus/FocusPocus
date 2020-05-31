@@ -10,18 +10,10 @@ import Donut from "./Graphs/Donut";
 import Radial from "./Graphs/Radial";
 import Leaderboard from "./Graphs/Leaderboard";
 import Shameboard from "./Graphs/Shameboard";
-import { QuotaData } from "../helpers/interfaces";
+import { Dashboard } from "../helpers/interfaces";
 
 interface Props {
-  dashboardData: {
-    donutGraph: object[];
-    lineGraph: object[];
-    radialGraph: object[];
-    leaderboard: object[];
-    shameboard: object[];
-    user: any;
-    quota_today: QuotaData;
-  };
+  dashboardData: Dashboard
   setDashboard: any;
 }
 

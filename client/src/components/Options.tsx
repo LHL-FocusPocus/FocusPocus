@@ -9,6 +9,15 @@ import Customization from "./Customization";
 import Blacklisted from "./Blacklisted";
 import QuotaSlider from "./QuotaSlider";
 import Navbar from "./Navbar";
+import { Dashboard } from "../helpers/interfaces";
+
+interface Props {
+  dashboardData: Dashboard;
+  addBlacklistedSite: any;
+  disableBlacklistedSite: any;
+  changeQuota: any;
+  setDashboard: any;
+}
 
 export const CardContext = createContext({});
 
@@ -42,16 +51,17 @@ const theme = createMuiTheme({
 });
 
 export default function Options({
-  blacklisted,
   addBlacklistedSite,
   disableBlacklistedSite,
   changeQuota,
   dashboardData,
   setDashboard,
-}) {
-  const { quota_today, topBlacklisted, user } = dashboardData;
+}: Props) {
 
-  const addTopSiteToUserBlacklist = hostname => {
+  const { quota_today, topBlacklisted, user, blacklisted } = dashboardData;
+
+
+  const addTopSiteToUserBlacklist = (hostname: string) => {
     addBlacklistedSite(hostname);
   };
 
