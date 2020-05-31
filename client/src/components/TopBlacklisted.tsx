@@ -102,13 +102,15 @@ export default function TopBlacklisted({ topBlacklisted }: any) {
       </Popup>
 
       <GridList cellHeight={180} className={classes.gridList}>
-        {topBlacklisted.map((tile: {id: number, hostname: string, name: string}) => (
-          <TopBlacklistCards
-            key={tile.id}
-            hostname={tile.hostname}
-            name={tile.name}
-          />
-        ))}
+        {topBlacklisted.map(
+          (tile: { id: number; hostname: string; name: string }) => (
+            <TopBlacklistCards
+              key={tile.id}
+              hostname={tile.hostname}
+              name={tile.name}
+            />
+          )
+        )}
       </GridList>
     </Container>
   );

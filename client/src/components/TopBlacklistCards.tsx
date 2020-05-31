@@ -39,7 +39,12 @@ const Card = styled(GridListTile)`
   flex-grow: 1;
 `;
 
-export default function TopBlacklistCards({ hostname, name }) {
+interface Props {
+  name: string;
+  hostname: string;
+}
+
+export default function TopBlacklistCards({ hostname, name }: Props) {
   const classes = useStyles();
 
   const [{ isDragging }, drag] = useDrag({
@@ -62,7 +67,6 @@ export default function TopBlacklistCards({ hostname, name }) {
       <Icon
         className={clsx({
           [classes.dragging]: isDragging,
-          [classes.image]: true,
         })}
         src={`//logo.clearbit.com/${hostname}`}
         alt={name}
