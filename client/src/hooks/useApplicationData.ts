@@ -20,7 +20,7 @@ export default function useApplicationData() {
     radialGraph: [],
     shameboard: [],
     user: {},
-    quota_today: {},
+    quota: {},
   });
 
   const setDashboard = async () => {

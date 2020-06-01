@@ -57,7 +57,7 @@ export default function reducer(state, action) {
       };
 
     case CHANGE_QUOTA:
-      const { used, all_browse_time } = state.quota_today;
+      const { used, all_browse_time } = state.quota;
       const newQuota = {
         minutes: action.allotment,
       };
@@ -74,14 +74,14 @@ export default function reducer(state, action) {
 
       return {
         ...state,
-        quota_today: quotaData,
+        quota: quotaData,
       };
 
     case SET_WEBSOCKET_GRAPHS:
-      const { quota_today, donutGraph, radialGraph } = action.payload;
+      const { quota, donutGraph, radialGraph } = action.payload;
       return {
         ...state,
-        quota_today,
+        quota,
         donutGraph,
         radialGraph,
       };

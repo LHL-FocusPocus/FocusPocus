@@ -32,7 +32,7 @@ module.exports = (db) => {
       .then((all) => {
         // all is now an array of data that each promise returns
         userData["user"] = all[0];
-        userData["quota_today"] = {
+        userData["quota"] = {
           allotment: convertTimeObjToMinutes(all[1].time_allotment),
           used: convertTimeObjToMinutes(all[5].sum),
           all_browse_time: convertTimeObjToMinutes(all[4].sum),

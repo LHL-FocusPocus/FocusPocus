@@ -42,7 +42,7 @@ function App() {
           exact
           path={["/"]}
           render={() =>
-            !state.quota_today.allotment
+            !state.quota.allotment
               ? history.push("/login")
               : history.push("/dashboard")
           }
@@ -51,7 +51,7 @@ function App() {
           exact
           path={["/login", "/register"]}
           render={() =>
-            !state.quota_today.allotment ? (
+            !state.quota.allotment ? (
               <Landing setDashboard={setDashboard} />
             ) : (
               history.push("/dashboard")
@@ -67,7 +67,7 @@ function App() {
           exact
           path="/dashboard"
           render={() =>
-            state.quota_today.allotment && (
+            state.quota.allotment && (
               <Dashboard dashboardData={state} setDashboard={setDashboard} />
             )
           }
@@ -76,7 +76,7 @@ function App() {
           exact
           path="/options"
           render={() =>
-            state.quota_today.allotment && (
+            state.quota.allotment && (
               <Options
                 changeQuota={changeQuota}
                 addBlacklistedSite={addBlacklistedSite}
