@@ -48,8 +48,6 @@ export default function Dashboard({ dashboardData, setDashboard }: Props) {
     quota,
   } = dashboardData;
 
-  console.log('dashboardData :>> ', dashboardData);
-
   const isOverQuota = () => {
     return quota.used.minutes > quota.allotment.minutes;
   };
