@@ -139,11 +139,6 @@ export default function Navbar({ user, quota, setDashboard }: Props) {
     humanizeDurationOptions as any
   );
 
-  const total_browsing = humanizeDuration(
-    quota.all_browse_time.minutes * 60000,
-    humanizeDurationOptions as any
-  );
-
   const [state, setState] = useState({
     FocusPocus: false
   });
