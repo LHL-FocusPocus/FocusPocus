@@ -50,7 +50,7 @@ export default function LineGraph({ lineData }: any) {
     chart.numberFormatter.numberFormat = "#.";
 
     // Create axes
-    const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+    const dateAxis: any = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.grid.template.location = 0.5;
     dateAxis.dateFormatter.inputDateFormat = "yyyy-MM-dd";
     dateAxis.renderer.minGridDistance = 40;
@@ -59,11 +59,11 @@ export default function LineGraph({ lineData }: any) {
     dateAxis.fontSize = 30;
     dateAxis.tooltip.fontSize = 25;
 
-    const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    const valueAxis: any = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.fontSize = 30;
     valueAxis.tooltip = false;
 
-    const series = chart.series.push(new am4charts.LineSeries());
+    const series: any = chart.series.push(new am4charts.LineSeries());
     series.tooltipText = "[bold font-size: 30px]Minutes Spent: {valueY}[/]";
     series.dataFields.valueY = "time";
     series.dataFields.dateX = "date";

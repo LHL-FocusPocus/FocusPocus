@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Paper, Box } from "@material-ui/core";
 import * as am4core from "@amcharts/amcharts4/core";
@@ -38,7 +38,7 @@ const Chart = styled.div`
   }
 `;
 
-export default function Radial({ radialData }) {
+export default function Radial({ radialData }: any) {
 
   useEffect(() => {
     am4core.useTheme(am4themes_material);
@@ -50,7 +50,7 @@ export default function Radial({ radialData }) {
 
     chart.innerRadius = am4core.percent(30);
 
-    const categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    const categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis() as any);
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.dataFields.category = "name";
     categoryAxis.renderer.minGridDistance = 60;
@@ -60,7 +60,7 @@ export default function Radial({ radialData }) {
     categoryAxis.fontSize = 25;
     categoryAxis.tooltip = false;
 
-    const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    const valueAxis = chart.yAxes.push(new am4charts.ValueAxis() as any);
     valueAxis.min = 0;
     valueAxis.extraMax = 0.1;
     valueAxis.renderer.grid.template.strokeOpacity = 0.08;
@@ -71,7 +71,7 @@ export default function Radial({ radialData }) {
     chart.scale = 1.1;
     chart.paddingRight = 60;
 
-    const series = chart.series.push(new am4charts.RadarColumnSeries());
+    const series: any = chart.series.push(new am4charts.RadarColumnSeries());
     series.dataFields.categoryX = "name";
     series.dataFields.valueY = "hits";
     series.tooltipText = "Visits: {valueY.value}";
@@ -83,7 +83,7 @@ export default function Radial({ radialData }) {
 
     chart.zoomOutButton.disabled = true;
 
-    series.columns.template.adapter.add("fill", (fill, target) => {
+    series.columns.template.adapter.add("fill", (fill = null, target: any) => {
       return chart.colors.getIndex(target.dataItem.index);
     });
 
