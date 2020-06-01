@@ -29,7 +29,6 @@ function App() {
     typography: {
       fontFamily: "Amatic SC, sans-serif",
       fontSize: 25,
-      fontWeight: "700",
     },
   });
 
@@ -44,7 +43,7 @@ function App() {
           render={() =>
             !state.quota.allotment
               ? history.push("/login")
-              : history.push("/dashboard")
+              : history.push("/dashboard") as any
           }
         />
         <Route
@@ -55,7 +54,7 @@ function App() {
               <Landing setDashboard={setDashboard} />
             ) : (
               history.push("/dashboard")
-            )
+            ) as any
           }
         />
         <Route
