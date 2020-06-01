@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useContext, createRef, useRef } from "react";
+import { useState, useContext } from "react";
 import BlacklistedCards from "./BlacklistedCards";
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
