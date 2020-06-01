@@ -1,4 +1,4 @@
-export default function formatNavbarText(used_quota, allotment) {
+export default function formatNavbarText(used_quota: number, allotment: number) {
   const remaining = used_quota / allotment;
   if (remaining < 0.5) {
     return "You seem to be on track today, keep up the good work!";

@@ -1,4 +1,4 @@
-export default function toMinutes({ hours, minutes, seconds }) {
+export default function toMinutes({ hours, minutes, seconds }: any) {
   let total = 0;
   if (hours) {
     total += hours * 60;
