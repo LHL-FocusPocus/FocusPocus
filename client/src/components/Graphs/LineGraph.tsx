@@ -34,7 +34,7 @@ const Chart = styled.div`
   transform: translateY(5px);
 `;
 
-export default function LineGraph({ lineData }) {
+export default function LineGraph({ lineData }: any) {
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
 

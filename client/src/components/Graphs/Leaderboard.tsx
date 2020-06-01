@@ -11,7 +11,7 @@ const Chart = styled.div`
   padding-left: 6%;
 `;
 
-export default function Leaderboard({ leaderboard }) {
+export default function Leaderboard({ leaderboard }: any) {
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
 
@@ -23,7 +23,7 @@ export default function Leaderboard({ leaderboard }) {
 
     chart.data = leaderboard;
 
-    const categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+    const categoryAxis: any = chart.yAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "name";
     categoryAxis.renderer.grid.template.strokeOpacity = 0;
     categoryAxis.renderer.minGridDistance = 10;
@@ -47,7 +47,7 @@ export default function Leaderboard({ leaderboard }) {
     valueAxis.renderer.labels.template.dx = 0;
     valueAxis.fontSize = 30;
 
-    const series = chart.series.push(new am4charts.ColumnSeries());
+    const series: any = chart.series.push(new am4charts.ColumnSeries());
     series.dataFields.valueX = "time";
     series.dataFields.categoryY = "name";
     series.tooltipText = "{valueX.value}";
@@ -100,7 +100,7 @@ export default function Leaderboard({ leaderboard }) {
     bullet.interactionsEnabled = false;
     
     const outlineCircle = bullet.createChild(am4core.Circle);
-    outlineCircle.adapter.add("radius", function (radius, target) {
+    outlineCircle.adapter.add("radius", function (radius = null, target: any) {
       const circleBullet = target.parent;
       return circleBullet.circle.pixelRadius + 10;
     });
@@ -112,7 +112,7 @@ export default function Leaderboard({ leaderboard }) {
     image.verticalCenter = "middle";
     image.propertyFields.href = "picture";
 
-    image.adapter.add("mask", function (mask, target) {
+    image.adapter.add("mask", function (mask = null, target: any) {
       const circleBullet = target.parent;
       return circleBullet.circle;
     });

@@ -33,7 +33,7 @@ const Card = styled(Paper)`
   height: 400px;
 `;
 
-export default function Donut({ donutData }) {
+export default function Donut({ donutData }: any) {
   useEffect(() => {
     am4core.useTheme(am4themes_animated);
 
@@ -61,7 +61,7 @@ export default function Donut({ donutData }) {
     title.text = "Today's Browsing";
     title.fontSize = 40;
 
-    const series = chart.series.push(new am4charts.PieSeries3D());
+    const series: any = chart.series.push(new am4charts.PieSeries3D());
     series.dataFields.value = "time";
     series.dataFields.depthValue = "time";
     series.dataFields.category = "website";
