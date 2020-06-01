@@ -1,1 +1,0 @@
-{"version":3,"file":"validEmail.js","sourceRoot":"","sources":["../../src/helpers/validEmail.js"],"names":[],"mappings":"AAAA,+FAA+F;AAC/F,MAAM,CAAC,OAAO,UAAU,UAAU,CAAC,KAAK;IACtC,IAAI,EAAE,GAAG,yJAAyJ,CAAC;IACnK,OAAO,EAAE,CAAC,IAAI,CAAC,MAAM,CAAC,KAAK,CAAC,CAAC,WAAW,EAAE,CAAC,CAAC;AAC9C,CAAC"}
