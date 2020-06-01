@@ -9,10 +9,10 @@ import Customization from "./Customization";
 import Blacklisted from "./Blacklisted";
 import QuotaSlider from "./QuotaSlider";
 import Navbar from "./Navbar";
-import { Dashboard } from "../helpers/interfaces";
+import { DashboardInterface } from "../helpers/interfaces";
 
 interface Props {
-  dashboardData: Dashboard;
+  dashboardData: DashboardInterface;
   addBlacklistedSite: any;
   disableBlacklistedSite: any;
   changeQuota: any;
@@ -58,7 +58,7 @@ export default function Options({
   setDashboard,
 }: Props) {
 
-  const { quota_today, topBlacklisted, user, blacklisted } = dashboardData;
+  const { quota, topBlacklisted, user, blacklisted } = dashboardData;
 
 
   const addTopSiteToUserBlacklist = (hostname: string) => {
@@ -68,13 +68,13 @@ export default function Options({
   return (
     <DndProvider backend={Backend}>
       <CardContext.Provider value={{ addTopSiteToUserBlacklist }}>
-        <Navbar user={user} quota={quota_today} setDashboard={setDashboard} />
+        <Navbar user={user} quota={quota} setDashboard={setDashboard} />
         <ThemeProvider theme={theme}>
           <Container bgcolor="background.paper">
             <QuotaAndCustomization>
-              {quota_today && (
+              {quota && (
                 <QuotaSlider
-                  quota={quota_today}
+                  quota={quota}
                   changeQuota={changeQuota}
                   options={user.options}
                 />

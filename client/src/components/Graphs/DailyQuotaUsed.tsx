@@ -29,10 +29,10 @@ const Chart = styled.div`
   height: 85%;
 `;
 
-export default function DailyQuotaUsed({ quota }) {
+export default function DailyQuotaUsed({ quota }: any) {
   useEffect(() => {
     // Convert quota used/allotment to percentage
-    let percentageQuotaUsed;
+    let percentageQuotaUsed: number;
     if (quota.used) {
       percentageQuotaUsed =
         (toMinutes(quota.used) / toMinutes(quota.allotment)) * 100;
@@ -55,7 +55,7 @@ export default function DailyQuotaUsed({ quota }) {
 
     chart.innerRadius = -25;
 
-    const axis = chart.xAxes.push(new am4charts.ValueAxis());
+    const axis = chart.xAxes.push(new am4charts.ValueAxis() as any);
     axis.min = 0;
     axis.max = 100;
     axis.fontSize = 27;
