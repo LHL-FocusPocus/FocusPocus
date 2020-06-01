@@ -32,7 +32,7 @@ interface Props {
   addBlacklistedSite: any;
 }
 
-const Container = styled(Box)`
+const Container = styled.div`
   min-height: 86vh;
   padding: 0 1% 0 2%;
   width: 25%;
@@ -155,9 +155,6 @@ export default function Blacklisted({
     }),
   });
 
-  // TODO - Fix DnD with typescript
-  // const dropRef = createRef<HTMLDivElement>();
-
   // List of user's blacklisted sites
   const blacklistList = blacklisted.map((website: any) => {
     return (
@@ -172,8 +169,7 @@ export default function Blacklisted({
   });
 
   return (
-    <Container>
-    {/* <Container ref={drop}> */}
+    <Container ref={drop}>
       <Title>Blacklist</Title>
       <AddNew>
         <Background>
