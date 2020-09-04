@@ -40,6 +40,7 @@ const session = cookieSession({
   name: "session",
   keys: ["key1"],
   sameSite: "none",
+  secureProxy: true,
   secure: true,
 });
 app.use(session);
