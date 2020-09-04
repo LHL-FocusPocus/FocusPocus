@@ -41,7 +41,6 @@ const session = cookieSession({
   keys: ["key1"],
   sameSite: "none",
   secureProxy: true,
-  secure: true,
 });
 app.use(session);
 app.use(methodOverride("_method"));
