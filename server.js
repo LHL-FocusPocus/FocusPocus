@@ -58,7 +58,7 @@ app.use("/api/extension", extensionRoutes(db, sendRefreshRequest));
 
 // Websocket setup
 const server = require("http").createServer(app);
-const io = require("socket.io")(server);
+const io = require("socket.io")(server, { cookie: false });
 
 io.on("connection", (socket) => {
   // Extract client's userId from cookie
