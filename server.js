@@ -40,7 +40,7 @@ const session = cookieSession({
   name: "session",
   keys: ["key1"],
   sameSite: "none",
-  // secure: true,
+  secure: true,
 });
 app.use(session);
 app.use(methodOverride("_method"));
@@ -57,7 +57,7 @@ app.use("/api/data", dataRoutes(db));
 app.use("/api/extension", extensionRoutes(db, sendRefreshRequest));
 
 // Websocket setup
-const server = require("http").createServer(app);
+const server = require("https").createServer(app);
 const io = require("socket.io")(server, { cookie: false });
 
 io.on("connection", (socket) => {
